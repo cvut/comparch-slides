@@ -1,0 +1,38 @@
+ifeq ($(DOC),)
+$(error DOC variable should be the base name of the LaTeX file to compile)
+endif
+
+SVGS = $(wildcard *.svg)
+ANIM = $(patsubst %,anim/%/overlay.tex,$(basename $(SVGS)))
+export TEXINPUTS=.:../_latex:
+
+FIGS = $(ANIM) $(SVGS:%.svg=%.pdf)
+
+.PHONY: all FORCE_MAKE
+
+gitignore_target = grep -q '/$@' .gitignore || echo '/$@' >> .gitignore
+
+all: $(DOC).pdf $(NUM:%=apo%_2019.pdf)
+
+$(DOC).pdf: $(DOC).tex moddate.tex ../_latex/apo-lecture.sty $(FIGS)
+	echo ${TEXINPUTS}
+	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
+	$(gitignore_target)
+
+ifneq ($(NUM),)
+$(NUM:%=apo%_2019.pdf): $(DOC).pdf
+	cp $< $@
+	$(gitignore_target)
+endif
+
+anim/%/overlay.tex: %.svg ../_latex/export_overlays
+	../_latex/export_overlays $<
+
+%.pdf: %.svg
+	inkscape --export-area-drawing --export-background-opacity=1.0 --export-pdf=$@ $<
+	$(gitignore_target)
+
+# Generate last modification date from commit dates of all files under the current directory
+moddate.tex: FORCE_MAKE
+	python2 -c "from locale import *; setlocale(LC_TIME, 'cs_CZ.UTF-8'); import sys; import time; from datetime import *; print(date.today()).strftime('%e. %B, %Y')" > $@.tmp
+	@cmp -s $@.tmp $@ && ( echo "Keeping $@ unchanged"; rm -f $@.tmp ) || ( echo "Updating $@"; mv $@.tmp $@ )

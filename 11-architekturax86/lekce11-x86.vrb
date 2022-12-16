@@ -1,0 +1,29 @@
+\frametitle{MMX příklad}
+
+\begin{columns}[t,onlytextwidth]
+  \begin{column}{0.5\textwidth}
+Maskování obrazu v obraze:
+\begin{lstlisting}[language={C},columns=flexible]
+unsigned char mask[size],
+ obr1[size], obr2[size];
+if (mask[i]==0) {
+  new_img[i] = obr1[i];
+} else {
+  new_img[i] = obr2[i];
+}
+\end{lstlisting}
+
+  \end{column}
+  \begin{column}{0.5\textwidth}
+MMX implementace 8 pixelů najednou
+\begin{lstlisting}[language={[x86masm]Assembler},columns=flexible]
+movq    mask_ptr, %mm0
+pcmpeqb %mm0, 0
+movq    %mm0, %mm1
+pand    %mm1, obr1_ptr
+pandn   %mm0, obr2_ptr
+por     %mm0, %mm1
+movq    %mm0, new_img_ptr
+\end{lstlisting}
+  \end{column}
+\end{columns}

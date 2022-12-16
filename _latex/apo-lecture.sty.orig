@@ -1,0 +1,76 @@
+\useoutertheme{infolines}
+
+%\usepackage{roboto}
+\usepackage{hyperref}
+\hypersetup{unicode}
+\usepackage[czech]{babel}
+\usepackage{tikz}
+\usetikzlibrary{decorations}
+\usepgflibrary{arrows}
+
+\setbeamertemplate{headline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=1.0\paperwidth,ht=2.65ex,dp=1.5ex,left]{section in head/foot}%
+    \hspace*{3mm}\usebeamerfont{section in head/foot}\insertsectionhead{}
+    \ifx\insertsubsectionhead\@empty
+    \else
+    » \insertsubsectionhead{}
+      \ifx\insertsubsubsectionhead\@empty
+      \else
+        » \insertsubsubsectionhead{}
+      \fi
+    \fi
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\title{B35APO: Architektury počítačů}
+
+\useinnertheme{rectangles}
+\usecolortheme{whale}
+\usecolortheme{orchid}
+
+\definecolor{CVUT}{cmyk}{1.00,0.43,0.00,0.00} 
+\definecolor{CVUT2}{cmyk}{0.59,0.17,0.00,0.00} 
+\setbeamercolor{structure}{fg=CVUT}
+\setbeamercolor{section in head/foot}{bg=CVUT2}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{listings}
+\lstset{language=C,columns=fullflexible}
+
+%\author{Petr Štěpán\\ \small\texttt{stepan@fel.cvut.cz}}
+\institute{\includegraphics[width=3cm]{logo_cvut_en.pdf}}
+
+\usetikzlibrary{matrix}
+
+\newcommand{\nd}{$^{\text{nd}}$}
+\newcommand{\rd}{$^{\text{rd}}$}
+\renewcommand{\th}{$^{\text{th}}$}
+
+\AtBeginSection[] % Do nothing for \section*
+{
+  \begin{frame}<beamer> \frametitle{Obsah}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer> \frametitle{Obsah}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\usepackage[overlay,absolute]{textpos}
+\TPGrid{10}{10}
+
+\usepackage{colortbl}
+\usepackage{minted}
+
+\date{\input{moddate.tex}}
+
+\newcommand\includeanim[2][]{{\def\gfxattrs{#1}\input{anim/#2/overlay}}}

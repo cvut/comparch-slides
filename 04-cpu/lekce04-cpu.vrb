@@ -1,0 +1,46 @@
+\frametitle{Compilation: C  Assembler  Machine Code}
+
+\begin{columns}
+\begin{column}{0.3\textwidth}
+\begin{lstlisting}[language={C},columns=flexible]
+/* ffs as log2(x)*/
+int x = 157;
+int y = -1;
+
+while(x != 0) {
+  x = x / 2;
+  y = y + 1;
+}
+\end{lstlisting}
+\end{column}
+
+\begin{column}{0.4\textwidth}
+\begin{lstlisting}[language={C},columns=flexible]
+_start:
+  addi a0, zero, 157  // int x = 157;
+  addi t1, zero, -1   // int y = 0;
+  beq a0, zero, done  // while(x != 0) {
+loop:
+  srli a0, a0, 1      //   x = x / 2;
+  addi t1, t1, 1      //   y = y + 1;
+  bne a0, zero, loop  //}
+done:
+  addi a0, t1, 0
+\end{lstlisting}
+\end{column}
+
+\begin{column}{0.3\textwidth}
+\begin{lstlisting}[language={C},columns=flexible]
+0x00000200  09d00513
+0x00000204  fff00313
+0x00000208  00050863
+0x0000020c  00155513
+0x00000210  00130313
+0x00000214  fe051ce3
+0x00000218  00030513
+0x0000021c  00100073
+\end{lstlisting}
+\end{column}
+
+\end{columns}
+

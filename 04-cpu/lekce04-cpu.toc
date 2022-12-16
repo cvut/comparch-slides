@@ -1,0 +1,2 @@
+\babel@toc {czech}{}
+\beamer@sectionintoc {1}{Simulátor}{2}{0}{1}

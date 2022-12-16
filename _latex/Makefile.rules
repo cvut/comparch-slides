@@ -1,0 +1,47 @@
+MAKEFILE_RULES_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
+
+ifeq ($(DOC),)
+$(error DOC variable should be the base name of the LaTeX file to compile)
+endif
+
+SVGS = $(wildcard *.svg)
+ANIM = $(patsubst %,anim/%/overlay.tex,$(basename $(SVGS)))
+export TEXINPUTS=.:../_latex:
+
+FIGS = $(ANIM) $(SVGS:%.svg=%.pdf)
+
+.PHONY: all FORCE_MAKE
+
+gitignore_target = grep -q '/$@' .gitignore || echo '/$@' >> .gitignore
+
+all: $(DOC).pdf $(NUM:%=apo%_2021.pdf)
+	cp $< $(MAKEFILE_RULES_DIR)/../../pages/hugo/content/docs/prednasky/pdf
+
+$(DOC).pdf: export TEXINPUTS=.:$(MAKEFILE_RULES_DIR):
+$(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture.sty $(FIGS)
+	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
+	$(gitignore_target)
+
+ifneq ($(NUM),)
+$(NUM:%=apo%_2021.pdf): $(DOC).pdf
+	cp $< $@
+	$(gitignore_target)
+endif
+
+anim/%/overlay.tex: %.svg $(MAKEFILE_RULES_DIR)/export_overlays
+	$(MAKEFILE_RULES_DIR)/export_overlays $<
+
+# Lazily evaluated variable; expensive to compute, but we only want it
+# do it when first necessary.
+INKSCAPE_0.X = $(eval INKSCAPE_0.X := $(shell inkscape --version|grep '^Inkscape 0'))$(INKSCAPE_0.X)
+
+%.pdf: %.svg
+	$(if $(INKSCAPE_0.X),inkscape --export-area-drawing --export-background-opacity=1.0 --export-pdf="$@" "$<",\
+			     inkscape --export-area-drawing --export-background-opacity=1.0 --export-type=pdf --export-filename="-" "$<" > "$@")
+	$(gitignore_target)
+
+# Generate last modification date from commit dates of all files under the current directory
+moddate.tex: FORCE_MAKE
+	( git ls-files -z | xargs -0 -n1 -- git log -1 --date=format:"%s" --format="%cd"; echo 0 ) \
+	| python3 -c "from locale import *; setlocale(LC_TIME, 'cs_CZ.UTF-8'); import sys; from datetime import *; print(date.fromtimestamp(max([int(v) for v in sys.stdin.readlines()])).strftime('%e. %B, %Y'))" > $@.tmp
+	@cmp -s $@.tmp $@ && ( echo "Keeping $@ unchanged"; rm -f $@.tmp ) || ( echo "Updating $@"; mv $@.tmp $@ )
