@@ -1,0 +1,234 @@
+\documentclass{beamer}
+%[aspectratio=169]   \usepackage[czech]{babel}
+\usepackage{apo-lecture}
+\usepackage{pdfpages}
+\usepackage{pdfcomment}
+\usepackage{listings}
+\usepackage{array,multirow}
+
+\subtitle{Lekce 01. Úvod}
+\author{Petr Štěpán\\ \small\texttt{stepan@fel.cvut.cz}}
+\begin{document}
+
+\maketitle
+
+\section{Obsah}
+
+\begin{frame}
+\frametitle{Motivace}
+Proč studovat architektury počítačů:
+\begin{itemize}
+\item Poptávka po absolventech kombinující umělou inteligenci a vestavné systémy (embedded system)
+\item Tvorba efektivních programů využívající výhody výpočetní techniky
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Obsah přednášek}
+\begin{itemize}
+\item CPU
+\item Hierarchie paměti - Cache/RAM
+\item Vstupy a výstupy - I/O
+\item Výjimky a přerušení
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Náplň cvičení}
+
+\begin{itemize}
+\item 4 menší domácí úkoly - 36 bodů
+\begin{itemize}
+\item 2 programy v C
+\item 2 formuláře
+\item alespoň 3 úlohy ze 4
+\end{itemize}
+\item Semestrální úloha - 24 bodů
+\begin{itemize}
+\item Týmový projekt - dvojice, nebo jednotlivci
+\item Speciální HW MZ APO deska
+\end{itemize}
+\item Nepoviné úlohy nebo aktivita při cvičení - 8 bodů
+\end{itemize}
+
+Zkouška: test 30 bodů, min 15 bodů
+ústní +-10 bodů    
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Navazující předměty}
+
+\begin{itemize}
+\item B4M35PAP - Pokročilé architektury počítačů
+\item B3B38VSY - Vestavné systémy
+\item B4M38AVS - Aplikace vestavných systémů
+\item B4B35OSY - Operační systémy
+\item B0B35LSP - Logické systémy a procesory
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Materiály k předmětu}
+\begin{itemize}
+\item Paterson, D., Hennessey, V.: Computer Organization and Design, The HW/SW Interface. Elsevier, ISBN: 978-0-12-370606-5 (dostupná v knihovně FEL)
+\item web:
+\begin{itemize}
+\item https://cw.fel.cvut.cz/b192/courses/b35apo/
+\item https://dcenet.felk.cvut.cz/apo/
+\end{itemize}
+\item Kurzy v angličtině:
+\begin{itemize}
+\item MIT 6.004/6.191 – Computation Structures
+\item Computation Structures | Electrical Engineering and Computer Science | MIT OpenCourseWare (2015)
+\item Computer System Architecture | Electrical Engineering and Computer Science | MIT OpenCourseWare (2005)
+\end{itemize}
+\item Kurzy v češtině:
+\begin{itemize}
+\item https://courses.fit.cvut.cz/BI-APS/
+\item https://www.vut.cz/studenti/predmety/detail/218515?apid=218515
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Co je uvnitř počítače}
+
+Základní deska počítače
+\end{frame}
+
+\begin{frame}
+\frametitle{Co je uvnitř počítače}
+
+Rozebraný telefon
+\end{frame}
+
+
+\begin{frame}
+\frametitle{von Neumann}
+
+CPU, Paměť, Vstup/Výstup
+
+\end{frame}
+
+\begin{frame}
+\frametitle{von Neumann}
+
+Společný koncept
+
+Obrázek
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{CPU}
+
+CPU provádí instrukce
+\end{frame}
+
+\begin{frame}
+\frametitle{Paměť}
+
+Pamatuje si data - bajty, slova.
+\end{frame}
+
+\begin{frame}
+\frametitle{Boolova algebra}
+
+False True 0/1 nesvítí/svítí - úroveň napětí
+\end{frame}
+
+\begin{frame}
+\frametitle{Boolova algebra}
+
+Základní operace not, and, or
+\end{frame}
+
+\begin{frame}
+\frametitle{Boolova algebra}
+
+Obvod not, and, or
+\end{frame}
+
+\begin{frame}
+\frametitle{Boolova algebra}
+
+Rozšířené operace nand, nor, xor
+\end{frame}
+
+\begin{frame}
+\frametitle{Boolova algebra}
+
+Složitější obvody - složené ze základních operací, stavebních bloků
+
+Příklad
+\end{frame}
+
+\begin{frame}
+\frametitle{Boolova algebra}
+
+xor a and je vlastně součet
+\end{frame}
+
+\begin{frame}
+\frametitle{Binární soustava}
+
+Více bitová čísla - binární soustava
+\end{frame}
+
+\begin{frame}
+\frametitle{Sčítání}
+
+Half/Full adder
+\end{frame}
+
+\begin{frame}
+\frametitle{Sčítání}
+
+Ripple carry adder
+\end{frame}
+
+\begin{frame}
+\frametitle{Sčítání}
+
+Rychlost - Ripple carry adder
+\end{frame}
+
+\begin{frame}
+\frametitle{Sčítání}
+
+Look ahead adder
+\end{frame}
+
+\begin{frame}
+\frametitle{Sčítání}
+
+Look ahead adder
+\end{frame}
+
+\begin{frame}
+\frametitle{Sčítání}
+
+Look ahead adder
+\end{frame}
+
+\begin{frame}
+\frametitle{Sčítání}
+
+Look ahead adder
+\end{frame}
+
+\begin{frame}
+\frametitle{Sčítání}
+
+Look ahead adder
+\end{frame}
+
+\end{document}
+
