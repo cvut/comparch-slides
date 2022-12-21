@@ -12,14 +12,24 @@
 
 \maketitle
 
-\section{Obsah}
+\section{Úvod}
 
 \begin{frame}
 \frametitle{Motivace}
 Proč studovat architektury počítačů:
 \begin{itemize}
 \item Poptávka po absolventech kombinující umělou inteligenci a vestavné systémy (embedded system)
-\item Tvorba efektivních programů využívající výhody výpočetní techniky
+\item Pokud je pro Vás počítač BlackBox, pak jsou Vaše programy neefektivní
+\item Pokud je Váš program pomalý neefektivní, nesplňuje kritéria např. pro rychlost řízení, pak máte několik možností:
+\begin{itemize}
+  \item zjistit, v čem současný počítač zpomaluje výpočet (rychlost procesoru, velikost vyrovnávací paměti, latence hlavní paměti, počet výpočetních jader) a otestovat jiný HW
+  \item zjistit, zda lze program upravit, aby využíval lépe dostupné prostředky 
+  \begin{itemize}
+    \item upravit pořadí přístupu do paměti a tím lépe využíval vyrovnávací paměť
+    \item upravit program, aby požíval méně skoků a tím se vykonával rychleji
+    \item paralelizovat výpočet, využít specializovaný HW - GPU, externí výpočetní jednotku např. Coral USB nebo Intel Neural Compute Stick 2.
+  \end{itemize}
+\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -27,6 +37,7 @@ Proč studovat architektury počítačů:
 
 \begin{frame}
 \frametitle{Obsah přednášek}
+Projdeme si všechny základní součásti počítače:
 \begin{itemize}
 \item CPU
 \item Hierarchie paměti - Cache/RAM
@@ -38,6 +49,8 @@ Proč studovat architektury počítačů:
 \begin{frame}
 \frametitle{Náplň cvičení}
 
+\begin{columns}
+\begin{column}{0.6\textwidth}
 \begin{itemize}
 \item 4 menší domácí úkoly - 36 bodů
 \begin{itemize}
@@ -50,17 +63,36 @@ Proč studovat architektury počítačů:
 \item Týmový projekt - dvojice, nebo jednotlivci
 \item Speciální HW MZ APO deska
 \end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.35\textwidth}  
+   \begin{tabular}{|l|l|}\hline
+   Známka & Body\\ \hline
+   A & >=90\\ \hline
+   B & 80 -- 89.9\\ \hline
+   C & 70 -- 79.9\\ \hline
+   D & 60 -- 69.9\\ \hline
+   E & 50 -- 59.9\\ \hline
+   F & <50\\ \hline
+   \end{tabular}
+\end{column}
+\end{columns}
+\begin{itemize}
 \item Nepoviné úlohy nebo aktivita při cvičení - 8 bodů
 \end{itemize}
+\bigskip
+Zkouška: 
+\begin{itemize}
+\item písemný test 30 bodů, min 15 bodů
+\item ústní $\pm$ 10 bodů    
+\end{itemize}
 
-Zkouška: test 30 bodů, min 15 bodů
-ústní +-10 bodů    
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Navazující předměty}
-
+Pokud Vás tento předmět zaujme, tak na něj navazují tyto předměty:
 \begin{itemize}
 \item B4M35PAP - Pokročilé architektury počítačů
 \item B3B38VSY - Vestavné systémy
@@ -95,33 +127,42 @@ Zkouška: test 30 bodů, min 15 bodů
 \end{itemize}
 \end{frame}
 
-
+\section{Složení počítače}
 \begin{frame}
 \frametitle{Co je uvnitř počítače}
 
-Základní deska počítače
+Základní deska počítače:
+\begin{center}
+   \includegraphics[width=0.8\textwidth]{fig/motherboard.jpg}
+\end{center}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Co je uvnitř počítače}
 
-Rozebraný telefon
+Rozebraný telefon:
+\begin{center}
+   \includegraphics[width=0.6\textwidth]{fig/mobile.jpg}
+\end{center}
+\begin{center}
+   \includegraphics[width=0.4\textwidth]{fig/mobile-cpu.jpg}
+\end{center}
 \end{frame}
 
 
 \begin{frame}
 \frametitle{von Neumann}
 
-CPU, Paměť, Vstup/Výstup
-
-\end{frame}
-
-\begin{frame}
-\frametitle{von Neumann}
-
-Společný koncept
-
-Obrázek
+Společný koncept navržený maďarským fyzikem Johnem von Neumannem (1903-1957) obsahuje:
+\begin{itemize}
+\item Procesor - Central Processing Unit - CPU
+\item Paměť - Memory, Random-access Memory, 
+\item Vstup/Výstup - Input/Output
+\end{itemize}
+\begin{center}
+   \includegraphics[width=0.7\textwidth]{cpu-vonNeumann.pdf}
+\end{center}
 
 \end{frame}
 
@@ -129,15 +170,30 @@ Obrázek
 \begin{frame}
 \frametitle{CPU}
 
-CPU provádí instrukce
+CPU načítá z paměti instrukce a každou načtenou instrukci vykoná
+\begin{center}
+   \includegraphics[width=0.5\textwidth]{cpu.pdf}
+\end{center}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Paměť}
 
-Pamatuje si data - bajty, slova.
+Paměť si pamatuje data - bajty, slova.
+
+Pokud už znáte nějaký programovací jazyk, tak si ji můžete představit jako pole:\\
+\texttt{unsigned char RAM[16 * 1024 * 1024 *1024]; // 16GB RAM}
+
+\bigskip
+Z paměti lze číst:\\
+\texttt{data = RAM[adresa];}\\
+nebo zapisovat:\\
+\texttt{RAM[adresa] = data;}
+
 \end{frame}
 
+\section{Boolova algebra}
 \begin{frame}
 \frametitle{Boolova algebra}
 
@@ -154,6 +210,7 @@ Základní operace not, and, or
 \frametitle{Boolova algebra}
 
 Obvod not, and, or
+%inkscape ctrl shift Y logic symbols
 \end{frame}
 
 \begin{frame}
