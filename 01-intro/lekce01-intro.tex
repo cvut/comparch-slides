@@ -197,26 +197,49 @@ nebo zapisovat:\\
 \begin{frame}
 \frametitle{Boolova algebra}
 
-False True 0/1 nesvítí/svítí - úroveň napětí
+Boolova algebra:
+\begin{itemize}
+\item Používá pouze dvě hodnoty 0,1
+\begin{itemize}
+\item 0/1, nebo False/True, nebo nesvítí/svítí, nebo 0V/5V
+\end{itemize}
+\item Oprace plus (nebo, or)
+\begin{itemize}
+\item 0+0=0   0+1=1
+\item 1+0=1   1+1=1
+\end{itemize}
+\item Oprace krát (a, and)
+\begin{itemize}
+\item 0*0=0   0*1=0
+\item 1*0=0   1*1=1
+\end{itemize}
+\item Oprace inverzní prvek - (negace, not)
+\begin{itemize}
+\item -0 = 1
+\item -1 = 0
+\end{itemize}
+\end{itemize}
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Boolova algebra}
 
-Základní operace not, and, or
-\end{frame}
+Booleova algebra se dá dobře implementovat pomocí tranzistorů (nebudeme zkoušet):
 
-\begin{frame}
-\frametitle{Boolova algebra}
-
-Obvod not, and, or
 %inkscape ctrl shift Y logic symbols
 \end{frame}
 
 \begin{frame}
 \frametitle{Boolova algebra}
 
-Rozšířené operace nand, nor, xor
+Rozšířené operace nand, nor, xor a libovolné logické funkce se skládají ze základních operací (or, and not)
+
+X nand Y = not(X and Y)
+X nor Y = not(X or Y)
+X xor Y = (X or Y) and (not(X and Y)) = (X or Y) and (X nand Y)
+
+Některé funkce lze převést do hradel i efektivněji než přes základní logické funkce or, and, not.
 \end{frame}
 
 \begin{frame}
@@ -227,22 +250,80 @@ Složitější obvody - složené ze základních operací, stavebních bloků
 Příklad
 \end{frame}
 
-\begin{frame}
-\frametitle{Boolova algebra}
 
-xor a and je vlastně součet
+\begin{frame}
+\frametitle{Binární soustava - kvíz}
+
+Kvíz: Jeden vodič reprezentuje jednu hodnotu, buď 0 nebo 1. Jak reprezontovat více čísel, třeba od 0 do 255 (jeden bajt):
+\begin{itemize}
+\item[A] Jeden vodič má 8 rozdílných úrovní napětí
+\item[B] Jeden vodič reprezentuje postupně v čase 8 různých hodnot 0/1
+\item[C] Osm vodičů, každý reprezentuje v jeden čas jednu z hodnot 0/1
+\item[D] 256 vodičů, pouze jeden má hodnotu 1 ostatní 
+\end{itemize}
+
+
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Binární soustava}
 
 Více bitová čísla - binární soustava
+\begin{itemize}
+\item 8 až 64 jednobitových paralelních vodičů
+\item pořadí vodičů je důležité
+\item každý vodič reprezentuje jednu mocninu 2
+\item vodič a_{i}, celková hodnota s = \sum_{i=0}^{63} a_{i}*2^{i}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Sčítání}
 
-Half/Full adder
+Součet dvou jednobitových čísel:
+\begin{tabular}{|r|r|r|}\hline
+X & Y & X+Y\\ \hline
+0 & 0 & 0\\ \hline
+0 & 1 & 1\\ \hline
+1 & 0 & 1\\ \hline
+1 & 1 & 10\\ \hline
+\hline
+\end{tabular}
+
+Výsledek součtu může být dvoubitové číslo C - přenos, S - součet.
+
+\texttt{S = X xor Y}\\
+\texttt{C = X and Y}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Sčítání}
+
+Pokud sčítáme vícebitová čísla potřebujeme:
+\begin{tabular}{|r|r|r|}\hline
+C & X & Y & C+X+Y\\ \hline
+0 & 0 & 0 & 00\\ \hline
+0 & 0 & 1 & 01\\ \hline
+0 & 1 & 0 & 01\\ \hline
+0 & 1 & 1 & 10\\ \hline
+1 & 0 & 0 & 01\\ \hline
+1 & 0 & 1 & 10\\ \hline
+1 & 1 & 0 & 10\\ \hline
+1 & 1 & 1 & 11\\ \hline
+\hline
+\end{tabular}
+
+Výsledek součtu je opět dvoubitové číslo C_{out} - přenos, S - součet.
+
+\texttt{S_1 = (X xor Y)}\\
+\texttt{S = (S_1 xor C)}\\
+\texttt{C' = (X and Y)}\\
+\texttt{C" = (S_1 and C)}\\
+\texttt{C_{out} = C' or C"}
+
 \end{frame}
 
 \begin{frame}
