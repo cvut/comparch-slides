@@ -15,7 +15,6 @@ FIGS = $(ANIM) $(SVGS:%.svg=%.pdf)
 gitignore_target = grep -q '/$@' .gitignore || echo '/$@' >> .gitignore
 
 all: $(DOC).pdf $(NUM:%=apo%_2021.pdf)
-	cp $< $(MAKEFILE_RULES_DIR)/../../pages/hugo/content/docs/prednasky/pdf
 
 $(DOC).pdf: export TEXINPUTS=.:$(MAKEFILE_RULES_DIR):
 $(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture.sty $(FIGS)
