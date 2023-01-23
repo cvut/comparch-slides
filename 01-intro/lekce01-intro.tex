@@ -17,20 +17,44 @@
 
 \begin{frame}
 \frametitle{Motivace}
-Co ovlivňuje rychlost vykonávání Vašich programů:
+Co můžete udělat pro zrychlení Vašeho programu:
 \begin{itemize}
-\item Výkon CPU 
+\item Použít výkonnější počítač:
   \begin{itemize}
+  \item Zvýšit výkon CPU 
+    \begin{itemize}
     \item Frekvence CPU
     \item Efektivita CPU - kolik operací stihne provést za 1 takt procesoru
-    \item Efektivita načítání dat z paměti
+    \end{itemize}
   \end{itemize}
-\item Počet jader CPU
+\item Změnit program:
   \begin{itemize}
-    \item Lze Váš program paralelizovat?
-    \item Pokud ne, pak je jedno, kolik jader má CPU
-    \item I pokud ano, tak nikdy nejde paralelizovat celý výpočet
+  \item Zlepšit efektivitu práce s pamětí
+  \item Paralelizovat program:
+    \begin{itemize}
+    \item Zvýšit počet jader CPU
+    \end{itemize}
   \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Motivace}
+Má paralelizace nějaká omezení:
+\begin{itemize}
+\item Nikdy nelze paralelizovat celý program
+\item Amdahlův zákon
+  \begin{itemize}
+  \item $\alpha$ procent programu nelze paralelizovat
+  \item zbytek programu $1-\alpha$ lze na $p$ procesorech zrychlit na $\frac{1 - \alpha}{p}$
+  \item Poměr zrychlení na $p$ procesorech $S(p) = \frac{\alpha + 1 - \alpha}{\alpha + \frac{1-\alpha}{p}} = \frac{p}{1+\alpha \cdot (p-1)}$
+  \item Limit zrychlení je pro nekonečně procesorů $S(p\to\infty) = lim_{p\to\infty}\frac{p}{1+\alpha \cdot (p-1)} = \frac{1}{\alpha}$
+    \begin{itemize}
+    \item Např pro $\alpha=0.3$ je limit $S(p\to\infty) = 3.\overline{3}$, tedy program nelze zrychlit více než $3.\overline{3}$ krát. 
+    \end{itemize}
+  \end{itemize}
+\item V praxi, čím více máte procesů, tím stoupá i náročnost přípravy dat pro paralelizaci.
 \end{itemize}
 \end{frame}
 
@@ -39,18 +63,18 @@ Co ovlivňuje rychlost vykonávání Vašich programů:
 \frametitle{Motivace}
 Proč studovat architektury počítačů:
 \begin{itemize}
-\item Poptávka po absolventech kombinující umělou inteligenci a vestavné systémy (embedded system)
-\item Pokud je pro Vás počítač BlackBox, pak jsou Vaše programy neefektivní
-\item Pokud je Váš program pomalý neefektivní, nesplňuje kritéria např. pro rychlost řízení, pak máte několik možností:
-\begin{itemize}
+\item Naučit se jak pracuje počítač, který vykonává Váš program a kde jsou možnosti program zefektivnit 
+  \begin{itemize}
   \item zjistit, v čem současný počítač zpomaluje výpočet (rychlost procesoru, velikost vyrovnávací paměti, latence hlavní paměti, počet výpočetních jader) a otestovat jiný HW
   \item zjistit, zda lze program upravit, aby využíval lépe dostupné prostředky 
   \begin{itemize}
-    \item upravit pořadí přístupu do paměti a tím lépe využíval vyrovnávací paměť
+    \item upravit pořadí přístupu do paměti a tím lépe využívat vyrovnávací paměť
     \item upravit program, aby požíval méně skoků a tím se vykonával rychleji
-    \item paralelizovat výpočet, využít specializovaný HW - GPU, externí výpočetní jednotku např. Coral USB nebo Intel Neural Compute Stick 2.
+    \item paralelizovat výpočet, využít specializovaný HW - GPU, externí výpočetní jednotku např. Coral USB nebo Intel Neural Compute Stick~2.
   \end{itemize}
 \end{itemize}
+\item Poptávka po absolventech kombinující umělou inteligenci a vestavné systémy (embedded system)
+\item Pokud je pro Vás počítač BlackBox, pak jsou Vaše programy neefektivní
 \end{itemize}
 \end{frame}
 
@@ -60,10 +84,21 @@ Proč studovat architektury počítačů:
 Projdeme si všechny základní součásti počítače:
 \begin{itemize}
 \item CPU
-\item Hierarchie paměti - Cache/RAM
-\item Vstupy a výstupy - I/O
-\item Výjimky a přerušení
+\item Hierarchie paměti - Cache/RAM/Disk
+\item Vstupy a výstupy - I/O klávesnice, myš, obrazovka, síťová karta, ovladače HW
+\item Výjimky a přerušení - efektivní spolupráce CPU s HW
 \end{itemize}
+
+Motivace proč navštěvovat přednášky:
+\begin{itemize}
+\item Něco se naučíte a budete to mít lehčí při přípravě na zkoušku
+\item Kdo správně zodpoví kvízovou otázku v závěru přednášky, dostane bod aktivity
+  \begin{itemize}
+  \item Né každá přednáška, první bodovaný kvíz příští týden 
+  \item Celkem 8 bodů za aktivitu na přednáškách
+  \end{itemize}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
@@ -98,7 +133,7 @@ Projdeme si všechny základní součásti počítače:
 \end{column}
 \end{columns}
 \begin{itemize}
-\item Nepoviné úlohy nebo aktivita při cvičení - 8 bodů
+\item Nepovinné úlohy nebo aktivita při cvičení/přednáškách - 10 bodů
 \end{itemize}
 \bigskip
 Zkouška: 
@@ -189,51 +224,159 @@ Společný koncept navržený maďarským fyzikem Johnem von Neumannem (1903-195
 
 \begin{frame}
 \frametitle{CPU}
-
-CPU načítá z paměti instrukce a každou načtenou instrukci vykoná
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item CPU obsahuje registry, které obsahují 16, 32 nebo 64 bitové hodnoty podle architektury čipu
+\item CPU načítá z paměti instrukce tak jak jdou za sebou a každou načtenou instrukci vykoná
+\item Adresa právě vykonávané instrukce je ve speciálním registru PC nebo IP
+\item ALU část CPU která umí sčítat, odčítat, násobit, dělit a další aritmetické operace
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}  
 \begin{center}
-   \includegraphics[width=0.5\textwidth]{cpu.pdf}
+   \includegraphics[width=0.95\textwidth]{cpu.pdf}
 \end{center}
+\end{column}
+\end{columns}
 
 \end{frame}
+
+
 
 \begin{frame}
 \frametitle{Paměť}
 
 Paměť si pamatuje data - bajty, slova.
 
-Pokud už znáte nějaký programovací jazyk, tak si ji můžete představit jako pole:\\
-\texttt{unsigned char RAM[16 * 1024 * 1024 *1024]; // 16GB RAM}
+Pokud už znáte nějaký programovací jazyk, tak si ji můžete představit jako pole, např. v jazyce C jako:\\
+\texttt{unsigned char RAM[16 * 1024 * 1024 *1024]; // 16GiB RAM}
 
 \bigskip
 Z paměti lze číst:\\
-\texttt{data = RAM[adresa];}\\
+\texttt{registr R10 = RAM[adresa];}\\
 nebo zapisovat:\\
-\texttt{RAM[adresa] = data;}
+\texttt{RAM[adresa] = R10;}
 
 \end{frame}
 
-\section{Boolova algebra}
 \begin{frame}
-\frametitle{Boolova algebra}
+\frametitle{Instrukce procesoru}
 
-Boolova algebra:
+\begin{itemize}
+\item Instrukce procesoru jsou jediné činnosti, které procesor umí
+\item Základní instrukce umí:
+\begin{itemize}
+\item načíst data z paměti do registrů
+\item provést matematickou operaci s registry a výsledek uložit do registrů
+\item uložit data z registru do paměti
+\item porovnat dvě čísla
+\item podle výsledku porovnání provádět jiné instrukce (změnit PC na jinou hodnotu než je následující instrukce = provést skok v programu)
+\end{itemize}
+\item veškeré programy, ať už vytvořené v jazyku C, Python, provádějící i velmi komplexní výpočty jsou složené pouze z těchto jednoduchých instrukcí procesoru
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Instrukce procesoru}
+
+Instruction Set Architecture (ISA) Architektura souboru instrukcí
+\begin{itemize}
+\item je kompletní instrukční sada včetně adresních módů
+\item např. x86 (IA-32), x86-64 (AMD64, EM64T, IA-32e), ARM32, ARM64, AVR, MIPS, RISC-V
+\item ISA obsahuje:
+\begin{itemize}
+\item množinu strojových instrukcí procesoru
+\item podporované datové typy (celá čísla, celá čísla se znaménkem, reálná čísla)
+\item množina registrů
+\item adresní módy
+\item organizace paměti
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Instrukce procesoru}
+
+Dva základní přístupy k návrhu ISA
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\LARGE{RISC}
+\end{center}
+Reduced Instruction Set Computer
+\begin{itemize}
+\item Obvykle menší počet instrukcí
+\item Všechny instrukce mají stejný počet bajtů, některé umožňují poloviční délku
+\item Méně jednodušších adresních módů
+\item Matematické operace ALU pouze s registry
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}  
+\begin{center}
+\LARGE{CISC}
+\end{center}
+Complex Instruction Set Computer
+\begin{itemize}
+\item Obvykle větší počet instrukcí
+\item Délka instrukcí je od 1 bajtu do např. 12 bajtů, nejčastější instrukce jsou nejkratší
+\item Obvykle mnoho i složitých adresních módu
+\item Matematické oprace ALU i s hodnotami z paměti
+\end{itemize}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Procesor}
+
+Z čeho se vlastně procesor skládá?
+\begin{itemize}
+\item Možná jste někdy slyšeli, že procesor obsahuje třeba 16 miliard tranzistorů
+\item V roce 1965 spoluzakladatel společnosti Intel Gordon Moor formuloval zákon: 
+\begin{itemize}
+\item Počet tranzistorů, které mohou být umístěny na integrovaný obvod se při zachování stejné ceny zhruba každých 18 měsíců zdvojnásobí.
+\end{itemize}
+\item Více méně platí až do dnes, i když už se dostáváme na hranice fyzikálních možností.
+\end{itemize}
+
+K čemu potřebujeme v procesoru = CPU tranzistory?
+\begin{itemize}
+\item Abychom implementovali Booleovu algebru.
+\end{itemize}
+\end{frame}
+
+
+
+\section{Boolova algebra}
+
+
+
+\begin{frame}
+\frametitle{Booleova algebra}
+
+Booleova algebra je matematická struktura:
 \begin{itemize}
 \item Používá pouze dvě hodnoty 0,1
 \begin{itemize}
 \item 0/1, nebo False/True, nebo nesvítí/svítí, nebo 0V/5V
 \end{itemize}
-\item Oprace plus (nebo, or)
+\item Operace plus (nebo, or, $\lor$)
 \begin{itemize}
-\item 0+0=0   0+1=1
-\item 1+0=1   1+1=1
+\item 0+0=0 \phantom{XXXX}  0+1=1
+\item 1+0=1 \phantom{XXXX}  1+1=1
 \end{itemize}
-\item Oprace krát (a, and)
+\item Operace krát (a, and, $\land$)
 \begin{itemize}
-\item 0*0=0   0*1=0
-\item 1*0=0   1*1=1
+\item 0*0=0 \phantom{XXXX}  0*1=0
+\item 1*0=0 \phantom{XXXX}  1*1=1
 \end{itemize}
-\item Oprace inverzní prvek - (negace, not)
+\item Operace inverzní prvek - (negace, not, $\neg$)
 \begin{itemize}
 \item -0 = 1
 \item -1 = 0
@@ -245,36 +388,105 @@ Boolova algebra:
 \begin{frame}
 \frametitle{Boolova algebra}
 
-Booleova algebra se dá dobře implementovat pomocí tranzistorů (nebudeme zkoušet):
+Booleova algebra se dá dobře implementovat pomocí napětí a tranzistorů (nebude u zkoušky)
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+Napětí jednoho vodiče vůči zemi definuje logickou hodnotu.
+\end{column}
+\begin{column}{0.55\textwidth}  
+\begin{center}
+   \includegraphics[width=0.9\textwidth]{ttl_log01.pdf}
+\end{center}
+\end{column}
+\end{columns}
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+Příklad: Logická operace not, jeden vstupní vodiče X, jeden výstupní vodič Y.
+\end{column}
+\begin{column}{0.55\textwidth}  
+\begin{center}
+   \includegraphics[width=0.8\textwidth]{ttl_neg.pdf}
+\end{center}
+\end{column}
+\end{columns}
+
 
 %inkscape ctrl shift Y logic symbols
 \end{frame}
 
 \begin{frame}
-\frametitle{Boolova algebra}
+\frametitle{Booleova algebra}
 
-Rozšířené operace nand, nor, xor a libovolné logické funkce se skládají ze základních operací (or, and not)
+Rozšířené operace nand, nor, xor a libovolné logické funkce se skládají ze základních operací (and, or, not):
 
-X nand Y = not(X and Y)
-X nor Y = not(X or Y)
-X xor Y = (X or Y) and (not(X and Y)) = (X or Y) and (X nand Y)
+\begin{tabular}{ll}
+\texttt{X nand Y} & \texttt{= not(X and Y)}\\
+\texttt{X nor Y} & \texttt{= not(X or Y)}\\
+\texttt{X xor Y} & \texttt{= (X or Y) and (not(X and Y))}\\
+& \texttt{= (X or Y) and (X nand Y)}\\
+\end{tabular}
 
-Některé funkce lze převést do hradel i efektivněji než přes základní logické funkce or, and, not.
+Některé funkce lze převést do hradel i efektivněji než přes základní logické funkce and, or, not.
+Operace nand a nor jsou jednodušší než and a or.
 \end{frame}
 
+
 \begin{frame}
-\frametitle{Boolova algebra}
+\frametitle{Booleova algebra}
 
-Složitější obvody - složené ze základních operací, stavebních bloků
+Přehled hradel a jejich symbolů
+\begin{center}
+   \includegraphics[width=0.8\textwidth]{log_symbols.pdf}
+\end{center}
 
-Příklad
+Vodiče se mohou i větvit. Co dělá následující obvod:
+\begin{center}
+   \includegraphics[width=0.2\textwidth]{not_jako_nand.pdf}
+\end{center}
+
+\begin{tabular}{ll}
+A) takto to nelze zapojit \phantom{XXXX} & B) výsledkem je X and Y\\
+C) výsledkem je X and not Y              & D) výsledkem je not X
+\end{tabular}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Logické obvody}
+
+\begin{columns}
+\begin{column}{0.55\textwidth}
+Logické obvody jsou složitější obvody složené ze základních logických členů - hradel. Signály se mohou větvit, spojují se vždy nějakou logickou operací.
+Výsledkem logického obvodu jsou vždy jen logické hodnoty 0 nebo 1.
+
+\bigskip
+
+Kvíz: Co dělá tento obvod:
+\begin{itemize}
+\item[A] Nic rozumného, je to jen spleť vodičů
+\item[B] Je to multiplex, hodnota Z je jeden ze signálů X podle hodnoty Y
+\item[C] Je to dělička, hodnota Z je X/Y
+\item[D] Hodnota Z je 1 pokud je X > Y 
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}  
+\begin{center}
+   \includegraphics[width=0.95\textwidth]{multiplex.pdf}
+\end{center}
+\end{column}
+\end{columns}
+
+
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Binární soustava - kvíz}
 
-Kvíz: Jeden vodič reprezentuje jednu hodnotu, buď 0 nebo 1. Jak reprezontovat více čísel, třeba od 0 do 255 (jeden bajt):
+Kvíz: Jeden vodič reprezentuje jednu hodnotu, buď 0 nebo 1. Jak reprezentovat více hodnot, třeba všechna celá čísla od 0 do 255 (tedy jeden bajt):
 \begin{itemize}
 \item[A] Jeden vodič má 8 rozdílných úrovní napětí
 \item[B] Jeden vodič reprezentuje postupně v čase 8 různých hodnot 0/1
@@ -294,36 +506,62 @@ Více bitová čísla - binární soustava
 \item 8 až 64 jednobitových paralelních vodičů
 \item pořadí vodičů je důležité
 \item každý vodič reprezentuje jednu mocninu 2
-\item vodič a_{i}, celková hodnota s = \sum_{i=0}^{63} a_{i}*2^{i}
+\item vodič $a_{i}$, celková hodnota $s = \sum_{i=0}^{63} a_{i}*2^{i}$
 \end{itemize}
 
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Sčítání}
 
 Součet dvou jednobitových čísel:
-\begin{tabular}{|r|r|r|}\hline
+\begin{tabular}{|r|r|c|}\hline
 X & Y & X+Y\\ \hline
-0 & 0 & 0\\ \hline
-0 & 1 & 1\\ \hline
-1 & 0 & 1\\ \hline
+0 & 0 & 00\\ \hline
+0 & 1 & 01\\ \hline
+1 & 0 & 01\\ \hline
 1 & 1 & 10\\ \hline
-\hline
 \end{tabular}
 
-Výsledek součtu může být dvoubitové číslo C - přenos, S - součet.
+\bigskip
 
-\texttt{S = X xor Y}\\
-\texttt{C = X and Y}
+\begin{columns}
+\begin{column}{0.55\textwidth}
+Výsledek součtu může být dvoubitové číslo $C$ - přenos, $S$ - součet.
+\bigskip
+
+\texttt{$S$ = $X$ xor $Y$}\\
+\texttt{$C$ = $X$ and $Y$}
+
+\bigskip
+
+Tomuto logickému obvodu se říká poloviční sčítačka (Half adder)
+\end{column}
+\begin{column}{0.45\textwidth}  
+\begin{center}
+   \includegraphics[width=0.75\textwidth]{half_adder.pdf}
+\end{center}
+\end{column}
+\end{columns}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Sčítání}
 
-Pokud sčítáme vícebitová čísla potřebujeme:
-\begin{tabular}{|r|r|r|}\hline
+Pokud sčítáme vícebitová čísla potřebujeme později sečíst tři bitové vstupy.
+
+\begin{columns}
+\begin{column}{0.6\textwidth}
+Výsledek součtu je opět dvoubitové číslo: $C_{out}$~-~přenos, $S$~-~součet.
+
+\begin{columns}
+\begin{column}{0.55\textwidth}
+
+\bigskip
+
+\begin{tabular}{|r|r|r|c|}\hline
 C & X & Y & C+X+Y\\ \hline
 0 & 0 & 0 & 00\\ \hline
 0 & 0 & 1 & 01\\ \hline
@@ -333,57 +571,174 @@ C & X & Y & C+X+Y\\ \hline
 1 & 0 & 1 & 10\\ \hline
 1 & 1 & 0 & 10\\ \hline
 1 & 1 & 1 & 11\\ \hline
-\hline
 \end{tabular}
 
-Výsledek součtu je opět dvoubitové číslo C_{out} - přenos, S - součet.
+\end{column}
+\begin{column}{0.45\textwidth}
 
-\texttt{S_1 = (X xor Y)}\\
-\texttt{S = (S_1 xor C)}\\
-\texttt{C' = (X and Y)}\\
-\texttt{C" = (S_1 and C)}\\
-\texttt{C_{out} = C' or C"}
+\texttt{$S_1$ = ($X$ xor $Y$)}\\
+\texttt{$S$ = ($S_1$ xor $C$)}\\
+\texttt{$C_1$ = ($X$ and $Y$)}\\
+\texttt{$C_2$ = ($S_1$ and $C$)}\\
+\texttt{$C_{out}$ = $C_1$ or $C_2$}
+
+\bigskip
+
+Tomuto logickému obvodu se říká úplná sčítačka 
+
+(Full adder)
+\end{column}
+\end{columns}
+
+\end{column}
+\begin{column}{0.4\textwidth}  
+
+\begin{center}
+   \includegraphics[width=\textwidth]{full_adder.pdf}
+\end{center}
+
+
+\begin{center}
+   \includegraphics[width=\textwidth]{full_adder2.pdf}
+\end{center}
+
+\end{column}
+\end{columns}
+
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Sčítání}
+\frametitle{Sčítání - Ripple Carry Adder}
 
-Ripple carry adder
+Nejjednodušší sčítačka vícebitových čísel prostě propojí jednu poloviční sčítačku a plné sčítačky. 
+
+Tato sčítačka se jmenuje Ripple Carry Adder (Řetězová sčítačka).
+
+\begin{center}
+   \includegraphics[width=0.7\textwidth]{ripple_adder.pdf}
+\end{center}
+
+$a_5a_4a_3a_2a_1a_0 + b_5b_4b_3b_2b_1b_0 = s_6s_5s_4s_3s_2s_1s_0$ platí, že $s_6 = c_6$
+
 \end{frame}
 
 \begin{frame}
-\frametitle{Sčítání}
+\frametitle{Sčítání - Ripple Carry Adder}
 
-Rychlost - Ripple carry adder
+Jak rychlá je Ripple Carry Adder?
+\begin{itemize}
+\item Pokud je zpoždění jednoho hradla N pak zpoždění Ripple Carry Adder pro dvě 64-bitové hodnoty 63*3*N+2*N
+\item Je to důležité?
+\begin{itemize}
+\item Ano, při taktu CPU 4GHz trvá jeden takt 250 ps (pikosekund)
+\item Omezení je i rychlost světla 0.3 mm/ps, to je maximální rychlost šíření informace
+\item Při zpoždění hradla kolem 10ps, pak Ripple Carray Adder by sečetla 2 čísla za 1910ps  
+\end{itemize}
+\item Lze to rychleji?
+\begin{itemize}
+\item Ano, Carry Lookahead adder
+\end{itemize}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
-\frametitle{Sčítání}
+\frametitle{Sčítání - Carry Lookahead adder}
 
-Look ahead adder
+\begin{itemize}
+\item Lze spočítat $C_1$, $C_2$, ... , rovnou ze sčítaných čísel?
+\begin{itemize}
+\item Ano, ale pro hodně bitová čísla to je drahé, potřebujeme hodně hradel.
+\item Ukážeme si to pro 4-bitová čísla
+\item Nadefinujeme si dvě základní hodnoty:
+\begin{itemize}
+\item Generování carry -- pokud $A_i=1$ a $B_i=1$ pak určitě bude $C_{i+1}=1$ tedy carry se vygeneruje $G_i=A_i \land B_i$ 
+\item Propagování carry -- pokud $A_i=1$ nebo $B_i=1$ pak bude $C_{i+1}=C_{i}$ tedy carry se bude propagovat, pokud bylo nižší carry; $P_i=A_i$ xor $B_i$ 
+\end{itemize}
+\item Pro 4-bitové číslo:
+\begin{itemize}
+\item $C_1=G_0$ 
+\item $C_2=G_1 \lor (C_1 \land P_1)= G_1 \lor (G_0 \land P_1)$
+\item $C_3=G_2 \lor (C_2 \land P_2)= G_2 \lor (G_1 \land P_2) \lor (G_0 \land P_1 \land P_2)$ 
+\item $C_4=G_3 \lor (C_3 \land P_3)= G_3 \lor (G_2 \land P_3) \lor (G_1 \land P_2 \land P_3) \lor (G_0 \land P_1 \land P_2 \land P_3)$
+\item takto bychom mohli pokračovat, ale výraz by byl složitější a složitější
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
-\frametitle{Sčítání}
+\frametitle{Sčítání - Carry Lookahead Adder}
 
-Look ahead adder
+Takto bude vypadat nejrychlejší sčítačka pro 4-bitová čísla. 
+
+Dvě čísla sečte na 4 zpoždění hradla.
+\begin{center}
+   \includegraphics[width=0.65\textwidth]{lookahead_direct.pdf}
+\end{center}
+
+Pro 64 bitová čísla by potřebovala sčítačka kolem $10^{20}$ hradel, což je moc.
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Sčítání - Carry Lookahead Adder}
+
+Co tedy s většími čísly, třeba 64-bitovými?
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{itemize}
+\item Upravíme 4-bitovou sčítačku tak, aby mohla přijmout $C$ z předchozích výpočtů
+\begin{itemize}
+\item POZOR budou se muset přidat hradla
+\end{itemize}
+\item Takto upravené sčítačky můžeme řetězit.
+\end{itemize}
+\end{column}
+\begin{column}{0.55\textwidth}
+\begin{center}
+   \includegraphics[width=0.95\textwidth]{lookahead_ripple.pdf}
+\end{center}
+\end{column}
+\end{columns}
+
+
+\begin{itemize}
+\item Rychlost 16-ti bitové sčítačky z obrázku bude 16 zpoždění hradel
+\item Rychlost 64-ti bitové sčítačky bude 64 zpoždění hradel, což je daleko lepší, než 191 zpoždění u jednoduché Ripple carry adder.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Sčítání - Carry Lookahead Adder}
+
+Můžeme s tady ještě něco vylepšit?
+\begin{itemize}
+\item Můžeme zavést proměnné generuj a propaguj pro skupinu bitů:
+\begin{itemize}
+\item Pokud budou bity $i$ až $j$ generovat přenos (carry), pak $G_{i,j}=1$
+\item Pokud budou bity $i$ až $j$ propagovat přenos (carry), pak $P_{i,j}=1$
+\end{itemize}
+\item Nyní si definujeme pravidla, jak $G_{i,k}$ a $P_{i,k}$ spočítat z $G_{i,j}$, $G_{j+1,k}$,$P_{i,j}$, $P_{j+1,k}$
+\begin{itemize}
+\item $G_{i,k}=G_{j+1,k} \lor (G_{i,j} \land P_{j+1,k})$
+\item $P_{i,k}=P_{i,j} \land P_{j+1,k}$
+\end{itemize}
+\item Počáteční hodnoty jsou staré známé $G_i$ a $P_i$. 
+\item Tedy $G_{i,i}=G_i=a_i \land b_i$ a $P_{i,i}=P_i=a_i$ xor $b_i$.
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
-\frametitle{Sčítání}
-
-Look ahead adder
-\end{frame}
-
-\begin{frame}
-\frametitle{Sčítání}
-
-Look ahead adder
-\end{frame}
-
-\begin{frame}
-\frametitle{Sčítání}
+\frametitle{Sčítání - Carry Lookahead Adder}
 
 Look ahead adder
 \end{frame}
