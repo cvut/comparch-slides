@@ -740,8 +740,110 @@ Můžeme s tady ještě něco vylepšit?
 \begin{frame}
 \frametitle{Sčítání - Carry Lookahead Adder}
 
-Look ahead adder
+Takto lze realizovat výše uvedený výpočet:
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{center}
+   \includegraphics[width=0.95\textwidth]{lookahead_tree.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.45\textwidth}
+
+Doba výpočtu dvojic $G_{i,k}$ a $P_{i,k}$:
+\begin{itemize}
+\item Rychlost 4-ti bitových sčítanců 5 zpoždění hradel
+\item Rychlost 8-ti bitových sčítanců 7 zpoždění hradel
+\item Rychlost 64-ti bitových sčítanců 13 zpoždění hradel
+\end{itemize}
+
+\end{column}
+\end{columns}
+
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Sčítání - Carry Lookahead Adder}
+
+Nyní nám zbývá vypočítat všechny Carry $C_i$, pokud bychom předpokládali řetězení, tak známe $C_0$ jinak by :
+\begin{itemize}
+\item Opět použijeme strom, tentokrát v opačném pořadí než výpočet $P_{i,j}$ a $G_{i,j}$:
+\begin{itemize}
+\item Pokud známe $C_i$, $G_{i,j}$ a $P_{i,j}$
+\item pak $C_{j+1} = G_{i,j} \lor (C_i \land P_{i,j})$ 
+\end{itemize}
+\item Výpočet pro 4-bitové sčítance bude probíhat v následujícím pořadí:
+\begin{itemize}
+\item $C_4 = G_{0,3} \lor (C_0 \land P_{0,3})$, $C_2 = G_{0,1} \lor (C_0 \land P_{0,1})$
+\item $C_3 = G_{2,2} \lor (C_2 \land P_{2,2})$, $C_1 = G_{0,0} \lor (C_0 \land P_{0,0})$
+\end{itemize}
+\item Opět platí, že pro $2\times$ větší sčítance se doba prodlouží o 2 zpoždění. 
+\item Tedy pro 64 bitový je výpočet všech $C_i$ s 12 zpožděním hradel.
+\item Celý součet pro 64 bitový sčítance trvá 26 zpožděním hradel.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sčítání - Carry Lookahead Adder}
+
+Výpočet $C_i$ pak vypadá následovně:
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+   \includegraphics[width=0.95\textwidth]{lookahead_tree_carry.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+
+Doba výpočtu dvojic $G_{i,k}$ a $P_{i,k}$:
+\begin{itemize}
+\item Rychlost 4-ti bitových sčítanců 5 zpoždění hradel
+\item Rychlost 8-ti bitových sčítanců 7 zpoždění hradel
+\item Rychlost 64-ti bitových sčítanců 13 zpoždění hradel
+\end{itemize}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Multiplex}
+
+Podobný přístup lze využít třeba i při konstrukci multiplexu:
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+   \includegraphics[width=0.5\textwidth]{multiplex-tree.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Podle tříbitového čísla $x$ se vybere odpovídající vstup $a_x$ na výstup $Y$
+\item Není to nejrychlejší implementace, ale je přehledná
+\item c
+\end{itemize}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Barrel shifter}
+
+Obdobný přístup je i pro posun (shift) o zadaný počet bitů:
+\begin{center}
+   \includegraphics[width=0.75\textwidth]{barrel-shift.pdf}
+\end{center}
+
+
+\end{frame}
+
 
 \end{document}
 
