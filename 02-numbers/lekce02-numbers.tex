@@ -1,0 +1,273 @@
+\documentclass{beamer}
+%[aspectratio=169]   \usepackage[czech]{babel}
+\usepackage{apo-lecture}
+\usepackage{pdfpages}
+\usepackage{pdfcomment}
+\usepackage{listings}
+\usepackage{array,multirow}
+
+\subtitle{Lekce 02. Reprezentace čísel}
+\author{Petr Štěpán\\ \small\texttt{stepan@fel.cvut.cz}}
+\begin{document}
+
+\maketitle
+
+\section{Opakování}
+
+
+\begin{frame}
+\frametitle{Opakování}
+V minulé lekci jsme měli:
+\begin{itemize}
+\item Reprezentace bitu pomocí napětí
+\item Reprezentace bajtů jako více paralelních vodičů, každý s hodnotou jednoho bitu
+\item Sčítání dvou celých kladných čísel
+\item Posun celých čísel (násobení, nebo dělení mocninou 2)
+\end{itemize}
+
+Dnes:
+\begin{itemize}
+\item Rozsahy celých čísel a ukládání do paměti
+\item Násobení a dělení celých kladných čísel 
+\item Reprezentace záporných čísel a operace s nimi
+\item Přetečení sčítání a odčístání
+\item Reálná čísla
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Kladná čísla}
+Reprezentace celých kladných čísel
+\begin{itemize}
+\item Rozsahy pro 1,2,4,8 bajtů
+\item Dekadické zápisy, hexa zápisy
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Kladná čísla}
+
+Ukládání čísel do paměti Big endian / Little endian
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Násobení celých čísel}
+
+Obdoba násobení jak jste se ho nauřili na základní škole
+\end{frame}
+
+\begin{frame}
+\frametitle{Násobení celých čísel}
+
+Násobička s posuvným registrem
+
+Pomalá
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Násobení celých čísel}
+
+Rychlé násobení celých čísel Wallace tree
+
+Motivace rychlé sečtení čtyř 64-bitových čísel
+\end{frame}
+
+\begin{frame}
+\frametitle{Násobení celých čísel}
+
+Rychlé násobení celých čísel Wallace tree
+\end{frame}
+
+\begin{frame}
+\frametitle{Násobení celých čísel}
+
+Rychlé násobení celých čísel Wallace tree
+
+Shrnutí rychlosti násobení 64-bitových čísel
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Dělení celých čísel}
+
+Obdoba násobení, nalezneme i zbytek po dělení
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Dělení celých čísel}
+
+Dělička - existuje rychlejší algoritmus, ale je velmi složitý
+
+\end{frame}
+
+
+\section{Záporná čísla}
+\begin{frame}
+\frametitle{Reprezentace záporných čísel}
+Doplněk dvou
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Opačné číslo}
+
+Jak z X udělat -X
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Počítání se zápornými čísly}
+
+Výhoda reprezentace doplněk dvou, nemusíme vymýšlet nové sčítání, funguje stejný algoritmus
+\end{frame}
+
+\begin{frame}
+\frametitle{Odčítání}
+
+Přičteme opačné číslo a je to.
+\end{frame}
+
+\begin{frame}
+\frametitle{Přetečení}
+
+Co se stane, když spustíte následujcí C program:
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Přetečení}
+
+Přetečení při sčítání kladnách čísel.
+\end{frame}
+
+\begin{frame}
+\frametitle{Přetečení}
+
+Přetečení při sčítání Záporných čísel.
+\end{frame}
+
+\begin{frame}
+\frametitle{Násobení a dělení}
+
+Počítáme s absolutními hodntami a nakonec určíme znaménko výsledku podle znaménka operandů.
+\end{frame}
+
+\begin{frame}
+\frametitle{Jiné reprezentace záporných čísel}
+
+Čísla s posunutou nulou
+\end{frame}
+
+\begin{frame}
+\frametitle{Počítání s posunutou nulou}
+
+Čísla s posunutou nulou
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Jiné reprezentace záporných čísel}
+
+Doplněk jedné
+
+BCD formát
+\end{frame}
+
+
+\section{Reálná čísla}
+
+
+\begin{frame}
+\frametitle{Reálná čísla}
+
+Dvojková reálná čísla
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Reálná čísla}
+
+Čísla s pevnou destinnou čárkou
+
+Obdoba čísel s posunutou nulou
+
+Jednoduché sčítání odčístání, složité násobení, dělení
+\end{frame}
+
+\begin{frame}
+\frametitle{Plovoucí desetinná čárka}
+
+Plovoucí desetinná čárka, floating point numbers
+
+Obdoba dekadického zápisu reálných čísel
+
+\end{frame}
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Základní definice znaménko exponent mantisa (skrytá jednička) 
+\end{frame}
+
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Normalizované, denormalizované čísla
+
+Nekonečna a NaN
+\end{frame}
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Porovnání dvou reálných čísel
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Sčítání dvou reálných čísel
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Sčítání dvou reálných čísel
+
+\end{frame}
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Násobení dvou reálných čísel
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bonusový bod}
+
+Kvíz s bonusovou otázkou za tuto hodinu.
+
+\end{frame}
+
+
+
+
+\end{document}
+
