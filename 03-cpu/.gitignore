@@ -1,3 +1,13 @@
+/lekce03-cpu.pdf
+/apo03_2021.pdf
+/*.aux
+/*.log
+/*.snm
+/*.gz
+/*.nav
+/*.out
+/*.toc
+/*.upa
 /cpu-load2.pdf
 /cpu-vonNeumann.pdf
 /cpu-addi.pdf
