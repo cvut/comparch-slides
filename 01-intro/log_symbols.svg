@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="112.17414mm"
+   width="116.0106mm"
    height="42.046669mm"
-   viewBox="0 0 112.17414 42.046669"
+   viewBox="0 0 116.0106 42.046669"
    version="1.1"
    id="svg12990"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
@@ -138,8 +138,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="281.2554"
-     inkscape:cy="75.677256"
+     inkscape:cx="360.11025"
+     inkscape:cy="74.6671"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -155,8 +155,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid13535"
-       originx="-67.874816"
-       originy="-199.56501" />
+       originx="-67.874819"
+       originy="-199.565" />
   </sodipodi:namedview>
   <metadata
      id="metadata12987">
@@ -559,5 +559,67 @@
          x="161.71648"
          y="84.197769"
          style="stroke-width:0.26458332">Z=not X</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 89.958336,66.812493 h 2.645833"
+       id="path4901"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 120.38542,66.812493 h 2.64583"
+       id="path4903"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 150.8125,66.812493 h 2.64583"
+       id="path4905"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 91.281253,91.947909 h 2.645833"
+       id="path4907"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 121.70834,91.947909 h 2.64583"
+       id="path4909"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 152.13542,91.947909 h 2.64583"
+       id="path4911"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 178.59375,66.812493 h 3.96875"
+       id="path4913"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 179.91667,91.947909 h 3.96875"
+       id="path4915"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="179.94319"
+       y="65.810234"
+       id="text4919"><tspan
+         sodipodi:role="line"
+         id="tspan4917"
+         x="179.94319"
+         y="65.810234"
+         style="stroke-width:0.26458332">Z</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:3.52777767px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="181.07909"
+       y="90.812012"
+       id="text4923"><tspan
+         sodipodi:role="line"
+         id="tspan4921"
+         x="181.07909"
+         y="90.812012"
+         style="stroke-width:0.26458332">Z</tspan></text>
   </g>
 </svg>
