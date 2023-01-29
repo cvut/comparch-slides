@@ -62,7 +62,7 @@ https://pretalx.linuxdays.cz/2019/talk/EAYAGG/
 \begin{frame}
 \frametitle{John von Neumann}
 \begin{center}
-\includegraphics[width=0.65\textwidth]{cpu-vonNeumann.pdf}
+\includegraphics[width=0.55\textwidth]{cpu-vonNeumann.pdf}
 \hfill
 \includegraphics[width=0.2\textwidth]{fig/vonNeumann.png}
 \end{center}
@@ -174,7 +174,7 @@ done:
 \end{column}
 
 \begin{column}{0.3\textwidth}  
-\begin{lstlisting}[language={C},columns=flexible]
+\begin{lstlisting}[language={C}]
 0x00000200  09d00513
 0x00000204  fff00313
 0x00000208  00050863
@@ -211,15 +211,30 @@ done:
 \begin{tabular}{r l}
   \begin{tabular}{|c|}\hline
   \texttt{xxxxxxxxxxxxxxaa}\\ \hline
-  \end{tabular} & 16-bit (aa \neq 11)\\
+  \end{tabular} & 16-bit ($aa \neq 11$)\\
    &  \\
    \begin{tabular}{|c|c|}\hline
   \texttt{xxxxxxxxxxxxxxxx} & \texttt{xxxxxxxxxxxbbb11}\\ \hline
-  \end{tabular} & 32-bit (bbb \neq 111)\\
-%\cline{2-3}
-&  &  &  \\
-Address:&  &  &  \\
-base+4 & base+2 & base &  \\
+  \end{tabular} & 32-bit ($bbb \neq 111$)\\
+ &  \\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{xxxxxxxxxx011111}\\ \hline
+  \end{tabular} & 48-bit\\
+ &  \\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{xxxxxxxxx0111111}\\ \hline
+  \end{tabular} & 64-bit\\
+ &  \\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{xnnnxxxxx0111111}\\ \hline
+  \end{tabular} & ($80+16\cdot nnn$)-bit\\
+  & ($nnn \neq 111$)\\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{x111xxxxx0111111}\\ \hline
+  \end{tabular} & rezervováno pro\\
+  & $\ge 192$-bit\\
+Address: \phantom{\texttt{yyyyyxxxxxxxxxxxxxxxx    xxxxxxxxx0111111}}&  \\
+base+4 \phantom{\texttt{xxxxxxx}} base+2 \phantom{\texttt{xxxxxxxxxxx}} base \phantom{\texttt{xxxxxxx}} &  \\
 \end{tabular}
 
 \end{frame}
@@ -256,9 +271,33 @@ f0-31 &  & Floating point &  \\
 
 
 \begin{frame}
-\frametitle{Single cycle CPU – implementation of the load instruction}
+\frametitle{Instrukce lw -- load word}
+
+\textbf{\texttt{lw -- load word}} načti slovo z paměti do registru
+
+\begin{tabular}{|l|l|}\hline
+Popis & Načte slovo do registru ze zadané adresy z paměti \\ \hline
+Operace & \texttt{[rd] $\ldart$ Mem[[rs]+imm12]} \\ \hline
+Syntax & lw rd, imm12(rs) \\ \hline
+Kódování & \texttt{iiii iiii iiii ssss s010 dddd d000 0011} \\ \hline
+\end{tabular}
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Implementace instrukce lw}
+
+\textbf{\texttt{lw -- load word}} načti slovo z paměti do registru
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{cpu-load.pdf}
+\end{center}
+
+
+\end{frame}
+
+
+
 
 \end{document}
 
