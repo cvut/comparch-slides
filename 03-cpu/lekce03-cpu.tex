@@ -6,7 +6,7 @@
 \usepackage{listings}
 \usepackage{array,multirow}
 
-\subtitle{Lekce 04. Central Processing Unit (CPU)}
+\subtitle{Lekce 03. Central Processing Unit (CPU)}
 \author{Pavel Píša\\ \small\texttt{pisa@fel.cvut.cz}}
 \begin{document}
 
@@ -59,7 +59,7 @@ https://pretalx.linuxdays.cz/2019/talk/EAYAGG/
 \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[shrink=10]
 \frametitle{John von Neumann}
 \begin{center}
 \includegraphics[width=0.55\textwidth]{cpu-vonNeumann.pdf}
@@ -141,7 +141,7 @@ FLAGS registr
 \end{frame}
 
 
-\begin{frame}[fragile]
+\begin{frame}[fragile,shrink=10]
 \frametitle{Compilation: C  Assembler  Machine Code}
 
 \begin{columns}
@@ -161,29 +161,32 @@ while(x != 0) {
 \begin{column}{0.4\textwidth}  
 \begin{lstlisting}[language={C},columns=flexible]
 _start:
-  addi a0, zero, 157  // int x = 157;
-  addi t1, zero, -1   // int y = 0;
-  beq a0, zero, done  // while(x != 0) {
+    // int x = 157;
+  addi a0, zero, 157  
+    // int y = 0;
+  addi t1, zero, -1   
+    // while(x != 0) {
+  beq a0, zero, done  
 loop:
-  srli a0, a0, 1      //   x = x / 2;
-  addi t1, t1, 1      //   y = y + 1;
-  bne a0, zero, loop  //}
+    //   x = x / 2;
+  srli a0, a0, 1 
+    //   y = y + 1;
+  addi t1, t1, 1      
+    // }
+  bne a0, zero, loop  
 done:
-  addi a0, t1, 0
 \end{lstlisting}
 \end{column}
 
 \begin{column}{0.3\textwidth}  
-\begin{lstlisting}[language={C}]
-0x00000200  09d00513
-0x00000204  fff00313
-0x00000208  00050863
-0x0000020c  00155513
-0x00000210  00130313
-0x00000214  fe051ce3
-0x00000218  00030513
-0x0000021c  00100073
-\end{lstlisting}
+\texttt{0x00000200  09d00513\\
+0x00000204  fff00313\\
+0x00000208  00050863\\
+0x0000020c  00155513\\
+0x00000210  00130313\\
+0x00000214  fe051ce3\\
+0x00000218  00030513\\
+0x0000021c  00100073}
 \end{column}
 
 \end{columns}
@@ -264,10 +267,55 @@ f0-31 &  & Floating point &  \\
 
 
 \begin{frame}
-\frametitle{Hardware realization of basic (main) CPU cycle}
+\frametitle{Hardwarová realizace základního cyklu CPU}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{cpu_step.pdf}
+\end{center}
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Cíl přednášky}
+
+\begin{itemize}
+\item Porozumět implementaci jednoduchého počítače, který se skládá z
+procesoru a oddělené paměti pro instrukce a data
+\item Naším cílem je implementovat následující instrukce:
+\item Číst a zapisovat hodnotu z/do datové paměti.
+\begin{itemize}
+\textbf{\texttt{lw}} - načtení slova, \textbf{\texttt{sw}} - uložení slova
+\end{itemize}
+\item aritmetické a logické instrukce: \textbf{\texttt{add}}, \textbf{\texttt{sub}}, \textbf{\texttt{and}}, \textbf{\texttt{or}}, \textbf{\texttt{slt}}
+\begin{itemize}
+\item Immediátové varianty: \textbf{\texttt{addi}}, \textbf{\texttt{ori}}, horní bity načítají \textbf{\texttt{olui}},\textbf{\texttt{auipc}}
+\end{itemize}
+\item Instrukce pro změnu toku programu/skok \textbf{\texttt{beq}}
+\item Volání podprogramu \textbf{\texttt{jal}}, \textbf{\texttt{jalr}} (zajišťuje i návrat z podprogramu \textbf{\texttt{jr~ra}})
+\item CPU se bude skládat z řídicí jednotky a ALU.
+\item Poznámky:
+\begin{itemize}
+\item Implementace bude minimální (jednocyklový procesor - všechny operace budou probíhat v jednom cyklu, tzn.
+zpracovány v jednom kroku/hodině)
+\item Přednáška 5 je zaměřena na efektivnější realističtější implementaci zřetězenného (pipelined) CPU.
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Instrukce RISC-V implementované v této přednášce}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Základní stavební bloky CPU}
+
+
+\end{frame}
 
 
 \begin{frame}
@@ -277,26 +325,259 @@ f0-31 &  & Floating point &  \\
 
 \begin{tabular}{|l|l|}\hline
 Popis & Načte slovo do registru ze zadané adresy z paměti \\ \hline
-Operace & \texttt{[rd] $\ldart$ Mem[[rs]+imm12]} \\ \hline
+Operace & \texttt{[rd]} $\leftarrow$ \texttt{Mem[[rs]+imm12]} \\ \hline
 Syntax & lw rd, imm12(rs) \\ \hline
 Kódování & \texttt{iiii iiii iiii ssss s010 dddd d000 0011} \\ \hline
 \end{tabular}
 
+Příklad: Načtěte 32-bitové slovo z paměti z adresy 0x400 do registru 2:\\
+\textbf{\texttt{lw x2, 0x400(x0)}}
+
+\textbf{\texttt{iiii iiii iiii}}\phantom{xx}\textbf{\texttt{ssss s}}\hspace{0.1cm}\textbf{\texttt{010\hspace{0.25cm}dddd d\hspace{0.05cm}000 0011}}\\
+\underbrace{\textbf{\texttt{0100 0000 0000}}}_{0x400}\texttt{ }\underbrace{\textbf{\texttt{0000 0}}}_{0}\underbrace{\textbf{\texttt{010}}}_{func3}\phantom{i}\underbrace{\textbf{\texttt{0001 0}}}_{2}\underbrace{\textbf{\texttt{000 0011}}}_{opcode}\\
+
+\textbf{\texttt{0x 40 00 21 03}} -- kód pro instrukci \textbf{\texttt{lw x2, 0x400(x0)}}
+
+Poznámka: Registr x0 má natvrdo hodnotu 0, kterou nelze změnit
+
 \end{frame}
 
-\begin{frame}
+\begin{frame}[shrink=15]
 \frametitle{Implementace instrukce lw}
 
-\textbf{\texttt{lw -- load word}} načti slovo z paměti do registru
+\textbf{\texttt{lw}}: \texttt{rs1} -- základní adresa, \texttt{imm12} -- posunutí adresy, \texttt{rd} -- registr, kam se uloží data z paměti
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+I & \textbf{\texttt{imm(12)}}, 31:20 & \textbf{\texttt{rs1(5)}}, 19:15 & \textbf{\texttt{func3}}, 14:12 & \textbf{\texttt{rd(5)}}, 11:7 & \textbf{\texttt{opcode(7)}}, 6:0 \\ \hline
+\end{tabular}
+
+\bigskip
 
 \begin{center}
-\includegraphics[width=0.75\textwidth]{cpu-load.pdf}
+\includegraphics[width=0.90\textwidth]{cpu-load.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[shrink=15]
+\frametitle{Implementace instrukce lw}
+
+\textbf{\texttt{lw}}: \texttt{rs1} -- základní adresa, \texttt{imm12} -- posunutí adresy, \texttt{rd} -- registr, kam se uloží data z paměti
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+I & \textbf{\texttt{imm(12)}}, 31:20 & \textbf{\texttt{rs1(5)}}, 19:15 & \textbf{\texttt{func3}}, 14:12 & \textbf{\texttt{rd(5)}}, 11:7 & \textbf{\texttt{opcode(7)}}, 6:0 \\ \hline
+\end{tabular}
+
+Zápis proběhna na rostoucí hranu hodin.
+
+\begin{center}
+\includegraphics[width=0.90\textwidth]{cpu-load-red.pdf}
 \end{center}
 
 
+
 \end{frame}
 
 
+\begin{frame}[shrink=15]
+\frametitle{Implementace instrukce lw}
+
+\textbf{\texttt{lw}}: \texttt{rs1} -- základní adresa, \texttt{imm12} -- posunutí adresy, \texttt{rd} -- registr, kam se uloží data z paměti
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+I & \textbf{\texttt{imm(12)}}, 31:20 & \textbf{\texttt{rs1(5)}}, 19:15 & \textbf{\texttt{func3}}, 14:12 & \textbf{\texttt{rd(5)}}, 11:7 & \textbf{\texttt{opcode(7)}}, 6:0 \\ \hline
+\end{tabular}
+
+\bigskip
+
+\begin{center}
+\includegraphics[width=0.88\textwidth]{cpu-load2.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{QtRvSim - RISC-V Simultaor}
+
+\includegraphics[width=0.9\textwidth]{simulator.pdf}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Instrukce sw -- store word}
+
+\textbf{\texttt{sw -- store word}} ulož slovo z registru do paměti
+
+\bigskip
+
+\begin{tabular}{|l|l|}\hline
+Popis & Uloží slovo z registru rs2 do zadané adresy z paměti \\ \hline
+Operace & \texttt{Mem[[rs1]+imm12]} $\leftarrow$ \texttt{[rs2]} \\ \hline
+Syntax & sw rs2, imm12(rs1) \\ \hline
+Kódování & \texttt{iiii iiit tttt ssss s010 iiii i010 0011} \\ \hline
+\end{tabular}
+
+\bigskip
+
+Příklad: Načtěte 32-bitové slovo z paměti z adresy 0x400 do registru 2:\\
+\textbf{\texttt{lw x2, 0x400(x0)}}
+
+\textbf{\texttt{iiii iii\hspace{0.08cm}t tttt}}\phantom{xx}\textbf{\texttt{ssss s}}\hspace{0.1cm}\textbf{\texttt{010\hspace{0.25cm}dddd d\hspace{0.05cm}010 0011}}\\
+\underbrace{\textbf{\texttt{0100 000}}}_{0x40\_}
+\underbrace{\textbf{\texttt{0 0010}}}_{2}
+\texttt{ }\underbrace{\textbf{\texttt{0010 1}}}_{5}
+\underbrace{\textbf{\texttt{010}}}_{func3}\phantom{i}\underbrace{\textbf{\texttt{0010 0}}}_{0x \_04}
+\underbrace{\textbf{\texttt{010 0011}}}_{opcode}\\
+
+\textbf{\texttt{0x 40 22 a2 23}} -- kód pro instrukci \textbf{\texttt{sw x2, 0x404(x5)}}
+
+\end{frame}
+
+\begin{frame}[shrink=18]
+\frametitle{Implementace instrukce sw}
+
+\textbf{\texttt{sw}}: \texttt{rs1} -- základní adresa, \texttt{imm12} -- posunutí adresy, \texttt{rs2} -- registr, který se uloží do paměti
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+S & \textbf{\texttt{imm(12)}},31:25,11:7 & \textbf{\texttt{rs2(5)}},24:20 & \textbf{\texttt{rs1(5)}},19:15 & \textbf{\texttt{func3}},14:12 & \textbf{\texttt{opcode(7)}},6:0 \\ \hline
+\end{tabular}
+
+\bigskip
+
+\includegraphics[width=0.90\textwidth]{cpu-store2.pdf}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Instrukce add -- sečti dva registry}
+
+\textbf{\texttt{add -- addition}} -- sečti hodnoty dvou registrů a součet ulož do registru
+
+\bigskip
+
+\begin{tabular}{|l|l|}\hline
+Popis & Sečti hodnoty z registrů rs1 a rs2 a výsledek ulož do rd \\ \hline
+Operace & \texttt{[rd]} $\leftarrow$ \texttt{[rs1] + [rs2]} \\ \hline
+Syntax & add rd, rs1, rs2 \\ \hline
+Kódování & \texttt{0000 000t tttt ssss s010 dddd d011 0011} \\ \hline
+\end{tabular}
+
+\bigskip
+
+Příklad: Sečti hodnoty z registru 2 a registru 3, výsledek ulož do registru 4:\\
+\textbf{\texttt{add x4, x2, x3}}
+
+\textbf{\texttt{0000 000\hspace{0.08cm}t tttt}}\phantom{xx}\textbf{\texttt{ssss s}}\hspace{0.1cm}\textbf{\texttt{010\hspace{0.25cm}dddd d\hspace{0.05cm}010 0011}}\\
+\textbf{\texttt{0000 000}}
+\underbrace{\textbf{\texttt{0 0011}}}_{3}
+\texttt{ }\underbrace{\textbf{\texttt{0001 0}}}_{2}
+\underbrace{\textbf{\texttt{010}}}_{func3}\phantom{i}
+\underbrace{\textbf{\texttt{0010 0}}}_{4}
+\underbrace{\textbf{\texttt{011 0011}}}_{opcode}\\
+
+\textbf{\texttt{0x 00 31 02 33}} -- kód pro instrukci \textbf{\texttt{add x4, x2, x3}}
+
+
+\end{frame}
+
+\begin{frame}[shrink=25]
+\frametitle{Implementace instrukce add}
+
+\textbf{\texttt{add}}: \texttt{rs1}, \texttt{rs2} -- sčítance, \texttt{rd} -- registr, kam se uloží součet
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|l|l|l|}\hline
+R & \textbf{\texttt{func(7)}},31:25 & \textbf{\texttt{rs2(5)}},24:20 & \textbf{\texttt{rs1(5)}},19:15 & \textbf{\texttt{func3}},14:12 & \textbf{\texttt{rd(5)}},11:7 & \textbf{\texttt{opcode(7)}},6:0 \\ \hline
+\end{tabular}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-add.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Implementace instrukce sub, amd, or, slt}
+
+Jediný rozdíl oproti instrukci sčítání add je v hodnotě ALUControl, který vybírá, jakou operaci jednotka ALU provede. Cesta dat a uložení výsledku je stejná jako u sčítání.
+\bigskip
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-add2.pdf}
+
+\end{frame}
+
+
+\begin{frame}[shrink=10]
+\frametitle{Implementace instrukcí addi, ori, andi}
+
+\textbf{\texttt{addi -- add immediate}}: \texttt{[rd]} $\leftarrow$ \texttt{[rs1] + imm12} -- přičte k hodnotě registru \texttt{rs1} konkrétní číslo \texttt{imm} a výsledek uloží do registru \texttt{rd}
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+I & \textbf{\texttt{imm(12)}},31:20 & \textbf{\texttt{rs1(5)}},19:15 & \textbf{\texttt{func3}},14:12 & \textbf{\texttt{rd(5)}},11:7 & \textbf{\texttt{opcode(7)}},6:0 \\ \hline
+\end{tabular}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-addi.pdf}
+
+\end{frame}
+
+
+\begin{frame}[shrink=15]
+\frametitle{Implementace instrukce skoku beq}
+
+\textbf{\texttt{beq -- branch if equal}}: \texttt{[pc]} $\leftarrow$ \texttt{[pc] + SignImm} -- přičte k hodnotě registru \texttt{pc} konkrétní znaménkové číslo rozšířené na 32 bitů \texttt{imm} a výsledek uloží do registru \texttt{pc} pokud nastala rovnost hodnot v registrech rs1 a rs2.
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+S & \textbf{\texttt{imm(12)}},31:25, 11:7 & \textbf{\texttt{rs2(5)}},24:20 & \textbf{\texttt{rs1(5)}},19:15 & \textbf{\texttt{func3}},14:12 & \textbf{\texttt{opcode(7)}},6:0 \\ \hline
+\end{tabular}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-beq.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rychlost CPU}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-time.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Control Unit}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-control-unit.pdf}
+
+\end{frame}
 
 
 \end{document}
