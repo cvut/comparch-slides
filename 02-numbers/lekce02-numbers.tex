@@ -40,9 +40,19 @@ Dnes:
 \begin{frame}
 \frametitle{Kladná čísla}
 Reprezentace celých kladných čísel
+
+V jazyce C jsou typy (podle normy ISO/IEC 9899:TC3):
+\begin{tabular}{|l|r|r|c|}\hline
+typ & min & max & počet bajtů\\ \hline
+unsigned char & 0 & 255 & 1 \\ \hline
+unsigned short & 0 & 65 535 & 2 \\ \hline 
+unsigned long & 0 & 4 294 967 295 & 4 \\ \hline
+unsigned long long & 0 & 18 446 744 073 709 551 615 & 8 \\ \hline
+\end{tabular}
+
 \begin{itemize}
-\item Rozsahy pro 1,2,4,8 bajtů
-\item Dekadické zápisy, hexa zápisy
+\item Norma není vždy dodržována, \texttt{unsigned int} by měl mít jen 2 bajty, ale většinou má 4 bajty (GNU, MS C).
+\item Pokud chcete mít jistotu, musíte si pro cílovou platformu zjistit rozsah pomocí příkazu např. \texttt{sizeof(int)}
 \end{itemize}
 
 \end{frame}
@@ -50,8 +60,63 @@ Reprezentace celých kladných čísel
 
 \begin{frame}
 \frametitle{Kladná čísla}
+V zápis konstant v jazyce C v soustavě:
+\begin{itemize}
+\item desítkové -- nesmí začínat 0 kromě 0
+\item osmičkové -- začíná 0
+\item hexadecimální -- začíná 0x
+\item binární -- začíná 0b (pouze GNU překladač)
+\end{tabular}
 
-Ukládání čísel do paměti Big endian / Little endian
+Příklad: 252 == 0xfc == 0374 == 0b11111100
+
+Poznámka: Podle hexadecimálního zápisu zjistíte velikost čísla v bajtech, např. 0x123456 se vejde do tří bajtů.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Kladná čísla - uložení v paměti}
+
+\begin{itemize}
+\item Paměť počítače pracuje s bajty
+\item Historicky vzniklo několik možností uložení čísel do paměti.
+\end{itemize}
+
+Jak lze tedy uložit číslo 0x12345678 do paměti:
+\begin{tabular}{|c|c|c|}\hline
+adresa & Big-endian & Little-endian \\ \hline
+400 & 0x12 & 0x78 \\ \hline
+401 & 0x34 & 0x56 \\ \hline
+402 & 0x56 & 0x34 \\ \hline
+403 & 0x78 & 0x12 \\ \hline
+\end{tabular}
+
+\begin{itemize}
+\item Procesory Intel zavedly little-endian, procesory Motorola zavedly big-endian.
+\item Je to důležité, když získáte například přes internet data po bajtech, aby bylo jasné, jaká čísla reprezentují
+\item RISC V - jsou little-endian, MIPS - big-endian
+\item Bitcoin - DER signatures big-endian, transaction hash little-endian
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Kladná čísla - kvíz}
+\begin{lstlisting}[language={C},columns=flexible]
+#include <stdio.h>
+int main() {
+  unsigned char p[] = {0,0,0,0};
+  *(int*)p=10;
+  printf("%02x,%02x,%02x,%02x\n", p[0],p[1],p[2],p[3]);
+}
+\end{lstlisting}
+
+Co bude výstupem tohoto programu na procesorech Intel?
+\begin{itemize}
+\item[A] nic, program nelze přeložit
+\item[B] náhodný výstup, p  nelze přetypovat na *int
+\item[C] 0a,00,00,00 
+\item[D] 00,00,00,0a
+\end{itemize}
 \end{frame}
 
 
