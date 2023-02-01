@@ -124,13 +124,41 @@ Co bude výstupem tohoto programu na procesorech Intel?
 \begin{frame}
 \frametitle{Násobení celých čísel}
 
-Obdoba násobení jak jste se ho nauřili na základní škole
+Obdoba násobení, jak jste se ho naučili na základní škole pro desítkovou soustavu:
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\texttt{    153}
+\texttt{    *45}
+\blackrule[width=2.5cm, height=1pt, depth=0.5ex]
+\texttt{    765}
+\texttt{   612 }
+\blackrule[width=2.5cm, height=1pt, depth=0.5ex]
+\texttt{   6885}
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\texttt{      10011001}
+\texttt{       *101101}
+\blackrule[width=2.5cm, height=1pt, depth=0.5ex]
+\texttt{      10011001}
+\texttt{     00000000 }
+\texttt{    10011001  }
+\texttt{   10011001   }
+\texttt{  00000000    }
+\texttt{ 10011001     }
+\blackrule[width=2.5cm, height=1pt, depth=0.5ex]
+\texttt{ 1101011100101}
+\end{column}
+\end{columns}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Násobení celých čísel}
 
-Násobička s posuvným registrem
+Podle uvedeného algoritmu můžeme vytvořit náseldující násobička s posuvným registrem:
+
+\includegraphics[width=0.7\textwidth]{multiplier-seq.pdf}
 
 Pomalá
 \end{frame}

@@ -1,4 +1,0 @@
-\babel@toc {czech}{}
-\beamer@sectionintoc {1}{Opakování}{2}{0}{1}
-\beamer@sectionintoc {2}{Záporná čísla}{13}{0}{2}
-\beamer@sectionintoc {3}{Reálná čísla}{25}{0}{3}
