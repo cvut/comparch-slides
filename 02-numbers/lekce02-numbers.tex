@@ -66,9 +66,10 @@ V zápis konstant v jazyce C v soustavě:
 \item osmičkové -- začíná 0
 \item hexadecimální -- začíná 0x
 \item binární -- začíná 0b (pouze GNU překladač)
-\end{tabular}
-
+\end{itemize}
+\bigskip
 Příklad: 252 == 0xfc == 0374 == 0b11111100
+\bigskip
 
 Poznámka: Podle hexadecimálního zápisu zjistíte velikost čísla v bajtech, např. 0x123456 se vejde do tří bajtů.
 \end{frame}
@@ -93,7 +94,7 @@ adresa & Big-endian & Little-endian \\ \hline
 
 \begin{itemize}
 \item Procesory Intel zavedly little-endian, procesory Motorola zavedly big-endian.
-\item Je to důležité, když získáte například přes internet data po bajtech, aby bylo jasné, jaká čísla reprezentují
+\item Je to důležité, když získáte například přes internet data po bajtech, musíte definovat, jaká čísla reprezentují
 \item RISC V - jsou little-endian, MIPS - big-endian
 \item Bitcoin - DER signatures big-endian, transaction hash little-endian
 \end{itemize}
@@ -124,30 +125,34 @@ Co bude výstupem tohoto programu na procesorech Intel?
 \begin{frame}
 \frametitle{Násobení celých čísel}
 
-Obdoba násobení, jak jste se ho naučili na základní škole pro desítkovou soustavu:
+Stejný princip násobení, jak jste se ho naučili na základní škole pro desítkovou soustavu:
 \begin{columns}
 \begin{column}{0.4\textwidth}
-\texttt{    153}
-\texttt{    *45}
-\blackrule[width=2.5cm, height=1pt, depth=0.5ex]
-\texttt{    765}
-\texttt{   612 }
-\blackrule[width=2.5cm, height=1pt, depth=0.5ex]
-\texttt{   6885}
+\texttt{\phantom{xxx}153}\\
+\texttt{\phantom{xxx}*45}\\
+\vspace{-8pt}
+\rule[0]{1.5cm}{0.1pt}\\
+\texttt{\phantom{xxx}765}\\
+\texttt{\phantom{xx}612 }\\
+\vspace{-8pt}
+\rule[0]{1.5cm}{0.1pt}\\
+\texttt{\phantom{xx}6885}\\
 \end{column}
 \hfill
 \begin{column}{0.4\textwidth}
-\texttt{      10011001}
-\texttt{       *101101}
-\blackrule[width=2.5cm, height=1pt, depth=0.5ex]
-\texttt{      10011001}
-\texttt{     00000000 }
-\texttt{    10011001  }
-\texttt{   10011001   }
-\texttt{  00000000    }
-\texttt{ 10011001     }
-\blackrule[width=2.5cm, height=1pt, depth=0.5ex]
-\texttt{ 1101011100101}
+\texttt{\phantom{xxxxxx}10011001}\\
+\texttt{\phantom{xxxxxxx}*101101}\\
+\vspace{-8pt}
+\rule[0]{3cm}{0.4pt}\\
+\texttt{\phantom{xxxxxx}10011001}\\
+\texttt{\phantom{xxxxx}00000000}\\
+\texttt{\phantom{xxxx}10011001}\\
+\texttt{\phantom{xxx}10011001}\\
+\texttt{\phantom{xx}00000000}\\
+\texttt{\phantom{x}10011001}\\
+\vspace{-8pt}
+\rule[0]{3cm}{0.4pt}\\
+\texttt{\phantom{x}1101011100101}\\
 \end{column}
 \end{columns}
 
@@ -156,34 +161,75 @@ Obdoba násobení, jak jste se ho naučili na základní škole pro desítkovou 
 \begin{frame}
 \frametitle{Násobení celých čísel}
 
-Podle uvedeného algoritmu můžeme vytvořit náseldující násobička s posuvným registrem:
-
+Podle uvedeného algoritmu můžeme vytvořit náseldující násobičku s posuvným registrem:
+\begin{center}
 \includegraphics[width=0.7\textwidth]{multiplier-seq.pdf}
-
-Pomalá
+\end{center}
+\begin{itemize}
+\item Výsledek je ve dvou registrech AC a B
+\item Pomalé, už sčítání je náročné, nyní 32 nebo 64 sčítání.
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Násobení celých čísel}
+\frametitle{Rychlé násobení - Wallace tree}
 
-Rychlé násobení celých čísel Wallace tree
-
-Motivace rychlé sečtení čtyř 64-bitových čísel
+Jak to zrychlit - odložené carry (Carry Save Adder).\\
+Jak nejrychleji spočítat součet čtyř 32-bitových čísel:\\
+\begin{columns}
+\begin{column}{0.35\textwidth}
+\includegraphics[width=1.0\textwidth]{wallace-tree.pdf}
+\end{column}
+\hfill
+\begin{column}{0.65\textwidth}
+\begin{itemize}
+\item Sečteme paralelně p=w+x a q=y+z a potom p+q -- trvá dlouho, nejméně doby dvou plných součtů
+\item Odložíme carry (nebudeme carry propagovat, jen v posledním kroku):
+\begin{itemize}
+\item 1. krok použijeme Full adder a sečteme vždy bity $w_i+x_i+y_i = c'_ip_i$
+\item 2. krok použijeme Full adder a sečteme vždy bity $p_i+c'_{i-1}+z_i = c_iq_i$
+\item 3. krok použijeme normální sčítačku 32-bitových čísel ($s_0=q_0$, $c'_32$ připojíme ke $q$)
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
-\frametitle{Násobení celých čísel}
+\frametitle{Rychlé násobení - Wallace tree}
 
-Rychlé násobení celých čísel Wallace tree
+Použijeme předchozí princip na co nejrychlejší součet 32 nebo 64 různých čísel:
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\includegraphics[width=1.0\textwidth]{wallace-tree2.pdf}
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\begin{itemize}
+\item Součiny jsou jednoduché: $x_iy_j=x_i$~\texttt{and}~$y_j$
+\item Nejtěžší je sečíst prostřední sloupec 64 jednobitových čísel
+\end{itemize}
+\end{column}
+\end{columns}
+
 \end{frame}
 
-\begin{frame}
-\frametitle{Násobení celých čísel}
+\begin{frame}[shrink=5]
+\frametitle{Rychlé násobení - Wallace tree}
 
-Rychlé násobení celých čísel Wallace tree
+Když se podíváme jen na prostřední nejdelší sloupec:
+\begin{center}
+\includegraphics[width=0.8\textwidth]{wallace-tree3.pdf}
+\end{center}
 
-Shrnutí rychlosti násobení 64-bitových čísel
+\begin{itemize}
+\item Vydíme, že za 8 kroků sčítaček, tedy 16 zpoždění hradel nám zbývá sečíst dva bity
+\item Vpravo od tohoto sloupce je již vše sečteno a již se i propagovali všechny carry
+\item Zbývá sečíct dvě 64-bitová čísla (součty a carry), což se dá stihnout také za 16 zpoždění hradel
+\item Výsledek - vynásobíme dvě čísla za cenu doby odpovídajícíc dvou součtům
+\end{itemize}
+
 \end{frame}
 
 

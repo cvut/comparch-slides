@@ -10,8 +10,8 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="69.173569mm"
-   height="65.179886mm"
-   viewBox="0 0 69.173569 65.179886"
+   height="41.969891mm"
+   viewBox="0 0 69.173569 41.969891"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
@@ -120,9 +120,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="133.31496"
-     inkscape:cy="40.269599"
+     inkscape:zoom="1.979899"
+     inkscape:cx="120.47171"
+     inkscape:cy="11.750152"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -138,7 +138,7 @@
     <inkscape:grid
        type="xygrid"
        id="grid4761"
-       originx="-67.336453"
+       originx="-67.336451"
        originy="-136.75614" />
   </sodipodi:namedview>
   <metadata
@@ -157,7 +157,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-67.336457,-95.063964)">
+     transform="translate(-67.336457,-118.27396)">
     <rect
        style="opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect4747"
@@ -176,18 +176,7 @@
          x="84.723984"
          y="148.77798"
          style="stroke-width:0.26458332">AC                B</tspan></text>
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4753"
-       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="scale(0.26458333)"><flowRegion
-         id="flowRegion4755"><rect
-           id="rect4757"
-           width="62.857143"
-           height="32.142857"
-           x="379.28571"
-           y="356.80539" /></flowRegion><flowPara
-         id="flowPara4759">A</flowPara></flowRoot>    <path
+    <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 100.54167,143.54167 v 7.9375"
        id="path4763"
