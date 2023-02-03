@@ -9,7 +9,11 @@
 /*.toc
 /*.upa
 /*.vrb
+/anim
+/_minted*
 /multiplier-seq.pdf
 /wallace-tree.pdf
 /wallace-tree3.pdf
 /wallace-tree2.pdf
+/divider-seq.pdf
+/doplnek-graf.pdf

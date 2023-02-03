@@ -8,6 +8,8 @@
 /*.out
 /*.toc
 /*.upa
+/*.vrb
+/anim
 /cpu-load2.pdf
 /cpu-vonNeumann.pdf
 /cpu-addi.pdf
@@ -20,3 +22,7 @@
 /cpu-add.pdf
 /cpu-store2.pdf
 /cpu-store.pdf
+/cpu_step.pdf
+/cpu-load-red.pdf
+/cpu-add2.pdf
+/cpu-time.pdf
