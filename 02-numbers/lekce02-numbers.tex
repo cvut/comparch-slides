@@ -12,8 +12,7 @@
 
 \maketitle
 
-\section{Opakování}
-
+\section{Operace s celými čísly}
 
 \begin{frame}
 \frametitle{Opakování}
@@ -161,12 +160,13 @@ Stejný princip násobení, jak jste se ho naučili na základní škole pro des
 \begin{frame}
 \frametitle{Násobení celých čísel}
 
-Podle uvedeného algoritmu můžeme vytvořit náseldující násobičku s posuvným registrem:
+Podle uvedeného algoritmu můžeme vytvořit náseldující násobičku s posuvným registrem:\\
+(A,B 32 bitů, výsledek 64 bitů)
 \begin{center}
-\includegraphics[width=0.7\textwidth]{multiplier-seq.pdf}
+\includegraphics[width=0.5\textwidth]{multiplier-seq.pdf}
 \end{center}
 \begin{itemize}
-\item Výsledek je ve dvou registrech AC a B
+\item Výsledek je ve dvou registrech AC a B 
 \item Pomalé, už sčítání je náročné, nyní 32 nebo 64 sčítání.
 \end{itemize}
 \end{frame}
@@ -236,7 +236,41 @@ Když se podíváme jen na prostřední nejdelší sloupec:
 \begin{frame}
 \frametitle{Dělení celých čísel}
 
-Obdoba násobení, nalezneme i zbytek po dělení
+Dělení lze zkonstruovat podobně, jako jste se učili na základní škole:
+\bigskip
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\texttt{\phantom{-}240:11=21}\\
+\texttt{-22}\\
+\vspace{-8pt}
+\rule[0]{1cm}{0.1pt}\\
+\texttt{\phantom{xx}20}\\
+\texttt{\phantom{x}-11}\\
+\vspace{-8pt}
+\rule[0]{1cm}{0.1pt}\\
+\texttt{\phantom{xxx}9}\\
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\texttt{\phantom{x}11110000:1011=10101}\\
+\texttt{-1011}\\
+\vspace{-8pt}
+\rule[0]{1cm}{0.4pt}\\
+\texttt{\phantom{xx}1000}\\
+\texttt{\phantom{xx}10000}\\
+\texttt{\phantom{xx}-1011}\\
+\vspace{-8pt}
+\rule[0]{1.4cm}{0.4pt}\\
+\texttt{\phantom{xxxx}1010}\\
+\texttt{\phantom{xxxx}10100}\\
+\texttt{\phantom{xxxx}-1011}\\
+\vspace{-8pt}
+\rule[0]{1.8cm}{0.4pt}\\
+\texttt{\phantom{xxxxx}1001}\\
+\end{column}
+\end{columns}
+\bigskip
+Oba výpočty počítají, že 240 děleno 11 je 21 a zbytek neboli \texttt{240\%11=9}.
 
 \end{frame}
 
@@ -244,49 +278,204 @@ Obdoba násobení, nalezneme i zbytek po dělení
 \begin{frame}
 \frametitle{Dělení celých čísel}
 
-Dělička - existuje rychlejší algoritmus, ale je velmi složitý
+Dělička počítající \typett{A/B}, A má 64 bitů, B 32 bitů:\\
+\begin{columns}
+\begin{column}{0.4\textwidth}
+číslo A je uloženo ve dvou registrech AC,A\\¨
+\includegraphics[width=1\textwidth]{divider-seq.pdf}
+\end{column}
+\hfill
+\begin{column}{0.6\textwidth}
+\begin{itemize}
+\item Výsledek: v registru A je podíl, v registru AC je zbytek -- modulo
+\item v posledním kroku je nutné posunout pouze registr A, AC se již neposouvá -- promyslete proč
+\item Dělička -- existuje rychlejší algoritmus High Radix Division (je velmi složitý, přesahuje rozsah tohoto předmětu)
+\begin{itemize}
+\item Odhaduje několik bitů na jednou a pak upřesňuje iteracemi
+\item 1994 -- Pentium FDIV bug -- chyba při implementaci algoritmu Sweeney, Robertson, and Tocher (SRT) - odhaduje dva bity
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
+
 
 \end{frame}
 
 
 \section{Záporná čísla}
+
 \begin{frame}
-\frametitle{Reprezentace záporných čísel}
-Doplněk dvou
+\frametitle{Záporná čísla}
+
+Potřebujeme zakódovat znaménko do reprezentace čísla:
+\begin{itemize}
+\item naivně - vrchní bit bude znaménko
+\begin{itemize}
+\item Máme 0 a -0, přitom je to stejné číslo
+\item Potřebujeme jiný algoritmus na sčítání  
+\end{itemize}
+\item dvojkový doplněk -- two complement
+\begin{itemize}
+\item reprezentace x k-bitovým číslem je vlastně $x$ \texttt{mod} $2^k$
+\begin{itemize}
+\item pro $x\ge0$ je reprezentace $x$
+\item pro $x<0$ je reprezentace $2^k-|x|$
+\end{itemize}
+\item výhoda: sčítání funguje tak, jak jsme si ho navrhli pro všechna čísla, kladná i záporná.
+\end{itemize}
+\begin{itemize}
+\item 8-bitová -1 je \texttt{11111111}
+\item 5+(-1) je \texttt{101+11111111=\textcolor{red}{1}00000100}, devátý bit se do reprezentace čísla nevejde, tedy výsledek je \texttt{101+11111111=100}
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Dvojkový doplněk}
+\begin{itemize}
+\item rozsah čísel reprezentovaných k-bity je $<-2^{k-1}, 2^{k-1}-1>$
+\item pro číslo X budeme značit A(X) jeho reprezentaci v dvojkovém doplňku:
+\end{itemize}
+\vspace{-0.3cm}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=0.9\textwidth]{doplnek-graf.pdf}
+\end{column}
+\hfill
+\begin{column}{0.5\textwidth}
+\begin{tabular}{|c|c|}\hline
+{\small Binární hodnota}  & {\small Dvojkový doplněk} \\\hline
+\textbf{0}0000000 & $0_{(10)}$ \\ \hline
+\textbf{0}0000001 & $1_{(10)}$ \\ \hline
+... & ... \\\hline
+\textbf{0}1111110 & $126_{(10)}$ \\ \hline
+\textbf{0}1111111 & $127_{(10)}$ \\ \hline
+\textbf{1}0000000 & $-128_{(10)}$ \\ \hline
+\textbf{1}0000001 & $-127_{(10)}$ \\ \hline
+\textbf{1}0000010 & $-126_{(10)}$ \\ \hline
+... & ... \\\hline
+\textbf{1}1111101 & $-3_{(10)}$ \\ \hline
+\textbf{1}1111110 & $-2_{(10)}$ \\ \hline
+\textbf{1}1111111 & $-1_{(10)}$ \\ \hline
+\end{tabular}
+\end{column}
+\end{columns}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Opačné číslo}
+\begin{itemize}
+\item Protože sčítání funguje s dvojkovým doplňkem, tak nemusíme navrhovat obvod pro odčítání, jednoduše \texttt{A-B} vypočteme jako \texttt{A+(-B)}
+\item potřebujeme vymyslet jak získat z \texttt{B} hodnotu \texttt{-B}
+\begin{itemize}
+\item víme, že záporné $X = 2^k-|X|$
+\item pokud znegujeme každý bit, tak je to vlastně $(2^{k-1}-1)-X$, protože $2^{k-1}-1$ je číslo složené z $k$ jedniček
+\end{itemize}
+\item Výsledný postup je tedy:
+\begin{enumerate}
+\item znegujte všechny bity čísla $X$
+\item k výslednému číslu přičti 1
+\end{enumerate}
+\end{itemize}
 
-Jak z X udělat -X
+Příklad:\\
+\texttt{53=0b00110101} znegováním cifer dostaneme \texttt{-54=0b11001010} po přičtení 1 pak  \texttt{-53=0b11001011}
 
 \end{frame}
 
-
-\begin{frame}
-\frametitle{Počítání se zápornými čísly}
-
-Výhoda reprezentace doplněk dvou, nemusíme vymýšlet nové sčítání, funguje stejný algoritmus
-\end{frame}
 
 \begin{frame}
 \frametitle{Odčítání}
 
-Přičteme opačné číslo a je to.
+Přičteme opačné číslo a je to:
+
+obrázek
+\end{frame}
+
+\begin{frame}
+\frametitle{Násobení a dělení}
+
+\begin{itemize}
+\item pro násobení lze odvodit, že pokud bychom ignorovali znaménko a spočítali A*B, pak musíme výsledek upravit ...
+\item moderní násobení a dělení počítá s absolutními hodntami a nakonec určíme znaménko výsledku podle znaménka operandů.
+\begin{itemize}
+\item nejvyšší bit značí znaménko
+\item výpočet opačného čísla je rychlý a levný
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Čísla se znaménkem}
+Reprezentace celých čísel
+
+V jazyce C jsou typy:
+\begin{tabular}{|l|r|r|c|}\hline
+typ & min & max & počet\\
+ &  & &  bajtů\\ \hline
+char & -128 & 127 & 1 \\ \hline
+short & -32 768 & 32 767 & 2 \\ \hline 
+long & -2 147 483 648 & 2 147 483 647 & 4 \\ \hline
+long long & -9 223 372 036 & 9 223 372 036  & 8 \\ 
+ & \phantom{xx} 854 775 808 & \phantom{xx}854 775 807 &  \\ \hline
+\end{tabular}
+
+\begin{itemize}
+\item Norma C má ve skutečnosti min o 1 větší , kvůli procesorům s jedničkovým doplňkem -- ten se dnes již prakticky nepoužívá
+\item Stejně tak \texttt{int} musíte otestovat, zda je 2 bajtový nebo 4 bajtový
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile, shrink=5]
+\frametitle{Kvíz}
+
+Uvažujte tento program:
+\begin{minted}{c}
+#include <stdio.h>
+int main() {
+  unsigned char a=150u, b=120u, c;
+  char sa=-100, sb=-80, sc;
+  
+  c=a+b;
+  sc=sa+sb;
+  printf("c=%u sc=%d\n", c, sc);
+}
+\end{minted}
+
+Co program vytiskne:
+\begin{itemize}
+\item[A] c=270 sc=-180
+\item[B] c=14 sc=-76
+\item[C] c=14 sc=76
+\item[D] c=-14 sc=-76
+\item[E] Numeric error
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Přetečení}
 
-Co se stane, když spustíte následujcí C program:
+Přetečení při sčítání kladných čísel:
 
-\end{frame}
+Pokud se podíváme co se stalo, unsigned char je 8-bitová reprezentace čísel:\\
+\texttt{\phantom{x}150 = \phantom{x}1001 0110}\\
+\texttt{+120 = \phantom{x}0111 1000}\\
+\texttt{\phantom{xx}14 = \phantom{x}0000 1110}\\
+\texttt{\phantom{x}270 =1 0000 1110}
 
-\begin{frame}
-\frametitle{Přetečení}
+Protože se výsledek nevejde do 8-bitů, nejvyšší jednička se ztratí a výsledek je pouze 14.
 
-Přetečení při sčítání kladnách čísel.
+Pokud to chcete detekovat, máte následující možnosti:
+\begin{itemize}
+\item C23 bool ckd\_add(type1 *result, type2 a, type3 b) -- součet dvou čísel s detekcí přetečení
+\item GNU GCC 5+, Clang 3.8+ \_\_builtin\_add\_overflow(a, b, result) -- obě verze i pro sub a mul
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -295,11 +484,6 @@ Přetečení při sčítání kladnách čísel.
 Přetečení při sčítání Záporných čísel.
 \end{frame}
 
-\begin{frame}
-\frametitle{Násobení a dělení}
-
-Počítáme s absolutními hodntami a nakonec určíme znaménko výsledku podle znaménka operandů.
-\end{frame}
 
 \begin{frame}
 \frametitle{Jiné reprezentace záporných čísel}
