@@ -153,7 +153,7 @@
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1848"
-     inkscape:window-height="1136"
+     inkscape:window-height="1016"
      inkscape:window-x="72"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -175,7 +175,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -196,7 +196,7 @@
          y="125.02082"
          style="stroke-width:0.26458332"> w<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4872">32</tspan>...w<tspan
+   id="tspan4872">31</tspan>...w<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4870">4</tspan>w<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -213,7 +213,7 @@
          style="stroke-width:0.26458332"
          id="tspan4822">+x<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4874">32</tspan>...x<tspan
+   id="tspan4874">31</tspan>...x<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4868">4</tspan>x<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -230,7 +230,7 @@
          style="stroke-width:0.26458332"
          id="tspan4824">+y<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4840">32</tspan>...y<tspan
+   id="tspan4840">31</tspan>...y<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4842">4</tspan>y<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -247,7 +247,7 @@
          style="stroke-width:0.26458332"
          id="tspan4826">+z<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4838">32</tspan>...z<tspan
+   id="tspan4838">31</tspan>...z<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4836">4</tspan>z<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -264,7 +264,7 @@
          style="stroke-width:0.26458332"
          id="tspan4876"> p<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4886">32</tspan>...p<tspan
+   id="tspan4886">31</tspan>...p<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4896">4</tspan>p<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -281,7 +281,7 @@
          style="stroke-width:0.26458332"
          id="tspan4878"> c<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4888">31</tspan>...c<tspan
+   id="tspan4888">30</tspan>...c<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4894">3</tspan>c<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -296,7 +296,7 @@
          style="stroke-width:0.26458332"
          id="tspan4880"> z<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4890">32</tspan>...z<tspan
+   id="tspan4890">31</tspan>...z<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4892">4</tspan>z<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -313,7 +313,7 @@
          style="stroke-width:0.26458332"
          id="tspan4882"> q<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4920">32</tspan>...q<tspan
+   id="tspan4920">31</tspan>...q<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4926">4</tspan>q<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -330,7 +330,7 @@
          style="stroke-width:0.26458332"
          id="tspan4884"> c<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4922">31</tspan>...c<tspan
+   id="tspan4922">30</tspan>...c<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4924">3</tspan>c<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -345,7 +345,7 @@
          style="stroke-width:0.26458332"
          id="tspan4944"> s<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4958">32</tspan>...s<tspan
+   id="tspan4958">31</tspan>...s<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan4956">4</tspan>s<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
@@ -368,7 +368,7 @@
          y="151.43192"
          style="stroke-width:0.26458332">c<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4964">32</tspan></tspan></text>
+   id="tspan4964">31</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -381,7 +381,7 @@
          y="167.30692"
          style="stroke-width:0.26458332">c<tspan
    style="font-size:2.75166631px;baseline-shift:sub;stroke-width:0.26458332"
-   id="tspan4964-6">32</tspan></tspan></text>
+   id="tspan4964-6">31</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -394,9 +394,9 @@
          y="172.55135"
          style="stroke-width:0.26458332">s<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan4997">34</tspan>s<tspan
+   id="tspan4997">33</tspan>s<tspan
    style="font-size:2.75166631px;baseline-shift:sub;stroke-width:0.26458332"
-   id="tspan4964-9">33</tspan></tspan></text>
+   id="tspan4964-9">32</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 60.854173,142.74791 H 108.47917"
@@ -599,7 +599,7 @@
          y="162.01524"
          style="stroke-width:0.26458332">c<tspan
    style="font-size:2.75166631px;baseline-shift:sub;stroke-width:0.26458332"
-   id="tspan4964-3">32</tspan></tspan></text>
+   id="tspan4964-3">31</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"

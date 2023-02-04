@@ -101,14 +101,14 @@ adresa & Big-endian & Little-endian \\ \hline
 
 \begin{frame}[fragile]
 \frametitle{Kladná čísla - kvíz}
-\begin{lstlisting}[language={C},columns=flexible]
+\begin{minted}{c}
 #include <stdio.h>
 int main() {
   unsigned char p[] = {0,0,0,0};
   *(int*)p=10;
   printf("%02x,%02x,%02x,%02x\n", p[0],p[1],p[2],p[3]);
 }
-\end{lstlisting}
+\end{minted}
 
 Co bude výstupem tohoto programu na procesorech Intel?
 \begin{itemize}
@@ -209,6 +209,8 @@ Použijeme předchozí princip na co nejrychlejší součet 32 nebo 64 různých
 \begin{itemize}
 \item Součiny jsou jednoduché: $x_iy_j=x_i$~\texttt{and}~$y_j$
 \item Nejtěžší je sečíst prostřední sloupec 64 jednobitových čísel
+\item Pustíme na všechny bity co můžeme paralelně sčítačky a carry budeme přičítat v dalších krocích
+\item V první fázi to bude 1323 sčítaček
 \end{itemize}
 \end{column}
 \end{columns}
@@ -278,7 +280,7 @@ Oba výpočty počítají, že 240 děleno 11 je 21 a zbytek neboli \texttt{240\
 \begin{frame}
 \frametitle{Dělení celých čísel}
 
-Dělička počítající \typett{A/B}, A má 64 bitů, B 32 bitů:\\
+Dělička počítající \texttt{A/B}, A má 64 bitů, B 32 bitů:\\
 \begin{columns}
 \begin{column}{0.4\textwidth}
 číslo A je uloženo ve dvou registrech AC,A\\¨
@@ -390,9 +392,24 @@ Příklad:\\
 \begin{frame}
 \frametitle{Odčítání}
 
-Přičteme opačné číslo a je to:
 
-obrázek
+\begin{columns}
+\begin{column}{0.5\textwidth}
+Odčítání lze řešit:
+\begin{itemize}
+\item speciálním obvodem podobným sčítačce se všemi možnostmi zrychlení jako byly u sčítání
+\item nebo z druhého čísla vytvoříme číslo opačné a to pak jednoduše sečteme s tím prvním
+\end{itemize}
+\end{column}
+\hfill
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{odcitani.pdf}
+\end{center}
+\end{column}
+\end{columns}
+
+
 \end{frame}
 
 \begin{frame}
@@ -465,7 +482,8 @@ Přetečení při sčítání kladných čísel:
 
 Pokud se podíváme co se stalo, unsigned char je 8-bitová reprezentace čísel:\\
 \texttt{\phantom{x}150 = \phantom{x}1001 0110}\\
-\texttt{+120 = \phantom{x}0111 1000}\\
+\texttt{+120 = \phantom{x}0111 1000}\vspace{-6pt}\\
+\rule[0pt]{3.6cm}{0.4pt}\\
 \texttt{\phantom{xx}14 = \phantom{x}0000 1110}\\
 \texttt{\phantom{x}270 =1 0000 1110}
 
@@ -481,29 +499,141 @@ Pokud to chcete detekovat, máte následující možnosti:
 \begin{frame}
 \frametitle{Přetečení}
 
-Přetečení při sčítání Záporných čísel.
+Přetečení při sčítání čísel se znaménkem je složitější. Co je dobře a co je špatně:
+\bigskip
+\begin{columns}
+\begin{column}{0.3\textwidth}
+\texttt{-112 = 10010000}\\
+\texttt{+\phantom{x}45 = 00101101}\\
+\vspace{-8pt}
+\rule[0pt]{3cm}{0.1pt}\\
+\texttt{\phantom{x}-67 = 10111101}\\
+\begin{center}
+\large DOBŘE
+\end{center}
+\end{column}
+\hfill
+\begin{column}{0.3\textwidth}
+\texttt{\phantom{xx}-12 = 11110100}\\
+\texttt{+ -20 = 11101100}\\
+\vspace{-8pt}
+\rule[0pt]{3cm}{0.1pt}\\
+\texttt{\phantom{xx}-32 =\textcolor{red}{1}11100000}\\
+\begin{center}
+\large DOBŘE
+\end{center}
+\end{column}
+\hfill
+\begin{column}{0.3\textwidth}
+\texttt{\phantom{xx}-90 = 10100110}\\
+\texttt{+ -42 = 11010110}\\
+\vspace{-8pt}
+\rule[0pt]{3cm}{0.1pt}\\
+\texttt{\phantom{xx}124 =\textcolor{red}{1}01111100}\\
+\begin{center}
+\large ŠPATNĚ
+\end{center}
+\end{column}
+\end{columns}
+\bigskip
+Přetečení při sčítání čísel se znaménkem nastane právě tehdy, když dojde k přenosu na posledních sifrách a zároveň nedojde k přenosu na předposledních cifrách.
+
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Jiné reprezentace záporných čísel}
 
-Čísla s posunutou nulou
+Čísla s posunutou nuou:
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item pro k-bitouvou reprezentaci zvolíme číslo S (většinou $S=2^{k-1}$ nebo $S=2^{k-1}-1$)
+\item reprezetace -- kód čísla X je $A(X) = X+S$
+\item rozkódování je funkcí $D(A) = A-S$
+\item rozsah čísel reprezentovaných je $<-S, 2^{k}-S-1>$
+\end{itemize}
+\end{column}
+\hfill
+\begin{column}{0.5\textwidth}
+Pro k=8 a S=127
+\bigskip
+\begin{tabular}{|c|c|}\hline
+{\small Binární hodnota}  & {\small Hodnota} \\\hline
+00000000 & $-127_{(10)}$ \\ \hline
+00000001 & $-126_{(10)}$ \\ \hline
+... & ... \\\hline
+01111110 & $-1_{(10)}$ \\ \hline
+01111111 & $0_{(10)}$ \\ \hline
+10000000 & $1_{(10)}$ \\ \hline
+10000001 & $2_{(10)}$ \\ \hline
+... & ... \\\hline
+11111110 & $127_{(10)}$ \\ \hline
+11111111 & $128_{(10)}$ \\ \hline
+\end{tabular}
+\end{column}
+\end{columns}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Počítání s posunutou nulou}
 
-Čísla s posunutou nulou
+\begin{itemize}
+\item sčítání a odčítání čísel s posunutou nulou je složitější:
+\item $A ( X + Y )=( X + Y )+S =( X + S )+(Y + S ) - S = A ( X )+ A (Y ) -S$
+\item $A ( X - Y )=( X - Y )+ S =( X + S ) - (Y +S )+S = A ( X ) - A (Y )+S$
+\item násobení je ještě složitější:
+\item $A ( X \cdot Y )=( X \cdot Y )+S =( X + S )\cdot(Y + S )-( X + S +Y +S )\cdot S + S^2+ S
+= A ( X )\cdot A (Y ) - ( A ( x)+ A ( y ))\cdot S + S^2 +S$
+\end{itemize}
+\bigskip
+\begin{itemize}
+\item Přetečení:
+\begin{itemize}
+\item při sčítání jsou znaménka sčítanců stejná a výsledek má jiné znaménko
+\item při odčítání čísel s různými znaménky má výsledek jiné znaménko než menšenec
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Kvíz}
+
+Při sčítání dvou čísel s odlišnými znaménky (výsledek je stejná reprezentace čísla se znaménkem):
+\begin{itemize}
+\item[A] může dojít k přetečení jen v dvokovém doplňku
+\item[B] může dojít k přetečení jen v reprezentaci s posunutou nulou
+\item[C] může dojít k přetečení v dvokovém doplňku i v reprezentaci s pousunutou nulou
+\item[D] nemůže dojít v žádné reprezentaci čísel se znaménkem
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Jiné reprezentace záporných čísel}
 
-Doplněk jedné
+Doplněk jedné:
+\begin{itemize}
+\item záporné číslo je negací bitů opačného čísla 
+\begin{itemize}
+\item pro $X\ge0$ je reprezentace $A(X) = X$
+\item pro $X<0$ je reprezentace $A(X) = 2^k-1-|X|$
+\end{itemize}
+\item nevýhody: dvě reprezentace 0, složitější sčítání čísel se znaménky
+\end{itemize}
 
 BCD formát
+\begin{itemize}
+\item jiná reprezentace celých čísel, každá cifra jeden nibble 
+\begin{itemize}
+\item číslo \texttt{1234} je uloženo v hexadecimálním tvaru jako \texttt{0x1234}
+\end{itemize}
+\item výhody: snadný převod na desítkovou soustavu
+\item nevýhody: neefektivní reprezentace, složitější počítání
+\end{itemize}
 \end{frame}
 
 
@@ -513,7 +643,16 @@ BCD formát
 \begin{frame}
 \frametitle{Reálná čísla}
 
-Dvojková reálná čísla
+\begin{itemize}
+\item Celé číslo $X$ v binární soustavě je součet $k$ bitů $b_i$ vynásobených mocninami 2, tedy $ X = \sum_{i=0}^{k-1} b_i 2^{i} $
+\item Reálné číslo $X$ v binární soustavě je obdobný součet $k+j$ bitů $b_i$ vynásobených mocninami 2, ale začneme již v záporných mocninách: $X = \sum_{i=-j}^{k} b_i 2^{i}$
+\item jistě si všichni pamatujete ze střední školy, že $2^{-j} = \frac{1}{2^j}$
+\end{itemize}
+
+
+\begin{center}
+\includegraphics[width=0.65\textwidth]{float_bin.pdf}
+\end{center}
 
 \end{frame}
 
@@ -521,19 +660,73 @@ Dvojková reálná čísla
 \begin{frame}
 \frametitle{Reálná čísla}
 
-Čísla s pevnou destinnou čárkou
+Čísla s pevnou destinnou čárkou (fixed point numbers):
 
-Obdoba čísel s posunutou nulou
+\begin{itemize}
+\item obdoba čísel s posunutou 0
+\item reálné číslo je reprezentované k-bitovým celým číslem se znaménkem, dále zvolíme pevný počet desetinných míst s bitů, kdy $0 \le s \le k$
+\item reprezetace -- kód čísla X je $A(X) = \lceil X \cdot 2^s \rceil$
+\item rozkódování je funkcí $D(A) = \frac{A}{2^s}$
+\item rozsah čísel reprezentovaných je $<-\frac{2^{k-1}}{2^s}, \frac{2^{k-1}-1}{2^s}>$
+\item přesnost reprezentace čísel je $\pm \frac{1}{2^s}$.
+\end{itemize}
 
-Jednoduché sčítání odčístání, složité násobení, dělení
+Speciální případ:
+\begin{itemize}
+\item pokud chcete reprezentovat reálná čísla z intervalu $<0,1)$
+\item pak můžete nastavit $s=k$
+\item dosáhnete lepší přesnosti než odpovídající \texttt{float}, nebo \texttt{double}
+\end{itemize}
+
+Některé SIMD instrukce používají pevnou desetinnou čárku.
+
 \end{frame}
+
+\begin{frame}
+\frametitle{Reálná čísla}
+
+Počítání s čísly s pevnou destinnou čárkou:
+
+\begin{itemize}
+\item součet a rozdíl je součem a rozdílem celočíselné reprezentace čísel
+\item násobení je složitější:
+\begin{itemize}
+\item $A(X \cdot Y) = (X \cdot Y ) \cdot 2^s = \frac{(X \cdot 2^s)\cdot( Y\cdot 2^s) }{2^s} = \frac{A(X) \cdot A(Y)}{2^k}$
+\end{itemize}
+\item dělení je obdobné:
+\begin{itemize}
+\item $A(\frac{X}{Y}) = (\frac{X}{Y}) \cdot 2^s = \frac{(X \cdot 2^s)\cdot2^s }{( Y\cdot 2^s)} = \frac{A(X) \cdot 2^k}{A(Y)}$
+\end{itemize}
+\item Nejedná se o výrazné zesložitění, protože násobení číslem $2^s$ je posun o s bitů doleva a dělení číslem $2^s$ je posun o s bitů doprava.
+\end{itemize}
+
+
+
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Plovoucí desetinná čárka}
 
-Plovoucí desetinná čárka, floating point numbers
+Plovoucí desetinná čárka (floating point numbers)
 
-Obdoba dekadického zápisu reálných čísel
+\bigskip
+
+Obdoba vědeckého zápisu reálných čísel:
+$-123 000 000 000 000.0 = -1.23 \cdot 10^{14} = -1.23E 14$\\
+$0.000 000 000 000 123 = -1.23 \cdot 10^{-13} = -1.23E-13$\\
+
+\bigskip
+
+Binární reprezentace používá obdobně mocninu 2:\\
+$110 1100 0000 0000.0 = 1.1011 \cdot 2^{14} = 1.1011E 14 = 29696_{10}$\\
+$-0.0000 0000 0000 0001 1101 = -1.1101 \cdot 2^{-16} = -1.1101E-16 \approx$\\
+\phantom{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}$\approx0.00002765_{10}$\\
+
+\bigskip
+
+Všiměte si, že každé reálné číslo (kromě 0) začíná v binárním vědeckém zápisu jedničkou.
+
 
 \end{frame}
 

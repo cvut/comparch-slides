@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="99.218742mm"
-   height="51.466782mm"
-   viewBox="0 0 99.218743 51.466782"
+   width="107.7235mm"
+   height="51.088806mm"
+   viewBox="0 0 107.72351 51.088807"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
@@ -147,13 +147,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="175.21652"
-     inkscape:cy="78.884689"
+     inkscape:cx="207.3605"
+     inkscape:cy="77.456111"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1848"
-     inkscape:window-height="1136"
+     inkscape:window-height="1016"
      inkscape:window-x="72"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -164,8 +164,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid4761"
-       originx="-44.979167"
-       originy="-123.46534" />
+       originx="-36.47441"
+       originy="-123.84331" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -183,7 +183,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-44.979175,-122.06788)">
+     transform="translate(-36.474414,-122.06788)">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -380,7 +380,7 @@
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan5844">0</tspan>y<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan5846">0</tspan>  0</tspan><tspan
+   id="tspan5846">1</tspan>  0</tspan><tspan
          sodipodi:role="line"
          x="113.77084"
          y="144.86458"
@@ -519,20 +519,22 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="47.625008"
-       y="172.64583"
+       x="36.191227"
+       y="172.26785"
        id="text5934"><tspan
          sodipodi:role="line"
          id="tspan5932"
-         x="47.625008"
-         y="172.64583"
+         x="36.191227"
+         y="172.26785"
          style="stroke-width:0.26458332">q<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan5936">127</tspan>   q<tspan
+   id="tspan5067">127</tspan>  q<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan5938">126</tspan>  q<tspan
+   id="tspan5936">126</tspan>   q<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
-   id="tspan5940">125</tspan>     q<tspan
+   id="tspan5938">125</tspan>  q<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan5940">124</tspan>     q<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
    id="tspan5942">63</tspan>      q<tspan
    style="font-size:64.99999762%;baseline-shift:sub"
