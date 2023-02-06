@@ -407,7 +407,7 @@ Příklad: Logická operace not, jeden vstupní vodiče X, jeden výstupní vodi
 \end{column}
 \begin{column}{0.55\textwidth}  
 \begin{center}
-   \includegraphics[width=0.8\textwidth]{ttl_neg.pdf}
+   \includegraphics[width=0.8\textwidth]{cmos_neg.pdf}
 \end{center}
 \end{column}
 \end{columns}
@@ -428,8 +428,7 @@ Rozšířené operace nand, nor, xor a libovolné logické funkce se skládají 
 & \texttt{= (X or Y) and (X nand Y)}\\
 \end{tabular}
 
-Některé funkce lze převést do hradel i efektivněji než přes základní logické funkce and, or, not.
-Operace nand a nor jsou jednodušší než and a or.
+
 \end{frame}
 
 
@@ -441,17 +440,54 @@ Přehled hradel a jejich symbolů
    \includegraphics[width=0.8\textwidth]{log_symbols.pdf}
 \end{center}
 
+Souhrná tabulka základních logických hradel:
+\begin{tabular}{|c|c|c|c|c|c|c|c|}\hline
+X & Y & X and Y & X or Y & X xor Y & X nand Y & X nor Y & X xnor Y \\\hline
+0 & 0 &    0    &   0    &    0    &     1    &    1    &    1     \\\hline
+0 & 1 &    0    &   1    &    1    &     1    &    0    &    0     \\\hline
+1 & 0 &    0    &   1    &    1    &     1    &    0    &    0     \\\hline
+1 & 1 &    1    &   1    &    0    &     0    &    0    &    1     \\\hline
+\end{tabular}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Booleova algebra - kvíz}
+
 Vodiče se mohou i větvit. Co dělá následující obvod:
 \begin{center}
-   \includegraphics[width=0.2\textwidth]{not_jako_nand.pdf}
+   \includegraphics[width=0.4\textwidth]{not_jako_nand.pdf}
 \end{center}
 
 \begin{tabular}{ll}
 A) takto to nelze zapojit \phantom{XXXX} & B) výsledkem je X and Y\\
 C) výsledkem je X and not Y              & D) výsledkem je not X
 \end{tabular}
+
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Logické obvody}
+
+Některé funkce lze převést do hradel i efektivněji než přes základní logické funkce and, or, not.
+
+Hradlo nand je základním hradlem a lze z něj postavit všechny ostatní hradla.
+
+\begin{center}
+   \includegraphics[width=0.5\textwidth]{or_by_nand.pdf}
+\end{center}
+
+Kvíz: Co je toto za funkci:
+\begin{itemize}
+\item[A] X and Y
+\item[B] X or Y
+\item[C] X xor Y
+\item[D] X nor Y
+\end{itemize}
+
+\end{frame}
 
 
 \begin{frame}
@@ -715,11 +751,25 @@ Co tedy s většími čísly, třeba 64-bitovými?
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Sčítání - Carry Select Adder}
+
+2x adder + multiplexor
+
+\begin{itemize}
+\item Rychlost 16-ti bitové sčítačky z obrázku bude 10 zpoždění hradel
+\item Rychlost 64-ti bitové sčítačky bude 34 zpoždění hradel, což je o něco lepší, než 64 zpoždění u řetězení CLA.
+\end{itemize}
+
+\end{frame}
+
+
+
 
 \begin{frame}
 \frametitle{Sčítání - Carry Lookahead Adder}
 
-Můžeme s tady ještě něco vylepšit?
+Můžeme ještě něco vylepšit?
 \begin{itemize}
 \item Můžeme zavést proměnné generuj a propaguj pro skupinu bitů:
 \begin{itemize}
@@ -751,9 +801,11 @@ Takto lze realizovat výše uvedený výpočet:
 
 Doba výpočtu dvojic $G_{i,k}$ a $P_{i,k}$:
 \begin{itemize}
-\item Rychlost 4-ti bitových sčítanců 5 zpoždění hradel
-\item Rychlost 8-ti bitových sčítanců 7 zpoždění hradel
-\item Rychlost 64-ti bitových sčítanců 13 zpoždění hradel
+\item Rychlost 4 bitových sčítanců 5 zpoždění hradel
+\item Rychlost 8 bitových sčítanců 7 zpoždění hradel
+\item Rychlost 16 bitových sčítanců 9 zpoždění hradel
+\item Rychlost 32 bitových sčítanců 11 zpoždění hradel
+\item Rychlost 64 bitových sčítanců 13 zpoždění hradel
 \end{itemize}
 
 \end{column}
