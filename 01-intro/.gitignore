@@ -8,6 +8,8 @@
 /*.out
 /*.toc
 /*.upa
+/*.vrb
+/_minted*
 /cpu-vonNeumann.pdf
 /cpu.pdf
 /ttl_log01.pdf
@@ -28,3 +30,4 @@
 /barrel-shift.pdf
 /cmos_neg.pdf
 /or_by_nand.pdf
+/lookahead_select.pdf

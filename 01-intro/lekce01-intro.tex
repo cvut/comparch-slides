@@ -754,9 +754,20 @@ Co tedy s většími čísly, třeba 64-bitovými?
 \begin{frame}
 \frametitle{Sčítání - Carry Select Adder}
 
-2x adder + multiplexor
+
+Jiné řešení?
 
 \begin{itemize}
+\item Víme, že Carry je buď 0 nebo 1
+\item 4bit CLA zdvojíme a spočteme výsledek pokud vstupní Carry je 0 i 1
+\item Nakonec řetězíme pouze multiplex, zda skutečně Carry bylo 0 nebo 1
+\end{itemize}
+\begin{center}
+   \includegraphics[width=0.75\textwidth]{lookahead_select.pdf}
+\end{center}
+
+\begin{itemize}
+\item Sčítačka je rychlejší, místo zpoždění 4 hradel bude řetězit pouze zpoždění 2 hradel pro multiplexor
 \item Rychlost 16-ti bitové sčítačky z obrázku bude 10 zpoždění hradel
 \item Rychlost 64-ti bitové sčítačky bude 34 zpoždění hradel, což je o něco lepší, než 64 zpoždění u řetězení CLA.
 \end{itemize}
@@ -865,7 +876,7 @@ Doba výpočtu dvojic $G_{i,k}$ a $P_{i,k}$:
 \begin{frame}
 \frametitle{Multiplex}
 
-Podobný přístup lze využít třeba i při konstrukci multiplexu:
+Podobný přístup (rozděl a panuj - vytvoř stromovou strukturu) lze využít třeba i při konstrukci multiplexu:
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{center}
@@ -876,7 +887,7 @@ Podobný přístup lze využít třeba i při konstrukci multiplexu:
 \begin{itemize}
 \item Podle tříbitového čísla $x$ se vybere odpovídající vstup $a_x$ na výstup $Y$
 \item Není to nejrychlejší implementace, ale je přehledná
-\item c
+\item Můžeme využít i 4 vstupový multiplex a snížit počet úrovní stromu.
 \end{itemize}
 
 \end{column}
@@ -884,15 +895,71 @@ Podobný přístup lze využít třeba i při konstrukci multiplexu:
 
 \end{frame}
 
+\begin{frame}[fragile,shrink=5]
+\frametitle{Operace posun -- shift}
+
+Oprace posun -- shift:
+\begin{itemize}
+\item Odpovídá to operaci jazyka C \texttt{>}\texttt{>} a \texttt{<<}
+\begin{itemize}
+\item Operace lze mimo jiné použít pro násobení mocninou 2 -- oprace \texttt{<<}; pro dělení mocninou 2 -- oprace \texttt{>>}
+\end{itemize}
+\item Jak implementovat posun o k-bitů?
+\end{itemize}
+\begin{columns}
+\begin{column}{0.48\textwidth}
+k-krát rotovat o 1 bit\\
+Porovnej algoritmus mocnění:
+\end{column}
+\begin{column}{0.52\textwidth}
+rotovat o 1, 2, 4, 8, 16 bitů\\
+Porovnej algoritmus rychlého mocnění:
+\end{column}
+\end{columns}
+
+\begin{columns}
+\begin{column}{0.48\textwidth}
+\begin{minted}{c}
+double Exp(double a, int k) {
+  if (k == 0) return 1;
+  return a * FastExp(a, k - 1);
+}
+\end{minted}
+\end{column}
+\begin{column}{0.52\textwidth}
+\begin{minted}{c}
+double FastExp(double a, int k) {
+  if (k == 0) return 1;
+  if (k % 2 == 0) {
+    double i = FastExp(a, k / 2);
+    return i * i;
+  } else {
+    return a * FastExp(a, k - 1);
+  }
+}
+\end{minted}
+
+\end{column}
+\end{columns}
+
+
+
+\end{frame}
+
+
 
 \begin{frame}
 \frametitle{Barrel shifter}
 
-Obdobný přístup je i pro posun (shift) o zadaný počet bitů:
+Rotaci o 0-7bitů lze složit z rotací o 1, 2, 4:
 \begin{center}
    \includegraphics[width=0.75\textwidth]{barrel-shift.pdf}
 \end{center}
 
+\begin{itemize}
+\item Multiplexory v každé řadě vybírají buď nedělej nic nebo posuň o daný počet bitů.
+\item Bitové vstupy $x_2,x_1,x_0$ reprezentující
+\end{itemize}
 
 \end{frame}
 
