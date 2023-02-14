@@ -227,7 +227,7 @@ Společný koncept navržený maďarským fyzikem Johnem von Neumannem (1903-195
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
-\item CPU obsahuje registry, které obsahují 16, 32 nebo 64 bitové hodnoty podle architektury čipu
+\item CPU obsahuje uživatelské registry, které obsahují 16, 32 nebo 64 bitové hodnoty podle architektury čipu
 \item CPU načítá z paměti instrukce tak jak jdou za sebou a každou načtenou instrukci vykoná
 \item Adresa právě vykonávané instrukce je ve speciálním registru PC nebo IP
 \item ALU část CPU která umí sčítat, odčítat, násobit, dělit a další aritmetické operace
@@ -267,8 +267,9 @@ nebo zapisovat:\\
 \item Instrukce procesoru jsou jediné činnosti, které procesor umí vykonat
 \item Základní instrukce jsou:
 \begin{itemize}
-\item načíst data z paměti do registrů
-\item provést matematickou operaci s registry a výsledek uložit do registrů
+\item uložit konstantu do registru
+\item načíst data z paměti do registru
+\item provést matematickou operaci s registry a výsledek uložit do registru
 \item uložit data z registru do paměti
 \item porovnat dvě čísla
 \item podle výsledku porovnání provádět jiné instrukce (změnit PC na jinou hodnotu než je následující instrukce = provést skok v programu)
@@ -330,6 +331,24 @@ Complex Instruction Set Computer
 \end{column}
 \end{columns}
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Překlad programu}
+
+Jak je možné, že jste o strojových instrukcích ještě neslyšeli?
+
+\begin{center}
+   \includegraphics[width=0.65\textwidth]{preklad.pdf}
+\end{center}
+
+\begin{itemize}
+\item Programování v assembleru (jazyku symbolických adres) je nekomfortní.
+\item Překladač přeloží vyšší programovací jazyk přímo do strojových instrukcí procesoru
+\item Křízový překlad je, když přeložíte program pro jiný typ procesoru, než na kterém probíhá překlad.
+\end{itemize}
+\end{frame}
+
 
 
 \begin{frame}
@@ -503,7 +522,7 @@ Výsledkem logického obvodu jsou vždy jen logické hodnoty 0 nebo 1.
 Kvíz: Co dělá tento obvod:
 \begin{itemize}
 \item[A] Nic rozumného, je to jen spleť vodičů
-\item[B] Je to multiplex, hodnota Z je jeden ze signálů X podle hodnoty Y
+\item[B] Je to multiplexor, hodnota Z je jeden ze signálů X podle hodnoty Y
 \item[C] Je to dělička, hodnota Z je X/Y
 \item[D] Hodnota Z je 1 pokud je X > Y 
 \end{itemize}
@@ -539,10 +558,16 @@ Kvíz: Jeden vodič reprezentuje jednu hodnotu, buď 0 nebo 1. Jak reprezentovat
 
 Více bitová čísla - binární soustava
 \begin{itemize}
-\item 8 až 64 jednobitových paralelních vodičů
+\item více jednobitových paralelních vodičů
+\begin{itemize}
+\item zpravidla 8,16,32,64 (mocniny 2)
+\item občas potřebujeme i jen části čísel, třeba 5-bitové
+\end{itemize}
 \item pořadí vodičů je důležité
+\begin{itemize}
 \item každý vodič reprezentuje jednu mocninu 2
 \item vodič $a_{i}$, celková hodnota $s = \sum_{i=0}^{63} a_{i}*2^{i}$
+\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -874,7 +899,7 @@ Doba výpočtu dvojic $G_{i,k}$ a $P_{i,k}$:
 
 
 \begin{frame}
-\frametitle{Multiplex}
+\frametitle{Multiplexor}
 
 Podobný přístup (rozděl a panuj - vytvoř stromovou strukturu) lze využít třeba i při konstrukci multiplexu:
 \begin{columns}
@@ -900,7 +925,7 @@ Podobný přístup (rozděl a panuj - vytvoř stromovou strukturu) lze využít 
 
 Oprace posun -- shift:
 \begin{itemize}
-\item Odpovídá to operaci jazyka C \texttt{>}\texttt{>} a \texttt{<<}
+\item Odpovídá to operaci jazyka C \texttt{>>} a \texttt{<<}
 \begin{itemize}
 \item Operace lze mimo jiné použít pro násobení mocninou 2 -- oprace \texttt{<<}; pro dělení mocninou 2 -- oprace \texttt{>>}
 \end{itemize}
@@ -922,7 +947,7 @@ Porovnej algoritmus rychlého mocnění:
 \begin{minted}{c}
 double Exp(double a, int k) {
   if (k == 0) return 1;
-  return a * FastExp(a, k - 1);
+  return a * Exp(a, k - 1);
 }
 \end{minted}
 \end{column}
@@ -958,7 +983,12 @@ Rotaci o 0-7bitů lze složit z rotací o 1, 2, 4:
 
 \begin{itemize}
 \item Multiplexory v každé řadě vybírají buď nedělej nic nebo posuň o daný počet bitů.
-\item Bitové vstupy $x_2,x_1,x_0$ reprezentující
+\item Bitové vstupy $x_2,x_1,x_0$ reprezentující binární číslo o kolik bitů rotovat
+\item Příklad:
+\begin{itemize}
+\item posunutí o 5 bitů dostaneme složením posunutí o 1 bit a posunutí o 4 bity ($x_2=1$, $x_1=0$, $x_0=1$)
+\item posunutí o 3 bity dostaneme složením posunutí o 1 bit a posunutí o 2 bity ($x_2=0$, $x_1=1$, $x_0=1$)
+\end{itemize}
 \end{itemize}
 
 \end{frame}
