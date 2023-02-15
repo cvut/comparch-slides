@@ -7,7 +7,7 @@
 \usepackage{array,multirow}
 
 \subtitle{Lekce 03. Central Processing Unit (CPU)}
-\author{Pavel Píša\\ \small\texttt{pisa@fel.cvut.cz}}
+\author{Pavel Píša \phantom{xxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
 \begin{document}
 
 \maketitle
@@ -15,25 +15,22 @@
 \section{Simulátor}
 
 \begin{frame}
-\frametitle{QtMips and QtRVSim – Origin and Development}
+\frametitle{Simulátory QtMips a QtRVSim}
 
 \begin{itemize}
-\item MipsIt used in past for Computer Architecture course at the Czech Technical University in Prague, Faculty of Electrical Engineering
-\item Diploma theses of Karel Kočí mentored by Pavel Píša
-Graphical CPU Simulator with Cache Visualization
-https://dspace.cvut.cz/bitstream/handle/10467/76764/F3-DP-2018-Koci-Karel-diploma.pdf
-\item Switch to QtMips in the 2019 summer semester
-\item Fixes, extension and partial internals redesign by Pavel Píša
-\item Switch to RISC-V architecture in 2022. Main work by Jakub Dupák 2021
-Graphical RISC-V Architecture Simulator - Memory Model and Project Management
-\item https://dspace.cvut.cz/bitstream/handle/10467/94446/F3-BP-2021-Dupak-Jakub-thesis.pdf
-
-\item Alternatives:
+\item dříve se používalo prostředí MipsIt, které bylo ale velmi omezené
+\item QtMips se pro výuku APO využívá od letního semestru 2019
 \begin{itemize}
- \item RARS: IDE with detailed help and hints
- https://github.com/TheThirdOne/rars
- \item EduMIPS64: 1x fixed and 3x FP pipelines
- https://www.edumips.org/
+\item QtMIPS bylo vytvořeno jako diplomová práce Karla Kočího vedená Pavlem Píšou: \textit{Graphical CPU Simulator with Cache Visualization}, kterou si můžete prohlédnout \url{https://dspace.cvut.cz/bitstream/handle/10467/76764/F3-DP-2018-Koci-Karel-diploma.pdf}
+\item Opravy, rozšíření a částečné přepracování Pavel Píša
+\end{itemize}
+\item v roce 2022 byl simulátor přepracován pro architekturu RISC-V, hlavní změny jsou od Jakuba Dupáka z jeho bakalářské práce z 2021 \textit{Graphical RISC-V Architecture Simulator - Memory Model and Project Management} odkaz:
+\url{https://dspace.cvut.cz/bitstream/handle/10467/94446/F3-BP-2021-Dupak-Jakub-thesis.pdf}
+
+\item Alternativy:
+\begin{itemize}
+ \item RARS: Risc-V Assembler and Runtime Simulator -- IDE založené na systému MARS \url{https://github.com/TheThirdOne/rars}
+ \item EduMIPS64: simulátor napsaný v Javě \url{https://www.edumips.org/}
 \end{itemize}
 \end{itemize}
 
@@ -44,58 +41,60 @@ Graphical RISC-V Architecture Simulator - Memory Model and Project Management
 \frametitle{QtRVSim - Download}
 \begin{itemize}
 \item Windows, Linux, Mac
-https://github.com/cvut/qtrvsim/releases
+\url{https://github.com/cvut/qtrvsim/releases}
 \item  Ubuntu
-https://launchpad.net/~qtrvsimteam/+archive/ubuntu/ppa
+\url{https://launchpad.net/~qtrvsimteam/+archive/ubuntu/ppa}
 \item Suse, Fedora and Debian
-https://software.opensuse.org/download.html?project=home%3Ajdupak&package=qtrvsim
-\item Suse Factory
-TBD
-\item Online version
-https://dev.jakubdupak.com/qtrvsim/
-\item LinuxDays 2019 QtMips talk – Record of Interactive Session
-https://youtu.be/fhcdYtpFsyw
-https://pretalx.linuxdays.cz/2019/talk/EAYAGG/
+https://software.opensuse.org/download.html?project=home\%3Ajdupak&package=qtrvsim
+\item Suse Factory TBD
+\item Online version \url{https://dev.jakubdupak.com/qtrvsim/}
+\item LinuxDays 2019 QtMips talk – záznam interaktivní přednášky
+\url{https://youtu.be/fhcdYtpFsyw}, \url{https://pretalx.linuxdays.cz/2019/talk/EAYAGG/}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[shrink=10]
+\begin{frame}[shrink=5]
 \frametitle{John von Neumann}
 \begin{center}
-\includegraphics[width=0.55\textwidth]{cpu-vonNeumann.pdf}
+\includegraphics[width=0.5\textwidth]{cpu-vonNeumann.pdf}
 \hfill
 \includegraphics[width=0.2\textwidth]{fig/vonNeumann.png}
 \end{center}
 \begin{itemize}
-\item 5 functional units – control unit, arithmetic logic unit, memory, input (devices), output (devices)
-\item An computer architecture should be independent of solved problems. It has to provide mechanism to load program into memory. The program controls what the computer does with data, which problem it solves.
-\item Programs and results/data are stored in the same memory. That memory consists of a cells of same size and these cells are sequentially numbered (address).
-\item The instruction which should be executed next, is stored in the cell exactly after the cell where preceding instruction is stored (exceptions branching etc. ). 
-\item The instruction set consists of arithmetics, logic, data movement, jump/branch and special/control instructions.
+\item 5 základních jednotek – řídicí jednotka, aritmeticko-logická jednotka, paměť, vstup (vstupní zařízení), výstup (výstupní zařízení)
+\item Architektura počítače by neměla být závislá na řešené úloze, měla by umět provádět program uložený v paměti. Program řídí, co počítač vykonává za instrukce a tím jaké dostane výsledky.
+\item Program a data jsou uložena ve stejné paměti, složené z buněk (jednotek) stejné velikosti. Oproti tomu Harvardská architektura měla jeden typ paměti pro program a jiný typ paměti pro data.
+\item Další instrukce, která se bude vykonávat je uložena v následující buňce paměti (mimo skoků v programu)
+\item Instrukce provádějí aritmetické a logické operace, přesuny dat z/do paměti, skoky a větvení programu a speciální řídicí instrukce.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Computer based on von Neumann's concept}
+\frametitle{Počítač založený na von Neumannově konceptu}
 
+Procesor / mikroprocesor:
 \begin{itemize}
-\item Procesor/microprocessor
-\begin{itemize}
-\item Control unit
-\item ALU
+\item Řídicí jednota (control unit)
+\item Aritmeticko-logická jednotka -- ALU
 \end{itemize}
-\item Memory - von Neumann architecture uses common memory, whereas Harvard architecture uses separate program and data memories
-\item Input/output subsystem
+
+Paměť: 
 \begin{itemize}
-\item Input
-\item Output
+\item von Neumann architektura má společnou paměť pro program i data
+\item paměť se skládá z buněk - jednotek, v současné době z bajtů
 \end{itemize}
-\end{itemize}
-The control unit is responsible for control of the operation processing and sequencing. It consists of:
+
+Vstupně výstupní podsystém:
 \begin{itemize}
-\item registers – they hold intermediate and programmer visible state
-\item control logic circuits which represents core of the control unit (CU)
+\item Vstupy -- klávesnice, myši, děrné štítky, magnetopáskové jednotky, síťové karty, ...
+\item Výstupy -- monitory, tiskárny, plotry, síťové karty, ...
+\end{itemize}
+
+Řídicí jednotka řídí práci a sekvenci této práce. Skládá se z:
+\begin{itemize}
+\item registrů – udržují mezivýpočty a stavy výpočtů
+\item řídicích hradel -- dekódují instrukce a provádí operace
 \end{itemize}
 \end{frame}
 
