@@ -104,9 +104,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="177.89062"
-     inkscape:cy="90.737515"
+     inkscape:zoom="1.4"
+     inkscape:cx="369.02978"
+     inkscape:cy="2.8530329"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -133,7 +133,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -152,8 +152,8 @@
     <rect
        style="opacity:0.98000004;fill:none;stroke:#000000;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect817"
-       width="6.6145835"
-       height="14.552083"
+       width="5.2916665"
+       height="14.552093"
        x="48.947918"
        y="95.916664" />
     <text
@@ -166,7 +166,7 @@
          id="tspan819"
          x="49.325893"
          y="104.61012"
-         style="stroke-width:0.26458332">PC</tspan></text>
+         style="stroke-width:0.26458332;font-size:3.52777778px">PC</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -213,19 +213,22 @@
          style="stroke-width:0.26458332">Paměť</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 55.562499,103.85417 H 68.791666"
+       d="m 54.239584,103.85417 14.552082,0"
        id="path6517"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#DotM);marker-end:url(#Arrow1Lend)"
-       d="M 60.854166,103.85417 V 82.6875 h 33.072916"
+       d="M 60.854166,103.85417 V 82.6875 l 32.279168,7e-6"
        id="path6519"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker6845)"
-       d="M 83.343749,72.104167 H 93.927082"
+       d="m 83.343749,72.104167 9.789585,6e-6"
        id="path6835"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -268,5 +271,26 @@
          y="115.76041"
          style="stroke-width:0.26458332"
          id="tspan6989">32bitů</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 50.270834,95.916672 1.322917,1.322917 1.322916,-1.322917"
+       id="path4865"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="47.483261"
+       y="92.467636"
+       id="text4869"><tspan
+         sodipodi:role="line"
+         id="tspan4867"
+         x="47.483261"
+         y="92.467636"
+         style="stroke-width:0.26458332">CLK</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 51.593751,93.270839 v 2.645833"
+       id="path4871"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

@@ -88,7 +88,7 @@ Paměť:
 Vstupně výstupní podsystém:
 \begin{itemize}
 \item Vstupy -- klávesnice, myši, děrné štítky, magnetopáskové jednotky, síťové karty, ...
-\item Výstupy -- monitory, tiskárny, plotry, síťové karty, ...
+\item Výstupy -- monitory (grafické karty), tiskárny, plotry, síťové karty, ...
 \end{itemize}
 
 Řídicí jednotka řídí práci a sekvenci této práce. Skládá se z:
@@ -100,42 +100,38 @@ Vstupně výstupní podsystém:
 
 
 \begin{frame}
-\frametitle{The most important registers of the control unit}
+\frametitle{Nejdůležitější registry procesoru}
 \begin{itemize}
-\item PC (Program Counter)
-holds address of a recent or next instruction to be processed
-\item IR (Instruction Register)
-holds the machine instruction read from memory
+\item PC (Program Counter) -- adresa právě prováděné (nebo následující) instrukce
+\item IR (Instruction Register) -- obsahje kód prováděné instrukce načtený z paměti
 \item Another usually present registers
 \begin{itemize}
-\item General purpose registers (GPRs)
-may be divided to address and data or (partially) specialized registers
-\item SP (Stack Pointer) – points to the top of the stack; (The stack is usually used to store local variables and subroutine return addresses)
-\item PSW (Program Status Word)
-\item IM (Interrupt Mask)
-\item Optional Floating point (FPRs) and vector/multimedia regs.
+\item GPRs (General purpose registers) -- obecné uživatelské registry, mohou se dělit na data a adresy do paměti, nebo být univerzální
+\item SP (Stack Pointer) -- ukazuje na vrchol zásobníku, slouží k organizaci lokálních dat funkcí
+\item PSW (Program Status Word) -- definuje v jakém stavu je procesor
+\item IM (Interrupt Mask) -- kontrola přerušení
+\item FPRs (Floating point registers) -- rozšíření procesoru pro práci s reálnými čísly, případně i vektorové/multimediální registry
 \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{The main instruction cycle of the CPU}
-FLAGS registr 
+\frametitle{Základní cyklus procesoru}
 \begin{enumerate}
-  \item Initial setup/reset – set initial PC value, PSW, etc.
-  \item Read the instruction from the memory
+  \item Počáteční nastavení -- inicializace registru PC a PSW (případně i dalších) po zapnutí proudu nebo po resetu procesoru
+  \item Přečti instrukci z paměti z adresy PC
   \begin{itemize}
-    \item PC → to the address bus
-    \item Read the memory contents (machine instruction) and transfer it to the IR
-    \item PC+l → PC, where l is length of the instruction
+    \item nastav PC na adresu sběrnice paměti
+    \item Přečti obsah ze sběrnice paměti do registru IR
+    \item $PC+l \to PC$, uprav $PC$, $l$ je délka načtené instrukce
   \end{itemize}
-  \item Decode operation code (opcode)
-  \item Execute the operation
+  \item Dekóduj instrukci
+  \item Proveď instrukci
   \begin{itemize}
-    \item compute effective address, select registers, read operands, pass them  through ALU and store result
+    \item spočti adresu, vyber registry, načti operandy, proveď požadovaný výpočet ALU a ulož výsledky
   \end{itemize}
-  \item Check for exceptions/interrupts (and service them)
-  \item Repeat from the step 2
+  \item Zkontroluj zda není přerušení nebo vyjímka (podrobně v přednášce 9)
+  \item Opakuj od kroku 2
 \end{enumerate}
 \end{frame}
 
@@ -194,21 +190,42 @@ done:
 
 
 \begin{frame}
-\frametitle{Instruction Encoding Constrains}
+\frametitle{Kódování instrukcí}
+
+Při návrhu kódování instrukcí je nutné brát na zřetel
 \begin{itemize}
-\item Encode 256 combinations in 8-bits
-\item Opcode and address to directly operate on megabytes of ram does not fit
-\item Use some limited number of fast accessible registers or use stack concept
-\item 8 registers, 3 bits to encode, for two operand operations (a += b, mem[a] = b), 6 bits to select registers→only 4 operations in total
-\item 16 bit (65536), 16 registers, 256 two operands or 16 three operands (4 + 3 * 4 bits)
-\item 32 bit, 32 registers, three operands (17 + 3 * 5)
-\item But immediate for arithmetic and address usually required (CISC followup words, RISC uses limited ranges and some other mechanism) 
+\item 8 bitů pro jednu instrukci
+\begin{itemize}
+\item Pokud by velikost instrukce byla jeden bajt, tedy 8 bitů, tak můžeme mít maximálně 256 různých instrukcí
+\item Je to dost?
+\item Co vlastně musí být zakódováno uvnitř instrukce? Nutně tam musí být registry, se kterými bude instrukce pracovat
+\begin{itemize}
+\item pokud bychom měli v procesoru 8 registrů, pak 3 bity kódují, který registr chceme použít
+\item pro operaci potřebujeme 3 registry \texttt{cíl = zdroj1 + zdroj2} nebo jen 2 registry \textt{cíl += zdroj}
+\item pro práci s pamětí stačí 2 registry \texttt{cíl = MEM[zdroj]}
+\end{itemize}
+\item nelze zakódovat 3 operandy, i pro 2 operandy máme jen 2 bity (8-2*3) na zakódování typu instrukce, což je maximálně 4 druhy instrukcí
+\item řešení by bylo jedině mít méně registrů a uvažovat zásobníkové operace (push, pop, sečti dvě čísla z vrcholu zásobníku, apod.)
+\end{itemize}
+\item 16 bitů na jednu instrukci -- 65536 různých instrukcí
+\begin{itemize}
+\item lze 16 registrů, 256 instrukcí s dvě operandy, nebo 16 druhů instrukcí se třemi operandy (4 + 3 * 4 = 16 bitů)
+\end{itemize}
+\item 32 bitů -- přes 4 miliardy různých instrukcí 
+\begin{itemize}
+\item často 32 registrů, až 128 tisíc druhů instrukcí se třemi operandy (17 + 3 * 5 = 32 bitů)
+\end{itemize}
+\item Další problém jsou konstanty, třeba chci přičíst 1 k registru, nebo uložit do registru konkrétní hodnotu 125. 
+\begin{itemize}
+\item překladač vygeneruje do paměti všechny konstanty a registry na ně budou ukazovat
+\item nebo malá čísla budou součástí instrukce
+\end{itemize}
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}[shrink=5]
-\frametitle{RISC-V -- Instruction Length Encoding}
+\frametitle{RISC-V -- Délka instrukce}
 
 \begin{tabular}{r l}
   \begin{tabular}{|c|}\hline
@@ -242,36 +259,28 @@ base+4 \phantom{\texttt{xxxxxxx}} base+2 \phantom{\texttt{xxxxxxxxxxx}} base \ph
 \end{frame}
 
 
-\begin{frame}
-\frametitle{RISC-V Processor Registers}
-\begin{tabular}{l l l l}
-Register & ABI Name & Description & Saver \\
-x0 & zero & Hard-wired zero &  \\
-x1 & ra & Return address & Caller \\
-x2 & sp & Stack pointer &  Callee\\
-x3 & gp & Global pointer &  \\
-x4 & tp & Thread pointer &  \\
-x5-7 & t0--2 & Temporaries &  \\
-x8 & s0/fp & Saved register/frame pointer & Callee \\
-x9 & s1 & Saved register &  Callee \\
-x10--11 & a0--2 & Function arguments/return values &  Caller \\
-x12--17 & a2--7 & Function arguments & Caller \\
-x18--27 & s2--11 & Saved registers & Callee \\
-x28--31 & t3--6 & Temporaries &  \\
-pc & pc & Program Counter &  \\
-f0-31 &  & Floating point &  \\
+\begin{frame}[shrink=12]
+\frametitle{RISC-V -- Registry}
+\begin{tabular}{|l|l|l|l|}\hline
+Register & ABI Name & Popis & Uchování \\ \hline
+x0 & zero & má vždy hodnotu 0 &  \\\hline
+x1 & ra & Návratová adresa (Return address) & Volající \\\hline
+x2 & sp & Ukazatel na zásobník (Stack pointer) &  Volaný\\\hline
+x3 & gp & Ukazatel na globální data &  \\
+   &    & (Global pointer) &  \\\hline
+x4 & tp & Ukazatel na vlákno (Thread pointer) &  \\\hline
+x5-7 & t0--2 & Dočasné proměnné (Temporaries) &  \\\hline
+x8 & s0/fp & Uchovávaný registr (Saved register)/ & Volaný \\
+   &       & Ukazatel na rámec (Frame pointer) &  \\\hline
+x9 & s1 & Uchovávaný registr (Saved register) &  Volaný \\\hline
+x10--11 & a0--2 & Argumenty funkce (Function arguments)/ &  Volající \\
+ &  & Návratové hodnoty (Return values) &  Volaný \\\hline
+x12--17 & a2--7 & Argumenty funkce (Function arguments) & Volající \\\hline
+x18--27 & s2--11 & Uchovávané registry (Saved registers) & Volaný \\\hline
+x28--31 & t3--6 & Dočasné proměnné (Temporaries) &  \\\hline
+pc & pc & Ukazatel na instrukci (Program Counter) &  \\\hline
+f0-31 &  & Reálná čísla (Floating point) &  \\\hline
 \end{tabular}
-\end{frame}
-
-
-
-\begin{frame}
-\frametitle{Hardwarová realizace základního cyklu CPU}
-
-\begin{center}
-\includegraphics[width=0.75\textwidth]{cpu_step.pdf}
-\end{center}
-
 \end{frame}
 
 \begin{frame}
@@ -310,6 +319,73 @@ zpracovány v jednom kroku/hodině)
 \end{frame}
 
 
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+
+Základní realizace registru pomocí tzv. obvodu d-latch
+\begin{center}
+\includegraphics[width=0.5\textwidth]{d_latch.pdf}
+\end{center}
+
+Tento obvod je velkou změnou oproti dosavadnímu přístupu, protože se zde objevuje cyklus -- výstup hradla je vstupem stejného hradla, nebo vstupem hradla jehož výstup je vstupem prvního hradla.
+
+Co to tedy dělá?
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+
+Chování obvodu je určeno hodnotou vstupu E.
+
+Nejdříve se podíváme, co se děje při E=1:
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{d_latch_e1.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}  
+\begin{itemize}
+\item Vstup D se zpožděním objeví na výstupu Q
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+
+Pokud je E=0:
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{d_latch_e0.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}  
+\begin{itemize}
+\item Hodnota $Q,\overline{Q}$ závisí pouze na staré hodnotě dvojice $Q,\overline{Q}$
+\item Dvojice nabývá pouze hodnot, která mohla vzniknout při zápisu, tedy buď $Q=1,\overline{Q}=0$ nebo $Q=0,\overline{Q}=1$
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hardwarová realizace základního cyklu CPU}
+
+\begin{center}
+\includegraphics[width=0.65\textwidth]{cpu_step.pdf}
+\end{center}
+
+Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodnota PC+4. Tím se automaticky rozběhne nové čtení z paměti a následné zpracování instrukce, které si ukážeme později.
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Základní stavební bloky CPU}
 
@@ -328,6 +404,8 @@ Operace & \texttt{[rd]} $\leftarrow$ \texttt{Mem[[rs]+imm12]} \\ \hline
 Syntax & lw rd, imm12(rs) \\ \hline
 Kódování & \texttt{iiii iiii iiii ssss s010 dddd d000 0011} \\ \hline
 \end{tabular}
+
+\bigskip
 
 Příklad: Načtěte 32-bitové slovo z paměti z adresy 0x400 do registru 2:\\
 \textbf{\texttt{lw x2, 0x400(x0)}}
