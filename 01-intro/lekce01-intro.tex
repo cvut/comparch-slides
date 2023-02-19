@@ -7,7 +7,8 @@
 \usepackage{array,multirow}
 
 \subtitle{Lekce 01. Úvod}
-\author{Petr Štěpán\\ \small\texttt{stepan@fel.cvut.cz}}
+\author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
+
 \begin{document}
 
 \maketitle
@@ -385,17 +386,17 @@ Booleova algebra je matematická struktura:
 \begin{itemize}
 \item 0/1, nebo False/True, nebo nesvítí/svítí, nebo 0V/5V
 \end{itemize}
-\item Operace plus (nebo, or, $\lor$)
+\item Operace plus (nebo, ||, or, $\lor$)
 \begin{itemize}
 \item 0+0=0 \phantom{XXXX}  0+1=1
 \item 1+0=1 \phantom{XXXX}  1+1=1
 \end{itemize}
-\item Operace krát (a, and, $\land$)
+\item Operace krát (a, \&\&, and, $\land$)
 \begin{itemize}
 \item 0*0=0 \phantom{XXXX}  0*1=0
 \item 1*0=0 \phantom{XXXX}  1*1=1
 \end{itemize}
-\item Operace inverzní prvek - (negace, not, $\neg$)
+\item Operace inverzní prvek - (negace, !, not, $\neg$)
 \begin{itemize}
 \item -0 = 1
 \item -1 = 0
@@ -438,7 +439,7 @@ Příklad: Logická operace not, jeden vstupní vodiče X, jeden výstupní vodi
 \begin{frame}
 \frametitle{Booleova algebra}
 
-Rozšířené operace nand, nor, xor a libovolné logické funkce se skládají ze základních operací (and, or, not):
+Rozšířené operace \texttt{nand}, \texttt{nor}, \texttt{xor} a libovolné logické funkce se skládají ze základních operací (\texttt{and}, \texttt{or}, \texttt{not}):
 
 \begin{tabular}{ll}
 \texttt{X nand Y} & \texttt{= not(X and Y)}\\
@@ -989,6 +990,34 @@ Rotaci o 0-7bitů lze složit z rotací o 1, 2, 4:
 \item posunutí o 5 bitů dostaneme složením posunutí o 1 bit a posunutí o 4 bity ($x_2=1$, $x_1=0$, $x_0=1$)
 \item posunutí o 3 bity dostaneme složením posunutí o 1 bit a posunutí o 2 bity ($x_2=0$, $x_1=1$, $x_0=1$)
 \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Kvíz}
+
+Kolik úrovní (řádek) Barrel shifter musí mít pro 64 bitové číslo, tedy pro rotace od 0 do 63?
+\begin{itemize}
+\item[A] 4
+\item[B] 6
+\item[C] 16
+\item[D] 64
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Testovací kvíz}
+
+Kolik jste toho dnes pochopili?
+\begin{itemize}
+\item[A] Vše bez problému.
+\item[B] Téměř vše.
+\item[C] Téměř nic.
+\item[D] Vůbec nic.
 \end{itemize}
 
 \end{frame}
