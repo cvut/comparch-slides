@@ -192,7 +192,7 @@ done:
 \begin{frame}
 \frametitle{Kódování instrukcí}
 
-Při návrhu kódování instrukcí je nutné brát na zřetel
+Co musíme uvažovat při návrhu zakódování instrukcí?
 \begin{itemize}
 \item 8 bitů pro jednu instrukci
 \begin{itemize}
@@ -201,12 +201,19 @@ Při návrhu kódování instrukcí je nutné brát na zřetel
 \item Co vlastně musí být zakódováno uvnitř instrukce? Nutně tam musí být registry, se kterými bude instrukce pracovat
 \begin{itemize}
 \item pokud bychom měli v procesoru 8 registrů, pak 3 bity kódují, který registr chceme použít
-\item pro operaci potřebujeme 3 registry \texttt{cíl = zdroj1 + zdroj2} nebo jen 2 registry \textt{cíl += zdroj}
+\item pro operaci potřebujeme 3 registry \texttt{cíl = zdroj1 + zdroj2} nebo jen 2 registry \texttt{cíl += zdroj}
 \item pro práci s pamětí stačí 2 registry \texttt{cíl = MEM[zdroj]}
 \end{itemize}
 \item nelze zakódovat 3 operandy, i pro 2 operandy máme jen 2 bity (8-2*3) na zakódování typu instrukce, což je maximálně 4 druhy instrukcí
 \item řešení by bylo jedině mít méně registrů a uvažovat zásobníkové operace (push, pop, sečti dvě čísla z vrcholu zásobníku, apod.)
 \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kódování instrukcí}
+
+\begin{itemize}
 \item 16 bitů na jednu instrukci -- 65536 různých instrukcí
 \begin{itemize}
 \item lze 16 registrů, 256 instrukcí s dvě operandy, nebo 16 druhů instrukcí se třemi operandy (4 + 3 * 4 = 16 bitů)
@@ -219,6 +226,11 @@ Při návrhu kódování instrukcí je nutné brát na zřetel
 \begin{itemize}
 \item překladač vygeneruje do paměti všechny konstanty a registry na ně budou ukazovat
 \item nebo malá čísla budou součástí instrukce
+\begin{itemize}
+\item toto je nejpoužívanější řešení
+\item RISC má instrukce pevné délky a součástí 32-bitové instrukce může být 20-bitová nebo 12-bitová konstanta
+\item CISC má instrukce proměnné délky a třeba i 64-bitové číslo je součástí kódu instrukce
+\end{itemize}
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -313,8 +325,100 @@ zpracovány v jednom kroku/hodině)
 
 
 \begin{frame}
-\frametitle{Instrukce RISC-V implementované v této přednášce}
+\frametitle{Kódování instrukcí procesoru MIPS}
 
+Starší typ procesoru, má tři typy instrukcí:
+
+\begin{tabular}{|c|l|l|l|l|l|l|}\hline
+Typ & 31 ... 26 & 25 ... 21 & 20 ... 16 & 15 ... 11 & 10 ... 6 & 5 ... 0 \\ \hline
+R & opcode(6) & rs(5) & rt(5) & rd(5) & shamt(5) & funct(6) \\ \hline
+I & opcode(6) & rs(5) & rt(5) & \multicolumn{3}{c|}{ immediate(16)} \\ \hline
+J & opcode(6) & \multicolumn{5}{c|}{ address(26)} \\ \hline
+\end{tabular}
+
+\begin{itemize}
+\item typ instrukce (R,I,J) je určen 6-bity opcode
+\item rs -- register zdroje -- source; rd -- register cíle -- destination; rt -- někdy zdroj, někdy cíl
+\item immediate, address -- konstanty použité pro operaci, immediate pro počítání, address pro skoky 
+\item shamt -- konstanta využitá pouze pro posuny (shift, operace \texttt{<<}, \texttt{>>})
+\item funct -- specifikace prováděné operace, např. sčítání, odčítání, posuny, atd.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Kódování instrukcí procesoru RISC-V}
+
+Má šest typů instrukcí:
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+R & \multicolumn{2}{c|}{ fnct7 } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+S & \multicolumn{2}{c|}{ imm[11:5] } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\multicolumn{2}{c|}{ imm[4:0] } & opcode\\ \hline
+B & imm [12] & imm [10:5]  & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 & imm[4:1]& imm [11] & opcode\\ \hline
+U & \multicolumn{6}{c|}{ imm[31:12] }  & \multicolumn{2}{c|}{ rd } & opcode\\ \hline
+J & imm [20] & \multicolumn{2}{c|}{ imm[10:1] } & imm [11] & \multicolumn{2}{c|}{ imm[19:12] } & \multicolumn{2}{c|}{ rd } & opcode\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\item délka a typ instrukce (R,I,S,B,U,J) je určen 7-bity opcode
+\item rs1,2 -- registery zdroje -- source; rd -- register cíle -- destination
+\begin{itemize}
+\item registry jsou vždy na pevné pozici v instrukci
+\end{itemize}
+\item immediate -- konstanty použité pro operaci nebo skoky
+\item fnct3, fnct7 -- specifikace prováděné operace, např. sčítání, odčítání, posuny, atd.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Kódování instrukcí procesoru RISC-V}
+
+Význam hodnot opcode:
+\begin{table}
+\footnotesize
+\begin{tabular}{|c|l|l|}\hline
+Opcode & Skupina operací & Skutečná operace \\ \hline
+0110011 & Typ R podle fnct & add, sub, slt, or, and \\ \hline
+0010011 & Typ I podle fnct & addi, subi, slt, or, and \\ \hline
+0000011 & Čtení z paměti & lw \\ \hline
+0100011 & Zápis do paměti & sw \\ \hline
+1100011 & Větvení -- branch & beq \\ \hline
+1101111 & Podprogramy & jal \\ \hline
+1100111 & Návrat z podprogramu & jalr \\ \hline
+0000111 & Načtení horní části konstanty & lui \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\footnotesize
+\begin{tabular}{|l|l|l|}\hline
+fnct7 & fnct3 & Skutečná operace \\ \hline
+0000000 & 000  & add \\ \hline
+0100000 & 000  & sub \\ \hline
+0000000 & 010  & slt \\ \hline
+0000000 & 110  & bitový or \\ \hline
+0000000 & 111  & bitový and \\ \hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Stavební bloky procesoru}
+
+\begin{table}
+\footnotesize
+\begin{tabular}{m{1.6cm} m{10cm}}
+\hfill \includegraphics[width=0.6cm]{registr.pdf} & jeden registr, zápis řízen hodinovým signálem CLK \\ 
+\hfill \includegraphics[width=1.6cm]{registry.pdf} & množina 32 registrů, podle vstupu A1, A2 vybere hodnoty těchto dvou registrů na výstup RD1 a RD2; pokud přijde hodinový signál a je nastaven vstup WE3 (write enable) tak se hodnota WD3 zapíše do registru A3 \\
+\end{tabular}
+\end{table}
 
 \end{frame}
 
@@ -383,13 +487,6 @@ Pokud je E=0:
 \end{center}
 
 Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodnota PC+4. Tím se automaticky rozběhne nové čtení z paměti a následné zpracování instrukce, které si ukážeme později.
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Základní stavební bloky CPU}
-
-
 \end{frame}
 
 
