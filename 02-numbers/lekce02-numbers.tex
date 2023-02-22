@@ -163,7 +163,7 @@ Stejný princip násobení, jak jste se ho naučili na základní škole pro des
 Podle uvedeného algoritmu můžeme vytvořit náseldující násobičku s posuvným registrem:\\
 (A,B 32 bitů, výsledek 64 bitů)
 \begin{center}
-\includegraphics[width=0.5\textwidth]{multiplier-seq.pdf}
+\includegraphics[width=0.45\textwidth]{multiplier-seq.pdf}
 \end{center}
 \begin{itemize}
 \item Výsledek je ve dvou registrech AC a B 
@@ -364,7 +364,6 @@ Potřebujeme zakódovat znaménko do reprezentace čísla:
 \end{tabular}
 \end{column}
 \end{columns}
-
 \end{frame}
 
 \begin{frame}
@@ -422,11 +421,11 @@ Odčítání lze řešit:
 $A(M\cdot N) = A(M) \cdot A(N)$\\
 \phantom{$A(M\cdot N)$ }$-A(M) \cdot 2^k$ \phantom{xxxxx} pokud $M<0$\\
 \phantom{$A(M\cdot N)$ }$-A(N) \cdot 2^k$ \phantom{xxxxx} pokud $N<0$
-\begin{itemize}
+%\begin{itemize}
 \begin{itemize}
 \item protože reprezentace záporného čísla dvojkovým doplňkem je vlastně $A(M) = 2^k+M$, pak součin dvou záporných čísel je $(2^k+M)\cdot (2^k+N) = 2^{2\cdot k}+2^k \cdot M + 2^k \cdot N + M \cdot N$
 \end{itemize}
-\end{itemize}
+%\end{itemize}
 \begin{itemize}
 \item moderní násobení a dělení počítá s absolutními hodnotami a nakonec určíme znaménko výsledku podle znaménka operandů.
 \begin{itemize}
@@ -487,9 +486,8 @@ Co program vytiskne:
 \end{frame}
 
 \begin{frame}
-\frametitle{Přetečení}
+\frametitle{Přetečení při sčítání čísel bez znaménka}
 
-Přetečení při sčítání kladných čísel:
 
 Pokud se podíváme co se stalo, unsigned char je 8-bitová reprezentace čísel:\\
 \texttt{\phantom{x}150 = \phantom{x}1001 0110}\\
@@ -547,9 +545,34 @@ Přetečení při sčítání čísel se znaménkem je složitější. Co je dob
 \end{column}
 \end{columns}
 \bigskip
-Přetečení při sčítání čísel se znaménkem nastane právě tehdy, když dojde k přenosu na posledních cifrách a zároveň nedojde k přenosu na předposledních cifrách.
-
+\begin{itemize}
+\item Přetečení při sčítání čísel se znaménkem nastane právě tehdy, když dojde k přenosu na posledních cifrách a zároveň nedojde k přenosu na předposledních cifrách:
+\begin{itemize}
+\item overflow = $c_n$ xor $c_{n-1}$; $c_n$ je nejvyšší carry, $c_n$ je druhé nejvyšší carry
+\end{itemize}
+\item Druhá možnost je sledovat, zda při součtu dvou kladných čísel máme záporná výsledek, nebo při součtu dvou záporných čísel je kladný výsledek:
+\begin{itemize}
+\item overflow = ($a_n$ and  $b_n$ and (not $s_n$)) or ((not $a_n$) and  (not $b_n$) and $s_n$); $a_n$, $b_n$ jsou nejvyšší bity sčítanců; $s_n$ je největší bit výsledku
+\end{itemize}
+\end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Kvíz}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{overflow.pdf}
+\end{center}
+
+Při sčítání dvou čísel s odlišnými znaménky:
+\begin{itemize}
+\item[A] může dojít k přetečení jen v dvojkovém doplňku
+\item[B] může dojít k přetečení pouze při jiné reprezentaci než je dvojkový doplněk
+\item[C] nemůže dojít pouze při reprezentaci v dvojkovém doplňku
+\item[D] nemůže dojít v žádné reprezentaci čísel se znaménkem
+\end{itemize}
+\end{frame}
+
 
 
 \begin{frame}
@@ -606,19 +629,6 @@ Pro k=8 a S=127
 \item při sčítání jsou znaménka sčítanců stejná a výsledek má jiné znaménko
 \item při odčítání čísel s různými znaménky má výsledek jiné znaménko než menšenec
 \end{itemize}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Kvíz}
-
-Při sčítání dvou čísel s odlišnými znaménky (výsledek je stejná reprezentace čísla se znaménkem):
-\begin{itemize}
-\item[A] může dojít k přetečení jen v dvojkovém doplňku
-\item[B] může dojít k přetečení jen v reprezentaci s posunutou nulou
-\item[C] může dojít k přetečení v dvojkovém doplňku i v reprezentaci s posunutou nulou
-\item[D] nemůže dojít v žádné reprezentaci čísel se znaménkem
 \end{itemize}
 \end{frame}
 
