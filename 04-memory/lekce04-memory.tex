@@ -14,6 +14,48 @@
 
 \section{Druhy paměti}
 
+\begin{frame}[fragile]
+\frametitle{Motivace}
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+Algoritmus A\\
+\begin{minted}{c}
+int matrix[N][N];
+int main() {
+  long int i, j, sum1 = 0;
+  for(i=0; i<N; i++)
+    for(j=0; j<N; j++)
+      sum1 += matrix[i][j];
+}
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+Algoritmus B\\
+\begin{minted}{c}
+int matrix[N][N];
+int main() {
+  long int i, j, sum1 = 0;
+  for(i=0; i<N; i++)
+    for(j=0; j<N; j++)
+      sum1 += matrix[j][i];
+}
+\end{minted}
+\end{column}
+\end{columns}
+
+\begin{tabular}{|l|l|l|}\hline
+N & A & B \\\hline
+100000 & 12.791328s &138.047563s \\\hline
+10000 & 0.126945s &0.486535s \\\hline
+1000 & 0.001329s &0.001756s \\\hline
+100 & 0.000083s &0.000094s \\\hline
+\end{tabular}
+
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Druhy paměti}
 
