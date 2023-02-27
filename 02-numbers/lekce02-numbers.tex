@@ -21,7 +21,7 @@ V minulé lekci jsme měli:
 \item Reprezentace bitu pomocí napětí
 \item Reprezentace bajtů jako více paralelních vodičů, každý s hodnotou jednoho bitu
 \item Sčítání dvou celých kladných čísel
-\item Posun celých čísel (násobení, nebo dělení mocninou 2)
+\item Bitový posun celých čísel (násobení, nebo dělení mocninou 2)
 \end{itemize}
 
 Dnes:
@@ -32,7 +32,19 @@ Dnes:
 \item Přetečení sčítání a odčítání
 \item Reálná čísla
 \end{itemize}
+\end{frame}
 
+
+\begin{frame}
+\frametitle{Kvíz}
+Jak rychle lze spočítat součet dvou n-bitových čísel a kolik k tomu potřebujeme tranzistorů?
+\begin{itemize}
+\item[A] v konstantním čase s lineárním počtem tranzistorů -- $O(n)$
+\item[B] v konstantním čase s exponenciálním počtem tranzistorů -- $O(2^n)$
+\item[C] v logaritmickém čase s lineárním počtem tranzistorů -- $O(n)$
+\item[D] v logaritmickém čase s kubickým počtem tranzistorů -- $O(n^3)$
+\item[E] v logaritmickém čase s exponenciálním počtem tranzistorů -- $O(2^n)$
+\end{itemize}
 \end{frame}
 
 
@@ -160,7 +172,7 @@ Stejný princip násobení, jak jste se ho naučili na základní škole pro des
 \begin{frame}
 \frametitle{Násobení celých čísel}
 
-Podle uvedeného algoritmu můžeme vytvořit náseldující násobičku s posuvným registrem:\\
+Podle uvedeného algoritmu můžeme vytvořit následující násobičku s posuvným registrem:\\
 (A,B 32 bitů, výsledek 64 bitů)
 \begin{center}
 \includegraphics[width=0.45\textwidth]{multiplier-seq.pdf}
@@ -173,7 +185,7 @@ Podle uvedeného algoritmu můžeme vytvořit náseldující násobičku s posuv
 
 
 \begin{frame}
-\frametitle{Rychlé násobení - Wallace tree}
+\frametitle{Rychlé násobení - Motivace Wallace tree}
 
 Jak to zrychlit - odložené carry (Carry Save Adder).\\
 Jak nejrychleji spočítat součet čtyř 32-bitových čísel:\\
@@ -207,7 +219,7 @@ Použijeme předchozí princip na co nejrychlejší součet 32 nebo 64 různých
 \hfill
 \begin{column}{0.4\textwidth}
 \begin{itemize}
-\item Součiny jsou jednoduché: $x_iy_j=x_i$~\texttt{and}~$y_j$
+\item Součiny jsou jednoduché: $x_i \cdot y_j=x_i$~\texttt{and}~$y_j$
 \item Nejtěžší je sečíst prostřední sloupec 64 jednobitových čísel
 \item Pustíme na všechny bity co můžeme paralelně sčítačky a carry budeme přičítat v dalších krocích
 \item V první fázi to bude 1323 sčítaček
@@ -226,7 +238,7 @@ Když se podíváme jen na prostřední nejdelší sloupec:
 \end{center}
 
 \begin{itemize}
-\item Vydíme, že za 8 kroků sčítaček, tedy 16 zpoždění hradel nám zbývá sečíst dva bity
+\item Vidíme, že za 8 kroků sčítaček, tedy 16 zpoždění hradel nám zbývá sečíst dva bity
 \item Vpravo od tohoto sloupce je již vše sečteno a již se i propagovali všechny carry
 \item Zbývá sečíst dvě 64-bitová čísla (součty a carry), což se dá stihnout také za 16 zpoždění hradel
 \item Výsledek - vynásobíme dvě čísla za cenu doby odpovídající dvou součtům
@@ -283,7 +295,7 @@ Oba výpočty počítají, že 240 děleno 11 je 21 a zbytek neboli \texttt{240\
 Dělička počítající \texttt{A/B}, A má 64 bitů, B 32 bitů:\\
 \begin{columns}
 \begin{column}{0.4\textwidth}
-číslo A je uloženo ve dvou registrech AC,A\\¨
+číslo A je uloženo ve dvou registrech AC,A\\
 \includegraphics[width=1\textwidth]{divider-seq.pdf}
 \end{column}
 \hfill
@@ -506,7 +518,7 @@ Pokud přetečení chcete detekovat, máte následující možnosti:
 \end{frame}
 
 \begin{frame}
-\frametitle{Přetečení}
+\frametitle{Přetečení při sčítání čísel se znaménkem}
 
 Přetečení při sčítání čísel se znaménkem je složitější. Co je dobře a co je špatně:
 \bigskip
@@ -976,7 +988,13 @@ POZOR: Následující \texttt{while} cyklus neskončí:
 \begin{frame}
 \frametitle{Bonusový bod}
 
-Kvíz s bonusovou otázkou za tuto hodinu.
+Jaká je dekadická hodnota 8-bitového čísla se znaménkem, jehož reprezentace v paměti je dána bajtem 0xFE?
+\begin{itemize}
+\item[A] 254
+\item[B] -0
+\item[C] -1
+\item[D] -2
+\end{itemize}
 
 \end{frame}
 
