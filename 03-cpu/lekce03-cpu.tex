@@ -12,7 +12,7 @@
 
 \maketitle
 
-\section{Simulátor procesoru}
+\section{Procesor}
 
 \begin{frame}
 \frametitle{Simulátory QtMips a QtRVSim}
@@ -183,6 +183,7 @@ done:
 \end{frame}
 
 \section{Kódování instrukcí}
+
 \begin{frame}
 \frametitle{Kódování instrukcí}
 
@@ -426,9 +427,9 @@ Chování obvodu je určeno hodnotou vstupu E.
 
 Nejdříve se podíváme, co se děje při E=1:
 \begin{columns}
-\begin{column}{0.45\textwidth}
+\begin{column}{0.5\textwidth}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{d_latch_e1.pdf}
+\includegraphics[width=\textwidth]{d_latch_e1.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}  
@@ -449,9 +450,9 @@ Nejdříve se podíváme, co se děje při E=1:
 
 Pokud je E=0:
 \begin{columns}
-\begin{column}{0.45\textwidth}
+\begin{column}{0.5\textwidth}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{d_latch_e0.pdf}
+\includegraphics[width=\textwidth]{d_latch_e0.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}  
@@ -492,7 +493,7 @@ Aktivace náběžnou hranou:
 \frametitle{Hardwarová realizace základního cyklu CPU}
 
 \begin{center}
-\includegraphics[width=0.65\textwidth]{cpu_step.pdf}
+\includegraphics[width=0.45\textwidth]{cpu_step.pdf}
 \end{center}
 
 Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodnota PC+4. Tím se automaticky rozběhne nové čtení z paměti a následné zpracování instrukce, které si ukážeme později.
@@ -512,7 +513,7 @@ Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodn
 \phantom{X} & \phantom{X} \\
 \hfill \includegraphics[width=1.2cm]{alu.pdf} & na základě ALUControl provede vybranou operaci na vstupu SrcA a SrcB. Výsledek je ALUout a výsledkem jsou i příznaky jak vyšel výsledek, například zero \\ 
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.0cm]{imm_decode.pdf} & provede sestavení bitů konstanty z bitů instrukce a provede znaménkové rozšíření na 32 bitů plnohonotného čísla se znaménkem \\ 
+\hfill \includegraphics[width=1.6cm]{imm_decode.pdf} & provede sestavení bitů konstanty z bitů instrukce a provede znaménkové rozšíření na 32 bitů plnohonotného čísla se znaménkem \\ 
 \end{tabular}
 \end{table}
 
