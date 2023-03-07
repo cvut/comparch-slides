@@ -404,11 +404,24 @@ fnct7 & fnct3 & Skutečná operace \\ \hline
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Bonusový bod}
+
+Jak lze v RISC-V načíst do registru konstantu o velikost 32-bitů?
+\begin{itemize}
+\item[A] pomocí jedné instrukce
+\item[B] pomocí dvou instrukcí, první načte horních 20 bitů, druhá spodních 12-bitů
+\item[C] pomocí tří instrukcí, první načte 16 bitů, druhá provede bitový posun, třetí načte spodních 16 bitů
+\item[D] pomocí pěti instrukcí, první načte 12 bitů, druhá provede bitový posun, třetí načte dalších 12 bitů, čtvrtá provede bitový posun a pátá načte nejnižších 8 bitů 
+\end{itemize}
+\end{frame}
+
+
+
 \section{Konstrukce procesoru}
 
 \begin{frame}
 \frametitle{Hardwarová realizace registru}
-
 Základní realizace registru pomocí tzv. obvodu d-latch
 \begin{center}
 \includegraphics[width=0.5\textwidth]{d_latch.pdf}
@@ -925,8 +938,13 @@ beq & 1100011 & 000 & -- & \texttt{==} & 0 & 0 & 0 & * & 1\\ \hline
 \begin{frame}
 \frametitle{Bonusový bod}
 
-Kvíz s bonusovou otázkou za tuto hodinu.
-
+Které bity instrukce rozhodují o tom, jestli se bude ukládat do paměti, nebo počítat s dvěmi registry a výsledek se uloží do třetího registru?
+\begin{itemize}
+\item[A] opcode
+\item[B] fnct3,7
+\item[C] rs1, rs2
+\item[D] rd
+\end{itemize}
 \end{frame}
 
 
