@@ -394,22 +394,100 @@ Princip se využívá jak v algoritmech (lokální proměnné), kompilátorech (
 \item V cestě je cache, která může blok, do kterého je zapisováno, obsahovat.
 \item Minimálně z pohledu daného procesoru je nutné zajistit koherenci dat pro daný procesor (často i pro více procesorů -- vlákna) pro přístupy ke každé jednotlivé adrese i pokud existuje více cest přístupu 
 \item \textbf{Write through} (zápis, propsání zkrz) cache -- pokud se již data v cache nahází jsou modifikovaná, ve variantě s automatickou alokací jsou i při výpadku nahraná a pak modifikovaná. Data jsou zároveň odeslaná do hlavní paměti, buď přímo nebo přes zápisovou frrontu (write buffer)
-\item \textbf{Write back} -- data jsou zapsaná do příslušného bloku cache, pokud je výpade, je blok nejdříve načtený. Blok je označený \textbf{dirty bit}em. Zápis do další úrovně je spuštěný až pokdu je potřeba danou položku cache umolnit pro jiná data (replacement) nebo je vyžádaná sychronizace procesorem, operačním systémem (cache flush), například před operací odelání na disk subsystémem mimo CPU.
+\item \textbf{Write back} -- data jsou zapsaná do příslušného bloku cache, pokud není v cache, je blok nejdříve načtený. Blok je označený \textbf{dirty bit}em. Zápis do další úrovně až pokdu je potřeba danou položku cache umolnit pro jiná data (replacement) nebo je vyžádaná sychronizace procesorem, systémem (cache flush).
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{TBD}
+\frametitle{Základní typy organizace paměti cache}
+
+Uvažujeme cache o velikosti 8 bloků a kam může být mapovaný přístup na adresu/blok 12 pro tři varianty organizace skryté paměti
+
+\begin{tabular}{p{0.29\linewidth}p{0.29\linewidth}p{0.29\linewidth}}
+\textbf{Plně asociativní} & \textbf{Přímo mapovaná} & \textbf{Dvoucestná} \\
+\textbf{Fully associative:} & \textbf{Direct mapped} & \textbf{2-way associative} \\
+Adresa 12 může být umístěna libovolně &
+Adresa 12 může být umístěna jen do bloku 4 (12 mod 8) &
+Adresa 12 může být umístěna do sady 0 (12 mod 4) \\
+\includegraphics[width=3cm]{cache-schema-fully.pdf} &
+\includegraphics[width=3cm]{cache-schema-direct.pdf} &
+\includegraphics[width=3cm]{cache-schema-2way.pdf} \\
+\end{tabular}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Přímo mapovaná paměť cache -- mapování}
+
+{
+\centering
+
+\includegraphics[width=0.9\linewidth]{cache-direct-mapping-1byte.pdf}
+
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Přímo mapovaná paměť cache s blokem rovným slovu}
+
+\begin{itemize}
+\item \textbf{Capacity} -- C ... kapacita (zde 1024 v bytech a 256 v slovech)
+\item \textbf{Number of sets} -- SN .. počet setů, (zde 256)
+\item \textbf{Word size} – WS .. velikost bloku (zde 4 byte)
+\item \textbf{Block size} – BS .. velikost bloku (zde 1 slovo, 4 byte)
+\item \textbf{Number of blocks} -- BN .. počet bloků (zde 256)
+\item \textbf{Degree of associativity} -- N . stupeň asciativity, počet cest (zde 1)
+\end{itemize}
+
+{
+\centering
+
+\includegraphics[width=0.70\linewidth]{cache-direct-simple.pdf}
+
+}
+
+C = 1024 bytů, SN = BN = 256, BS = 1, N = 1
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Přímomapovaná paměť cache s většími bloky}
+
+BS = 4 (16 byte, slovo WS = 4 byte), setů SN = 4
+
+set = (adresa div BS) mod SN
+
+{
+\centering
+
+\includegraphics[width=0.75\linewidth]{cache-direct-ms.pdf}
+
+}
+
+{\tiny Zdroj: Michal Štepanovský}
+\end{frame}
+
+\begin{frame}
+\frametitle{Obecná organizace paměti cache s N cestami}
+
+{
+\centering
+
+\includegraphics[width=0.95\linewidth]{cache-n-way-ms.pdf}
+
+}
+
+{\tiny Zdroj: Michal Štepanovský}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{TBD}
 \end{frame}
 
-\begin{frame}
-\frametitle{TBD}
-\end{frame}
 
 \end{document}
 
