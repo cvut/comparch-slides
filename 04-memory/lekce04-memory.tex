@@ -12,7 +12,7 @@
 
 \maketitle
 
-\section{Druhy paměti}
+\section{Paměť úvod}
 
 \begin{frame}[fragile]
 \frametitle{Motivace}
@@ -95,31 +95,60 @@ N & A & B \\\hline
 \end{tabular}
 \end{frame}
 
-
 \begin{frame}
 \frametitle{Co je paměť}
+
+\centering
+
+\includegraphics[width=.95\linewidth]{addr-space.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Co je paměť -- popis}
 
 Paměť :
 \begin{itemize}
 \item je pole adresovatelných buněk
 \begin{itemize}
-\item každá buňka obsahuje jeden bajt - tedy 8 bitů
+\item buňky mají shodnou šíři - většinou 8 bitů (byte) nebo jejich násobek
 \end{itemize}
-\item velikost paměti je omezena jak velkou adresu je CPU schopno nastavit na paměťové sběrnici, tedy kolik bitů lze použít k adresování paměti
+\item velikost fyzického adresového prostoru je omezena počtem bitů adresy, kterou je CPU schopno nastavit na paměťové sběrnici, tedy kolik bitů lze použít k adresování paměti
 \begin{itemize}
 \item 16 bitů adresy umožňuje maximálně 64KiB velkou paměť
 \item 32 bitů adresy umožňuje maximálně 4GiB velkou paměť
-\item 37 bitů adresy (maximum procesoru Intel Core i9, pak záleží ještě na základní desce) maximálně 128 GiB velkou paměť
+\item 37 bitů adresy (maximum procesoru Intel Core  i9-13900K, pak záleží ještě na základní desce) maximálně 128 GiB velkou paměť
 \end{itemize}
 \item typ přístupu:
 \begin{itemize}
-\item k vnitřní paměti počítače lze přistupvat v náhodném pořadí (= random access)
+\item k vnitřní paměti počítače lze přistupvat v náhodném pořadí (= random access -- RAM)
 \item některé externí paměti (např. magnetopásková paměť využívaná pro zálohování -- levnější než HDD a SSD) umožňjí pouze sekvenční přístup, tedy čtení a zápis bajtů po sobě
+\item pro HDD, SSD, Flash je možný přítup po celých blocích, u SSD/Flash je zápis bloku možný vždy jednou do smazání po velkých celcích
 \end{itemize}
 \end{itemize}
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Polovodičových paměti -- terminologie}
+
+\begin{description}
+ \item[Adresa] vstup, který vybírá svojí hodnotou jednu konkrétní buňku paměti
+ \item[Hodnota] vlastní informace
+ \item[stavová data] volitelně další informace (třeba o platnosti hodnoty, redundanci pro opravení chyb, apod.)
+\end{description}
+
+Parametry pamětí:
+
+\begin{description}
+  \item[Vybavovací doba paměti] (latence) kritický parametr. Délka časového intervalu mezi objevením se požadavku a okamžikem, kdy jsou data k dispozici.
+  \item[Doba přístupu] vybavovací doba + obnovení obsahu po destruktivním čtení připadně doba, kdy lze zadat další požadavek
+  \item[Propustnost] výkonový parametr. Schopnost zpracovat uvedené množství za jednotku času.
+\end{description}
+
+\end{frame}
+
+\section{Technologie polovodičové paměťi}
 
 \begin{frame}
 \frametitle{Druhy paměti}
@@ -143,12 +172,243 @@ Paměti lze dělit i podle toho, zda data jsou uchována po vypnutí napájení:
 Podle kontrukce dělíme paměti RAM (RWM) na:
 \bigskip
 
-\begin{tabular}{b{0.8cm}m{6cm}m{4cm}}
+\begin{tabular}{m{0.8cm}m{6cm}m{4cm}}
 SRAM & Statická RAM -- veličina reprezentující hodnotu má v čase konstatní hodnotu. Typicky dva do smyčky zapojené invertory. Více součástek dražší paměť, nemusí se obnovovat uložená informace, potřebuje pouze napájení & \includegraphics[width=3.8cm]{sram.pdf} \\ 
 \phantom{x} & & \\
 DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondezátor, který se samovolně vybíjí a je proto nutné informaci obnovovat v pravidelných časech. Pouze kondenzátor a tranzistor -- levné, zabere méně prostoru. & \includegraphics[width=3.2cm]{dram.pdf}\\
 \end{tabular}
 
+\end{frame}
+
+\begin{frame}
+\frametitle{Detail paměťové statické paměti -- SRAM}
+
+\hbox{
+\includegraphics[width=0.4\linewidth]{sram-6t-cell.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{fig/sram-cell.jpg}
+}
+
+\begin{itemize}
+\item Plně statické zapojení (kladná zpětná vazba)
+\item Pro udržení informace vyžaduje napájení (volatilní paměť)
+\item Nevýhoda, potřebuje 6 tranzistorů, velká plocha
+\item Čení, po výběru slova (world line -- WL) jsou data přenesena na příslušné nenapájené dráhy (bit line -- BL)
+\item Při zápisu přes připojené bitové dráhy na log. 1 a log. 0 dojde k vnucení stavu vetším proudem než zajišťuje vnitřní smyčka
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Detail paměťové buňky dynamické paměti -- DRAM}
+
+\hbox{
+\includegraphics[width=0.4\linewidth]{dram.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{fig/dram-cell.jpg}
+}
+
+\begin{itemize}
+\item nMOS tranzistor představuje přepínač, který připojí (nebo ne) kondenzátor na vodič „bitline“. Připojení je řízeno vodičem „wordline“.
+\item Proces čtení kondenzátor vybíjí. Proto musí být poté obnoven.
+\item Občerstvování pamětí (refresh) – náboj se z kondenzátoru samovolně ztrácí. Nezbytná pracovní fáze dynamické paměti. Negativně ovlivňuje (prodlužuje) průměrnou vybavovací dobu.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Paměťová matice -- základ}
+
+\centering
+
+\includegraphics[width=1.0\linewidth]{ram-matrix.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Moduly s dynamickou pamětí}
+
+\centering
+
+\includegraphics[width=0.85\linewidth]{sdram-dimm.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Paměť v dnešních osobních počítačích}
+
+{
+\centering
+
+\includegraphics[width=0.85\linewidth]{pc-memory-to-numa.pdf}
+
+}
+
+\vskip 2mm
+
+MC - Memory controller -- paměťový kontrolér zajišťuje řízení čtení a zápisů do SDRAM. Dále obstarává obnovu informace (refreshing) každé paměťové buňky jednou za 64 ms.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Nejčastěji používané typy dynamických pamětí}
+
+\begin{itemize}
+\item \textbf{SDRAM} -- hodinová frekvence až 100 MHz, 2.5V, synchronní přenos dat na hodinové hraně
+\item \textbf{DDR SDRAM} -- přenos dat na obou hodinových hranách, 2.5V, V/V hodiny až 100-200 MHz, 0.2-0.4 GT/s (miliard přenosů za skundu)
+\item \textbf{DDR2 SDRAM} -- menší spotřeba, 1.8V, frekvence až 400 MHz, 0.8 GT/s
+\item \textbf{DDR3 SDRAM} -- ještě nižsí spotřeba při 1.5V, frekvence až 800 MHz, 1.6 GT/s
+\item \textbf{DDR4 SDRAM} -- 1.05 -- 1.2V,  V/V svěrnicové hodiny 1.2 GHz, 2.4 GT/s
+\item \textbf{DDR5 SDRAM} -- 1.1V, až 6.4 GT/s
+\end{itemize}
+
+Všechny tyto druhy jsou převážně optializované na propustnost, nikoliv náhodný přístup, latence 20 až 35 ns.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rozdíl růstu výkonu procesorů a pěmětí}
+
+\centering
+
+\includegraphics[width=1.0\linewidth]{memory-gap.pdf}
+
+\end{frame}
+
+\section{Zrychlení přístupu k datům, hierarchie, vyrovnávací paměť}
+
+\begin{frame}
+\frametitle{Paměťová hierarchie od registrů k SSD}
+
+{
+\centering
+
+\includegraphics[width=0.65\linewidth]{mem-reg-to-disc.pdf}
+
+}
+\vskip 2mm
+
+\begin{tabular}{l|llll}
+Typ      & L1 SRAM   & Sync SRAM &  DDR3      & HDD \\
+Velikost & 32kB      & 1 MB      &  16 GB     & 3TB \\
+Cena     & 10 kč/kB  & 300 kč/MB &  123 kč/Gb & 1 kč/GB \\
+Rychlost & 0.2...2ns & 0.5...8 ns/word & 15 GB/sec & 100 MB/sec \\
+\end{tabular}
+
+\vskip 2mm
+
+Některá data mohou existovat ve více kopiích (úrovně, SMP).
+Pro modifikaci dat je potřeba mechanizmů pro udržení koherence slov a konzistence datových struktur.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Paměťová hierarchie -- základní principy}
+
+\begin{itemize}
+\item Programy/procesy přistupují v daném okamžiku jen k malé části svého adresového prostoru 
+\item \textbf{Časová lokalita}
+\begin{itemize}
+\item Položky, ke kterým se přistupovalo nedávno, budou zapotřebí brzy znovu.
+\item Příklad: programová smyčka, proměnné instrukcí.
+\end{itemize}
+\item \textbf{Prostorová lokalita}
+\begin{itemize}
+\item Položky poblíž právě používaným budou brzy zapotřebí také. 
+\item Příklad: sekvenční přístup ke kódu (paměť programu), datová pole (paměť dat).
+\end{itemize}
+\end{itemize}
+Princip se využívá jak v algoritmech (lokální proměnné), kompilátorech (přesun do registrů), na úrovni pamětí (automaticky), operačního systému (přesun z disku do paměti) případě opět programově, čtení a zápisy do souborů.
+\end{frame}
+
+\begin{frame}
+\frametitle{Skryté paměti -- cache}
+
+\begin{itemize}
+\item je označení pro vyrovnávací paměť používanou ve výpočetní technice
+\item Zařazujeme ji mezi dva subsystémy s různou rychlostí. Vyrovnává se jí rychlost přístupu k informacím.
+\item Účelem skryté paměti je urychlit přístup k často používaným datům na „pomalých“ médiích jejich překopírováním na média rychlá.
+\item Většinou z velké části pracuje automaticky a přispůsobuje se aktuální potřebě programu.
+\item Přesto je nutné o její existenci vědět a často potřebuje servisní obsluhu na úrovni operačního systému a v něktěrých případech i programů.
+\item Při nepromyšlené volbě datových struktur a algoritmů se její efekt ztrácí.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Skryté paměti -- terminologie}
+
+\begin{itemize}
+\item \textbf{Cache hit} (zásah) pojmenování situace, kdy požadovaná hodnota ve skryté paměti (cache) je.
+\item \textbf{Cache miss}, opak. Není tam.
+\item \textbf{Cache line} (řádka) nebo \textbf{Cache block} – základní kopírovatelná jednotka mezi hierarchickými úrovněmi. 
+\item V praxi se velikost \textbf{Cache} Line pohybuje od 8B do 1KB, typicky 64B.
+\item \textbf{Hit rate} -- počet paměťových přístupů obsloužených danou úrovní cache dělený všemi přístupy
+\item \textbf{Mis rate} -- poměr přístupů, které je potřeba obsloužit z pomalejší paměti = 1 - Hit rate
+\item \textbf{Average Memory Access Time} (AMAT) $$AMAT = Hit Time + Miss Rate \times Miss Penalty$$
+\item AMAT pro víceúrovňovou cache lze spočítat rekurzivní aplikací výšeuvedeného vztahu
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Skryté paměti -- realizace}
+{
+\centering
+
+\includegraphics[width=0.70\linewidth]{cache-principle.pdf}
+
+}
+\vskip 2mm
+
+\begin{itemize}
+\item \textbf{Tag} je index odpovídajícího bloku v operační paměti (v podstatě se jedná o hodnotu ukazatele/adresy dělenou délkou bloku).
+\item \textbf{Data} pole obsahující vlastní hodnoty na příslušné/ných adrese/ách.
+\item \textbf{Validity bit} – bit platnosti. Indikuje, zda je obsah pole Data vůbec platný.  
+\item \textbf{Dirty bit} – rozšiřující pole v obsahu paměti. Indikuje, že v cache (cache) je jiná hodnota, než v paměti hlavní.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Zpracování výpadku skryté paměti, cache miss}
+
+\begin{itemize}
+\item Data musí být nahrána z hlavní paměti, obvykle jsou již ale všechny položky vyrovnávací paměťi (cache) zaplněné daty z přetrvávajícími předchozího běhu programu.
+\item Některou z položek, kterou je možné využít pro uložení dat z dané adresy je potřeba uvolnit.
+\item Na výběru položky k vyřazení velmi záleží, pokud bude vybraná ta, která bude opětovně potřeba, dojde k snížení výkonu.
+\item \textbf{Cache replacement policy} -- pravidla pro výběr položky k vyřazení
+\begin{itemize}
+\item \textbf{Random} -- vybraná je náhodná položka
+\item \textbf{LRU} (Least Recently Used) -- vybrána je nejdelší dobu neoužitá položka, do obvodů cache musí být ke každé skupině bloků přidané další informace, které umožňují sledovat pořadí posledních přístupů k jednotlivým položkám.
+\item \textbf{LFU} (Least Frequently Used) -- sleduje se, jak často/kolikrát se k položkám přistupuje, vyžaduje přidat zapomínání.
+\item \textbf{ARC} (Adaptive Replacement Cache) – kombinace LRU a LFU
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Zápisy procesoru do hlavní paměti}
+
+\begin{itemize}
+\item V cestě je cache, která může blok, do kterého je zapisováno, obsahovat.
+\item Minimálně z pohledu daného procesoru je nutné zajistit koherenci dat pro daný procesor (často i pro více procesorů -- vlákna) pro přístupy ke každé jednotlivé adrese i pokud existuje více cest přístupu 
+\item \textbf{Write through} (zápis, propsání zkrz) cache -- pokud se již data v cache nahází jsou modifikovaná, ve variantě s automatickou alokací jsou i při výpadku nahraná a pak modifikovaná. Data jsou zároveň odeslaná do hlavní paměti, buď přímo nebo přes zápisovou frrontu (write buffer)
+\item \textbf{Write back} -- data jsou zapsaná do příslušného bloku cache, pokud je výpade, je blok nejdříve načtený. Blok je označený \textbf{dirty bit}em. Zápis do další úrovně je spuštěný až pokdu je potřeba danou položku cache umolnit pro jiná data (replacement) nebo je vyžádaná sychronizace procesorem, operačním systémem (cache flush), například před operací odelání na disk subsystémem mimo CPU.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{TBD}
+\end{frame}
+
+\begin{frame}
+\frametitle{TBD}
+\end{frame}
+
+\begin{frame}
+\frametitle{TBD}
 \end{frame}
 
 \end{document}
