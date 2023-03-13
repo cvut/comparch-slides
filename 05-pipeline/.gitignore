@@ -31,3 +31,5 @@
 /cpu_branch_pred.pdf
 /hazard_qtrvsim.pdf
 /hazard_stall_qtrvsim.pdf
+/hazard_forwarding2.pdf
+/hazard_forwarding.pdf
