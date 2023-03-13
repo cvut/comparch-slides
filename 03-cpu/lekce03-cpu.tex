@@ -152,7 +152,7 @@ while(x != 0) {
 _start:
     // int x = 157;
   addi a0, zero, 157  
-    // int y = 0;
+    // int y = -1;
   addi t1, zero, -1   
     // while(x != 0) {
   beq a0, zero, done  
@@ -902,15 +902,15 @@ Převádí bity \texttt{\textbf{opcode}} a \texttt{\textbf{fnct3,7}} na řídic�
 Podle Opcode lze nadefinovat výstupy řadiče:
 \begin{tabular}{|lccc|cccccc|}\hline
 Instrukce & Opcode & Fnct3 & Fnct7 & \rotatebox{90}{ALUControl\phantom{x}} & \rotatebox{90}{ALUSrc} & \rotatebox{90}{RegWrite} & \rotatebox{90}{MemWrite} & \rotatebox{90}{MemToReg} & \rotatebox{90}{Branch} \\ \hline
-lw & 0000011 & 010 & -- & + & 1 & 1 & 0 & 1 & 0\\
-sw & 0100011 & 010 & -- & + & 1 & 1 & 0 & 1 & 0\\
-add & 0110011 & 000 & 0000000 & + & 0 & 1 & 0 & 0 & 0\\
-sub & 0110011 & 000 & 0100000 & - & 0 & 1 & 0 & 0 & 0\\
+lw & 0000011 & 010 & --       &           + & 1 & 1 & 0 & 1 & 0\\
+sw & 0100011 & 010 & --       &           + & 1 & 1 & 1 & 0 & 0\\
+add & 0110011 & 000 & 0000000 &           + & 0 & 1 & 0 & 0 & 0\\
+sub & 0110011 & 000 & 0100000 &           - & 0 & 1 & 0 & 0 & 0\\
 slt & 0110011 & 010 & 0000000 & \texttt{<<} & 0 & 1 & 0 & 0 & 0\\
-or & 0110011 & 110 & 0000000 & \texttt{|} & 0 & 1 & 0 & 0 & 0\\
+or & 0110011 & 110 & 0000000  & \texttt{|}  & 0 & 1 & 0 & 0 & 0\\
 and & 0110011 & 111 & 0000000 & \texttt{\&} & 0 & 1 & 0 & 0 & 0\\
-addi & 0010011 & 000 & -- & + & 0 & 1 & 0 & 0 & 0\\
-beq & 1100011 & 000 & -- & \texttt{==} & 0 & 0 & 0 & * & 1\\ \hline
+addi & 0010011 & 000 & --     &           + & 0 & 1 & 0 & 0 & 0\\
+beq & 1100011 & 000 & --      & \texttt{==} & 0 & 0 & 0 & * & 1\\ \hline
 \end{tabular}
 \end{frame}
 
