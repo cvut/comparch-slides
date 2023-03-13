@@ -732,11 +732,11 @@ Kódování & \texttt{0000 000t tttt ssss s010 dddd d011 0011} \\
 Příklad: Sečti hodnoty z registru 2 a registru 3, výsledek ulož do registru 4:\\
 \textbf{\texttt{add x4, x2, x3}}
 
-\textbf{\texttt{0000 000\hspace{0.08cm}\color{red}t tttt}}\phantom{x}\hspace{0.13cm}\textbf{\texttt{\color{blue}ssss s}}\hspace{0.1cm}\textbf{\texttt{010\hspace{0.25cm}{\color{green}dddd d}\hspace{0.05cm}011 0011}}\\
+\textbf{\texttt{0000 000\hspace{0.08cm}\color{red}t tttt}}\phantom{x}\hspace{0.13cm}\textbf{\texttt{\color{blue}ssss s}}\hspace{0.1cm}\textbf{\texttt{000\hspace{0.25cm}{\color{green}dddd d}\hspace{0.05cm}011 0011}}\\
 $\underbrace{\textbf{\texttt{0000 000}}}_{funct7}
 \underbrace{\textbf{\texttt{\color{red}0 0011}}}_{3}
 \texttt{ }\underbrace{\textbf{\texttt{\color{blue}0001 0}}}_{2}
-\underbrace{\textbf{\texttt{010}}}_{func3}\phantom{i}
+\underbrace{\textbf{\texttt{000}}}_{func3}\phantom{i}
 \underbrace{\textbf{\texttt{\color{green}0010 0}}}_{4}
 \underbrace{\textbf{\texttt{011 0011}}}_{opcode}$\\
 
