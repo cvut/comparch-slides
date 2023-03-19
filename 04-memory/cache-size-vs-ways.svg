@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="670.22203"
-     inkscape:cy="163.87075"
+     inkscape:zoom="1.4"
+     inkscape:cx="408.63307"
+     inkscape:cy="584.96804"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -63,7 +63,7 @@
        id="path9042"
        sodipodi:nodetypes="cccccccccccccccccc" />
     <path
-       style="fill:#83e3d4;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#83e3d4;fill-opacity:1;stroke:#000000;stroke-width:0.26493611;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 49.928449,115.71655 17.707649,28.70576 17.727128,10.06765 17.998654,1.87814 17.92272,6.73889 17.48455,12.47288 17.76494,9.17517 18.39962,7.48697 17.7624,1.94574 0.009,-1.21984 -17.24332,-3.43109 -18.73771,-5.62503 -17.3526,-10.3428 -18.3226,-17.36658 L 104.12683,150.8305 85.600195,143.30439 67.594148,124.47766 49.873849,93.780342 Z"
        id="path9077"
        sodipodi:nodetypes="ccccccccccccccccccc" />
@@ -517,5 +517,14 @@
          y="124.42999"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.264583"
          id="tspan9123">Morgan Kaufmann, 2003</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 50.036795,196.15239 H 192.85778"
+       id="path9125" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.705556;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 116.9276,189.06518 -7.69335,6.45002"
+       id="path9105-4"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>
