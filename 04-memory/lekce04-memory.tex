@@ -156,7 +156,7 @@ Parametry pamětí:
 Paměti dělíme podle možností zápisu na:
 \begin{itemize}
 \item \textbf{ROM} (Read-Only Memory) paměti ze kterých lze pouze číst, řadíme sem i paměti typu EEPROM (Electrically Erasable Programmable Read-Only Memory), které lze omezeně smazat vysokým napětím a pak tam zapsat nové údaje, při normálním provozu nejde do paměti zapsat.
-\item \textbf{RAM} (Random Access Memory) také RWM (Read-Write Memory) lasické paměti určené pro čtení a zápis libovolné buňky v libovolném pořadí -- Random Access.
+\item \textbf{RAM} (Random Access Memory) také RWM (Read-Write Memory) klasické paměti určené pro čtení a zápis libovolné buňky v libovolném pořadí -- Random Access.
 \end{itemize}
 
 Paměti lze dělit i podle toho, zda data jsou uchována po vypnutí napájení:
@@ -495,7 +495,7 @@ set = (adresa div BS) mod SN
 {
 \centering
 
-\includegraphics[width=0.65\linewidth]{fig/cache-size-vs-ways.png}
+\includegraphics[width=0.65\linewidth]{cache-size-vs-ways.pdf}
 
 }
 
@@ -511,12 +511,20 @@ Jedná se o kombinaci jak algoritmů v programu, tak parametrů cache a často i
 \begin{frame}
 \frametitle{Vliv velikosti bloku a celé cache na počty výpadků}
 
+Miss rate versus block size and cache size on SPEC92 benchmark
+
+\vskip 2mm
+
 {
 \centering
 
-\includegraphics[width=0.75\linewidth]{fig/cache-size-vs-block.png}
+\includegraphics[width=0.72\linewidth]{cache-size-vs-block.pdf}
 
 }
+
+\vskip 2mm
+
+{\tiny Zdroj: Hennessy and Patterson: Computer Architecture: A Quantitative Approach 3rd ed., Morgan Kaufmann, 2003}
 
 Zvětšení velikosti bloku napomáhá načtení sousedních dat, která mohou být často následně potřeba.
 Ale pokud tomu tak není, tak se zvyšuje cache miss penalty a zároveň dochází častěji ke kolizím
