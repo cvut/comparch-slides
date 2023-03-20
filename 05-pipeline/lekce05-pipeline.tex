@@ -430,10 +430,28 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \end{frame}
 
-%\begin{frame}
-%\frametitle{Todo}
-%\includegraphics[width=0.85\textwidth]{hazard_ctrl2.pdf}
-%\end{frame}
+\begin{frame}
+\frametitle{Alternativa, přesunout rozhodování skoků dříve}
+\includegraphics[width=0.85\textwidth]{hazard_ctrl2.pdf}
+
+\begin{itemize}
+ \item Vzniká strukturální hazard, \textbf{ALU} je potřeba ve stupni \textbf{EX} i \textbf{ID}.
+ \item Strukturální hazardy lze řešit duplikací prvků. Kompletní sčítačka, odčítačka nebo porovnání
+       na velikost trvá dlouho, řešením může být omezit podmíny skoků jen na shodu/neshodu (stačí xor
+       mezi operandy a nor přes bity)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Přesun vykonání skoků do ID -- architektura MIPS}
+\includegraphics[width=0.90\textwidth]{hazard_ctrl_mips2.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{Vyřešení hazardů na vstupech komparátoru -- MIPS}
+\includegraphics[width=0.90\textwidth]{hazard_ctrl_mips2.pdf}
+\end{frame}
 
 \begin{frame}
 \frametitle{Predikce skoků a spekulativní vykonávání instrukcí (příště)}
@@ -441,7 +459,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{Výsledek návrhu zřetězeného procesoru}
+\frametitle{Výsledek návrhu zřetězeného procesoru -- RISC-V}
 \includegraphics[width=0.95\textwidth]{cpu_final_design.pdf}
 \end{frame}
 
@@ -481,18 +499,94 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{Předstihy a přesahy dat k hodinám registrů}
-\includegraphics[width=0.45\textwidth]{fig/timing_clk.png}
+\frametitle{Která instrukce selže při přerušení spoje}
+\includegraphics[width=0.95\textwidth]{cpu_final_design_bonus.pdf}
 
-\includegraphics[width=0.45\textwidth]{fig/timing_clk3.png}
-\hfill 
-\includegraphics[width=0.45\textwidth]{fig/timing_clk2.png}
+\textbf{A)} add \hfill \textbf{B)} addi \hfill \textbf{C)} beq \hfill \textbf{ D)} or \hfill ?
+\end{frame}
+
+\section{Úvahy a omezení pro reálný návrh (pro adepty o známku A)}
+
+\begin{frame}
+\frametitle{Requirements for Pipeline Timing}
+\includegraphics[width=0.95\textwidth]{pipeline_timing1.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{Requirements for Pipeline Timing}
+\includegraphics[width=0.95\textwidth]{pipeline_timing2.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{Clock Distribution Network Skew}
+\includegraphics[width=0.9\textwidth]{clock_distribution_skew.pdf}
+
+\begin{itemize}
+ \item \textbf{Positive Clock Skew} -- clock arrives at the capturing sequential later than it arrives at the launching sequential
+ \item \textbf{Negative Clock Skew} -- clock arrives at the launching sequential later than it arrives at the capturing sequential
+ \item \textbf{Local Clock Skew} -- skew between any two sequentials with a valid timing path between them.
+ \item \textbf{Global Clock Skew} -- clock skew between any two sequentials in the design irrespective of whether a timing paths exists between them
+\end{itemize}
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Clock Distribution Network -- H-tree}
 
+{
+\centering
+\includegraphics[width=0.6\textwidth]{clock_distribution_h_tree.pdf}
+}
 
+\vskip 2mm
 
+source: Tawfik, S., Kursun, V.: Clock Distribution Networks with Gradual Signal Transition Time Relaxation for Reduced Power Consumption.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Pipeline Stages Balancing}
+\includegraphics[width=0.85\textwidth]{pipeline_balancing.pdf}
+
+(applies to tree based adder, multiplier, (unrolled) iterative divider..)
+
+\begin{itemize}
+ \item \textbf{Balancing}: the goal is to divide the processing into N stages in such way, that stage propagation delays are roughly the same...
+ \item The number of stages reflects preference of \underline{performance} (\underline{throughput}) versus latency.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Superpipeline and Beyond}
+
+\begin{itemize}
+ \item Not well balanced 5-stage pipeline:
+\end{itemize}
+
+\includegraphics[width=0.85\textwidth]{pipeline_balancing2.pdf}
+
+\begin{itemize}
+ \item Deeper pipeline is result of decomposing stages into more stages
+\end{itemize}
+
+\includegraphics[width=0.85\textwidth]{pipeline_balancing2.pdf}
+
+\begin{itemize}
+ \item It allows CPU to work at higher frequencies but introduces many problems as well...
+ \item Complex forwarding, more pipeline stalls, hazards need to be solved by complex logic
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Superpipeline and Beyond}
+
+\includegraphics[width=0.95\textwidth]{pipeline_today_depths.pdf}
+
+The Optimum Pipeline Depth for a Microprocessor: {\tiny \url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.93.4333&rep=rep1&type=pdf}}
+
+\end{frame}
 
 \end{document}
 
