@@ -151,7 +151,7 @@ po dosazení
 \begin{itemize}
  \item Uvažujeme $T_{C_{fetch}} =  30 + 300 = 330$\,ns
  \item $T_{C_{exec}} = 150 + 200 + 300 + 20 + 20 = 690$\,ns
- \item $T_{C_{exec}} < T_{C_{exec}}$ tedy $T_{C} = T_{C_{exec}} = 690$\,ns
+ \item $T_{C_{fetch}} < T_{C_{exec}}$ tedy $T_{C} = T_{C_{exec}} = 690$\,ns
  \item $\rightarrow f_{C} = 1.45$\,MHz $\rightarrow IPS = 1\,450\,000$
 \end{itemize}
 
@@ -570,7 +570,7 @@ source: Tawfik, S., Kursun, V.: Clock Distribution Networks with Gradual Signal 
  \item Deeper pipeline is result of decomposing stages into more stages
 \end{itemize}
 
-\includegraphics[width=0.85\textwidth]{pipeline_balancing2.pdf}
+\includegraphics[width=0.85\textwidth]{pipeline_balancing3.pdf}
 
 \begin{itemize}
  \item It allows CPU to work at higher frequencies but introduces many problems as well...
