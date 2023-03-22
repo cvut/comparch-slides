@@ -1,0 +1,17 @@
+/*.aux
+/*.log
+/*.snm
+/*.gz
+/*.nav
+/*.out
+/*.toc
+/*.upa
+/*.vrb
+/anim
+/_minted*
+/cpu_final_design.pdf
+/lekce06-predictors.pdf
+/apo06_2021.pdf
+/superscalar.pdf
+/pipeline.pdf
+/superscalar-architecture.pdf
