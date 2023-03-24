@@ -25,11 +25,66 @@
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Opakování - kvíz}
+
+V kterém případě instrukce obsahují datový hazard?
+
+\begin{columns}[T]
+\begin{column}{0.40\textwidth}
+\phantom{xxxxx}a)
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+addi t0, s1, 4
+add  t1, s1, s0
+add  s1, s2, x0
+\end{minted}
+\end{column}
+\begin{column}{0.40\textwidth}
+\phantom{xxxxx}b)
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+addi t0, s1, 4
+add  t1, s2, s3
+add  t2, t0, t1
+\end{minted}
+\end{column}
+\end{columns}
+\bigskip
+\begin{itemize}
+ \item[A] ani v jednom sloupci
+ \item[B] hazard je pouze v případě a)
+ \item[C] hazard je pouze v případě b)
+ \item[D] hazard je v případě a) i b)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Opakování - kvíz}
+
+Jak lze vyřešit následující datový hazard?
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+lw   s2, 10(s0)
+addi s1, s2, -1 
+\end{minted}
+\bigskip
+\begin{itemize}
+ \item[A] tento hazard nelze vyřešit, musí ho řešit překladač nebo programátor
+ \item[B] lze ho vyřešit pomocí data forwarding
+ \item[C] musí se řešit pouze pomocí stall
+ \item[D] lze ho vyřešit kombinací stall a data forwarding
+\end{itemize}
+
+\end{frame}
+
+
 \begin{frame}
 
 \frametitle{Procesor s pipeline (z přednášky 5)}
 
-Jak moc je složitá Hazard Unit?
+Jak může Hazard Unit rozhodnout o datovém hazardu, když to dělá problémy studentům?
 \begin{columns}
 \begin{column}{0.67\textwidth}
 \includegraphics[width=\textwidth]{cpu_final_design.pdf}
@@ -58,7 +113,7 @@ Paralelní zpracování na úrovni instrukcí (Instruction Level Parallelism, IL
  \item Superskalární procesor -- paralelně se zpracovávají stejné fáze různých instrukcí
 \begin{itemize}
 \item můžeme mít více jednotek ALU a provádět paralelně fáze EX více různých instrukcí
-\item ve fázi fetch můžeme paralelně načítat více instrukcí jdoucích po sobě, tedy instrukci z adresy PC, PC+4, PC+8 a PC+12
+\item ve fázi fetch můžeme paralelně načítat více instrukcí jdoucích po sobě, tedy např. instrukce z adresy PC, PC+4, PC+8 a PC+12
 \item jednotlivé fáze instrukcí jsou navíc zřetězené, takže po paralelním načtení 4 instrukcí, rovnou načítáme další 4 instrukce 
 \end{itemize}
 \end{itemize}
@@ -148,7 +203,7 @@ Pro instrukce pracující pouze s registry:
 \begin{minted}[fontsize=\footnotesize]{gas}
 1: slli t1, s1, 4
 2: add  t0, t1, s2
-3: lw   s2, 8(t0)
+3: addi s2, t0, 8
 4: mult t1, s0, s0
 5: addi t3, t1, 100
 \end{minted}
@@ -160,13 +215,13 @@ Tento program lze paralelizovat s použitím skryté sady registrů pro přejmen
 \begin{minted}[fontsize=\footnotesize]{gas}
 1: slli RN0, s1, 4
 2: add  RN1, RN0, s2
-3: lw   s2, 8(RN1)
+3: addi RN2, RN1, 8
 \end{minted}
 \end{column}
 \begin{column}{0.40\textwidth}
 \begin{minted}[fontsize=\footnotesize]{gas}
-4: mult RN2, s0, s0
-5: addi RN3, RN2, 100
+4: mult RN3, s0, s0
+5: addi RN4, RN3, 100
 \end{minted}
 \end{column}
 \end{columns}
@@ -198,7 +253,7 @@ Instrukce se mohou vypočítávat out-of-order, ale ukončení instrukcí je v p
 \scriptsize
 Rename Register Set:
 \begin{itemize}
-\item Množina pomocných registrů, často až dvakrát větší než počet CPU registrů.
+\item Množina pomocných registrů, často dvakrát i vícekrát větší než počet CPU registrů.
 \item Příznak Busy značí, že registr je využíván, Příznak valid značí, že hodnota je vypočtena a je validní. Při dokončení instrukce se nastaví CPU registr na RRN.
 \end{itemize}
 
@@ -299,7 +354,7 @@ Source: \url{https://en.wikichip.org/wiki/amd/microarchitectures/zen_2}
 \item Po dokončení všech výpočtů nutných pro rozhodnutí skoku se ověří, zda se mělo skákat nebo ne.
 \item Při chybné predikci se musí zahodit mnoho rozpracovaných, nebo i spekulativně vykonaných instrukcí.
 \end{itemize}
-\item I nepodmíněné skoky mají problém, vypočítat kam se skočí. Cíl skoku může záviset na výpočtu předchozích instrukcí a proto nejde jednoduše určit při načítání instrukcí.
+\item I nepodmíněné skoky mají problém, vypočítat kam se skočí. Cíl skoku může záviset na výpočtu předchozích instrukcí, a proto nejde jednoduše určit při načítání instrukcí.
 \begin{itemize}
 \item Řešení - spekulativně odhadneme, na jakou adresu se asi bude skákat, podle historie minulých skoků.
 \item Po dokončení všech výpočtů se zkontroluje, zda se odhadla správná adresa.
@@ -404,6 +459,267 @@ if (a<b) {
 \bigskip
 Nepodmíněný skok závisí na hodnotách a, b, nelze tedy o něm obecně nic prohlásit, jedině skáče se vždy dopředu.\\
 Statistické chování záleží na typu programu, ale pro směs různých programů se ukazuje, že pravděpodobnost skoku je $0.4$.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Dynamické prediktory}
+
+\small
+Dynamické prediktory se snaží odhadnout, zda se skočí na základě minulého chování dané instrukce skoku:
+\begin{itemize}
+\item Bylo by ideální, aby každá instrukce skoku měla svůj prediktor
+\begin{itemize}
+\small
+\item To ale není možné, skoková instrukce může být na kterémkoliv místě paměti 4GiB
+\end{itemize}
+\end{itemize}
+
+
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\small
+Řešení: budeme mít $2^k$ prediktorů a podle $k$ nejnižších bitů adresy instrukce skoku vybereme prediktor
+\begin{itemize}
+\item Některé instrukce skoku na rozdílných adresách, ale se stejnými nejnižšími $k$ bity adresy se budou ovlivňovat -- \textbf{interferovat}.
+\item Interference mohou velmi nepříznivě ovlinit úspěšnost predikce.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{prediction_table.pdf}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{1-bitový Smithův prediktor}
+
+Nejjednodušší prediktor je 1-bitový Smithův prediktor
+\begin{itemize}
+\item Má pouze dva stavy, přepíná se podle minulého chování
+\item Předpovídá, že to dopadne, jak to dopadlo minule.
+\begin{itemize}
+\item velmi jednoduchá implementace, vyhodnocení i úprava podle skutečnousti
+\end{itemize}
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{smith_1bit.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{1-bitový Smithův prediktor}
+
+Predikce pro for cyklus:
+
+\begin{columns}[T]
+\begin{column}{0.4\textwidth}
+\begin{minted}{c}
+for (i=0; i<5; i++) {
+  ...
+}
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\begin{minted}{gas}
+addi t0, x0, 0
+addi t1, x0, 5
+j podm
+...
+addi t0, t0, 1
+slt    t2, t0, t1
+bne  t2, x0, telo
+\end{minted}
+\end{column}
+\end{columns}
+\bigskip
+Pokud prediktor neinterferuje s jinými skoky, pak začíná ve stavu 0 -- NT (Not taken).
+
+\begin{tabular}{|l|c|c|c|c|c|}\hline
+Skutečné chování & T & T & T & T & NT\\ \hline
+Predikce         & {\color{red}NT} & T & T & T & {\color{red}T}\\ \hline
+\end{tabular}
+
+Vidíte, že prediktor není úspěšný na počátku for cyklu a na jeho konci.
+
+Úspěšnost 1-bitového Smithova prediktoru pro cyklus s $r$ iteracemi je $\frac{r-2}{r}$.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{2-bitový Smithův prediktor}
+
+2-bitový Smithův prediktor pattří stále k těm nejjednodušším
+\begin{itemize}
+\item Má již 4 stavy, reprezentované dvěma bity.
+\item 2 stavy předpovídají skok, 2 stavy předpovídají neskočení
+\item Předpověď závisí na minulém chování, ale toleruje jednu odchylku od pravidelnosti
+\item Velmi jednoduchá implementace, vyhodnocení i úprava podle skutečnousti
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{smith_2bit.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{2-bitový Smithův prediktor}
+
+Predikce pro for cyklus:
+
+\begin{columns}[T]
+\begin{column}{0.4\textwidth}
+\begin{minted}{c}
+for (i=0; i<5; i++) {
+  ...
+}
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\begin{minted}{gas}
+addi t0, x0, 0
+addi t1, x0, 5
+j podm
+...
+addi t0, t0, 1
+slt    t2, t0, t1
+bne  t2, x0, telo
+\end{minted}
+\end{column}
+\end{columns}
+\bigskip
+\small
+Pokud prediktor neinterferuje s jinými skoky, pak začíná ve stavu 10 -- WT (Weakly taken).
+
+\begin{tabular}{|l|c|c|c|c|c|c|}\hline
+Skutečné chování & T & T & T & T & NT &\\ \hline
+Stav & WT & ST & ST & ST & ST & WT\\ \hline
+Predikce         & T & T & T & T & {\color{red}T} &\\ \hline
+\end{tabular}
+
+Vidíte, že prediktor není úspěšný pouze na konci for cyklu.
+
+Úspěšnost 2-bitového Smithova prediktoru pro cyklus s $r$ iteracemi je $\frac{r-1}{r}$.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{2-bitový Smithův prediktor s hysterezí}
+
+Obdoba 2-bitového Smithova prediktoru
+\begin{itemize}
+\item Při dvou změnách po sobě se přejde rovnou do stavu Strongly a musí přijít další dvě opačné chování po sobě aby se prediktor překlopil do nového stavu
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{smith_2bit_hist.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Hodnocení prediktorů}
+
+\begin{itemize}
+\item Je nemožné rozhodnout obecně, kdy je který prediktor lepší. Vždy lze najít protipříklady, kdy je každý z uvedených prediktorů chová nejlépe
+\item Jediná možnost je statistická analýza různých programů:
+\end{itemize}
+\begin{center}
+\begin{tabular}{|l|c|} \hline
+Statický prediktor - vždy se skočí & 59.25 \\\hline
+1-bitový Smithův prediktor         & 68.75 \\\hline
+2-bitový Smithův prediktor s hysterezí & 81.75 \\\hline
+\end{tabular}
+\end{center}
+
+Zdroj: \url{https://ieeexplore.ieee.org/document/6918861}\\
+H. Arora, S. Kotecha and R. Samyal, "Dynamic Branch Prediction Modeller for RISC Architecture," 2013 International Conference on Machine Intelligence and Research Advancement, Katra, 2013, pp. 397-401.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Závislost předpovědi}
+
+V praxi se ukazuje, že predikce závisí na předchozím chování program.
+
+\begin{minted}{c}
+if (x==2) {  // skok s1
+}
+if (y==2) { // skok s2
+}
+if (x!=y) { // skok s3
+}
+\end{minted}
+
+Pokud se proměnné \texttt{x}, \texttt{y} nemění v tělech podmínek \texttt{s1} a \texttt{s2}, pak tady máme silnou závislost skoku \texttt{s3}:
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|}\hline
+s1 & s2 & $\implies$ s3 & vysvětlení \\\hline
+neskočí & skočí   & neskočí & x==2 a y!=2 tedy platí x!=y \\\hline
+skočí   & neskočí & neskočí & x!=2 a y==2 tedy platí x!=y \\\hline
+neskočí & neskočí & skočí   & x==2 a y==2 tedy neplatí x!=y\\\hline 
+skočí   & skočí   & nevíme  & x!=2 a y!=2 nevíme zda platí x!=y \\\hline
+\end{tabular}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Historie skoků}
+
+Registr BHR (Branch Histrory Register) obsahuje informaci, zda posledních l skoků provedlo skok:
+\begin{itemize}
+\item Pokud se skočilo pak obsahuje 1, pokud se neskočilo pak obsahuje 0
+\item Nová informace se vloží na nejnižší bit, nejstarší informace se vyhodí z nejvyšší pozice, ostatní informace se posune.
+\end{itemize}
+
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\small
+Pro zjištení indexu prediktoru se vezme $k-l$ nejnižších bitů adresy instrukce skoku a tato informace se spojí s bity z BHR
+\begin{itemize}
+\item Výhoda -- podle předchozích skoků se vybere jiný prediktor.
+\item Nevýhoda -- některé kombinace se v BHR nevyskytnou, a proto se tyto prediktory nepoužijí.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{prediction_BHR.pdf}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{GShare prediktory}
+
+GShare přístup je podobný předchozímu:
+\begin{itemize}
+\item Také využívá BHR registr, který v této implemetaci má přímo k bitů
+\end{itemize}
+
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\small
+Pro zjištení indexu prediktoru se vezme $k$ nejnižších bitů adresy instrukce skoku a provede se xor s bity z BHR.
+
+Výhody:
+\begin{itemize}
+\item lépe statisticky pokryje všechny prediktory.
+\item umožňuje použít delší BHR register.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{prediction_GShare.pdf}
+\end{column}
+\end{columns}
 
 \end{frame}
 
