@@ -353,6 +353,60 @@ Statické prediktory mají pro danou skokovou instrukci vždy stejný výsledek:
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Statický prediktor BTFNT}
+
+Příklad překladu for cyklu:
+
+\begin{columns}[T]
+\begin{column}{0.4\textwidth}
+\begin{minted}{c}
+for (i=0; i<N; i++) {
+
+  ...
+  
+}
+\end{minted}
+\end{column}
+\begin{column}{0.6\textwidth}
+\includegraphics[width=\textwidth]{for_cyklus.pdf}
+\end{column}
+\end{columns}
+\bigskip
+Pro nepodmíněný skok platí, že se $N-1$ krát skočí a $1$ neskočí.\\
+Skáče se vzad a pravděpodobnost správné předpovědi je tedy $\frac{N-1}{N}$
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Statický prediktor BTFNT}
+
+Příklad překladu if else kontrukce:
+
+\begin{columns}[T]
+\begin{column}{0.4\textwidth}
+\begin{minted}{c}
+if (a<b) {
+  
+  ...
+
+} else {
+
+  ...
+
+}
+\end{minted}
+\end{column}
+\begin{column}{0.6\textwidth}
+\includegraphics[width=\textwidth]{if_preklad.pdf}
+\end{column}
+\end{columns}
+\bigskip
+Nepodmíněný skok závisí na hodnotách a, b, nelze tedy o něm obecně nic prohlásit, jedině skáče se vždy dopředu.\\
+Statistické chování záleží na typu programu, ale pro směs různých programů se ukazuje, že pravděpodobnost skoku je $0.4$.
+
+\end{frame}
+
 
 \end{document}
 
