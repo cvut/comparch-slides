@@ -18,7 +18,7 @@
 \frametitle{Cíl dnešní přednášky}
 
 \begin{itemize}
- \item Podívat se na další možné zrychlení procesoru, které navazuje na pipelining
+ \item Podívat se na další možné zrychlení procesoru, které navazuje na pipelining -- superskalární architekturu
  \item Predikce skoků jako velmi důležitá vlastnost superskalárních procesorů
  \item Obě tyto techniky se využívají jak v RISC-V procesorech, tak i ve všech současných procesorech
 \end{itemize}
@@ -110,6 +110,7 @@ Jak může Hazard Unit rozhodnout o datovém hazardu, když to dělá problémy 
 Paralelní zpracování na úrovni instrukcí (Instruction Level Parallelism, ILP)
 \begin{itemize}
  \item Pipelining -- paralelně se zpracovávají různé fáze různých instrukcí
+ \item Superpipelining -- za superpipelining se označuje pipelining s více než 10 kroky. Pomalejší fáze pipeliningu se rozdělí na více částí, tím dojde k možnosti zvýšit frekvenci procesoru a tím i jeho výkon.
  \item Superskalární procesor -- paralelně se zpracovávají stejné fáze různých instrukcí
 \begin{itemize}
 \item můžeme mít více jednotek ALU a provádět paralelně fáze EX více různých instrukcí
@@ -135,7 +136,7 @@ Superskalární procesor -- super scalar procesor
 \frametitle{Superskalární procesory}
 
 \begin{itemize}
-\item Mají IPC (Instruction Per Clock) větší než 1. 
+\item Superskalární procesory mají IPC (Instruction Per Clock) větší než 1. 
   \begin{itemize}
   \item Normální i pipelined procesor mají neustále IPC=1
   \end{itemize}
@@ -173,6 +174,7 @@ Superskalární procesor -- super scalar procesor
 \end{itemize}
 \end{frame}
 
+\section{Reorganizace výpočtů v registrech}
 
 \begin{frame}
 \frametitle{Superskalární architektura}
@@ -253,7 +255,7 @@ Instrukce se mohou vypočítávat out-of-order, ale ukončení instrukcí je v p
 \scriptsize
 Rename Register Set:
 \begin{itemize}
-\item Množina pomocných registrů, často dvakrát i vícekrát větší než počet CPU registrů.
+\item Množina pomocných registrů, často i mnohokrát větší než počet CPU registrů.
 \item Příznak Busy značí, že registr je využíván, Příznak valid značí, že hodnota je vypočtena a je validní. Při dokončení instrukce se nastaví CPU registr na RRN.
 \end{itemize}
 
@@ -340,6 +342,9 @@ Source: \url{https://en.wikichip.org/wiki/amd/microarchitectures/zen_2}
 \end{columns}
 
 \end{frame}
+
+
+\section{Prediktory skoku}
 
 
 \begin{frame}
@@ -673,7 +678,7 @@ skočí   & skočí   & nevíme  & x!=2 a y!=2 nevíme zda platí x!=y \\\hline
 
 
 \begin{frame}
-\frametitle{Historie skoků}
+\frametitle{Historie skoků -- korelované prediktory}
 
 Registr BHR (Branch Histrory Register) obsahuje informaci, zda posledních l skoků provedlo skok:
 \begin{itemize}
@@ -720,6 +725,34 @@ Výhody:
 \includegraphics[width=\textwidth]{prediction_GShare.pdf}
 \end{column}
 \end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Turnajové prediktory}
+
+Základem turnajového prediktoru je soutěž dvou jiných, jednodušších prediktorů. Pro výběr, který prediktor je lepší a tedy, který prediktor bude na výstupu, lze použít 1-bitový, nebo 2-bitový prediktor. 
+
+\bigskip
+Jak funguje 1-bitový turnajový prediktor
+\begin{itemize}
+\item Vypočti predikci prediktory P1 a P2.
+\item Pokud se predikce shodují je výsledkem tato predikce.
+\item Pokud se predikce neshodují:
+\begin{itemize}
+\item Vvýsledná predikce je podle toho, který prediktor byl v minulosti úspěšný. Tato informace je uložena v 1-bitovém stavovém automatu. 
+\item Podle skutečnosti vyber prediktor P1, nebo P2 pro příští predikci.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Turnajové prediktory}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{fig/tournament.png}\\
+\small Velikost prediktorů v KiB
+\end{center}
 
 \end{frame}
 
@@ -730,6 +763,226 @@ Výhody:
 \begin{center}
 \includegraphics[width=0.6\textwidth]{neuron.pdf}
 \end{center}
+
+Pro výpočet hodnoty se použije vzoreček $\xi = \sum_{i=0}^{n} x_i \cdot w_i$. Závěrečné vyhodnocení je pomocí přenosové funkce, v našem případě skokové funkce, která má tvar:
+$f(\xi) = \begin{cases}1& \text{pro } \xi \ge 0\\0& \text{pro }\xi <0\end{cases}$ 
+\end{frame}
+
+
+\begin{frame}
+\frametitle{AMD Zen2 prediktor}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{prediction_amd.pdf}
+\end{center}
+
+Podle adresy skoku se vybere jeden perceptron z tabulky. 
+
+Perceptron je definován vahami $w_i$. 
+
+Výsledek predikce je znaménko váženého součtu $\xi = \sum_{i=0}^{n} x_i \cdot w_i$, kde $x_i$ jsou bity z registru historie skoků BHR.
+
+Výhoda -- lepší výsledky než gshare, lze použít i pro dlouhé registry historie BHR, nevýhoda -- složitý výpočet, nelze získat výsledek v jednom taktu procesoru.
+\end{frame}
+
+\begin{frame}
+\frametitle{AMD Zen2 -- Predikce skok}
+
+\begin{itemize}
+\item Výpočet výstupu perceptronu je relativně pomalý, normální perceptrony používají reálná čísla s plovoucí desetinnou čárkou. Je možné urychlit 16-ti bitovými reálnými čísly, nebo použitím pevné desetinné čárky.
+\item Skutečná implementace prediktorů skoků má tři úrovně
+\begin{itemize}
+\item úroveň 1 -- 16 velmi rychlých prediktorů, rozhodnou ještě v tom samém hodinovém cyklu, které další instrukce načítat
+\item úroveň 2 -- 512 prediktorů, které v dalším hodinovém cyklu upřesní předpověď, buď se zahodí načítané instrukce, nebo se potvrdí
+\item úroveň 3 -- 7168 prediktorů, za 4 hodinové cykly zpřesní předpověď. Opět se dosavadní načtené instrukce buď uchovají, nebo zahodí.
+\end{itemize}
+\item Průměrná časová prodleva při špatné konečné predikci je přibližně 18 hodinových cyků.
+\item Při rychlosti 4GHz a pokud je každá desátá instrukce skok, tak 1\% chybné predikce vede ke snížení výkonu o téměř 2\%.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{AMD Zen2 prediktor}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig/amd_cinebench.png}
+\end{center}
+
+Zdroj: Analyzing Zen 2’s Cinebench R15 Lead
+By clamchowder from \url{https://chipsandcheese.com}
+\end{frame}
+
+\section{Predikce cíle skoku}
+
+\begin{frame}
+\frametitle{Predikce cíle skoku}
+
+Skoky mají jak v RISC-V tak v ostatních procesorech různý formát cílové adresy skoku:
+\begin{itemize}
+\item skok na pevnou adresu -- cíl skoku je adresa přímo uvedená v instrukci skoku (není v RISC-V, protože má pevnou délku instrukce a 32-bitová adresa se do kódu instrukce nevejde)
+\item skok relativně vůči adrese skokové instrukce -- cíl skoku se vypočte jako součet PC v okamžiku načtení skokové instrukce a zadaná konkrétní hodnota v instrukci.
+\item skok na pozici uvedenou v registru, nebo v paměti -- RISC-V má instrukci jalr, tedy skok na adresu uvedenou v registru, x86 obsahuje instrukce ret -- návrat z podprogramu podle adresy uvedené v paměti na zásobníku a instrukci jump indirect, kdy adresa ukazuje do paměti, kde je uvedena cílová adresa skoku (tuto instrukci lze použít při skoku podle tabulky např. při překladu switch konstrukce, nebo při volání funkcí dynamických knihoven). 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Predikce cíle skoku}
+
+\begin{itemize}
+\item Cíl skoku je potřeba zjistit již ve fázi načítání instrukcí.
+\item Lze mít speciálně dedikované sčítačky na cílové adresy skoku, ale i tam součet nějakou dobu trvá.
+\item Proto je důležité odhadnout cíl skoku:
+\begin{itemize}
+\item BTB (Branch Target Buffer) je buď plně asociativní paměť nebo částečně
+asociativní s daným stupněm asociativity
+\item Řádky jsou dvojice: 
+\begin{itemize}
+\item klíč -- BIA (Branch Instruction Address) -- tedy hodnota PC v okamžiku skoku
+\item BTA (Branch Target Address) -- cílová adresa skoku
+\end{itemize}
+\end{itemize}
+\item Pokud se PC shoduje s hodnotou BIA v BTB a současně prediktor předpoví, že se skočí, změní se PC spekulativně na hodnotu příslušné BTA
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Predikce návratu z funkce}
+
+Nejčastější skok podle adresy v paměti je návrat z funkce:
+\begin{itemize}
+\item Pro rychlou predikci adresy návratu z funkce obsahují moderní CPU -- Return Address Stack (RAS)
+\begin{itemize}
+\item Jedná se o rychlou paměť typu zásobník -- pamatující si omezené množství (až 32) návratových adres
+\item Hodnota se do RAS uloží při volání funkce, při načtení instrukce ret pak vrchol RAS slouží jako prediktor cíle skoku
+\end{itemize}
+\item Funguje spolehlivě pro úrovně vnoření funkcí podle velikosti RAS
+\end{itemize}
+\end{frame}
+
+\section{Odstranění skoků z programu}
+
+\begin{frame}[fragile]
+\frametitle{Ukázka, jak odstranit skok v programu}
+
+Na internetu můžete najít mnoho triků, jak odstranit podmínku a tedy podmíněný skok ve Vašich programech.
+
+Zde si ukážeme odstranění if z výpočtu absolutní hodnoty celého čísla:
+
+\begin{columns}[T]
+\begin{column}{0.01\textwidth}
+\phantom{x}
+\end{column}
+\begin{column}{0.25\textwidth}
+program v C
+\begin{minted}[fontsize=\small]{c}
+if (x<0) {
+  x = -x;
+}
+\end{minted}
+\end{column}
+
+\begin{column}{0.28\textwidth}
+program v RISC-V
+\begin{minted}[fontsize=\small]{gas}
+ slt t0, s0, x0
+ beq t0, x0, skip
+ sub s0, x0, s0
+skip:
+\end{minted}
+\end{column}
+\begin{column}{0.45\textwidth}
+\phantom{x}komentář\\
+\small
+porovná, zda x<0\\
+podle výsledku skočí, nebo ne\\
+vypočte -x
+\end{column}
+\end{columns}
+\bigskip
+
+Odstranit podmíněný skok, který by se velmi špatně odhadoval lze následující konstrukcí, využívající nejvyšší znaménkový bit:
+\begin{columns}[T]
+\begin{column}{0.01\textwidth}
+\phantom{x}
+\end{column}
+\begin{column}{0.25\textwidth}
+program v C
+\begin{minted}[fontsize=\small]{c}
+int tmp = x>>31;
+x ^= tmp;
+x -= tmp;
+\end{minted}
+\end{column}
+
+\begin{column}{0.28\textwidth}
+program v RISC-V
+\begin{minted}[fontsize=\small]{gas}
+srai t0, s0, 31
+xor  s0, s0, t0
+sub  s0, s0, t0
+\end{minted}
+\end{column}
+\begin{column}{0.45\textwidth}
+\phantom{x}komentář\\
+\small
+tmp bude buď 0, nebo 0xFFFFFFFF\\
+nedělá nic, nebo bitovou inverzi\\
+pro tmp==0 nedělá nic, jinak odečte -1, tedy přičte 1
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ukázka, jak odstranit skok v programu}
+
+Pokud je hodnota b rovna 0, nebo 1, pak lze následující C program:
+
+\begin{minted}[fontsize=\small]{c}
+a = ( (b!=0) ? c : d);
+\end{minted}
+
+změnit na program:
+
+\begin{minted}[fontsize=\small]{c}
+static const int lookup_table[] = {d,c};
+a = lookup_table[b];
+\end{minted}
+
+\bigskip
+Odstranit lze i více skoků najednou, pokud opět b1, b2, b3 budou nabývat pouze hodnot 0, nebo 1:
+
+\begin{minted}[fontsize=\small]{c}
+a = ( b1 ? c : ( b2 ? d : (b3 ? e : f)));
+\end{minted}
+
+lze změnit na program:
+
+\begin{minted}[fontsize=\small]{c}
+static const int lookup_table[] = { f, e, d, d, c, c, c, c };
+a = lookup_table[b1 * 4 + b2 * 2 + b3];
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Ukázka, jak odstranit skok v programu}
+
+Obdobně převod čísla od 0 do 15 na hexa znak lze buď
+\begin{minted}[fontsize=\small]{c}
+if (a<10) {
+  ch = '0'+a;
+} else {
+  ch = 'A'+(a-10);
+}
+\end{minted}
+
+lze změnit na program:
+
+\begin{minted}[fontsize=\small]{c}
+static const int hex_c[] = {'0','1','2','3','4','5','6','7',
+                            '8','9','A','B','C','D','E','F'};
+ch = hex_c[a];
+\end{minted}
 
 \end{frame}
 
