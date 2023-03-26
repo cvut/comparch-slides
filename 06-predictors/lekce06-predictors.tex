@@ -365,7 +365,7 @@ Co je to řídicí hazard (control hazard)?
 \frametitle{Řídicí hazardy v superskalární architektuře}
 
 \begin{itemize}
-\item Skoky v programu mnění, které instrukce se vykonají.
+\item Skoky v programu mění, které instrukce se vykonají.
 \item Při podmíněných skocích není jasné, které instrukce se budou vykonávat.
 \item Výpočet podmínky pro skok může trvat dlouho, je rozpracováno mnoho instrukcí.
 \begin{itemize}
@@ -415,13 +415,13 @@ Statické prediktory mají pro danou skokovou instrukci vždy stejný výsledek:
 \begin{itemize}
 \item Prediktor, který by vždy odhadoval, že se vždy skočí 
 \begin{itemize}
-\item Podle statistiky z minulého slajdu by měl úspěšnost: $p_{taken} = (0.66*0.4+0.34*0.99) = 0.60$
+\item Podle statistiky z minulé stránky by měl úspěšnost: $p_{taken} = (0.66*0.4+0.34*0.99) = 0.60$
 \item Statisticky se ukazuje, že hodnota $p_{taken}$ je pro většinu programů v rozmezí 60 -- 70\%.
 \end{itemize}
 \item Prediktor BTFNT -- Backwards Taken / Forwards Not Taken  
 \begin{itemize}
 \item Podle znaménka relativního skoku - skok zpět se skočí, skok dopředu se neskočí
-\item Podle statistiky z minulého slajdu by měl úspěšnost: $p_{taken} = (0.66*0.6+0.34*0.99) = 0.73$
+\item Podle statistiky z minulého stránky by měl úspěšnost: $p_{taken} = (0.66*0.6+0.34*0.99) = 0.73$
 \end{itemize}
 \end{itemize}
 
@@ -430,7 +430,7 @@ Statické prediktory mají pro danou skokovou instrukci vždy stejný výsledek:
 \begin{frame}[fragile]
 \frametitle{Statický prediktor BTFNT}
 
-Příklad překladu for cyklu:
+Příklad překladu \texttt{for} cyklu:
 
 \begin{columns}[T]
 \begin{column}{0.4\textwidth}
@@ -455,7 +455,7 @@ Skáče se vzad a pravděpodobnost správné předpovědi je tedy $\frac{N-1}{N}
 \begin{frame}[fragile]
 \frametitle{Statický prediktor BTFNT}
 
-Příklad překladu if else kontrukce:
+Příklad překladu \texttt{if else} konstrukce:
 
 \begin{columns}[T]
 \begin{column}{0.4\textwidth}
@@ -502,7 +502,7 @@ Dynamické prediktory se snaží odhadnout, zda se skočí na základě minuléh
 Řešení: budeme mít $2^k$ prediktorů a podle $k$ nejnižších bitů adresy instrukce skoku vybereme prediktor
 \begin{itemize}
 \item Některé instrukce skoku na rozdílných adresách, ale se stejnými nejnižšími $k$ bity adresy se budou ovlivňovat -- \textbf{interferovat}.
-\item Interference mohou velmi nepříznivě ovlinit úspěšnost predikce.
+\item Interference mohou velmi nepříznivě ovlivnit úspěšnost predikce.
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -521,7 +521,7 @@ Nejjednodušší prediktor je 1-bitový Smithův prediktor
 \item Má pouze dva stavy, přepíná se podle minulého chování
 \item Předpovídá, že to dopadne, jak to dopadlo minule.
 \begin{itemize}
-\item velmi jednoduchá implementace, vyhodnocení i úprava podle skutečnousti
+\item velmi jednoduchá implementace, vyhodnocení i úprava podle skutečnosti
 \end{itemize}
 \end{itemize}
 
@@ -574,12 +574,12 @@ Vidíte, že prediktor není úspěšný na počátku for cyklu a na jeho konci.
 \begin{frame}
 \frametitle{2-bitový Smithův prediktor}
 
-2-bitový Smithův prediktor pattří stále k těm nejjednodušším
+2-bitový Smithův prediktor patří stále k těm nejjednodušším
 \begin{itemize}
 \item Má již 4 stavy, reprezentované dvěma bity.
 \item 2 stavy předpovídají skok, 2 stavy předpovídají neskočení
 \item Předpověď závisí na minulém chování, ale toleruje jednu odchylku od pravidelnosti
-\item Velmi jednoduchá implementace, vyhodnocení i úprava podle skutečnousti
+\item Velmi jednoduchá implementace, vyhodnocení i úprava podle skutečnosti
 \end{itemize}
 
 \begin{center}
@@ -634,7 +634,7 @@ Vidíte, že prediktor není úspěšný pouze na konci for cyklu.
 
 Obdoba 2-bitového Smithova prediktoru
 \begin{itemize}
-\item Při dvou změnách po sobě se přejde rovnou do stavu Strongly a musí přijít další dvě opačné chování po sobě aby se prediktor překlopil do nového stavu
+\item Při dvou změnách po sobě se přejde rovnou do stavu Strongly a musí přijít další dvě opačné chování po sobě aby se prediktor překlopil do nového stavu.
 \end{itemize}
 
 \begin{center}
@@ -721,7 +721,7 @@ Pro zjištení indexu prediktoru se vezme $k-m$ nejnižších bitů adresy instr
 
 GShare přístup je podobný předchozímu:
 \begin{itemize}
-\item Také využívá BHR registr, který v této implemetaci má přímo $k$ bitů
+\item Také využívá BHR registr, který v této implementaci má přímo $k$ bitů
 \end{itemize}
 
 \begin{columns}[T]
@@ -732,7 +732,7 @@ Pro zjištení indexu prediktoru se vezme $k$ nejnižších bitů adresy instruk
 Výhody:
 \begin{itemize}
 \item lépe statisticky pokryje všechny prediktory.
-\item umožňuje použít delší BHR register.
+\item umožňuje použít delší BHR registr.
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -754,7 +754,7 @@ Jak funguje 1-bitový turnajový prediktor
 \item Pokud se predikce shodují je výsledkem tato predikce.
 \item Pokud se predikce neshodují:
 \begin{itemize}
-\item Vvýsledná predikce je podle toho, který prediktor byl v minulosti úspěšný. Tato informace je uložena v 1-bitovém stavovém automatu. 
+\item Výsledná predikce je podle toho, který prediktor byl v minulosti úspěšný. Tato informace je uložena v 1-bitovém stavovém automatu. 
 \item Podle skutečnosti vyber prediktor P1, nebo P2 pro příští predikci.
 \end{itemize}
 \end{itemize}
@@ -853,7 +853,7 @@ Skoky mají jak v RISC-V tak v ostatních procesorech různý formát cílové a
 \begin{itemize}
 \item skok na pevnou adresu -- cíl skoku je adresa přímo uvedená v instrukci skoku (není v RISC-V, protože má pevnou délku instrukce a 32-bitová adresa se do kódu instrukce nevejde)
 \item skok relativně vůči adrese skokové instrukce -- cíl skoku se vypočte jako součet PC v okamžiku načtení skokové instrukce a zadaná konkrétní hodnota v instrukci.
-\item skok na pozici uvedenou v registru, nebo v paměti -- RISC-V má instrukci jalr, tedy skok na adresu uvedenou v registru, x86 obsahuje instrukce ret -- návrat z podprogramu podle adresy uvedené v paměti na zásobníku a instrukci jump indirect, kdy adresa ukazuje do paměti, kde je uvedena cílová adresa skoku (tuto instrukci lze použít při skoku podle tabulky např. při překladu switch konstrukce, nebo při volání funkcí dynamických knihoven). 
+\item skok na pozici uvedenou v registru, nebo v paměti -- RISC-V má instrukci \texttt{jalr}, tedy skok na adresu uvedenou v registru, x86 obsahuje instrukce \texttt{ret} -- návrat z podprogramu podle adresy uvedené v paměti na zásobníku a instrukci \texttt{jump indirect}, kdy adresa ukazuje do paměti, kde je uvedena cílová adresa skoku (tuto instrukci lze použít při skoku podle tabulky např. při překladu \texttt{switch} konstrukce, nebo při volání funkcí dynamických knihoven). 
 \end{itemize}
 \end{frame}
 
@@ -998,7 +998,7 @@ a = lookup_table[b1 * 4 + b2 * 2 + b3];
 \begin{frame}[fragile]
 \frametitle{Ukázka, jak odstranit skok v programu}
 
-Obdobně převod čísla od 0 do 15 na hexa znak lze buď
+Obdobně převod čísla od 0 do 15 na hex znak lze buď
 \begin{minted}[fontsize=\small]{c}
 if (a<10) {
   ch = '0'+a;
@@ -1014,7 +1014,6 @@ static const int hex_c[] = {'0','1','2','3','4','5','6','7',
                             '8','9','A','B','C','D','E','F'};
 ch = hex_c[a];
 \end{minted}
-
 \end{frame}
 
 \end{document}
