@@ -84,7 +84,7 @@ addi s1, s2, -1
 
 \frametitle{Procesor s pipeline (z přednášky 5)}
 
-Jak může Hazard Unit rozhodnout o datovém hazardu, když to dělá problémy studentům?
+Jak může Hazard Unit rozhodnout o datovém hazardu, když to dělá problémy studentům? Jednoduše:
 \begin{columns}
 \begin{column}{0.67\textwidth}
 \includegraphics[width=\textwidth]{cpu_final_design.pdf}
@@ -240,9 +240,9 @@ Základní fáze jsou:
 \item Zavedení instrukce do ROB a přejmenování registru výsledku operace - získání čísla registru ze souboru záložních registrů. 
 \item Zavedení instrukce do Register Station a čekání na připravená data
 \item Provedení výpočtu a zapsání výsledku do přejmenovaného registru přes Common Data Bus
-\item Dokončení nejstarší instrukce (kruhový buffer) z ROB a aktualizace systémového registru.
+\item Dokončení nejstarší instrukce (kruhová fronta -- FIFO) z ROB a aktualizace systémového registru.
 \end{itemize}
-Instrukce se mohou vypočítávat out-of-order, ale ukončení instrukcí je v pořadí programu.
+Instrukce se mohou vypočítávat out-of-order, ale dokončení instrukcí je v pořadí programu.
 \end{frame}
 
 \begin{frame}
@@ -343,6 +343,20 @@ Source: \url{https://en.wikichip.org/wiki/amd/microarchitectures/zen_2}
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Opakování - kvíz}
+
+Co je to řídicí hazard (control hazard)?
+
+\bigskip
+\begin{itemize}
+ \item[A] hazard, který se musí řešit pomocí data forwarding
+ \item[B] hazard, který se musí řešit pomocí stall
+ \item[C] situace, kdy je nutné zahodit rozpracované instrukce
+ \item[D] problém nestabilních výsledků logických operací
+\end{itemize}
+\end{frame}
 
 \section{Prediktory skoku}
 
@@ -680,7 +694,7 @@ skočí   & skočí   & nevíme  & x!=2 a y!=2 nevíme zda platí x!=y \\\hline
 \begin{frame}
 \frametitle{Historie skoků -- korelované prediktory}
 
-Registr BHR (Branch Histrory Register) obsahuje informaci, zda posledních l skoků provedlo skok:
+Registr BHR (Branch Histrory Register) obsahuje informaci, zda posledních $m$ skoků provedlo skok:
 \begin{itemize}
 \item Pokud se skočilo pak obsahuje 1, pokud se neskočilo pak obsahuje 0
 \item Nová informace se vloží na nejnižší bit, nejstarší informace se vyhodí z nejvyšší pozice, ostatní informace se posune.
@@ -689,7 +703,7 @@ Registr BHR (Branch Histrory Register) obsahuje informaci, zda posledních l sko
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \small
-Pro zjištení indexu prediktoru se vezme $k-l$ nejnižších bitů adresy instrukce skoku a tato informace se spojí s bity z BHR
+Pro zjištení indexu prediktoru se vezme $k-m$ nejnižších bitů adresy instrukce skoku a tato informace se spojí s bity z BHR
 \begin{itemize}
 \item Výhoda -- podle předchozích skoků se vybere jiný prediktor.
 \item Nevýhoda -- některé kombinace se v BHR nevyskytnou, a proto se tyto prediktory nepoužijí.
@@ -707,7 +721,7 @@ Pro zjištení indexu prediktoru se vezme $k-l$ nejnižších bitů adresy instr
 
 GShare přístup je podobný předchozímu:
 \begin{itemize}
-\item Také využívá BHR registr, který v této implemetaci má přímo k bitů
+\item Také využívá BHR registr, který v této implemetaci má přímo $k$ bitů
 \end{itemize}
 
 \begin{columns}[T]
@@ -753,7 +767,24 @@ Jak funguje 1-bitový turnajový prediktor
 \includegraphics[width=0.75\textwidth]{fig/tournament.png}\\
 \small Velikost prediktorů v KiB
 \end{center}
+\end{frame}
 
+\begin{frame}
+\frametitle{Opakování - kvíz}
+
+Který prediktor nejlépe zvládne predikovat následující skutečnost skoků pokud začíná ve stavu Taken, nebo Weakly Taken:
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}\hline
+T & T & T & NT & NT & NT& T & T & T \\ \hline
+\end{tabular}
+
+\bigskip
+\begin{itemize}
+ \item[A] 1-bitový Smithův prediktor
+ \item[B] 2-bitový Smithův prediktor
+ \item[C] 2-bitový Smithův prediktor s hysterezí
+ \item[D] všechny udělají stejný počet chyb
+\end{itemize}
 \end{frame}
 
 
@@ -773,7 +804,7 @@ $f(\xi) = \begin{cases}1& \text{pro } \xi \ge 0\\0& \text{pro }\xi <0\end{cases}
 \frametitle{AMD Zen2 prediktor}
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{prediction_amd.pdf}
+\includegraphics[width=0.7\textwidth]{prediction_amd.pdf}
 \end{center}
 
 Podle adresy skoku se vybere jeden perceptron z tabulky. 
