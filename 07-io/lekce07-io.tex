@@ -142,6 +142,180 @@ Programy komunikují s perifériemy pomocí operačního systému a systémovéh
 Další možností je komunikace přes sdílenou paměť -- náplň dnešní přednášky.
 \end{frame}
 
+\begin{frame}
+\frametitle{Zpracování periférií -- Linux (zjednodušeno)}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{linux.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Paměťově mapované periférie}
+
+\begin{itemize}
+\item RISC-V nemá speciální instrukce pro komunikace s perifériemi
+\item pro komunikaci s perifériemi se využívá ukládání a čtení z paměti
+\item Address Decoder -- rozhoduje, kam se data přesměrují
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{address_decoder.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Typy adresových dekodérů}
+
+Centralizovaný vs decentralizovaný autonomní
+\end{frame}
+
+\section{Základní periférie}
+
+\begin{frame}
+\frametitle{UART -- Universal asynchronous receiver-transmiter}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Asynchroní přenost vs. synchroní přenos}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sériový port}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Sériový port v QtRvSim}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Příklad vyslání znaku}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Příklad přijetí znaku}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Příklad využití přerušení}
+
+Jen naznačit -- vlastní přerušení bude později
+\end{frame}
+
+\begin{frame}
+\frametitle{QtRvSim -- otočné voliče}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{LCD display}
+
+Nebo raději nechat na příští hodinu?
+\end{frame}
+
+\section{Sběrnice}
+
+\begin{frame}
+\frametitle{Co je sběrnice?}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Topologie sběrnic}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{PC sběrnice}
+Stará architktura
+
+Severní můstek, Jižní můstek, bridge
+\end{frame}
+
+\begin{frame}
+\frametitle{PC sběrnice}
+
+Moderní s ovladačem paměti na čipu.
+\end{frame}
+
+\begin{frame}
+\frametitle{PCI}
+
+Jak funguje PCI
+\end{frame}
+
+\begin{frame}
+\frametitle{Signály a přenos dat}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{PCI architektura}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Přenos adresy a přenos dat}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Čtení dat z periférie}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{PCI Expres -- PCIe}
+
+Výhody sériového rozhraní oproti čistě paralelnímu
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Ukázka omezení rychlosti pro paralelní}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{PCIe rychlosti a přenosové kapacity}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{PCIe x1-x16}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{PCIe topologie}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Realita signálů sériové sběrnice}
+
+Vzhled signálů v závisloti na vzdálenosti.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Hard disky}
+
+Od ATA PATA k SATA
+asi více slajdů
+\end{frame}
 
 
 \end{document}
