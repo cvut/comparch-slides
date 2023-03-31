@@ -132,23 +132,58 @@ Periférie využívá přerušení k signalizaci svého stavu:
 
 Periférie využívá přímý přístup do paměti:
 \begin{itemize}
-\item často spojeno s vyvoláním přerušení
+\item využívá také přerušení
 \item CPU nastaví pouze z/do jaké adresy v paměti se data budou číst/zapisovat a periférie sama řídí přenos dat
 \item po ukončení periférie vyvolá přerušení a CPU zkontroluje výsledek přenosu (zda bylo vše v pořádku, nebo došlo k chybě)
 \end{itemize}
 
-Programy komunikují s perifériemy pomocí operačního systému a systémového volání a ovladačů periferií(přehled v přednášce 10, podrobně v předmětu OSY).
-
-Další možností je komunikace přes sdílenou paměť -- náplň dnešní přednášky.
 \end{frame}
 
 \begin{frame}
 \frametitle{Zpracování periférií -- Linux (zjednodušeno)}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+Programy komunikují s perifériemy pomocí operačního systému a systémového volání a ovladačů periferií(přehled v přednášce 10, podrobně v předmětu OSY).
 
-\begin{center}
-\includegraphics[width=0.6\textwidth]{linux.pdf}
-\end{center}
+\bigskip
+Další možností je komunikace přes sdílenou paměť -- náplň dnešní přednášky.
+\end{column}
+\begin{column}{0.58\textwidth}  
+\includegraphics[width=\textwidth]{linux.pdf}
+\end{column}
+\end{columns}
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Systémová volání}
+
+Systémová volání:
+\begin{itemize}
+\item pro normální uživatele jsou systémová volání zabalená ve funkcích knihovny libc -- POSIX API
+\item funkce open
+    \begin{itemize}
+    \item pro každou periferii lze vytvořit virtuální soubor
+¨    \item tento soubor slouží ke komunikaci s periferií
+    \end{itemize}
+\item funkce read 
+    \begin{itemize}
+    \item přečte data od periférie
+    \item blokující čtení
+        \begin{itemize}
+        \item pokud nejsou data funkce read čeká na jejich příchod
+        \item při čekání je proces uspán a nezatěžuje CPU
+        \end{itemize}
+    \item neblokující čtení
+        \begin{itemize}
+        \item pokud nejsou data, funkce read vrátí zápornou hodnotu 
+        \item koordinace čtení je ovládána procesem
+        \item data z periférie jsou ukládána nezávisle ovladačem do vnitřních systémových bufferů
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Paměťově mapované periférie}
@@ -167,58 +202,305 @@ Další možností je komunikace přes sdílenou paměť -- náplň dnešní př
 \begin{frame}
 \frametitle{Typy adresových dekodérů}
 
-Centralizovaný vs decentralizovaný autonomní
+Centralizovaný dekodér
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{central.pdf}
+\end{center}
+
+Decentralizovaný -- autonomní dekodér
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{distributed.pdf}
+\end{center}
 \end{frame}
 
 \section{Základní periférie}
 
+
+\begin{frame}
+\frametitle{Asynchronní sběrnice vs. synchronní sběrnice}
+
+Asynchronní sběrnice:
+\begin{itemize}
+\item  dvě základní varianty:
+\begin{itemize}
+\item Začátek a konec každého bitu je detekovatelný druhou stranou
+\item Je dohodnuta doba trvání vyslání jednoho bitu a jednotlivé bajty mají druhou stranou detekovatelný začátek, případně i konec
+\end{itemize}
+\item Příkladem asynchronní komunikace je sériový port, USB, SATA disky
+\end{itemize}
+
+
+Synchronní sběrnice:
+\begin{itemize}
+\item Nejjednodušší je vyhradit jeden signál na přenos hodin vysílajícího k přijímajícímu
+\item Vyslání data se řídí hodinami, buď jen jedním typem hrany, nebo i na druhý typ hrany
+\item Příkladem synchronního přenosu jsou komunikace DDR s pamětí, PCI, PCI Expres
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sériová linka}
+
+\footnotesize
+Sériová linka (sériový port) je jedna z nejstarších způsobů komunikace využívaných dodnes.
+\begin{itemize}
+\footnotesize
+\item Asynchronní přenos bez hodin.
+\item Obě strany jsou nastaveny na stejnou rychlost, která definuje délku vyslání jednoho bitu
+\begin{itemize}
+\scriptsize
+\item Přenos začíná vysláním start bitu (přechod z 1 $\rightarrow$ 0)
+\begin{itemize}
+\scriptsize
+\item Vysláním a příjmem start bitu se synchronizují lokální hodiny všech zařízení
+\end{itemize}
+\scriptsize
+\item Pak se vysílají jednotlivé bity jednoho bajtu
+\item Výběrově pak může následovat bit parity pro kontrolu chyb přenosu
+\item Poslední je vyslán stop bit (přechod z 0 $\rightarrow$ 1, nebo přidržení 1)
+\end{itemize}
+\footnotesize
+\item Vyslání jednoho bajtu tedy obsahuje vyslání 10-11 bitů
+\item Běžné rychlosti, dříve 9600 Bd až 115200 Bd, nově až 921600 Bd (Bd -- Boud = bit per second)
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{serial_signals.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[shrink=5]
+\frametitle{Sériová linka}
+
+Základní specifikace RS 232:
+\begin{itemize}
+\item Navrženo pouze pro propojení dvou zařízení
+\item Obě zařízení jsou propojené signální zemí
+\item 0 reprezentována +3 -- +15V, 1 reprezentuje -3 -- -15 V
+\item Plně duplexní, tzn. jiné signály pro přenos tam a jiné pro přenos zpět
+\item Mohou být použité signály pro pozdržení vysílání, nebo příjmu při přeplněném lokálním bufferu
+\end{itemize}
+
+Základní specifikace RS 422:
+\begin{itemize}
+\item Plovoucí signál, Rx+, Rx- -- vysílaná hodnota je napětí mezi dvěma vodiči, lze použít až na vzdálenost 1200m
+\item Plně duplexní, tzn. jiné signály pro přenos tam a jiné pro přenos zpět
+\item Může být více posluchačů pro jednoho vysílajícího
+\end{itemize}
+
+Základní specifikace RS 485:
+\begin{itemize}
+\item Plovoucí signál stejně jako 422
+\item Může být half-duplex - tedy pouze dva vodiče, je nutné po vyslání dat odpojit se od sběrnice a poslouchat zda někdo odpoví
+\item Lze více zařízení, většinou jeden poveluje, ostatní podle adresy odpovídají
+\end{itemize}
+
+\end{frame}
+
 \begin{frame}
 \frametitle{UART -- Universal asynchronous receiver-transmiter}
 
+UART -- speciální zařízení, které přijímá a vysílá bajty po sériové lince
+
+\begin{columns}
+\begin{column}{0.55\textwidth}  
+\begin{itemize}
+\item RX\_ST stav přijímání dat
+  \begin{itemize}
+  \item bit 0 ready -- byla přijata data
+  \end{itemize}
+\item RX\_DATA přijatá data
+  \begin{itemize}
+  \item Čtení z adresy RX\_DATA současně odstraní čtená data z UARTu a vymaže příznak ready (pokud nejsou další data)
+  \end{itemize}
+\item TX\_ST stav odesílání dat
+  \begin{itemize}
+  \item bit 0 ready -- můžeme zadávat data k odeslání
+  \end{itemize}
+\item TX\_DATA data k odeslání
+  \begin{itemize}
+  \item Zápis do TX\_DATA vede rovnou k odesílání data
+  \end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\includegraphics[width=\textwidth]{UART.pdf}
+\end{column}
+\end{columns}
+
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Asynchroní přenost vs. synchroní přenos}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Sériový port}
-
-\end{frame}
-
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Sériový port v QtRvSim}
 
+\begin{minted}[fontsize=\footnotesize]{gas}
+.equ SERIAL_PORT_BASE,   0xffffc000 
+#base address of QtRVSim serial port
+
+.equ SERP_RX_ST_REG,       0xffffc000  #Receiver status register
+.equ SERP_RX_ST_REG_o,     0x0000      #Offset of RX_ST_REG
+.equ SERP_RX_ST_REG_READY_m, 0x1 #Data byte is ready to be read
+.equ SERP_RX_ST_REG_IE_m,    0x2 #Enable Rx ready interrupt
+
+.equ SERP_RX_DATA_REG,   0xffffc004 #Received data byte in 8 LSB bits
+.equ SERP_RX_DATA_REG_o,   0x0004   #Offset of RX_DATA_REG
+
+.equ SERP_TX_ST_REG,     0xffffc008 #Transmitter status register
+.equ SERP_TX_ST_REG_o,     0x0008   #Offset of TX_ST_REG
+.equ SERP_TX_ST_REG_READY_m,  0x1 #Transmitter can accept next byte
+.equ SERP_TX_ST_REG_IE_m,     0x2 #Enable Tx ready interrupt
+
+.equ SERP_TX_DATA_REG,   0xffffc00c #Write word to send 8 LSB bits
+.equ SERP_TX_DATA_REG_o,   0x000c   #Offset of TX_DATA_REG
+\end{minted}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Příklad vyslání znaku}
 
+\begin{minted}[fontsize=\footnotesize]{gas}
+write:
+    li   a0, SERIAL_PORT_BASE # a0 ukazuje na zacatek pameti UART
+    la   a1, text_1           # nacti ukazatel na retezec
+next_char:
+    lb   t1, 0(a1)            # nacti znak k odeslani
+    beq  t1, zero, end_char   # 0 ukoncuje retezec
+    addi a1, a1, 1            # posun ukazatel
+tx_busy:
+    lw   t0, SERP_TX_ST_REG_o(a0)       # zjisti statu odesilaci fronty
+    andi t0, t0, SERP_TX_ST_REG_READY_m # vymaskuj bit READY
+    beq  t0, zero, tx_busy    # pokud neni volno v UARTU cekej zkus to znovu
+    sw   t1, SERP_TX_DATA_REG_o(a0) # je volno - zapis bajt
+    j    next_char            # posli dalsi znak
+end_char:
+    ebreak                    # ukonci program
+
+    .data
+text_1:
+    .asciz  "Hello world.\n"  # retezec ukonceny 0
+\end{minted}
+
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Příklad přijetí znaku}
 
+\begin{minted}[fontsize=\footnotesize]{gas}
+gets: li   a0, SERIAL_PORT_BASE # a0 ukazuje na zacatek pameti UART
+    la   a1, text_1           # nacti ukazatel na buffer
+    addi t2, zero, 40
+next_char:
+rx_not_ready:
+    lw   t0, SERP_RX_ST_REG_o(a0)       # zjisti statu prijimaci fronty
+    andi t0, t0, SERP_RX_ST_REG_READY_m # vymaskuj bit READY
+    beq  t0, zero, rx_not_ready    # pokud neni znak UARTU cekej zkus to znovu
+    lw   t1, SERP_RX_DATA_REG_o(a0) # je znak - precti ho a tim odstran
+    sb   t1, 0(a1)            # uloz znak do bufferu
+    addi t1, t1, -13          # test je to novy radek?
+    beq  t1, zero, end_char   # ukoncuje cteni
+    addi a1, a1, 1            # posun ukazatel
+    addi t2, t2, -1            # kontroluj kolik muzeme nacist
+    bne  t2, zero, next_char
+end_char:
+    ebreak                    # ukonci program
+    .data
+text_1:
+    .word 0,0,0,0,0,0,0,0,0,0
+\end{minted}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{QtRvSim Terminal -- serial port}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig/QtRvSim-serial-normal.png}
+\end{center}
 \end{frame}
 
 \begin{frame}
-\frametitle{Příklad využití přerušení}
-
-Jen naznačit -- vlastní přerušení bude později
+\frametitle{QtRvSim Terminal -- serial port}
+\begin{center}
+Zřetězený procesor -- pipelined verze
+\includegraphics[width=0.8\textwidth]{fig/QtRvSim-serial-normal.png}
+\end{center}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- otočné voliče}
+\frametitle{Shrnutí komunikace periferií}
+
+\begin{itemize}
+\item uvedený způsob komunikace je tzv. pooling
+\begin{itemize}
+\item program se neustále dotazuje, zda se něco nezměnilo, nepřišel znak, nebo se uvolnila odesílací fronta
+\item toto je velmi neefektivní, zatěžuje zbytečně CPU, které by mohlo dělat něco užitečného
+\end{itemize}
+\item na přednášce 9 bude využití přerušení
+\begin{itemize}
+\item program může dělat něco jiného, přerušení nastane, pokud je povoleno a změní se stav periférie
+\item při přerušení se začne provádět jiný program, který zjistí, jaká událost se stala a zpracuje ji
+\item informace o tom co se stalo předá programu pomocí synchronizačních prostředků (bude v podrobně v předmětu OSY)
+\end{itemize}
+\end{itemize}
 
 \end{frame}
 
-\begin{frame}
-\frametitle{LCD display}
 
-Nebo raději nechat na příští hodinu?
+\begin{frame}[fragile]
+\frametitle{QtRvSim -- otočné voliče, led}
+
+\begin{columns}
+\begin{column}{0.6\textwidth}  
+\begin{minted}[fontsize=\footnotesize]{gas}
+#base of SPILED port region
+.equ SPILED_REG_BASE,       0xffffc100
+
+#RGB LED 1 barevne slozky – 8 bitu kazda
+.equ SPILED_REG_LED_RGB1,   0xffffc110
+.equ SPILED_REG_LED_RGB1_o,   0x0010
+
+#RGB LED 2 barevne slozky – 8 bitu kazda
+.equ SPILED_REG_LED_RGB2,   0xffffc114
+.equ SPILED_REG_LED_RGB2_o,   0x0014
+
+#Tri 8 bitove otocne volice
+#nejvyssi bajt informace o stitsknuti
+.equ SPILED_REG_KNOBS_8BIT, 0xffffc124 
+.equ SPILED_REG_KNOBS_8BIT_o, 0x0024
+
+#32 LEDek kazdy bit jedna LED dioda
+.equ SPILED_REG_LED_LINE,   0xffffc104
+.equ SPILED_REG_LED_LINE_o,   0x0004
+\end{minted}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=\textwidth]{fig/knobs.png}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Příklad použití informace od otočných voličů}
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+    li   a0, SPILED_REG_BASE # a0 ukazuje na zacatek pameti pro I/O
+    ori  t2, t2, -1
+loop:
+    lw   t0, SPILED_REG_KNOBS_8BIT_o(a0)   # nacti data od otocnych volicu
+    sw   t0, SPILED_REG_LED_RGB1_o(a0)
+    xor  t1, t0, t2
+    sw   t1, SPILED_REG_LED_RGB2_o(a0)
+    srli t0, t0, 24
+    andi t0, t0, 4
+    beq  t0, zero, loop    # pokud nebyl zmacknut cerveny volic
+
+    ebreak                    # ukonci program
+\end{minted}
 \end{frame}
 
 \section{Sběrnice}
