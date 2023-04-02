@@ -147,7 +147,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="295.08214"
+     inkscape:cx="155.79643"
      inkscape:cy="31.271208"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -156,10 +156,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1920"
-     inkscape:window-height="1163"
-     inkscape:window-x="1920"
-     inkscape:window-y="0"
+     inkscape:window-width="1848"
+     inkscape:window-height="1016"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
@@ -175,7 +175,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -184,6 +184,12 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(59.663754,-125.81124)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.06500006;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 74.083332,143.54167 V 154.125"
+       id="path4886-61"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
     <rect
        style="opacity:1;fill:#93ff85;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect21650-3"
@@ -338,12 +344,6 @@
        id="path4886-6"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.06500006;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 74.083332,143.54167 V 154.125"
-       id="path4886-61"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cc" />
-    <path
        style="fill:none;stroke:#000000;stroke-width:1.06500006;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m -47.625002,132.95832 c 0,-1.32291 0,-6.61458 0,-6.61458 h 121.70833 v 6.61458"
        id="path5354"
@@ -423,25 +423,6 @@
          id="tspan5363-5"
          x="87.418396"
          y="103.6227"
-         style="stroke-width:0.20155087">Address decoder</tspan></text>
-    <rect
-       style="opacity:1;fill:#ffe285;fill-opacity:1;stroke:#000000;stroke-width:0.16500001;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect5361-0"
-       width="15.875"
-       height="3.96875"
-       x="66.145828"
-       y="142.21873" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.14987612px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.20155087"
-       x="87.418388"
-       y="110.67698"
-       id="text5365-3"
-       transform="scale(0.7617671,1.3127372)"><tspan
-         sodipodi:role="line"
-         id="tspan5363-6"
-         x="87.418388"
-         y="110.67698"
          style="stroke-width:0.20155087">Address decoder</tspan></text>
     <rect
        style="opacity:1;fill:#ffe285;fill-opacity:1;stroke:#000000;stroke-width:0.16500001;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"

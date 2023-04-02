@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="166.37811mm"
+   width="187.54478mm"
    height="87.977501mm"
-   viewBox="0 0 166.37811 87.977501"
+   viewBox="0 0 187.54478 87.977501"
    version="1.1"
    id="svg17171"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
@@ -26,7 +26,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="199.24551"
+     inkscape:cx="139.95981"
      inkscape:cy="228.08226"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -36,14 +36,14 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:window-width="1848"
-     inkscape:window-height="1136"
+     inkscape:window-height="1016"
      inkscape:window-x="72"
      inkscape:window-y="27"
      inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
        id="grid21648"
-       originx="28.262283"
+       originx="49.428951"
        originy="-182.03" />
   </sodipodi:namedview>
   <metadata
@@ -62,7 +62,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(28.262284,-26.9925)">
+     transform="translate(49.428954,-26.9925)">
     <path
        style="fill:none;stroke:#ffe285;stroke-width:0.36500001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 119.0625,45.645834 v 10.583333 h 14.55208 v 26.9875"
@@ -441,71 +441,71 @@
        id="rect22074"
        width="14.552082"
        height="59.53125"
-       x="-3.96875"
-       y="54.90625" />
+       x="-25.135418"
+       y="53.583332" />
     <rect
        style="opacity:1;fill:#8f85ff;fill-opacity:1;stroke:#000000;stroke-width:0.36500001;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect22074-6"
        width="14.552084"
        height="22.489584"
-       x="-3.96875"
-       y="32.416668" />
+       x="-25.135418"
+       y="31.093748" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="-28.537203"
-       y="67.001488"
+       x="-49.703873"
+       y="65.678566"
        id="text22102"><tspan
          sodipodi:role="line"
          id="tspan22100"
-         x="-28.537203"
-         y="67.001488"
+         x="-49.703873"
+         y="65.678566"
          style="stroke-width:0.26458332">Společný</tspan><tspan
          sodipodi:role="line"
-         x="-28.537203"
-         y="72.293152"
+         x="-49.703873"
+         y="70.97023"
          style="stroke-width:0.26458332"
          id="tspan22104">adresný</tspan><tspan
          sodipodi:role="line"
-         x="-28.537203"
-         y="77.584824"
+         x="-49.703873"
+         y="76.261902"
          style="stroke-width:0.26458332"
          id="tspan22106">prostor</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="12.851191"
-       y="41.299107"
+       x="-8.3154764"
+       y="39.976189"
        id="text22110"><tspan
          sodipodi:role="line"
          id="tspan22108"
-         x="12.851191"
-         y="41.299107"
+         x="-8.3154764"
+         y="39.976189"
          style="stroke-width:0.26458332">I/O </tspan><tspan
          sodipodi:role="line"
-         x="12.851191"
-         y="46.590775"
+         x="-8.3154764"
+         y="45.267857"
          style="stroke-width:0.26458332"
          id="tspan22112">periférie</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="12.473214"
-       y="80.230652"
+       x="-8.6934528"
+       y="78.90773"
        id="text22116"><tspan
          sodipodi:role="line"
          id="tspan22114"
-         x="12.473214"
-         y="80.230652"
+         x="-8.6934528"
+         y="78.90773"
          style="stroke-width:0.26458332">Hlavní</tspan><tspan
          sodipodi:role="line"
-         x="12.473214"
-         y="85.522316"
+         x="-8.6934528"
+         y="84.199394"
          style="stroke-width:0.26458332"
          id="tspan22118">paměť</tspan><tspan
          sodipodi:role="line"
-         x="12.473214"
-         y="90.813988"
+         x="-8.6934528"
+         y="89.491066"
          style="stroke-width:0.26458332"
          id="tspan22120">RAM</tspan></text>
   </g>

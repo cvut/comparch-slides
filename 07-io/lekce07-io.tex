@@ -51,13 +51,19 @@
 \frametitle{Propojení CPU s pamětí a perifériemi}
 \begin{columns}
 \begin{column}{0.4\textwidth}
+\includegraphics[width=0.9\textwidth]{bus_arch.pdf}
 \end{column}
 \begin{column}{0.6\textwidth}  
 \begin{itemize}
 \item Adresová sběrnice (A0..A31) může být oddělená, nebo multiplexovaná, nebo sdílet stejné signály jako datová část
 \item Datová sběrnice (D0..D31) může být obousměrná, nebo oddělená pro každý směr zvlášť, pralelní nebo sériová
+\begin{itemize}
+\item zde na obrázku je paralelní 32-bitová sběrnice typu half-duplex stejné vodiče pro oba směry
+\end{itemize}
 \item Řídicí signály sběrnice
-\item IOW, IOR se používají pokud jsou vstupní a výstupní periférie oddělené od paměti
+\begin{itemize}
+\item řídí komunikaci na sběrnici, co se bude kam přenášet, kdy přenos začne skončí, pozdrží.
+\end{itemize}
 \item BE0 to 3 -- pokud je povoleno čtení bajtů na sběrnici širší než 8 bitů.
 \end{itemize}
 \end{column}
@@ -70,13 +76,13 @@ Chování:
 \begin{itemize}
 \item jenom vstup
 \item jenom výstup
-\item vstup i výstup (v současnosti většina zařízení)
+\item vstup i výstup (v současnosti většina zařízení, i klávesnice má výstup signalizace led)
 \end{itemize}
 
 Připojení:
 \begin{itemize}
 \item přímé propojení CPU a periférie
-\item hierarchické -- propojení přes jiné periférie (bridge)
+\item hierarchické -- propojení přes jiné periférie (bridge, switch)
 \end{itemize}
 
 Partner:
@@ -88,33 +94,54 @@ Partner:
 
 Parametry přenosu:
 \begin{itemize}
-\item kapacita přenosové linky -- maximální možnosti přenosu
-\item latence -- čas, do kterého se zareaguje na přenos dat
+\item kapacita přenosové linky -- maximální možnosti přenosu dat
+\item latence -- čas, do kterého se provede přenos dat
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Klasifikace periférií}
+
 Příklady periférií komunikujících s lidmy:
 \begin{itemize}
-\item klávesnice -- sice jen vstup, ale moderní často i výstup led diody, velmi malá přenosová rychlost, latence až do 200ms 
-\item mikrofon/reproduktory -- přenosová rychlost až 8Mbit/s, latence záleží na aplikaci, pro komunikaci
-\item tiskárny/scanery -- přenosová rychlost podle připojení, na latency nezáleží (v řádech vteřin)
+\item klávesnice -- sice jen vstup, ale moderní často i výstup led diody, velmi malá přenosová rychlost, latence až do 200ms (mimo hraní her) 
+\item mikrofon/reproduktory -- přenosová rychlost až 8Mb/s, latence záleží na aplikaci, pro interaktivní komunikaci se vyžaduje latence menší 500 ms, optimálně 150 -- 300 ms 
+\item tiskárny/scanery -- přenosová rychlost podle připojení, na latency nezáleží (v řádech vteřin/minut)
 \end{itemize}
 
 Příklady periférií pro kounikaci mezi počítači
 \begin{itemize}
-\item modem -- 
-\item sítě/WLAN -- 
-\item datová úložistě -- HDD, SSD, magnetopáskové jednotky
+\item modem -- první modemy 115,2kb/s, LTE max 300 Mb/s, 5G až 500Mb/s
+\item sítě/WLAN -- od 10 Mb/s přes 1Gb/s až po 1Tb/s
+\item datová úložistě -- HDD, SSD, magnetopáskové jednotky, rychlosti komunikace podle připojení (dnes později), latence SSD nejlepší, HDD horší, magnetopáskové jednotky -- použitelně pouze sekvenční zápis.
 \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Klasifikace periférií}
 
 Příklady senzorů a aktuátorů:
 \begin{itemize}
-\item kamera, laserové hloubkoměry
-\item aktuátory -- motory DC/PMSM 
+\item kamera, laserové hloubkoměry -- rychlosti komunikace podle druhu připojení
+\begin{itemize}
+\item USB 2.0 max 480 Mb/s, 
+\item USB 3.1 max 5Gb/s, 
+\item WLAN až 10Gb/s
 \end{itemize}
+\item aktuátory -- motory DC/PMSM 
+\begin{itemize}
+\item není důležitá rychlost přenosu, ale latence
+\item latence je nejdůležitější parametr pro řízení
+\item DC -- latence 0.5-0.05ms, 
+\item PMSM -- latence 0.05-0.01ms
+\end{itemize}
+\end{itemize}
+
 \end{frame}
+
+
 
 \begin{frame}
 \frametitle{Způsoby komunikace s periférií}
@@ -164,11 +191,11 @@ Systémová volání:
 \item funkce open
     \begin{itemize}
     \item pro každou periferii lze vytvořit virtuální soubor
-¨    \item tento soubor slouží ke komunikaci s periferií
+    \item tento soubor slouží ke komunikaci s periferií
     \end{itemize}
 \item funkce read 
     \begin{itemize}
-    \item přečte data od periférie
+    \item přečte data od periférie jako by je četlo ze souboru
     \item blokující čtení
         \begin{itemize}
         \item pokud nejsou data funkce read čeká na jejich příchod
@@ -194,7 +221,7 @@ Systémová volání:
 \item Address Decoder -- rozhoduje, kam se data přesměrují
 \end{itemize}
 \begin{center}
-\includegraphics[width=0.8\textwidth]{address_decoder.pdf}
+\includegraphics[width=0.88\textwidth]{address_decoder.pdf}
 \end{center}
 \end{frame}
 
@@ -506,88 +533,391 @@ loop:
 \section{Sběrnice}
 
 \begin{frame}
-\frametitle{Co je sběrnice?}
+\frametitle{Stručná historie vnitřních sběrnic}
 
+\begin{itemize}
+\item ISA – starší typ pasivní sběrnice, šířka 8 nebo 16 bitů, přenosová rychlost maximálně 8 MB/s
+\item PCI – novější typ „inteligentní“ sběrnice, šířka 32 nebo 64 bitů, burst režim, přenosová rychlost až 260 MB/s
+\item AGP – jednoúčelová sběrnice určená pro připojení grafického karty přes severní můstek k CPU, přenosová rychlost 260 MB/s – 2 GB/s
+\item PCI-Express (PCIe) – nová sériová implementace sběrnice PCI
+\end{itemize}
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Topologie sběrnic}
+\begin{center}
+Sdílená sběrnice (např. PCI)
+\includegraphics[width=0.8\textwidth]{sdileny_bus.pdf}
+\end{center}
 
+\begin{center}
+Spojení peer-to-peer s využítím switch (např. PCIe, USB)
+\includegraphics[width=0.65\textwidth]{switch_bus.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{PC sběrnice}
-Stará architktura
+\begin{center}
+Stará architektura Pentium 4 (90. léta minulého století)
+\end{center}
 
-Severní můstek, Jižní můstek, bridge
+\begin{columns}
+\begin{column}{0.5\textwidth}
+Severní můstek je připojen přímo k CPU a nejrychlejším periferiím -- paměti a grafické kartě
+\bigskip
+
+Jižní můstek komunikuje je připojen k severnímu a má síťové karty, HDD, PCI sloty.
+
+\bigskip
+Nejpomalejší periferie jako Floppy Disk, nebo sériová a paralelní port (tiskárny) bývají připojeny přes další můstky.
+\end{column}
+\begin{column}{0.5\textwidth}  
+\includegraphics[width=\textwidth]{pentium4.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{PC sběrnice}
 
+\begin{center}
 Moderní s ovladačem paměti na čipu.
+\end{center}
+
+\begin{columns}
+\begin{column}{0.4\textwidth}
+Severní můstek se stal součástí procesoru.
+
+\bigskip
+Jižní můstek komunikuje přímo s procesorem.
+
+\bigskip
+Většina periferií je připojena přes USB.
+\end{column}
+\begin{column}{0.6\textwidth}  
+\includegraphics[width=\textwidth]{amd_am5.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
 \frametitle{PCI}
 
-Jak funguje PCI
-\end{frame}
+Sběrnice PCI je řízena hodinami. 
 
-\begin{frame}
-\frametitle{Signály a přenos dat}
+Pro správnou činnost je nutná co nejpřesnější synchronizace podle vysílaných hodin.
 
+Signály označené \# jsou negované, protože sestupná hrana je rychlejší.
+
+\begin{center}  
+\includegraphics[width=0.7\textwidth]{PCI_clock.pdf}
+\end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{PCI architektura}
 
+\begin{columns}
+\begin{column}{0.35\textwidth}
+Signál IDSEL je pouze pro inicializaci, zjištění, jaké zařízení je připojeno.
+
+\bigskip
+AD je 32 signálů používaných pro adresu a pro data
+
+\bigskip
+C/BE jsou 4 bity příkazu
+
+\bigskip
+CTRL jsou bity řídicí průběh přenosu
+\end{column}
+\begin{column}{0.6\textwidth}  
+\includegraphics[width=\textwidth]{PCI_arch.pdf}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{PCI přenos dat -- write}
+
+\begin{itemize}
+\item Přenos začíná iniciátor tím, že požádá arbitra o přidělení sběrnice
+\begin{itemize}
+\item Pokud o sběrnici požádá více zařízení současně, arbiter musí jejich žádosti seřadit a povolit najednou pouze jeden přenos
+\end{itemize}
+\item Iniciátor začne vysílání nastavením adresy cílové periférie na AD sběrnici a nastavením příznaku FRAME -- rámec přenosu a bitů cmd
+\end{itemize}
+
+\includegraphics[width=0.8\textwidth]{PCI_write1.pdf}
+
 \end{frame}
 
 \begin{frame}
-\frametitle{Přenos adresy a přenos dat}
+\frametitle{PCI přenos dat -- write}
+
+\begin{itemize}
+\item Periférie, která rozpozná svoji adresu nastaví DevSel na 1
+\item Pokud je cílová periferie (Target) připravena přijmout data, nastaví TRDY na 1. 
+\item Pokud je iniciátor připraven vyslat data, nastaví IRDY na 1
+\end{itemize}
+
+\includegraphics[width=0.8\textwidth]{PCI_write2.pdf}
 
 \end{frame}
+
 
 \begin{frame}
-\frametitle{Čtení dat z periférie}
+\frametitle{PCI přenos dat -- write}
+
+\begin{itemize}
+\item Pokud by cílová periférie nebyla připravena, tak shodí příznak TRDY na 0
+\item Pokud by iniciátor nebyl připraven dát data na sběrnici, shodí IRDY na 0 
+\item Pokud je TRDY nebo IRDY na 0, pak je přenos dat pozastaven-
+\end{itemize}
+
+\includegraphics[width=0.8\textwidth]{PCI_write3.pdf}
 
 \end{frame}
+
+
+\begin{frame}
+\frametitle{PCI přenos dat -- write}
+
+\begin{itemize}
+\item Vyslání posledních dat je indikováno shozením příznaku FRAME na 0.
+\item V našem případě byl přenos dat pozastaven, takže k přenosu posledních dat dojde až v dalším hodinovém cyklu.
+\item Po ukončení přenosu se signály IRDY, TRDY a DEVSEL vrátí na 0 a sběrnice se uvolní pro další přenos.
+\end{itemize}
+
+\includegraphics[width=0.8\textwidth]{PCI_write4.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{PCI přenos dat -- read}
+
+\begin{itemize}
+\item Iniciátor žádá o data z cílové periférie.
+\item Přenos dat je obdobný, ale nelze začít na následujícím hodinovém cyklu, protože se iniciátor musí od AD sběrnice odpojit a cílové zařízení se musí ke sběrnici připojit.
+\end{itemize}
+
+\includegraphics[width=0.8\textwidth]{PCI_read1.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{PCI shrnutí}
+
+Nevýhody PCI sběrnice:
+\begin{itemize}
+\item Half--duplex nelze současně posílat data oběma směry, data se přesouvají pouze jedním směrem
+\item Více zařízení na sběrnici -- pomalá periférie brzdí rychlé periférie, zvyšuje latency všech ostatních periférií
+\item PCI sběrnice umožňuje pouze hodiny s 33 MHz, nebo 66 MHz
+\begin{itemize}
+\item To odpovídá 132MB/s nebo 264 MB/s pro 32 bitovou variantu
+\item To odpovídá 264MB/s nebo 528 MB/s pro 64 bitovou variantu
+\end{itemize}
+\item PCI eXtended (PCI-X) sběrnice umožňuje hodiny až 133 MHz později maximálně 533 MHz
+\begin{itemize}
+\item To odpovídá přenosovým rychlostem 532MB/s až maximálně 4266 MB/s pro 64 bitovou variantu
+\item PCI-X verze 2.0 s rychlostmi nad 133MHz nebyly moc rozšířené 
+\end{itemize}
+\item Konektor pro 32 bitovou verzi má 62 pinů -- tj. 124 signálů, pro 64 bitovou verzi je to dokonce 188 signálů  
+\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}
 \frametitle{PCI Expres -- PCIe}
 
-Výhody sériového rozhraní oproti čistě paralelnímu
+Zásadní nevýhoda paralelního přenosu je v potřebné kvalitě vodičů:
+\begin{itemize}
+\item i malé nepřesnosti v délce vodiče, kvalitě spojů vedou k rozdílným rychlostem šíření elektrického signálu
+\item pro malé frekvence to není problém a zvyšující se frekvence zkracují délku vysílaných dat.
+\item Podívejte se na animaci na https://cw.fel.cvut.cz/wiki/courses/b35apo/lectures/07/start
+\end{itemize}
+\bigskip
+
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}  
+frekvence $f$
+\includegraphics[width=\textwidth]{fig/freq1.png}
+přenos bez problémů
+\end{column}
+\begin{column}{0.32\textwidth}  
+frekvence $2\cdot f$
+\includegraphics[width=\textwidth]{fig/freq2.png}
+přenos na hraně spolehlivosti
+\end{column}
+\begin{column}{0.32\textwidth}  
+frekvence $4\cdot f$
+\includegraphics[width=\textwidth]{fig/freq4.png}
+nelze v jeden okamžik detekovat výstupní data
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{PCIe rozdíly oproti PCI}
+
+\begin{itemize}
+\item PCIe je tzv. peer-to-peer, tedy signály jsou pouze mezi dvěma zařízeními.
+\item PCIe je full-duplex tedy současně může probíhat přenos dat oběma směry.
+\item Pro přenos jedním směrem se používá sériový způsob s dvěma vodiči a napětím mezi těmito vodiči.
+\begin{itemize}
+\item Tento způsob přenosu je méně náchylný na rušení než jedním vodičem vůči zemi.
+\end{itemize}
+\item PCIe může obsahovat více linek, ale přenos mezi linkami není synchronizován na úrovni bitů.
+\item Konektory PCIe mají v nejjednodušší variantě pouze 18 pinů, 36 signálů z čehož 18 je uzemění a napájení.
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Ukázka omezení rychlosti pro paralelní}
+\frametitle{PCIe sériový přenos}
 
+\begin{itemize}
+\item PCIe může využívat pro přenos různé rychlosti
+\item Je nutné, aby přijímací strana mohla detekovat rychlost přenosu.
+\item Problém je, pokud bajt obsahuje samé 0, nebo samé 1 nedochází ke změně signálu.
+\item Řešením je, zakódovat bajt (8bitů) do 10bitů tak, aby celkový přenesený počet 0 a 1 byl stejný.
+\end{itemize}
+
+Kvíz: Kolik existuje různých 10-bitových čísel, které mají pět bitů 0 a pět bitů 1?
+\begin{itemize}
+\item[A] $2^5 \cdot 2^5 = 64$
+\item[B] $5! \cdot 5! = 14400$
+\item[C] ${10 \choose 5} = 252$
+\item[D] $5! + 5! = 240$
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{PCIe rychlosti a přenosové kapacity}
+\frametitle{PCIe kódování 8b/10b}
 
+\begin{itemize}
+\item 8bitů, neboli 256 různých hodnot zakódujeme do 10bitového čísla, které má minimálně čtyři 0 a minimálně čtyři 1
+\begin{itemize}
+\item Takových 10-bitových čísel je již ${10 \choose 5} + 2\cdot {10 \choose 6}= 672$
+\item Vybereme si takové, kde se hodně mění 1.
+\end{itemize}
+\item V kódovacích tabulkách je volnost vybrat si zda kód bude mít více 1, nebo více 0.
+\item Ve skutečnosti se kód skládá ze dvou podkódů 5b/6b a 3b/4b.
+\end{itemize}
+
+\bigskip
+tabulka kódu 3b/4b\phantom{xxxxx}{
+\scriptsize
+\begin{tabular}{|c|c|c|c|}\hline
+\multicolumn{2}{|c|}{Input} & RD = −1 &	RD = +1 \\\hline
+Code & HGF & \multicolumn{2}{c|}{f g h j} \\\hline
+D.x.0 &000 &1011 & 0100\\\hline
+D.x.1 &001 &\multicolumn{2}{c|}{1001}\\\hline
+D.x.2 &010 &\multicolumn{2}{c|}{0101}\\\hline
+D.x.A3 &011 &\multicolumn{2}{c|}{1100}\\
+D.x.B3 &    &\multicolumn{2}{c|}{0011}\\\hline
+D.x.4 &100 &1101 &0010\\\hline
+D.x.5 &101 &\multicolumn{2}{c|}{1010}\\\hline
+D.x.6 &110 &\multicolumn{2}{c|}{0110}\\\hline
+D.x.P7 & 111 &1110 & 0001\\
+D.x.A7 & &  0111 & 1000\\\hline
+\end{tabular}
+}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{PCIe ver. 1.x a 2.x}
+
+Ver 1.x
+\begin{itemize}
+\item Frekvence přenosu je 2.5 GT/s (počet transferů za s)
+\item Pro jeden bajt 8bitů je potřeba 10 transferů
+\item Maximální přenosová kapacita je tedy 250 MB/s = $(2500 \cdot \frac{8}{10})$ Mb/s = $(2500 \cdot \frac{1}{10})$ MB/s
+\item PCIe umožňuje pro jednu periferie mít 16 nezávislých linek, které se podělí o přenášená data -- nezávisle paralelně
+\begin{itemize}
+\item Maximální přenosová kapacita je $(16 \cdot 250)$ MB/s = $4$ GB/s
+\end{itemize}
+\end{itemize}
+
+Ver 2.x
+\begin{itemize}
+\item Frekvence přenosu je 2.5 GT/s (počet transferů za s)
+\item Pro jeden bajt 8bitů je potřeba 10 transferů
+\item Maximální přenosová kapacita jedné linky (x1) je 500 MB/s
+\item Maximální přenosová kapacita pro 16 linek (x16) je $(16 \cdot 500)$ MB/s = $8$ GB/s
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{PCIe x1-x16}
+\frametitle{PCIe ver. 3.x, 4.x a 5.x}
+
+Kódování 8b/10b je zbytečně neefektivní, zvolilo se kódování 128b/130b s obdobnými parametry.
+\begin{itemize}
+\item Ver 3.x 
+\begin{itemize}
+\item Frekvence přenosu je 8 GT/s (počet transferů za s)
+\item Maximální přenosová kapacita je tedy skoro 985 MB/s = $(8000 \cdot \frac{128}{130})$ Mb/s = $(8000 \cdot \frac{16}{130})$ MB/s
+\item Maximální přenosová kapacita pro x16 je $(16 \cdot 985)$ MB/s = $15.75$ GB/s
+\end{itemize}
+\item Ver 4.x 
+\begin{itemize}
+\item Frekvence přenosu je 16 GT/s (počet transferů za s)
+\item Maximální přenosová kapacita je tedy skoro 1.97 GB/s = $(16000 \cdot \frac{16}{130})$ MB/s
+\item Maximální přenosová kapacita pro x16 je $(16 \cdot 1.97)$ GB/s = $31.5$ GB/s
+\end{itemize}
+\item Ver 5.x 
+\begin{itemize}
+\item Frekvence přenosu je 32 GT/s (počet transferů za s)
+\item Maximální přenosová kapacita je tedy skoro 3.94 GB/s = $(32000 \cdot \frac{16}{130})$ MB/s
+\item Maximální přenosová kapacita pro x16 je $(16 \cdot 3.94)$ GB/s = $63$ GB/s
+\end{itemize}
+\end{itemize}
 
 \end{frame}
+
 
 
 
 \begin{frame}
 \frametitle{PCIe topologie}
 
+Komunikace po PCIe sběrnici se podobá komunikaci po síti (ethernet).
+\begin{itemize}
+\item Komunikace probíhá po paketech 
+\begin{itemize}
+\item POZOR -- režie paketů není započítána do maximální přenosové kapacity.
+\item Každý paket má synchronizační hlavičku, adresu, data, crc -- obdobně jako v protokolu ethernet.
+\end{itemize}
+\item Využití přepínačů (switch) je podobné jako v síti
+\begin{itemize}
+\item Přepínače umožňují komunikovat pouze mezi dvěma zařízeními
+\item Přepínače umí prioritizovat pakety -- výhodné pro snížení latence (použití paketů naproti tomu latenci zvyšuje)
+\item Pomocí přepínačů lze zajistit automatickou detekci a konfiguraci připojených zařízení na obdobném principu, jako to dělal PCI sběrnice 
+\end{itemize}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Realita signálů sériové sběrnice}
 
-Vzhled signálů v závisloti na vzdálenosti.
+Vysokorychlostní komunikace přináší mnoho různých problémů.
+
+Vzhled signálů v závislosti na vzdálenosti
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig/signals.png}
+\end{center}
 
 \end{frame}
 
@@ -595,8 +925,26 @@ Vzhled signálů v závisloti na vzdálenosti.
 \begin{frame}
 \frametitle{Hard disky}
 
-Od ATA PATA k SATA
-asi více slajdů
+\begin{itemize}
+\item Obdobný vývoj, který je u změny PCI na PCIe lze pozorovat i u disků.
+\item PATA neboli Parallel ATA je paralelní připojení disku od roku 1984 pro první IBM PC/AT
+\begin{itemize}
+\item Název ATA znamená vlastně AT Attachment, AT je zkratka Advance Technology.
+\item Také označován jako IDE, později Extended IDE (EIDE) Utra ATA (UATA) 
+\item PATA je 16-bitový paralelní přenos dat mezi CPU a diskem
+\item Ve své nejrychlejší variantě uměl přenášet až 133 MB/s 
+\end{itemize}
+\item SATA je sériová verze komunikace s diskem.
+\begin{itemize}
+\item V minimální variantě potřebuje pouze 7 vodičů, A+,A-, B+, B- a 3x zemění.
+\begin{itemize}
+\item SATA 1.0: 150 MB/s  (PATA:130MB/s)
+\item SATA 2.0: 300 MB/s
+\item SATA 3.0: 600 MB/s
+\item SATA 3.2: about 2 GB/s
+\end{itemize}
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 

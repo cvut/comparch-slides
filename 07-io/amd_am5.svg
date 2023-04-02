@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="141.81708mm"
+   height="121.18292mm"
+   viewBox="0 0 141.81708 121.18292"
+   version="1.1"
+   id="svg17171"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="amd_am5.svg">
+  <defs
+     id="defs17165" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="354.17757"
+     inkscape:cy="286.36089"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1848"
+     inkscape:window-height="1016"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid21648"
+       originx="54.372088"
+       originy="-190.36749" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata17168">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(54.372086,14.550424)">
+    <rect
+       style="opacity:1;fill:#93ff85;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3"
+       width="35.718754"
+       height="48.947914"
+       x="-1.3229187"
+       y="-12.562504"
+       ry="5.291666" />
+    <rect
+       style="opacity:1;fill:#85fff4;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5"
+       width="37.041664"
+       height="5.2916613"
+       x="-54.239586"
+       y="3.3124943"
+       ry="1.3229176" />
+    <rect
+       style="opacity:1;fill:#8f85ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9"
+       width="19.843748"
+       height="14.552084"
+       x="67.46875"
+       y="-9.9166727"
+       ry="3.9687526" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="16.662851"
+       y="-3.0577426"
+       id="text21802"><tspan
+         sodipodi:role="line"
+         id="tspan21800"
+         x="16.662851"
+         y="-3.0577426"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332">AMD Ryzen</tspan><tspan
+         sodipodi:role="line"
+         x="16.662851"
+         y="2.2339239"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1582" /><tspan
+         sodipodi:role="line"
+         x="16.662851"
+         y="7.5255899"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1584">Socket AM5</tspan><tspan
+         sodipodi:role="line"
+         x="16.662851"
+         y="12.817257"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1586" /><tspan
+         sodipodi:role="line"
+         x="16.662851"
+         y="18.108923"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1023">Ryzen 7000</tspan><tspan
+         sodipodi:role="line"
+         x="16.662851"
+         y="23.400589"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1595">processors</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="77.664467"
+       y="-3.3689055"
+       id="text21806"><tspan
+         sodipodi:role="line"
+         id="tspan21804"
+         x="77.664467"
+         y="-3.3689055"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332">Graphic</tspan><tspan
+         sodipodi:role="line"
+         x="77.664467"
+         y="1.9227608"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1112">card</tspan></text>
+    <rect
+       style="opacity:1;fill:#85fff4;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-3"
+       width="37.041668"
+       height="5.2916608"
+       x="-54.239586"
+       y="9.9270773"
+       ry="1.3229176" />
+    <rect
+       style="opacity:1;fill:#85fff4;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-1"
+       width="37.041668"
+       height="5.2916622"
+       x="-54.239586"
+       y="-3.3020892"
+       ry="1.3229176" />
+    <rect
+       style="opacity:1;fill:#85fff4;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-93"
+       width="37.041653"
+       height="5.2916455"
+       x="-54.239586"
+       y="-9.9166727"
+       ry="1.3229176" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-50.959362"
+       y="-5.6968741"
+       id="text21796-60"><tspan
+         sodipodi:role="line"
+         x="-50.959362"
+         y="-5.6968741"
+         style="stroke-width:0.26458332"
+         id="tspan21798-6">DDR5 5200MHz</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 34.395833,-1.9791711 33.072915,-1.4e-6"
+       id="path1106"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="37.331287"
+       y="-3.4222922"
+       id="text1110"><tspan
+         sodipodi:role="line"
+         id="tspan1108"
+         x="37.331287"
+         y="-3.4222922"
+         style="stroke-width:0.26458332">PCIe 5.0 x16</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffe085;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-2"
+       width="44.979168"
+       height="15.875"
+       x="-5.2916675"
+       y="62.843754"
+       ry="3.9687502" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="17.57472"
+       y="69.741821"
+       id="text21654-6"><tspan
+         sodipodi:role="line"
+         x="17.57472"
+         y="69.741821"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1029-8">AMD B650E</tspan><tspan
+         sodipodi:role="line"
+         x="17.57472"
+         y="75.033485"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1696">Chipset</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="35.659393"
+       y="53.394344"
+       id="text1204"><tspan
+         sodipodi:role="line"
+         x="35.659393"
+         y="53.394344"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1206">SATA x4</tspan></text>
+    <rect
+       style="opacity:1;fill:#85a2ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9-7"
+       width="13.229167"
+       height="13.229168"
+       x="56.885414"
+       y="39.031246"
+       ry="6.5673389" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="63.443115"
+       y="44.208851"
+       id="text21806-5"><tspan
+         sodipodi:role="line"
+         x="63.443115"
+         y="44.208851"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1112-2">HDD</tspan><tspan
+         sodipodi:role="line"
+         x="63.443115"
+         y="49.500519"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1234">SSD</tspan></text>
+    <rect
+       style="opacity:1;fill:#85a2ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9-7-2"
+       width="13.229167"
+       height="13.229168"
+       x="56.885414"
+       y="53.583332"
+       ry="6.5673394" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="63.443115"
+       y="58.760937"
+       id="text21806-5-8"><tspan
+         sodipodi:role="line"
+         x="63.443115"
+         y="58.760937"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1112-2-9">HDD</tspan><tspan
+         sodipodi:role="line"
+         x="63.443115"
+         y="64.052605"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1234-7">SSD</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 15.874998,36.385411 1e-6,26.458339"
+       id="path1264"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="16.636515"
+       y="42.077652"
+       id="text1268"><tspan
+         sodipodi:role="line"
+         x="16.636515"
+         y="42.077652"
+         style="stroke-width:0.26458332"
+         id="tspan1270">PCIe 4.0 x4</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36"
+       width="9.2603693"
+       height="3.9687593"
+       x="-44.979122"
+       y="24.479151"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-44.034184"
+       y="27.550188"
+       id="text1289"><tspan
+         sodipodi:role="line"
+         id="tspan1287"
+         x="-44.034184"
+         y="27.550188"
+         style="font-size:3.52777767px;stroke-width:0.26458332">USB</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-1"
+       width="9.2603693"
+       height="3.9687593"
+       x="-44.979168"
+       y="29.770823"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-44.034229"
+       y="32.841854"
+       id="text1289-2"><tspan
+         sodipodi:role="line"
+         id="tspan1287-9"
+         x="-44.034229"
+         y="32.841854"
+         style="font-size:3.52777767px;stroke-width:0.26458332">USB</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -35.718753,26.331233 h 2.645834 v 5.291664 h -2.645834"
+       id="path1352"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-32-7"
+       width="23.8125"
+       height="5.0270877"
+       x="-48.947918"
+       y="80.041664"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-45.597507"
+       y="83.770134"
+       id="text1289-06-6"><tspan
+         sodipodi:role="line"
+         id="tspan1287-1-5"
+         x="-45.597507"
+         y="83.770134"
+         style="font-size:3.52777767px;stroke-width:0.26458332">1GbE LAN</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-32-5-6"
+       width="23.812502"
+       height="5.291676"
+       x="-48.947918"
+       y="89.037483"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-45.644516"
+       y="93.085907"
+       id="text1289-06-5-9"><tspan
+         sodipodi:role="line"
+         id="tspan1287-1-4-3"
+         x="-45.644516"
+         y="93.085907"
+         style="font-size:3.52777767px;stroke-width:0.26458332">1GbE LAN</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-32-7-7"
+       width="23.8125"
+       height="5.0270877"
+       x="39.687496"
+       y="98.827065"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="45.589245"
+       y="102.46105"
+       id="text1289-06-6-4"><tspan
+         sodipodi:role="line"
+         id="tspan1287-1-5-5"
+         x="45.589245"
+         y="102.46105"
+         style="font-size:3.52777767px;stroke-width:0.26458332">MLAN</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-32-5-6-7"
+       width="23.812502"
+       height="5.291676"
+       x="39.687496"
+       y="89.302063"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="44.285324"
+       y="93.21685"
+       id="text1289-06-5-9-8"><tspan
+         sodipodi:role="line"
+         id="tspan1287-1-4-3-6"
+         x="44.285324"
+         y="93.21685"
+         style="font-size:3.52777767px;stroke-width:0.26458332">Mini DP</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffe085;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-2-8"
+       width="21.166666"
+       height="21.166672"
+       x="11.906248"
+       y="85.333328"
+       ry="3.9687502" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="22.83396"
+       y="91.861534"
+       id="text21654-6-8"><tspan
+         sodipodi:role="line"
+         x="22.83396"
+         y="91.861534"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1029-8-3">ASPEED</tspan><tspan
+         sodipodi:role="line"
+         x="22.83396"
+         y="97.153198"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1876">AST2600</tspan><tspan
+         sodipodi:role="line"
+         x="22.83396"
+         y="102.44487"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1532">BMC</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 22.489581,78.718745 v 6.614583"
+       id="path1534"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 33.072915,91.947911 h 6.614583"
+       id="path1538"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-50.959362"
+       y="1.0122042"
+       id="text21796-60-9"><tspan
+         sodipodi:role="line"
+         x="-50.959362"
+         y="1.0122042"
+         style="stroke-width:0.26458332"
+         id="tspan21798-6-2">DDR5 5200MHz</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-50.959362"
+       y="7.4850464"
+       id="text21796-60-0"><tspan
+         sodipodi:role="line"
+         x="-50.959362"
+         y="7.4850464"
+         style="stroke-width:0.26458332"
+         id="tspan21798-6-6">DDR5 5200MHz</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-50.959362"
+       y="14.099629"
+       id="text21796-60-8"><tspan
+         sodipodi:role="line"
+         x="-50.959362"
+         y="14.099629"
+         style="stroke-width:0.26458332"
+         id="tspan21798-6-9">DDR5 5200MHz</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -17.197919,-7.2708392 h 2.645833 v 6.6145832 h -2.645833"
+       id="path1631"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -14.552086,-0.656256 H -1.3229192"
+       id="path1633"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -17.197919,5.9583273 h 2.645833 v 7.9374997 h 13.2291668"
+       id="path1635"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -17.197919,13.895827 h 2.645833"
+       id="path1637"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-38.690426"
+       y="-11.200448"
+       id="text1641"><tspan
+         sodipodi:role="line"
+         id="tspan1639"
+         x="-38.690426"
+         y="-11.200448"
+         style="stroke-width:0.26458332">2 Channel</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot1643"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,-42.465836,-10.049169)"><flowRegion
+         id="flowRegion1645"><rect
+           id="rect1647"
+           width="105"
+           height="80"
+           x="355.50079"
+           y="-4.4992256" /></flowRegion><flowPara
+         id="flowPara1649" /></flowRoot>    <rect
+       style="opacity:1;fill:#8f85ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9-2"
+       width="19.843748"
+       height="14.552084"
+       x="67.468742"
+       y="7.2812424"
+       ry="3.9687526" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="77.664467"
+       y="17.797762"
+       id="text21806-6"><tspan
+         sodipodi:role="line"
+         x="77.664467"
+         y="21.54327"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1112-4" /></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 34.395831,15.218744 33.072917,-2e-6"
+       id="path1106-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="37.331287"
+       y="13.775623"
+       id="text1110-5"><tspan
+         sodipodi:role="line"
+         id="tspan1108-0"
+         x="37.331287"
+         y="13.775623"
+         style="stroke-width:0.26458332">PCIe 4.0 x4</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -33.072919,28.447911 H -1.3229195"
+       id="path1686"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-31.844498"
+       y="27.030497"
+       id="text1690"><tspan
+         sodipodi:role="line"
+         id="tspan1688"
+         x="-31.844498"
+         y="27.030497"
+         style="stroke-width:0.26458332">USB 3.2 Gen1</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-4"
+       width="25.135418"
+       height="5.2916684"
+       x="-39.687504"
+       y="42.999992"
+       ry="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-36.238472"
+       y="47.204975"
+       id="text1715"><tspan
+         sodipodi:role="line"
+         id="tspan1713"
+         x="-36.238472"
+         y="47.204975"
+         style="stroke-width:0.26458332">M.2</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -14.552086,45.645826 H 11.906247 V 62.843742"
+       id="path1717"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-12.957725"
+       y="44.929596"
+       id="text1268-8"><tspan
+         sodipodi:role="line"
+         x="-12.957725"
+         y="44.929596"
+         style="stroke-width:0.26458332"
+         id="tspan1270-7">PCIe 4.0 x4</tspan></text>
+    <rect
+       style="opacity:1;fill:#85a2ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9-7-1"
+       width="13.229167"
+       height="13.229168"
+       x="72.760414"
+       y="39.031242"
+       ry="6.5673394" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="79.318115"
+       y="44.208847"
+       id="text21806-5-7"><tspan
+         sodipodi:role="line"
+         x="79.318115"
+         y="44.208847"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1112-2-2">HDD</tspan><tspan
+         sodipodi:role="line"
+         x="79.318115"
+         y="49.500515"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1234-72">SSD</tspan></text>
+    <rect
+       style="opacity:1;fill:#85a2ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9-7-2-2"
+       width="13.229167"
+       height="13.229168"
+       x="72.760414"
+       y="53.583324"
+       ry="6.5673394" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="79.318115"
+       y="58.760929"
+       id="text21806-5-8-6"><tspan
+         sodipodi:role="line"
+         x="79.318115"
+         y="58.760929"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1112-2-9-1">HDD</tspan><tspan
+         sodipodi:role="line"
+         x="79.318115"
+         y="64.052597"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1234-7-0">SSD</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 26.45833,62.843742 v -7.9375 h 27.78125 v 5.291667 h 2.645833"
+       id="path1778"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 54.23958,54.906242 v -9.260416 h 2.645833"
+       id="path1780"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 54.23958,53.054159 h 17.197917 v 7.14375 h 1.322916"
+       id="path1782"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 71.437497,53.054159 v -7.408333 h 1.322916"
+       id="path1784"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-32-7-74-1"
+       width="23.8125"
+       height="5.0270877"
+       x="59.531246"
+       y="68.399994"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="63.612709"
+       y="72.248665"
+       id="text1289-06-6-43-5"><tspan
+         sodipodi:role="line"
+         id="tspan1287-1-5-0-9"
+         x="63.612709"
+         y="72.248665"
+         style="font-size:3.52777767px;stroke-width:0.26458332">ASM1164</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 39.687497,70.781242 19.843751,2e-6"
+       id="path1807"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 62.177082,73.427077 v 5.291667 h 22.489583"
+       id="path1809"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="75.159874"
+       y="77.861588"
+       id="text1204-4"><tspan
+         sodipodi:role="line"
+         x="75.159874"
+         y="77.861588"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         id="tspan1206-9">SATA x4</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="40.609848"
+       y="69.805519"
+       id="text1268-0"><tspan
+         sodipodi:role="line"
+         x="40.609848"
+         y="69.805519"
+         style="stroke-width:0.26458332"
+         id="tspan1270-9">PCIe 3.0</tspan><tspan
+         sodipodi:role="line"
+         x="40.609848"
+         y="75.097183"
+         style="stroke-width:0.26458332"
+         id="tspan1847">x2</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-32-7-74-17"
+       width="23.8125"
+       height="5.0270877"
+       x="48.947918"
+       y="27.389582"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="53.243267"
+       y="31.118052"
+       id="text1289-06-6-43-7"><tspan
+         sodipodi:role="line"
+         id="tspan1287-1-5-0-1"
+         x="53.243267"
+         y="31.118052"
+         style="font-size:3.52777767px;stroke-width:0.26458332">BIOS</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 34.39583,29.770826 H 48.947914"
+       id="path1870"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="37.509384"
+       y="28.260885"
+       id="text1874"><tspan
+         sodipodi:role="line"
+         id="tspan1872"
+         x="37.509384"
+         y="28.260885"
+         style="stroke-width:0.26458332">SPI</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-15"
+       width="9.2603693"
+       height="3.9687593"
+       x="-48.947872"
+       y="65.489563"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-48.002934"
+       y="68.5606"
+       id="text1289-9"><tspan
+         sodipodi:role="line"
+         id="tspan1287-7"
+         x="-48.002934"
+         y="68.5606"
+         style="font-size:3.52777767px;stroke-width:0.26458332">USB</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-1-7"
+       width="9.2603693"
+       height="3.9687593"
+       x="-48.947918"
+       y="70.781235"
+       ry="1.3229074" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-48.002979"
+       y="73.852272"
+       id="text1289-2-6"><tspan
+         sodipodi:role="line"
+         id="tspan1287-9-7"
+         x="-48.002979"
+         y="73.852272"
+         style="font-size:3.52777767px;stroke-width:0.26458332">USB</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -39.687503,67.34165 h 2.645834 v 5.291664 h -2.645834"
+       id="path1352-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -37.041669,69.458328 H -5.29167"
+       id="path1686-6"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-35.813248"
+       y="68.040909"
+       id="text1690-5"><tspan
+         sodipodi:role="line"
+         id="tspan1688-6"
+         x="-35.813248"
+         y="68.040909"
+         style="stroke-width:0.26458332">USB 3.2 Gen1</tspan></text>
+    <rect
+       style="opacity:1;fill:#85d8ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-6-7-36-32-7-74-1-3"
+       width="23.8125"
+       height="5.0270877"
+       x="-19.843752"
+       y="85.333328"
+       ry="1.3229074"
+       inkscape:transform-center-x="0.40090429"
+       inkscape:transform-center-y="2.2717872" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-15.762289"
+       y="89.181999"
+       id="text1289-06-6-43-5-9"
+       inkscape:transform-center-x="-0.026173236"
+       inkscape:transform-center-y="2.322755"><tspan
+         sodipodi:role="line"
+         id="tspan1287-1-5-0-9-4"
+         x="-15.762289"
+         y="89.181999"
+         style="font-size:3.52777767px;stroke-width:0.26458332">BCM5720</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -25.135419,82.687492 h 2.645833 v 5.291666 h 2.645834"
+       id="path1947"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -25.135419,91.947908 h 2.645833 v -3.96875"
+       id="path1949"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 3.9687474,87.979158 H 6.6145807 V 78.718742"
+       id="path1951"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="-17.839233"
+       y="83.462456"
+       id="text1268-0-8"><tspan
+         sodipodi:role="line"
+         x="-17.839233"
+         y="83.462456"
+         style="stroke-width:0.26458332"
+         id="tspan1847-2">PCIe 2.0 x1</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 33.072915,101.20833 h 6.614583"
+       id="path1538-9"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="23.772879"
+       y="83.462456"
+       id="text1268-0-8-3"><tspan
+         sodipodi:role="line"
+         x="23.772879"
+         y="83.462456"
+         style="stroke-width:0.26458332"
+         id="tspan1847-2-9">PCIe 2.0 x1</tspan></text>
+  </g>
+</svg>
