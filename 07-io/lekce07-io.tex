@@ -102,7 +102,7 @@ Parametry přenosu:
 \begin{frame}
 \frametitle{Klasifikace periférií}
 
-Příklady periférií komunikujících s lidmy:
+Příklady periférií komunikujících s lidmi:
 \begin{itemize}
 \item klávesnice -- sice jen vstup, ale moderní často i výstup led diody, velmi malá přenosová rychlost, latence až do 200ms (mimo hraní her) 
 \item mikrofon/reproduktory -- přenosová rychlost až 8Mb/s, latence záleží na aplikaci, pro interaktivní komunikaci se vyžaduje latence menší 500 ms, optimálně 150 -- 300 ms 
@@ -170,7 +170,7 @@ Periférie využívá přímý přístup do paměti:
 \frametitle{Zpracování periférií -- Linux (zjednodušeno)}
 \begin{columns}
 \begin{column}{0.4\textwidth}
-Programy komunikují s perifériemy pomocí operačního systému a systémového volání a ovladačů periferií(přehled v přednášce 10, podrobně v předmětu OSY).
+Programy komunikují s periferiemi pomocí operačního systému a systémového volání a ovladačů periferií(přehled v přednášce 10, podrobně v předmětu OSY).
 
 \bigskip
 Další možností je komunikace přes sdílenou paměť -- náplň dnešní přednášky.
@@ -211,6 +211,26 @@ Systémová volání:
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Přístup CPU k periférii}
+
+Prakticky existují dva různé přístupy:
+\begin{itemize}
+\item Speciální instrukce 
+\begin{itemize}
+\item x86 používá instrukce \texttt{in}, \texttt{out}.
+\item Tyto instrukce mají podobný formát jako přístup do paměti, ale data čtou a zapisují na sběrnici kde jsou připojeny periférie.
+\item Implementace těchto instrukcí potřebuje přístup k jiným sběrnicím.
+\item Tyto instrukce se ukázaly neefektivní, nesystematické a moderní periférie je nepoužívají.
+\end{itemize}
+\item Vyhrazení části adresového prostoru
+\begin{itemize}
+\item RISC-V nemá speciální instrukce pro komunikace s perifériemi, a proto využívá metodu, že čtení a zápis do určených oblastí paměti vede k čtení a zápisu z periferií.
+\item Tento přístup je velmi jednoduše konfigurovatelný, periférie při inicializaci získají paměťový rozsah, který slouží k přesunu dat mezi CPU a perifériemi.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Paměťově mapované periférie}
@@ -242,7 +262,20 @@ Decentralizovaný -- autonomní dekodér
 \end{center}
 \end{frame}
 
-\section{Základní periférie}
+\begin{frame}
+\frametitle{Kvíz otočné voliče}
+
+RISC-V přistupuje k perifériím
+\begin{itemize}
+\item[A] speciální instrukcí \texttt{in}, \texttt{out}
+\item[B] provedením dvojice instrukcí \texttt{sw}, \texttt{lw} hned po sobě
+\item[C] normálním provedením instrukce \texttt{lw}, \texttt{sw} na speciální adresy
+\item[D] zápisem mimo adresový prostor 32-bitového prostoru
+\end{itemize}
+\end{frame}
+
+
+\section{Periférie v QtRvSim}
 
 
 \begin{frame}
@@ -530,6 +563,18 @@ loop:
 \end{minted}
 \end{frame}
 
+\begin{frame}
+\frametitle{Kvíz otočné voliče}
+
+Pokud máme v proměnné \texttt{unsigned int v;} načtené slovo z adresy \texttt{SPILED\_REG\_BASE+SPILED\_REG\_KNOBS\_8BIT\_o} pak informace o stavu zeleného voliče získáme jako:
+\begin{itemize}
+\item[A] \texttt{((v<<24) \& 0x00ff00)}
+\item[B] \texttt{((v>>8) \& 0xff)}
+\item[C] \texttt{(v \& 0x30300030)}
+\item[D] \texttt{((v>>24) \& 0xf0)}
+\end{itemize}
+\end{frame}
+
 \section{Sběrnice}
 
 \begin{frame}
@@ -537,7 +582,7 @@ loop:
 
 \begin{itemize}
 \item ISA – starší typ pasivní sběrnice, šířka 8 nebo 16 bitů, přenosová rychlost maximálně 8 MB/s
-\item PCI – novější typ „inteligentní“ sběrnice, šířka 32 nebo 64 bitů, burst režim, přenosová rychlost až 260 MB/s
+\item PCI – novější typ „inteligentní“ sběrnice, šířka 32 nebo 64 bitů, burst režim, přenosová rychlost až 530 MB/s
 \item AGP – jednoúčelová sběrnice určená pro připojení grafického karty přes severní můstek k CPU, přenosová rychlost 260 MB/s – 2 GB/s
 \item PCI-Express (PCIe) – nová sériová implementace sběrnice PCI
 \end{itemize}
@@ -552,7 +597,7 @@ Sdílená sběrnice (např. PCI)
 \end{center}
 
 \begin{center}
-Spojení peer-to-peer s využítím switch (např. PCIe, USB)
+Spojení peer-to-peer s využitím switch (např. PCIe, USB)
 \includegraphics[width=0.65\textwidth]{switch_bus.pdf}
 \end{center}
 \end{frame}
@@ -646,7 +691,7 @@ CTRL jsou bity řídicí průběh přenosu
 \begin{itemize}
 \item Přenos začíná iniciátor tím, že požádá arbitra o přidělení sběrnice
 \begin{itemize}
-\item Pokud o sběrnici požádá více zařízení současně, arbiter musí jejich žádosti seřadit a povolit najednou pouze jeden přenos
+\item Pokud o sběrnici požádá více zařízení současně, arbitr musí jejich žádosti seřadit a povolit najednou pouze jeden přenos
 \end{itemize}
 \item Iniciátor začne vysílání nastavením adresy cílové periférie na AD sběrnici a nastavením příznaku FRAME -- rámec přenosu a bitů cmd
 \end{itemize}
@@ -776,7 +821,7 @@ nelze v jeden okamžik detekovat výstupní data
 \item Tento způsob přenosu je méně náchylný na rušení než jedním vodičem vůči zemi.
 \end{itemize}
 \item PCIe může obsahovat více linek, ale přenos mezi linkami není synchronizován na úrovni bitů.
-\item Konektory PCIe mají v nejjednodušší variantě pouze 18 pinů, 36 signálů z čehož 18 je uzemění a napájení.
+\item Konektory PCIe mají v nejjednodušší variantě pouze 18 pinů, 36 signálů z čehož 18 je uzemnění a napájení.
 \end{itemize}
 
 \end{frame}
