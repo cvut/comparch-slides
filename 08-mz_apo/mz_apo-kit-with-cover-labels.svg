@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="247.77908mm"
+   height="158.00922mm"
+   viewBox="0 0 247.77908 158.00921"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="mz_apo-kit-with-cover-labels.svg">
+  <defs
+     id="defs2">
+    <rect
+       x="285.33008"
+       y="142.10406"
+       width="73.555557"
+       height="27.209558"
+       id="rect1528" />
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path839" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-2"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-2-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-1-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-2-3-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-1-1-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-2-9"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-1-4" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-2-9-7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-1-4-5" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-5"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-2" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-5-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-2-0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-5-9"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-2-9" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-5-9-2"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-2-9-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-5-9-2-6"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-2-9-7-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-5-8-0"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-2-0-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-5-8-0-5"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path845-2-0-7-6" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.8362914"
+     inkscape:cx="335.37004"
+     inkscape:cy="496.85416"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1592"
+     inkscape:window-height="1171"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:snap-text-baseline="true"
+     fit-margin-top="2"
+     lock-margins="true"
+     fit-margin-left="2"
+     fit-margin-right="2"
+     fit-margin-bottom="2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(3.2236692,-98.999627)">
+    <image
+       sodipodi:absref="/home/pi/school/subjects/apo/apo-slides/08-mz_apo/fig/mz_apo-kit-with-cover.png"
+       xlink:href="fig/mz_apo-kit-with-cover.png"
+       width="212.78273"
+       height="153.20819"
+       preserveAspectRatio="none"
+       id="image927"
+       x="-212.2247"
+       y="-255.00885"
+       transform="scale(-1)" />
+    <g
+       id="g2243"
+       transform="translate(-5.6391228,-2.4371928)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979"
+         width="60.531124"
+         height="5.524219"
+         x="37.346348"
+         y="103.66524" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="38.619724"
+         y="107.74849"
+         id="text983"><tspan
+           sodipodi:role="line"
+           id="tspan981"
+           x="38.619724"
+           y="107.74849"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">MicroZed napájení v pořádku</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 61.257242,109.03271 75.08232,130.25712"
+       id="path834"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g1648"
+       transform="translate(2.5318774,0.44041067)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979-4"
+         width="30.045992"
+         height="5.2587633"
+         x="209.83643"
+         y="124.61497" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="211.1098"
+         y="128.69823"
+         id="text983-5"><tspan
+           sodipodi:role="line"
+           id="tspan981-5"
+           x="211.1098"
+           y="128.69823"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">Rozhraní USB</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       id="text1526"
+       style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1528);fill:#000000;fill-opacity:1;stroke:none;" />
+    <g
+       id="g1643"
+       transform="translate(-1.7654266,0.44041067)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979-4-4"
+         width="34.072498"
+         height="9.8783731"
+         x="210.10722"
+         y="142.32173" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="211.3806"
+         y="146.40498"
+         id="text983-5-9"><tspan
+           sodipodi:role="line"
+           id="tspan981-5-4"
+           x="211.3806"
+           y="146.40498"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">Síťové rozhraní</tspan><tspan
+           sodipodi:role="line"
+           x="211.3806"
+           y="150.81471"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           id="tspan1560">ETHERNET</tspan></text>
+    </g>
+    <g
+       id="g1637"
+       transform="translate(-0.20040163,0.44041067)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979-4-4-6"
+         width="43.191936"
+         height="10.104883"
+         x="199.42276"
+         y="169.11722" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="200.69614"
+         y="173.20047"
+         id="text983-5-9-8"><tspan
+           sodipodi:role="line"
+           id="tspan981-5-4-4"
+           x="200.69614"
+           y="173.20047"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">Tlačítko inicializace</tspan><tspan
+           sodipodi:role="line"
+           x="200.69614"
+           y="177.6102"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           id="tspan1560-5">RESET</tspan></text>
+    </g>
+    <g
+       id="g1631"
+       transform="translate(-1.1892056,0.44041067)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979-4-4-6-5"
+         width="44.246109"
+         height="7.1499858"
+         x="199.35739"
+         y="190.13541" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="201.43375"
+         y="194.78654"
+         id="text983-5-9-8-6"><tspan
+           sodipodi:role="line"
+           x="201.43375"
+           y="194.78654"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           id="tspan1560-5-0">Napájení 12 až 24 V</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
+       d="m 196.98605,175.76666 -57.05538,3.58523"
+       id="path834-0"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g1631-1"
+       transform="translate(-1.1892056,24.543669)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979-4-4-6-5-9"
+         width="58.85392"
+         height="6.8437877"
+         x="184.74959"
+         y="190.4416" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="186.91124"
+         y="194.95442"
+         id="text983-5-9-8-6-3"><tspan
+           sodipodi:role="line"
+           x="186.91124"
+           y="194.95442"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           id="tspan1560-5-0-9">Vstupní napájení v pořádku</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2-3)"
+       d="M 181.98399,219.09628 151.80662,201.32419"
+       id="path834-0-8"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g1631-1-7"
+       transform="translate(-76.250212,53.457588)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979-4-4-6-5-9-9"
+         width="47.738869"
+         height="6.0973964"
+         x="184.74959"
+         y="190.4416" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="186.91124"
+         y="194.95442"
+         id="text983-5-9-8-6-3-8"><tspan
+           sodipodi:role="line"
+           x="186.91124"
+           y="194.95442"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           id="tspan1560-5-0-9-7">Napájecí adaptér 19 V</tspan></text>
+    </g>
+    <g
+       id="g1631-1-4"
+       transform="translate(-69.091218,34.190185)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979-4-4-6-5-9-8"
+         width="84.432808"
+         height="6.7520814"
+         x="184.74959"
+         y="190.4416" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="186.91124"
+         y="194.95442"
+         id="text983-5-9-8-6-3-9"><tspan
+           sodipodi:role="line"
+           x="186.91124"
+           y="194.95442"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           id="tspan1560-5-0-9-4">Programovatelná logika nainicializovaná</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2-3-4)"
+       d="m 142.89756,223.61178 -6.54364,-34.91846"
+       id="path834-0-8-9"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g1631-1-4-8"
+       transform="translate(-41.867696,-88.292543)">
+      <g
+         id="g2098"
+         transform="translate(4.5775792,-0.68505055)">
+        <rect
+           style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+           id="rect979-4-4-6-5-9-8-8"
+           width="44.379501"
+           height="6.7595482"
+           x="184.74959"
+           y="190.4416" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+           x="186.91124"
+           y="194.95442"
+           id="text983-5-9-8-6-3-9-1"><tspan
+             sodipodi:role="line"
+             x="186.91124"
+             y="194.95442"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+             id="tspan1560-5-0-9-4-9">Uživatelské tlačítko</tspan></text>
+      </g>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2-9)"
+       d="m 163.86274,110.28873 -26.53457,22.30061"
+       id="path834-0-1"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g1631-1-4-8-9"
+       transform="translate(-92.298735,-88.615816)">
+      <g
+         id="g2098-7"
+         transform="translate(4.5775792,-0.68505055)">
+        <rect
+           style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+           id="rect979-4-4-6-5-9-8-8-0"
+           width="39.209213"
+           height="6.797224"
+           x="184.74959"
+           y="190.4416" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+           x="186.91124"
+           y="194.95442"
+           id="text983-5-9-8-6-3-9-1-4"><tspan
+             sodipodi:role="line"
+             x="186.91124"
+             y="194.95442"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+             id="tspan1560-5-0-9-4-9-3">Displej  480 x 320</tspan></text>
+      </g>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2-9-7)"
+       d="m 117.51892,110.28882 -9.17541,16.0434"
+       id="path834-0-1-4"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g2243-7"
+       transform="translate(-10.201141,6.3923378)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979-2"
+         width="24.606239"
+         height="6.0948024"
+         x="37.346348"
+         y="103.66524" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="38.619724"
+         y="107.74849"
+         id="text983-1"><tspan
+           sodipodi:role="line"
+           id="tspan981-7"
+           x="38.619724"
+           y="107.74849"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">RGB LED 1</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-5)"
+       d="m 42.079168,118.05776 16.579957,14.9685"
+       id="path834-7"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g2243-7-1"
+       transform="translate(22.729835,111.4994)">
+      <rect
+         style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+         id="rect979-2-3"
+         width="24.606239"
+         height="6.0948024"
+         x="37.346348"
+         y="103.66524" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+         x="38.619724"
+         y="107.74849"
+         id="text983-1-4"><tspan
+           sodipodi:role="line"
+           id="tspan981-7-3"
+           x="38.619724"
+           y="107.74849"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">RGB LED 2</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-5-8)"
+       d="m 70.270573,213.67738 -7.09807,-14.1379"
+       id="path834-7-6"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g2243-7-8"
+       transform="translate(-15.408922,67.759307)">
+      <g
+         id="g2728"
+         transform="translate(-22.943465,-37.669132)">
+        <rect
+           style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+           id="rect979-2-9"
+           width="36.424679"
+           height="6.2256112"
+           x="37.269829"
+           y="103.61271" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+           x="38.619724"
+           y="107.74849"
+           id="text983-1-7"><tspan
+             sodipodi:role="line"
+             id="tspan981-7-7"
+             x="38.619724"
+             y="107.74849"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">Červený volič (R)</tspan></text>
+      </g>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-5-9)"
+       d="m 36.102124,137.10316 11.288282,4.11053"
+       id="path834-7-1"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g2243-7-8-2"
+       transform="translate(-15.408922,94.480625)">
+      <g
+         id="g2728-6"
+         transform="translate(-22.943465,-37.669132)">
+        <rect
+           style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+           id="rect979-2-9-6"
+           width="36.424679"
+           height="6.2256112"
+           x="37.269829"
+           y="103.61271" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+           x="38.619724"
+           y="107.74849"
+           id="text983-1-7-9"><tspan
+             sodipodi:role="line"
+             id="tspan981-7-7-0"
+             x="38.619724"
+             y="107.74849"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">Zelený volič (G)</tspan></text>
+      </g>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-5-9-2)"
+       d="m 36.764106,164.12369 10.534956,0.41104"
+       id="path834-7-1-0"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g2243-7-8-2-5"
+       transform="translate(-15.408922,113.69832)">
+      <g
+         id="g2728-6-9"
+         transform="translate(-22.943465,-37.669132)">
+        <rect
+           style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+           id="rect979-2-9-6-9"
+           width="36.424679"
+           height="6.2256112"
+           x="37.269829"
+           y="103.61271" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+           x="38.619724"
+           y="107.74849"
+           id="text983-1-7-9-0"><tspan
+             sodipodi:role="line"
+             id="tspan981-7-7-0-2"
+             x="38.619724"
+             y="107.74849"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">Modrý volič (B)</tspan></text>
+      </g>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-5-9-2-6)"
+       d="m 36.295855,183.16579 10.906541,1.85994"
+       id="path834-7-1-0-5"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g2243-7-8-2-8"
+       transform="translate(-11.754683,157.46012)">
+      <g
+         id="g2728-6-8"
+         transform="translate(-22.943465,-37.669132)">
+        <rect
+           style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+           id="rect979-2-9-6-1"
+           width="54.043167"
+           height="6.8465319"
+           x="37.269829"
+           y="103.61271" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+           x="38.619724"
+           y="107.74849"
+           id="text983-1-7-9-8"><tspan
+             sodipodi:role="line"
+             id="tspan981-7-7-0-5"
+             x="38.619724"
+             y="107.74849"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">Řádka 32 LED (bity slova)</tspan></text>
+      </g>
+    </g>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:1.41111;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0.2;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-5-8-0)"
+       d="m 29.76695,221.99694 9.493197,-22.03025"
+       id="path834-7-6-8"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g2243-7-8-2-8-4"
+       transform="translate(-9.1512161,181.9894)">
+      <g
+         id="g2728-6-8-8"
+         transform="translate(-22.943465,-37.669132)">
+        <rect
+           style="opacity:0.6;fill:#cfdff0;stroke:#ff0014;stroke-width:0.282222;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:9.99999;stroke-opacity:1"
+           id="rect979-2-9-6-1-9"
+           width="78.571266"
+           height="6.0998125"
+           x="37.269829"
+           y="103.61271" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;stroke-width:0.264583"
+           x="38.619724"
+           y="107.74849"
+           id="text983-1-7-9-8-1"><tspan
+             sodipodi:role="line"
+             id="tspan981-7-7-0-5-0"
+             x="38.619724"
+             y="107.74849"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0.264583">Síťový přívod 110 až 240 V střídavých</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
