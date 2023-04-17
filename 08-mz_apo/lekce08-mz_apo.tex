@@ -74,7 +74,9 @@ přítup k PS periferiím i pinům programovatelné logiky PL (FPGA).
   \item rychlá vnitřní statická paměť 256 kB
   \item 4400 řezů (slice) - každý řez je malý konfigurovatelný logický obvod.
     Dokáže vytvořit až 8 klopných obvodů a 4 logické funkce se 6-ti vstupy.
-    Uživatel je může libovolně konfigurovat a vzájemně propojovat.
+    Uživatel je může libovolně konfigurovat a vzájemně propojovat. (28\,K log. bloků, okolo 430\,K ekviv. log. hradel)
+  \item 240\,KB (60$\times$36\,kbit) RAM a 80$\times$DSP (MAC)
+
  \end{itemize}
  \item Externí dynamická paměť – 1 GB DDR3
  \item Komunikace – 10/100/1000 Ethernet
@@ -113,17 +115,154 @@ přítup k PS periferiím i pinům programovatelné logiky PL (FPGA).
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Xilinx Zynq-7000 -- Systém na čipu (SoC)}
+  \begin{center}
+    \includegraphics[width=0.73\textwidth]{xylinx-zynq-7000-block-diagram-cz.pdf}
+  \end{center}
+\end{frame}
 
 \begin{frame}
-\frametitle{MZ\_APO -- návrh v programu Vivado}
+\frametitle{Zvětšené jádro procesorové části}
+\begin{columns}
+\begin{column}{0.6\textwidth}
   \begin{center}
-    \includegraphics[width=0.85\textwidth]{fig/mz_apo-vivado-screenshot.png}
+    \includegraphics[width=0.95\textwidth]{xylinx-zynq-7000-block-core.pdf}
+  \end{center}
+  \vfil
+\end{column}
+\begin{column}{0.4\textwidth}
+ {
+ %\scriptsize
+ \footnotesize
+ Již jsme v APO probrali
+ \begin{enumerate}
+  \item Processorové jádro
+  \item Aritmetiku v plovoucí řád. čárce (FPU)
+  \item Skrytou pamět (Cache) instukční a datovou úroveň L1
+  \item Skrytou pamět další úrovně L2
+  \item Paměť na čipu (RAM)
+ \end{enumerate}
+ Probereme
+ \begin{enumerate}
+  \item Koherenci paměti -- sledovací jednotka (Snoop Control Unit)
+  \item Přímý přístup k paměti (Direct Memory Access)
+ \end{enumerate}
+ }
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Příklady zařízení s Cortex-A9 jádrem}
+
+{ \scriptsize
+Seznam implementací \url{https://en.wikipedia.org/wiki/ARM\_Cortex-A9\#Implementations}
+}
+\vspace{2mm}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+  {\scriptsize
+  Asus Transformer Pad, Infinity (TF700T) \tiny \linebreak
+  \url{https://en.wikipedia.org/wiki/Asus_Transformer_Pad_Infinity}
+  }
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{fig/asus-transformer.jpg}
+  \end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+  {\scriptsize
+  Apple A5 (iPhone 4S, iPad 2, iPad mini) \tiny \linebreak
+  \url{http://en.wikipedia.org/wiki/Iphone_4s}
+  }
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{fig/apple-iphone-with-a5.jpg}
+  \end{center}
+  {\scriptsize
+  NVIDIA Tegra 2 (Motorola Xoom, Droid X2) \tiny \linebreak
+  \url{http://en.wikipedia.org/wiki/Motorola_Xoom}
+  }
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{fig/motorola-xoom.jpg}
+  \end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mikroarchitektura jádra Cortex-A9}
+
+\includegraphics[width=0.95\textwidth]{cortex-a9-core-pipeline-label.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Parematry Zynq jádra Cortex-A9}
+
+\begin{itemize}
+ \item 32 bit RISC Little Endian, 16 celočíselných registrů
+ \begin{itemize}
+  \item 2,5 DMIPS/MHz $\Rightarrow$ 866 MHz *2,5 DMIPS/MHz = 2165 DMIPS
+  {\newline Poznámka: DMIPS je výsledkem syntetického výpočetního benchmarku Dhrystone určeného k reprezentaci celočíselného programování}
+ \end{itemize}
+ \item Většina celočíselných instrukcí s latencí 1 cyklus, celočíselné násobení potřebuje 4 až 5 cyklů.
+ \item  Plovoucí řádová čárka prochází ALU 4 cykly pro sčítání, odečítání (FADD, FSUB), 5 cyklů pro násobení FMUL, 15 cyklů dělení FDIV (3x delší než násobení!), 17 cyklů druhé odmocniny FSQRT.
+ \item Predikce větvení
+ \begin{itemize}
+  \item Tabulka 4\,K záznamů 2-bitových prediktorů.
+ \end{itemize}
+ \item Virtuální paměť se 2 úrovněmi stránkovacích tabulek
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Skrytá paměť úrovně jedna a dvě (anglicky Cache)}
+\begin{itemize}
+ \item 2 samostatné L1 SP pro instrukce I-cache a D-cache pro data. Vlastnosti pro obě L1:
+ \begin{itemize}
+  \item velikost 32\,kB
+  \item 4-cestně asociativní (4-way set associative)
+  \item délka bloku (řádky) 32 bajtů
+  \item politika nahrazování pseudo-náhodné nebo pseudo round-robin
+  \item D-Cache podporuje zpětný zápisu nebo alokace při zápisu (write-back/write-allocate policy).
+ \end{itemize}
+ \item L2 SP je sdílena oběma jádry Cortex-A9. Vlastnosti:
+ \begin{itemize}
+   \item velikost 512\,kB
+   \item 8-cestn2 asociativní
+   \item délka bloku (řádky) 32 bajtů
+   \item politika výměny je pseudonáhodná,
+   \item  podporuje zpětný zápis (write-back), přímý zápis (write-through) s a bez alokace
+ \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Stránkování pro dvě úrovně, připomenutí z před. 4. pro x86}
+
+\includegraphics[width=1.0\textwidth]{paging-2-levels-cz.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Stránkování ARM Cortex-A9 -- dvě úrovně ale nesymereické}
+
+\includegraphics[width=1.0\textwidth]{paging-2-levels-cortex-a9-cz.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Logický návrh MZ\_APO v programu Vivado}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{fig/mz_apo-vivado-screenshot.png}
   \end{center}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{MZ\_APO -- logický návrh sběrnic}
+\frametitle{MZ\_APO -- logický návrh, propjení sběrnic a bloků}
 
 \includegraphics[width=1.0\textwidth]{mz_apo-vivado-design.pdf}
 
