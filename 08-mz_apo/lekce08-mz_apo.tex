@@ -247,7 +247,7 @@ Seznam implementací \url{https://en.wikipedia.org/wiki/ARM\_Cortex-A9\#Implemen
 \end{frame}
 
 \begin{frame}
-\frametitle{Stránkování ARM Cortex-A9 -- dvě úrovně ale nesymereické}
+\frametitle{Stránkování ARM Cortex-A9 -- dvě úrovně ale nesymetrické}
 
 \includegraphics[width=1.0\textwidth]{paging-2-levels-cortex-a9-cz.pdf}
 
@@ -355,11 +355,11 @@ Pokud se objeví nový požadavek na automat dříve, než je hotový předchoz�
 \frametitle{Zápis na displej na kitu MZ\_APO}
 
 \begin{tabular}{|l|l|l|l|} \hline
-Posun od bázové adresy & Datový typ & Příkaz pro čip \\\hline
-+0x0 & uint16\_t & 0x1 - inicializace/reset displeje, bit0 == 0 - vypnutí \\\hline
-+0x8 & uint16\_t & řídicí příkaz pro kontrolér \\\hline
-+0xC & uint16\_t & zápis 16 bitové hodnoty bodu (bity 15..0, RGB565) nebo jiných dat podle příkazu \\\hline
-+0xC & uint32\_t & zápis 2 po sobě následujících bodů: bity 15..0 a pak bity 31..0 do pěmti \\\hline
+Posun & \footnotesize{Datový typ} & Příkaz pro čip \\\hline
++0x0 & \footnotesize{uint16\_t} & \footnotesize{0x1 - inicializace/reset displeje, bit0 == 0 - vypnutí} \\\hline
++0x8 & \footnotesize{uint16\_t} & \footnotesize{řídicí příkaz pro kontrolér, 0x2c body od začátku} \\\hline
++0xC & \footnotesize{uint16\_t} & \footnotesize{zápis 16 bitové barvy bodu (RGB565) nebo jiných data} \\\hline
++0xC & \footnotesize{uint32\_t} & \footnotesize{zápis 2 po sobě následujících bodů: bity 15..0 a pak bity 31..0} \\\hline
 \end{tabular}
 
 \vspace{5mm}
