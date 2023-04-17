@@ -253,6 +253,8 @@ Seznam implementací \url{https://en.wikipedia.org/wiki/ARM\_Cortex-A9\#Implemen
 
 \end{frame}
 
+\section{MZ\_APO -- Periferie mapované do paměťového adresního prostoru}
+
 \begin{frame}
 \frametitle{Paměťově mapované periférie, připomenutí}
 
@@ -303,6 +305,34 @@ Seznam implementací \url{https://en.wikipedia.org/wiki/ARM\_Cortex-A9\#Implemen
 
 \end{frame}
 
+\begin{frame}
+\frametitle{MZ\_APO -- Fyzické adresy výukových periferií}
+
+\begin{tabular}{|l|l|l|l|} \hline
+Bázové adresa & Délka & určení \\\hline
+0x0000 0000 & 1 GB &  DRAM \\\hline
+0x4000 0000 & 1 GB & port 0 sběrnice AXI do programovatelné části \\\hline
+\textbf{0x43c0 0000} & 16 bytů & \textbf{APO -- LCD displej} \\\hline
+0x43c2 0000 & 32 bytů & stejnosměrný motor na PMOD1 \\\hline
+0x43c3 0000 & 32 bytů & stejnosměrný motor PMOD2 \\\hline
+\textbf{0x43c4 0000} & 48 bytů & \textbf{APO -- periferie voličů, indikátorů} \\\hline
+0x43c5 0000 & 32 bytů & 4$\times$ Servo a PS2 klávesnice \\\hline
+0x43c6 0000 & 32 bytů & jednoduché audio \\\hline
+0x8000 0000 & 1 GB & port 1 sběrnice AXI do programovatelné části \\\hline
+0xE000 0000 &      & Reservované pro systém\\\hline
+0xFFFC 0000 &      & 256 kB interní RAM \\\hline
+
+\end{tabular} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Mapování rozsahu fyzického adresního prostoru do virtuálního}
+
+\includegraphics[width=1.0\textwidth]{mmap-phys-memory-range-cz.pdf}
+
+\end{frame}
 
 \begin{frame}
 \frametitle{MZ\_APO -- indikátory LED a otočné voliče}
@@ -314,10 +344,29 @@ Seznam implementací \url{https://en.wikipedia.org/wiki/ARM\_Cortex-A9\#Implemen
 \begin{frame}
 \frametitle{Zápis na displej na kitu MZ\_APO}
 
+Konečný automat (FSM) přenáší data na LCD diplej generováním příslušných signálů pro řídicí čip, který periodicky obnovuje LCD TFT displej.
+Pokud se objeví nový požadavek na automat dříve, než je hotový předchozí přenos, automat zbrzdí AXI sběrnici negací READY, dokud nebude moci přijmout další data/příkaz.
+
 \includegraphics[width=0.9\textwidth]{mz_apo-lcd-access-cz.pdf}
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Zápis na displej na kitu MZ\_APO}
+
+\begin{tabular}{|l|l|l|l|} \hline
+Posun od bázové adresy & Datový typ & Příkaz pro čip \\\hline
++0x0 & uint16\_t & 0x1 - inicializace/reset displeje, bit0 == 0 - vypnutí \\\hline
++0x8 & uint16\_t & řídicí příkaz pro kontrolér \\\hline
++0xC & uint16\_t & zápis 16 bitové hodnoty bodu (bity 15..0, RGB565) nebo jiných dat podle příkazu \\\hline
++0xC & uint32\_t & zápis 2 po sobě následujících bodů: bity 15..0 a pak bity 31..0 do pěmti \\\hline
+\end{tabular}
+
+\vspace{5mm}
+
+\includegraphics[width=0.9\textwidth]{mz_apo-lcd-access-cz.pdf}
+
+\end{frame}
 
 
 \end{document}
