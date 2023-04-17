@@ -254,12 +254,47 @@ Seznam implementací \url{https://en.wikipedia.org/wiki/ARM\_Cortex-A9\#Implemen
 \end{frame}
 
 \begin{frame}
+\frametitle{Paměťově mapované periférie, připomenutí}
+
+\begin{itemize}
+\item ARM také nemá speciální instrukce pro komunikace s perifériemi
+\item pro komunikaci s perifériemi se využívá ukládání a čtení z paměti
+\item Address Decoder -- rozhoduje, kam se data přesměrují
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.88\textwidth]{address_decoder.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sběrice AMBA AXI -- čtení}
+
+\begin{center}
+\includegraphics[width=1.0\textwidth]{amba-axi-read.pdf}
+\end{center}
+
+\begin{itemize}
+\item Samostatné kanály pro adresu a data
+\item Přenos proběhne vždy při soběhu xVALID a xREADY
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Sběrice AMBA AXI -- zápis}
+
+\begin{center}
+\includegraphics[width=1.0\textwidth]{amba-axi-write.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Logický návrh MZ\_APO v programu Vivado}
   \begin{center}
     \includegraphics[width=0.8\textwidth]{fig/mz_apo-vivado-screenshot.png}
   \end{center}
 \end{frame}
-
 
 \begin{frame}
 \frametitle{MZ\_APO -- logický návrh, propjení sběrnic a bloků}
@@ -269,15 +304,12 @@ Seznam implementací \url{https://en.wikipedia.org/wiki/ARM\_Cortex-A9\#Implemen
 \end{frame}
 
 
-
 \begin{frame}
 \frametitle{MZ\_APO -- indikátory LED a otočné voliče}
 
 \includegraphics[width=1.0\textwidth]{mz_apo-spiled-and-knobs-cz.pdf}
 
 \end{frame}
-
-
 
 \begin{frame}
 \frametitle{Zápis na displej na kitu MZ\_APO}
