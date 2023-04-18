@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="118.17899mm"
+   height="72.177483mm"
+   viewBox="0 0 118.17899 72.177483"
+   version="1.1"
+   id="svg2586"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="amba-axi-write-concept-cz.svg">
+  <defs
+     id="defs2580">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath286">
+      <path
+         d="M 197.82,311 H 521.94 V 117.2 H 197.82 Z"
+         clip-rule="evenodd"
+         id="path284" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath292">
+      <path
+         d="M 196.8,312.02 H 522.96 V 116.24 H 196.8 Z"
+         clip-rule="evenodd"
+         id="path290" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath298">
+      <path
+         d="M 0,841.98 H 595.2 V 0 H 0 Z"
+         id="path296" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="280.78581"
+     inkscape:cy="221.77218"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g280"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     fit-margin-top="2"
+     lock-margins="true"
+     fit-margin-left="2"
+     fit-margin-right="2"
+     fit-margin-bottom="2"
+     inkscape:window-width="1422"
+     inkscape:window-height="1055"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata2583">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-2.1426456,-16.827927)">
+    <g
+       id="g280"
+       transform="matrix(0.35277777,0,0,-0.35277777,-65.724639,128.44868)">
+      <path
+         d="m 198.299,310.486 h 39.686 V 117.727 h -39.686 z"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+         id="path302" />
+      <path
+         d="m 481.77,310.486 h 39.686 V 117.727 H 481.77 Z"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+         id="path310" />
+      <path
+         d="m 237.985,299.147 h 42.521 V 265.13 h -42.521 z"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+         id="path318" />
+      <g
+         id="g326"
+         transform="translate(243.654,259.462)">
+        <path
+           d="M 0,0 H 26.581"
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+           id="path328" />
+      </g>
+      <g
+         id="g330"
+         transform="translate(270.235,257.162)">
+        <path
+           d="M 0,0 4.6,2.3 0,4.6 V 0"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path332" />
+      </g>
+      <g
+         id="g338"
+         transform="translate(280.506,299.142)">
+        <path
+           d="M 0,0 H 201.265"
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+           id="path340" />
+        <g
+           id="g342"
+           transform="translate(0,-34.016)">
+          <path
+             d="M 0,0 H 201.265 M 0,-34.012 H 39.686 V -68.028 H 0 Z"
+             style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+             id="path344" />
+        </g>
+      </g>
+      <g
+         id="g352"
+         transform="translate(286.175,191.43)">
+        <path
+           d="M 0,0 H 23.75"
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+           id="path354" />
+      </g>
+      <g
+         id="g356"
+         transform="translate(309.925,189.13)">
+        <path
+           d="M 0,0 4.6,2.3 0,4.6 V 0"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path358" />
+      </g>
+      <path
+         d="m 320.192,231.114 h 39.686 v -34.016 h -39.686 z"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+         id="path364" />
+      <g
+         id="g372"
+         transform="translate(325.861,191.43)">
+        <path
+           d="M 0,0 H 23.751"
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+           id="path374" />
+      </g>
+      <g
+         id="g376"
+         transform="translate(349.611,189.13)">
+        <path
+           d="M 0,0 4.6,2.3 0,4.6 V 0"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path378" />
+      </g>
+      <path
+         d="m 359.878,231.114 h 39.686 v -34.016 h -39.686 z"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+         id="path380" />
+      <g
+         id="g388"
+         transform="translate(365.547,191.43)">
+        <path
+           d="M 0,0 H 23.751"
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+           id="path390" />
+      </g>
+      <g
+         id="g392"
+         transform="translate(389.297,189.13)">
+        <path
+           d="M 0,0 4.6,2.3 0,4.6 V 0"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path394" />
+      </g>
+      <path
+         d="m 399.563,231.114 h 39.686 v -34.016 h -39.686 z"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+         id="path396" />
+      <g
+         id="g404"
+         transform="translate(405.233,191.43)">
+        <path
+           d="M 0,0 H 23.751"
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+           id="path406" />
+      </g>
+      <g
+         id="g408"
+         transform="translate(428.983,189.13)">
+        <path
+           d="M 0,0 4.6,2.3 0,4.6 V 0"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path410" />
+      </g>
+      <path
+         d="M 439.249,163.081 H 481.77 V 129.064 H 439.249 Z"
+         style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+         id="path412" />
+      <g
+         id="g420"
+         transform="translate(476.1,123.397)">
+        <path
+           d="M 0,0 H -26.58"
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+           id="path422" />
+      </g>
+      <g
+         id="g424"
+         transform="translate(449.521,121.097)">
+        <path
+           d="M 0,0 -4.6,2.3 0,4.6 V 0"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+           id="path426" />
+      </g>
+      <g
+         id="g432"
+         transform="translate(237.985,163.077)">
+        <path
+           d="M 0,0 H 201.264"
+           style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+           id="path434" />
+        <g
+           id="g436"
+           transform="translate(0,-34.017)">
+          <path
+             d="M 0,0 H 201.264"
+             style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+             id="path438" />
+          <g
+             id="g440"
+             transform="translate(0,102.049)">
+            <path
+               d="M 0,0 H 42.521"
+               style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+               id="path442" />
+            <g
+               id="g444"
+               transform="translate(0,-34.016)">
+              <path
+                 d="M 0,0 H 42.521"
+                 style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+                 id="path446" />
+              <g
+                 id="g448"
+                 transform="translate(201.264,34.016)">
+                <path
+                   d="M 0,0 H 42.521"
+                   style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+                   id="path450" />
+                <g
+                   id="g452"
+                   transform="translate(0,-34.016)">
+                  <path
+                     d="M 0,0 H 42.521"
+                     style="fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:3;stroke-dasharray:none;stroke-opacity:1"
+                     id="path454" />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text152-0"
+         x="202.75272"
+         y="-228.57724"><tspan
+           x="202.75272"
+           sodipodi:role="line"
+           id="tspan148-2"
+           y="-228.57724"
+           style="stroke-width:0.999956">Požad-</tspan><tspan
+           x="202.75272"
+           sodipodi:role="line"
+           y="-218.57742"
+           style="stroke-width:0.999956"
+           id="tspan2322">avek</tspan><tspan
+           x="202.75272"
+           y="-208.57762"
+           sodipodi:role="line"
+           id="tspan150-6"
+           style="stroke-width:0.999956">vysílající</tspan><tspan
+           x="202.75272"
+           y="-198.5778"
+           sodipodi:role="line"
+           style="stroke-width:0.999956"
+           id="tspan2328">rozhraní</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text152"
+         x="487.41827"
+         y="-226.18677"><tspan
+           x="487.41827"
+           sodipodi:role="line"
+           id="tspan148"
+           y="-226.18677"
+           style="stroke-width:0.999956">Závislé</tspan><tspan
+           x="487.41827"
+           sodipodi:role="line"
+           y="-216.18695"
+           style="stroke-width:0.999956"
+           id="tspan2210">přijíma-</tspan><tspan
+           x="487.41827"
+           sodipodi:role="line"
+           y="-206.18715"
+           style="stroke-width:0.999956"
+           id="tspan2212">jící</tspan><tspan
+           x="487.41827"
+           y="-196.18733"
+           sodipodi:role="line"
+           id="tspan150"
+           style="stroke-width:0.999956">rozhraní</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text172"
+         x="285.47467"
+         y="-304.01779"><tspan
+           x="285.47467"
+           sodipodi:role="line"
+           id="tspan170"
+           y="-304.01779"
+           style="stroke-width:0.999956">Kanál pro adresu zápisu (write address)</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text152-0-1"
+         x="258.00177"
+         y="-284.16537"><tspan
+           x="258.00177"
+           sodipodi:role="line"
+           y="-284.16537"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2322-8">Adresa</tspan><tspan
+           x="258.00177"
+           y="-274.16556"
+           sodipodi:role="line"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2328-6">a řízení</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text246"
+         x="323.85092"
+         y="-235.55049"><tspan
+           x="323.85092"
+           y="-235.55049"
+           sodipodi:role="line"
+           id="tspan244"
+           style="stroke-width:0.999956">Kanál pro zapisovanádata</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text152-0-1-1"
+         x="300.48682"
+         y="-214.60884"><tspan
+           x="300.48682"
+           sodipodi:role="line"
+           y="-214.60884"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2322-8-3">Zapisova-</tspan><tspan
+           x="300.48682"
+           y="-204.60902"
+           sodipodi:role="line"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2328-6-5">ná data</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text152-0-1-1-2"
+         x="340.34982"
+         y="-214.60884"><tspan
+           x="340.34982"
+           sodipodi:role="line"
+           y="-214.60884"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2322-8-3-4">Zapisova-</tspan><tspan
+           x="340.34982"
+           y="-204.60902"
+           sodipodi:role="line"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2328-6-5-7">ná data</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text152-0-1-1-2-8"
+         x="380.21286"
+         y="-214.60884"><tspan
+           x="380.21286"
+           sodipodi:role="line"
+           y="-214.60884"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2322-8-3-4-6">Zapisova-</tspan><tspan
+           x="380.21286"
+           y="-204.60902"
+           sodipodi:role="line"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2328-6-5-7-3">ná data</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text152-0-1-1-2-8-7"
+         x="460.01175"
+         y="-149.21866"><tspan
+           x="460.01175"
+           sodipodi:role="line"
+           y="-149.21866"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2322-8-3-4-6-7">Ohlas</tspan><tspan
+           x="460.01175"
+           y="-139.21884"
+           sodipodi:role="line"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2328-6-5-7-3-2">zápisu</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text246-3"
+         x="262.53754"
+         y="-166.97607"><tspan
+           x="262.53754"
+           y="-166.97607"
+           sodipodi:role="line"
+           id="tspan244-7"
+           style="stroke-width:0.999956">Kanál pro odpověď/potvrzení/stav zápisu</tspan></text>
+      <text
+         transform="scale(1.0000438,-0.99995621)"
+         style="font-variant:normal;font-weight:normal;font-size:7.99985px;font-family:Arial;-inkscape-font-specification:Arial;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.999956"
+         id="text152-0-1-1-2-8-7-6"
+         x="420.0759"
+         y="-214.60884"><tspan
+           x="420.0759"
+           sodipodi:role="line"
+           y="-214.60884"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2322-8-3-4-6-7-4">Zapisova-</tspan><tspan
+           x="420.0759"
+           y="-204.60902"
+           sodipodi:role="line"
+           style="text-align:center;text-anchor:middle;stroke-width:0.999956"
+           id="tspan2328-6-5-7-3-2-0">ná data</tspan></text>
+    </g>
+  </g>
+</svg>
