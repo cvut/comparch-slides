@@ -18,11 +18,11 @@
    stroke-linejoin="round"
    xml:space="preserve"
    id="svg930"
-   sodipodi:docname="paging-2-levels-cortex-a9-cz.svg"
+   sodipodi:docname="paging-2-levels-cz.svg"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"><metadata
    id="metadata934"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><sodipodi:namedview
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
    borderopacity="1"
@@ -40,9 +40,9 @@
    fit-margin-right="2"
    fit-margin-bottom="2"
    lock-margins="true"
-   inkscape:zoom="0.75843354"
-   inkscape:cx="415.63612"
-   inkscape:cy="274.35152"
+   inkscape:zoom="1.072587"
+   inkscape:cx="326.81031"
+   inkscape:cy="283.88837"
    inkscape:window-x="1920"
    inkscape:window-y="0"
    inkscape:window-maximized="1"
@@ -1490,22 +1490,19 @@
    id="path530" />
         <text
    class="TextShape"
-   id="text538"
-   x="423.33331"><tspan
+   id="text538"><tspan
      class="TextParagraph"
      font-family="Arial, sans-serif"
      font-size="706px"
      font-weight="400"
      id="tspan536"><tspan
        class="TextPosition"
-       x="8380.334"
+       x="7957"
        y="3760"
        id="tspan534"><tspan
          fill="#000000"
          stroke="none"
-         id="tspan532"><tspan
-   style="fill:#c00000;fill-opacity:1"
-   id="tspan2680">8</tspan> bitů</tspan></tspan></tspan></text>
+         id="tspan532">10 bitů</tspan></tspan></tspan></text>
        </g>
       </g>
       <g
@@ -1544,7 +1541,7 @@
          font-size="409px"
          fill="#000000"
          stroke="none"
-         id="tspan549">8</tspan></tspan><tspan
+         id="tspan549">10</tspan></tspan><tspan
        class="TextPosition"
        y="12200"
        id="tspan555"><tspan
@@ -1562,7 +1559,7 @@
          font-size="409px"
          fill="#000000"
          stroke="none"
-         id="tspan565">8</tspan></tspan><tspan
+         id="tspan565">10</tspan></tspan><tspan
        class="TextPosition"
        y="13047"
        id="tspan571"><tspan
@@ -1581,7 +1578,7 @@
        id="tspan579"><tspan
          fill="#000000"
          stroke="none"
-         id="tspan577"> 1KB</tspan></tspan></tspan></text>
+         id="tspan577"> 4KB</tspan></tspan></tspan></text>
        </g>
       </g>
       <g
@@ -1624,17 +1621,15 @@
         <path
    fill="#daedef"
    stroke="none"
-   d="M 4236,3972 H 1855 v -991 h 5202.1626 v 991 z"
-   id="path597"
-   sodipodi:nodetypes="cccccc" />
+   d="M 4236,3972 H 1855 v -991 h 4762 v 991 z"
+   id="path597" />
         <path
    fill="none"
    stroke="#000000"
    stroke-width="26"
    stroke-linejoin="round"
-   d="M 4236,3972 H 1855 v -991 l 5202.1626,0 v 991 z"
-   id="path599"
-   sodipodi:nodetypes="cccccc" />
+   d="M 4236,3972 H 1855 v -991 h 4762 v 991 z"
+   id="path599" />
         <text
    class="TextShape"
    id="text607"><tspan
@@ -1649,9 +1644,7 @@
        id="tspan603"><tspan
          fill="#000000"
          stroke="none"
-         id="tspan601"><tspan
-   style="fill:#c00000;fill-opacity:1"
-   id="tspan2532">12</tspan> bitů</tspan></tspan></tspan></text>
+         id="tspan601">10 bitů</tspan></tspan></tspan></text>
        </g>
       </g>
       <g
@@ -2067,7 +2060,7 @@
                font-size="409px"
                fill="#000000"
                stroke="none"
-               id="tspan727">12 </tspan></tspan><tspan
+               id="tspan727">10 </tspan></tspan><tspan
              class="TextPosition"
              y="12199"
              id="tspan733"><tspan
@@ -2085,13 +2078,13 @@
                font-size="409px"
                fill="#000000"
                stroke="none"
-               id="tspan743">12</tspan></tspan><tspan
+               id="tspan743">10</tspan></tspan><tspan
              class="TextPosition"
              y="13046"
              id="tspan749"><tspan
                fill="#000000"
                stroke="none"
-               id="tspan747">·1KB =</tspan></tspan><tspan
+               id="tspan747">·4KB =</tspan></tspan><tspan
              class="TextPosition"
              y="12834"
              id="tspan753"><tspan
@@ -2167,7 +2160,7 @@
          font-size="409px"
          fill="#000000"
          stroke="none"
-         id="tspan784">12</tspan></tspan><tspan
+         id="tspan784">10</tspan></tspan><tspan
        class="TextPosition"
        y="8605"
        id="tspan790"><tspan
@@ -2515,28 +2508,24 @@
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:493.889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:746.707">31 ...</tspan></text><text
    xml:space="preserve"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:493.889px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:746.707"
-   x="5639.0166"
+   x="5215.6846"
    y="2890.5952"
    id="text1325-8"><tspan
      sodipodi:role="line"
      id="tspan1323-0"
-     x="5639.0166"
+     x="5215.6846"
      y="2890.5952"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:493.889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:746.707">... <tspan
-   style="fill:#c00000;fill-opacity:1"
-   id="tspan2674">20</tspan></tspan></text><text
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:493.889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:746.707">... 22</tspan></text><text
    xml:space="preserve"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:493.889px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:746.707"
-   x="7137.0205"
+   x="6819.5215"
    y="2890.5952"
    id="text1325-8-4"><tspan
      sodipodi:role="line"
      id="tspan1323-0-2"
-     x="7137.0205"
+     x="6819.5215"
      y="2890.5952"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:493.889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:746.707"><tspan
-   style="fill:#c00000;fill-opacity:1"
-   id="tspan2676">19</tspan> ...</tspan></text><text
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:493.889px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:746.707">21 ...</tspan></text><text
    xml:space="preserve"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:493.889px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:746.707"
    x="10040.553"
