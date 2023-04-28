@@ -23,5 +23,130 @@
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Jak se překládá program v C}
+
+Náhled na překlad programu v jazyce C do assembleru např. RISC-V
+\begin{itemize}
+ \item Překlad a = b + c;
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Překlad konstrukce while}
+
+Porovnání překladu while konstrukce:
+\begin{itemize}
+ \item dva překlady while skok, 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Jak se přeložit funkci?}
+
+Jak předat parametry a,b?
+Jak předat výsledek secti?
+Co by mělo být na konci funkce, kam skočit?
+\begin{itemize}
+ \item secti ( int a, int b)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Jak přeložit funkci?}
+
+Volající (caller) a volaný (callee) se musí dohodnout na způsobu předání parametrů.
+\begin{itemize}
+ \item Překlad volaného může být na jiném počítači, jiným překladačem (typicky knihovny) než překlad volajícího - Vaším překladačem na Vašem počítači.
+ \item Je nutné definovat konvenci, typ konvence volání funkce musí být v hlavičce objektových souborů (a tím i knohoven) aby zajistila správnost předání dat a získání návratové hodnoty.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Jak přeložit funkci?}
+
+Uložení parametrů do registrů
+\begin{itemize}
+ \item Překlad volaného může být na jiném počítači, jiným překladačem (typicky knihovny) než překlad volajícího - Vaším překladačem na Vašem počítači.
+ \item Je nutné definovat konvenci, typ konvence volání funkce musí být v hlavičce objektových souborů (a tím i knohoven) aby zajistila správnost předání dat a získání návratové hodnoty.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Jak přeložit funkci?}
+
+Uložení návratové hodnoty do registru ra
+\begin{itemize}
+ \item 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Příklad volání funkce z dvou různých adres}
+
+Uložení návratové hodnoty do registru ra
+\begin{itemize}
+ \item 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Co když funkce ve svém těle volá jinou funkci?}
+
+Definice problému vícenásobného použití registrů
+\begin{itemize}
+ \item Activation record nebo také activation frame 
+ \item call stack nebo stack frame
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Zásobník}
+
+Operace push, pop:
+\begin{itemize}
+ \item push 
+ \item pop
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Konvence volání funkce}
+
+\begin{itemize}
+ \item Předávání parametrů 
+ \item Zachování hodnot vybraných registrů
+ \item Lokální proměnné funkce
+ \item Návratová hodnota funkce
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Konvence volání funkce}
+
+\begin{itemize}
+ \item Co zachová volající -- caller 
+ \item Co zachová volaný -- callee
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Konvence volání funkce}
+
+\begin{itemize}
+ \item Předávání parametrů, co když se parametry nevejdou do registrů, pole
+ \item Co když se výsledek nevejde do dvou registrů 
+\end{itemize}
+\end{frame}
+
+
 \end{document}
 
