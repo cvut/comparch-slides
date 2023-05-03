@@ -12,13 +12,16 @@
 
 \maketitle
 
-\section{Volání funkce}
+\section{Překlad jazyka C}
 
 \begin{frame}
 \frametitle{Cíl dnešní přednášky}
 
 \begin{itemize}
  \item Zjistit, jak se program v jazyce C přeloží na strojové instrukce například procesoru RISC-V
+ \item Zaměříme se jak se překládá volání funkce
+ \item Podíváme se kam se ukládají lokální a globální proměnné
+ \item Ukážeme si, jak se liší volání funkcí operačního systému od volání funkcí
 \end{itemize}
 \end{frame}
 
@@ -26,7 +29,7 @@
 \begin{frame}
 \frametitle{Jak se překládá program v C}
 
-Jednoduchý příklad: překlad \texttt{a = b + c;}
+Jednoduchý příklad -- překlad přiřazení \texttt{a = b + c;}
 \begin{enumerate}
  \item Přiřadit proměnným registry, např. b - t0, c - t1, a - t0
  \item Nahrát do registrů hodnoty proměnných: 
@@ -56,14 +59,14 @@ Jednoduchý příklad: překlad \texttt{a = b + c;}
 \begin{frame}[fragile]
 \frametitle{Překlad konstrukce while}
 
-Složitější překlad: překlad konstrukce \texttt{while (cond) body;}
+Složitější příklad -- překlad konstrukce \texttt{while (cond) body;}
 \begin{columns}
 \begin{column}{0.7\textwidth}
 \small
 \begin{itemize}
- \item analýza bezkontextové gramatiky jazyka detekuje while kontrukci
+ \item analýza bezkontextové gramatiky jazyka detekuje while konstrukci
  \item rekurzivně se zajistí překlad podmínky \texttt{cond} na množinu instrukcí \texttt{COND} a překlad těla cyklu \texttt{body} na množinu instrukcí \texttt{BODY}.
- \item vygeneruje se instrukce \texttt{j cond\_1}, skok na něstí cond\_1
+ \item vygeneruje se instrukce \texttt{j cond\_1}, skok na návěstí cond\_1
  \item vloží se návěstí \texttt{body\_1}
  \item vloží se všechny instrukce těla cyklu \texttt{BODY}
  \item vloží se návěstí \texttt{cond\_1}
@@ -108,7 +111,7 @@ Volající (caller) a volaný (callee) se musí dohodnout na těchto otázkách,
 \end{itemize}
 \end{frame}
 
-
+\section{Konvence volání funkce pr RISC-V}
 
 \begin{frame}[fragile]
 \frametitle{Konvence volání funkce pro RISC-V}
@@ -124,7 +127,6 @@ Volající (caller) a volaný (callee) se musí dohodnout na těchto otázkách,
  \item Volající musí připravit místo, kam se výsledek uloží.
  \item Ukazatel na adresu výsledku předá jako skrytý parametr do funkce.
  \item Volaný uloží výsledek funkce rovnou na připravenou adresu.
- \item Podívejte se na příklad ret\_struct.c.
 \end{itemize}
 \end{itemize}
 
@@ -219,10 +221,12 @@ Instrukce jalr rd, rs1, imm12
 \frametitle{Implemetace jal a jalr}
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{Qtrvsim-jalr.pdf}
+\includegraphics[width=0.9\textwidth]{Qtrvsim-jalr.pdf}
 \end{center}
 
-Kvíz: Kolik různých čar byste uměli vysvětlit A žádnou, B asi třetinu, C asi polovinu, D téměř všechny.
+Kvíz: Kolik různých čar byste uměli vysvětlit
+
+\phantom{Kvíz: }A -- žádnou B -- asi třetinu  C -- asi polovinu D -- téměř všechny.
 \end{frame}
 
 
@@ -230,7 +234,7 @@ Kvíz: Kolik různých čar byste uměli vysvětlit A žádnou, B asi třetinu, 
 \frametitle{Simulace Jalr}
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{Jalr-exec.pdf}
+\includegraphics[width=0.9\textwidth]{Jalr-exec.pdf}
 \end{center}
 
 \end{frame}
@@ -241,7 +245,7 @@ Kvíz: Kolik různých čar byste uměli vysvětlit A žádnou, B asi třetinu, 
 \frametitle{Řídicí hazard při Implemetaci jalr}
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{Jalr-mem.pdf}
+\includegraphics[width=0.9\textwidth]{Jalr-mem.pdf}
 \end{center}
 
 \end{frame}
@@ -311,7 +315,7 @@ Implemetace zásobníku registrem sp (x2):
 Activation frame obsahuje:
 \begin{itemize}
  \item Parametry funkce a návratová adresa, pokud se v těle funkce volá jiná funkce.
- \item Lokální proměnné funkce, které eistují jen v průběhu vykonávání funkce.
+ \item Lokální proměnné funkce, které existují jen v průběhu vykonávání funkce.
  \item Podle konvence překladu funkce se nesmí po návratu z funkce změnit hodnota registrů s0-s11
 \begin{itemize}
  \item Registr s0 se někdy používá jako ukazatel na Activation frame a nazývá se fp -- frame pointer
@@ -324,7 +328,7 @@ Activation frame obsahuje:
 \begin{frame}
 \frametitle{Konvence volání funkce}
 
-Každý regiter buď nastavuje a je za něj zodpovědný volající (caller), nebo volaný (callee). 
+Každý register buď nastavuje a je za něj zodpovědný volající (caller), nebo volaný (callee). 
 
 \begin{tabular}{|c|c|p{4cm}|c|}\hline
 Symbolické & Registr & Popis & Ukládá \\
@@ -488,12 +492,12 @@ ret
 \frametitle{Ukazatel na rámec funkce}
 
 \begin{itemize}
- \item Ukazatel na rámec funkce udržuje v RISC-V hodnotu sp při vstupu do funkce
+ \item Ukazatel na rámec funkce obsahuje v RISC-V hodnotu sp při vstupu do funkce
  \item Pro fp (frame pointer) je využit registr s0, je to tedy registr, který musí volaný uložit a při návratu z funkce obnovit
  \item Výhody použití fp
 \begin{itemize}
- \item Pevně nastavené ukazatele na argumenty a lokální proměnné funkce, pokud se sp v těle mění (např. argumenty pro volné funkce), pak se mění i posunutí vshledem k sp pro přístup k argumentům a lokálním funkcím.
- \item Přehldnější zásobník pro debugery a při tzv. odvinutí zásobníku.
+ \item Pevně nastavené ukazatele na argumenty a lokální proměnné funkce, pokud se sp v těle mění (např. argumenty pro volné funkce), pak se mění i posunutí vzhledem k sp pro přístup k argumentům a lokálním funkcím.
+ \item Přehlednější zásobník pro debugery a při tzv. odvinutí zásobníku.
 \begin{itemize}
  \item Odvinutí zásobníku se provádí v C++ při výskytu výjimky ve funkci, kdy je ale výjimka zpracována až ve funkci nadřazené, která tuto funkci volala.
  \item Pro zpracování výjimky je nutné nastavit zásobník do stavu, ve které nadřazená funkce volala funkci, ve které výjimka nastala.
@@ -513,7 +517,7 @@ ret
 
 Pro překlad gcc pro RISC-V je nutné využít přepínač \texttt{-fno-omit-frame-pointer}
 \begin{columns}
-\begin{column}{0.32\textwidth}
+\begin{column}{0.25\textwidth}
 Začátek funkce:
 
 \begin{minted}[fontsize=\footnotesize]{gas}
@@ -528,12 +532,17 @@ sw   s5,20(sp)
 addi s0,sp,48
 \end{minted}
 \end{column}   
-\begin{column}{0.32\textwidth}
+\begin{column}{0.4\textwidth}
 Odkaz na lokální proměnnou:
 
 \begin{minted}[fontsize=\footnotesize]{gas}
-sw	a0,-36(s0)  # sw a0, 12(sp)
+sw a0,-36(s0)
 \end{minted}
+dříve:
+\begin{minted}[fontsize=\footnotesize]{gas}
+sw a0, 12(sp)
+\end{minted}
+
 
 
 Ukončení funkce:
@@ -561,14 +570,24 @@ ret
 \begin{frame}
 \frametitle{Rozložení běžícího programu v paměti}
 
-Obrázek 
-
+\begin{columns}
+\begin{column}{0.75\textwidth}
+Každý proces má pro sebe 4GiB virtuálního prostoru:
+\small
 \begin{itemize}
- \item Popis 
- \item Zachování hodnot vybraných registrů
- \item Lokální proměnné funkce
- \item Návratová hodnota funkce
+\item Nejvyšší 1GiB má pro sebe operační systém
+\item Následuje zásobník (pokud má proces více vláken, pak jsou zásobníky vláken řazeny za sebou)
+\item Níže jsou dynamické knihovny
+\item Od globálních dat roste dynamicky alokovaná paměť -- heap (malloc,new/free,delete)
+\item Globální data (inicializovaná i neinicializovaná)
+\item Program (.text)
+\item Adresy od 0 se nechávají neobsazené kvůli odchytávání chyby dereference NULL ukazatele.
 \end{itemize}
+\end{column}   
+\begin{column}{0.25\textwidth}  
+\includegraphics[width=0.8\textwidth]{rozlozeni_procesu.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 
@@ -632,28 +651,119 @@ int  main() {
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Proměnný počet parametrů va\_list}
+\begin{frame}[fragile,shrink=5]
+\frametitle{Překlad funkce s proměnným počtem parametrů}
 
-Překlad
+Makro \texttt{va\_start} a \texttt{va\_arg} potřebuje mít uloženy všechny parametry v paměti:
 
+\begin{columns}
+\begin{column}{0.25\textwidth}
+\begin{minted}[fontsize=\footnotesize]{gas}
+addi sp,sp,-64
+sw   ra,28(sp)
+sw   s0,24(sp)
+sw   s1,20(sp)
+sw   a1,36(sp)
+sw   a2,40(sp)
+sw   a3,44(sp)
+sw   a4,48(sp)
+sw   a5,52(sp)
+sw   a6,56(sp)
+sw   a7,60(sp)
+\end{minted}
+\end{column}   
+\begin{column}{0.4\textwidth}
+\texttt{va\_start(ap, n)}:
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+addi a5,sp,36
+sw   a5,8(sp)
+\end{minted}
+\texttt{va\_arg(ap, int)}:
+\begin{minted}[fontsize=\footnotesize]{gas}
+lw   a4,8(sp)
+addi a3,a4,4
+sw   a3,8(sp)
+lw   s0,0(a4)
+\end{minted}
+
+Ukončení funkce:
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+lw   ra,28(sp)
+lw   s0,24(sp)
+lw   s1,20(sp)
+addi sp,sp,64
+ret
+\end{minted}
+\end{column}
+\begin{column}{0.3\textwidth}  
+\includegraphics[width=0.7\textwidth]{vaarg_fce_fp.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 
 \section {Systémová volání}
 
 \begin{frame}
-\frametitle{Ochrana OS}
+\frametitle{Základy ochrany OS}
 
-
+\begin{itemize}
+\item Uživatelský proces nemůže přímo přistupovat k HW počítače.
+\item Uživatelský proces musí požádat OS o zpřístupnění HW, nebo vyřízení požadavku.
+\item To co OS umožňuje procesům jsou pouze systémová volání (system calls).
+\item Na rozdíl od volání funkce neznáme adresy funkcí v jádře.
+\item Systémové volání se vybírá číslem systémového volání.
+\item Vlastní zavolání funkce je vyvolání přerušení nebo výjimky specializovanou instrukcí:
+\begin{itemize}
+\item x86 -- používá přímo int 0x80 -- vyvolej přerušení číslo 0x80.
+\item x86 -- nověji specializované instrukce sysenter/syscall -- podobný mechanizmus, ale nevyužívá uživatelský zásobník a méně přistupuje k paměti $\rightarrow$ je rychlejší.
+\item RISC-V -- specializovaná instrukce ecall -- obdobné chování jako při přerušení.
+\end{itemize}
+\item Při přerušení/výjimce se volá program z adresy, která je nastavená OS, uživatel ji nemůže měnit.
+\end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Ochrana OS}
 
+Uživatelský program nastaví parametry volání do registrů vyvolá speciální přerušení.
+
+OS podle čísla systémového volání zavolá odpovídající funkci.
+
+\begin{center}
+  \includegraphics[width=0.95\textwidth]{irq-and-os.pdf}
+\end{center}
+
+Návrat ze systémového volání odpovídá návratu z přerušení.
 
 \end{frame}
 
+\begin{frame}[shrink=5]
+\frametitle{ABI systémového volání}
+
+\begin{itemize}
+\item API -- application programming interface -- popis, jaké funkce může Váš program zavolat z knihoven.
+\begin{itemize}
+\item API je definováno pro jazyk C hlavičkovými soubory.
+\item API definuje i co dané funkce dělají, jaké vrací hodnoty, jak se chovají při chybě
+\item zkuste např. \texttt{man 2 read}
+\end{itemize}
+\item ABI -- application binary interface -- popis jaké registry a jaké instrukce použít
+\item ABI pro systémová volání na architektuře RISC-V
+\begin{itemize}
+\item a7 -- obsahuje číslo systémového volání (přehled např. \url{https://jborza.com/post/2021-05-11-riscv-linux-syscalls/} nebo \url{https://marcin.juszkiewicz.com.pl/download/tables/syscalls.html})
+\item a0 až a5 -- parametry systémového volání (Linuxové systémové volání má maximálně 6 parametrů)
+\item systémové volání se provede instrukcí \texttt{ecall}
+\item a0 obsahuje návratovou hodnotu systémového volání
+\begin{itemize}
+\item pokud by mělo vracet více dat (např. čtení ze souboru) musí uživatel zadat ukazetel na buffer a velikost bufferu, kam OS zapíše data.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\end{frame}
 
 \end{document}
 

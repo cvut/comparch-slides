@@ -30,16 +30,16 @@
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
    inkscape:window-width="1848"
-   inkscape:window-height="1016"
+   inkscape:window-height="1136"
    id="namedview2291"
    showgrid="false"
    fit-margin-top="0"
    fit-margin-left="0"
    fit-margin-right="0"
    fit-margin-bottom="0"
-   inkscape:zoom="0.012392857"
-   inkscape:cx="-7330.1182"
-   inkscape:cy="132.1"
+   inkscape:zoom="0.56083668"
+   inkscape:cx="1141.2134"
+   inkscape:cy="768.75156"
    inkscape:window-x="72"
    inkscape:window-y="27"
    inkscape:window-maximized="1"
@@ -923,6 +923,7 @@
          id="tspan319"
          style="fill:#000000;stroke:none">&lt;date/time&gt;</tspan></tspan></tspan></text>
 
+
      </g>
     </g>
     <g
@@ -957,6 +958,7 @@
          id="tspan332"
          style="fill:#000000;stroke:none">&lt;footer&gt;</tspan></tspan></tspan></text>
 
+
      </g>
     </g>
     <g
@@ -990,6 +992,7 @@
          class="PlaceholderText"
          id="tspan345"
          style="fill:#000000;stroke:none">&lt;number&gt;</tspan></tspan></tspan></text>
+
 
      </g>
     </g>
@@ -1162,6 +1165,7 @@
          id="tspan411"
          style="fill:#000000;stroke:none">NONE</tspan></tspan></tspan></text>
 
+
          <path
    d="m 6834,913 h 4287 v 827 H 6834 Z"
    id="path419"
@@ -1182,6 +1186,7 @@
          id="tspan421"
          style="fill:#000000;stroke:none">NONE</tspan></tspan></tspan></text>
 
+
          <path
    d="m 1595,913 h 4287 v 827 H 1595 Z"
    id="path429"
@@ -1201,6 +1206,7 @@
        id="tspan433"><tspan
          id="tspan431"
          style="fill:#000000;stroke:none">NONE</tspan></tspan></tspan></text>
+
 
          <path
    d="m 15979,8237 v 330 h 254 V 5105 H 9155 v 90"
@@ -1252,6 +1258,7 @@
          id="tspan453"
          style="fill:#000000;stroke:none">NONE</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text467"><tspan
@@ -1266,6 +1273,7 @@
        id="tspan463"><tspan
          id="tspan461"
          style="fill:#000000;stroke:none">Immediate</tspan></tspan></tspan></text>
+
 
          <path
    d="m 21661,9169 h 1049 v 2446 h 432"
@@ -1387,6 +1395,7 @@
          id="tspan511"
          style="fill:#000000;stroke:none">decode</tspan></tspan></tspan></text>
 
+
          <path
    d="m 7532,8884 h 447 v 254 h -447 z"
    id="path519"
@@ -1412,6 +1421,7 @@
          id="tspan523"
          style="fill:#000000;stroke:none">11</tspan></tspan></tspan></text>
 
+
          <path
    d="m 7056,8438 h 383 v 256 h -383 z"
    id="path531"
@@ -1431,6 +1441,7 @@
        id="tspan535"><tspan
          id="tspan533"
          style="fill:#000000;stroke:none">12</tspan></tspan></tspan></text>
+
 
          <path
    d="m 19218,8026 v 2032 h -224 V 8026 Z"
@@ -1456,6 +1467,7 @@
        id="tspan547"><tspan
          id="tspan545"
          style="fill:#000000;stroke:none">rs1</tspan></tspan></tspan></text>
+
 
          <path
    d="m 13302,9962 h 581"
@@ -1492,6 +1504,7 @@
        id="tspan563"><tspan
          id="tspan561"
          style="fill:#000000;stroke:none">00401020</tspan></tspan></tspan></text>
+
 
          <path
    d="m 23142,12139 309,-133 v -530 l -309,-132 v 309 177 z"
@@ -1579,6 +1592,7 @@
          id="tspan597"
          style="fill:#000000;stroke:none">00401020</tspan></tspan></tspan></text>
 
+
          <path
    d="m 3850,8344 h 192 v 636 h -192 z"
    id="path605"
@@ -1624,6 +1638,7 @@
          id="tspan617"
          style="fill:#000000;stroke:none">00401200</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text631"><tspan
@@ -1638,6 +1653,7 @@
        id="tspan627"><tspan
          id="tspan625"
          style="fill:#000000;stroke:none">ALU</tspan></tspan></tspan></text>
+
 
          <path
    d="m 19756,7327 h 1430 v 509 h -1430 z"
@@ -1664,6 +1680,7 @@
          id="tspan637"
          style="fill:#0000cc;stroke:none">zero</tspan></tspan></tspan></text>
 
+
          <path
    d="m 9627,3199 h 1002 v 256 H 9627 Z"
    id="path645"
@@ -1683,6 +1700,7 @@
        id="tspan649"><tspan
          id="tspan647"
          style="fill:#000000;stroke:none">Peripherals</tspan></tspan></tspan></text>
+
 
          <path
    d="m 9627,3454 h 891 v 255 h -891 z"
@@ -1704,6 +1722,7 @@
          id="tspan657"
          style="fill:#0000fa;stroke:none">MemToReg</tspan></tspan></tspan></text>
 
+
          <path
    d="m 9627,3961 h 987 v 256 h -987 z"
    id="path665"
@@ -1724,6 +1743,7 @@
          id="tspan667"
          style="fill:#0000fa;stroke:none">MemWrite</tspan></tspan></tspan></text>
 
+
          <path
    d="m 9627,5041 h 987 v 129 h -987 z"
    id="path675"
@@ -1743,6 +1763,7 @@
        id="tspan679"><tspan
          id="tspan677"
          style="fill:#0000fa;stroke:none">BranchBxx</tspan></tspan></tspan></text>
+
 
          <path
    d="m 19756,8533 h 1906 v 2542 h -1906 z"
@@ -1769,6 +1790,7 @@
          id="tspan689"
          style="fill:#0000fa;stroke:none">AluControl</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text703"><tspan
@@ -1783,6 +1805,7 @@
        id="tspan699"><tspan
          id="tspan697"
          style="fill:#000000;stroke:none">Data</tspan></tspan></tspan></text>
+
 
          <path
    d="m 19756,8533 h 1906 v 1589 h -1906 z"
@@ -1809,6 +1832,7 @@
          id="tspan709"
          style="fill:#000000;stroke:none">Memory</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text723"><tspan
@@ -1823,6 +1847,7 @@
        id="tspan719"><tspan
          id="tspan717"
          style="fill:#000000;stroke:none">Cache</tspan></tspan></tspan></text>
+
 
          <text
    class="TextShape"
@@ -1839,6 +1864,7 @@
          id="tspan725"
          style="fill:#000000;stroke:none">Hit:</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text739"><tspan
@@ -1853,6 +1879,7 @@
        id="tspan735"><tspan
          id="tspan733"
          style="fill:#000000;stroke:none">Miss:</tspan></tspan></tspan></text>
+
 
          <text
    class="TextShape"
@@ -1869,6 +1896,7 @@
          id="tspan741"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text755"><tspan
@@ -1883,6 +1911,7 @@
        id="tspan751"><tspan
          id="tspan749"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 4882,11536 414,-413 v -414 l -414,-413 v 481 l 136,138 -136,137 z"
@@ -1929,6 +1958,7 @@
          id="tspan769"
          style="fill:#000000;stroke:none">4</tspan></tspan></tspan></text>
 
+
          <path
    d="M 14534,9730 V 5612 H 9155 v -118"
    id="path777"
@@ -1959,6 +1989,7 @@
          id="tspan783"
          style="fill:#0000fa;stroke:none">RegWrite</tspan></tspan></tspan></text>
 
+
          <path
    d="m 9025,6787 h 890 v 256 h -890 z"
    id="path791"
@@ -1978,6 +2009,7 @@
        id="tspan795"><tspan
          id="tspan793"
          style="fill:#0000fa;stroke:none">BranchJalr</tspan></tspan></tspan></text>
+
 
          <path
    d="m 14168,11044 v -850 l 213,-1"
@@ -2009,6 +2041,7 @@
          id="tspan807"
          style="fill:#0000ff;stroke:none">RegWrite</tspan></tspan></tspan></text>
 
+
          <path
    d="m 6579,7073 h 1780 v 255 H 6579 Z"
    id="path815"
@@ -2033,6 +2066,7 @@
        id="tspan821"><tspan
          id="tspan819"
          style="fill:#000000;stroke:none">rd</tspan></tspan></tspan></text>
+
 
          <path
    d="m 13034,7676 301,120 v 842 l -301,120 v -422 -240 z"
@@ -2074,6 +2108,7 @@
          id="tspan837"
          style="fill:#000000;stroke:none">00c58533</tspan></tspan></tspan></text>
 
+
          <path
    d="m 14423,9295 h 223 v 256 h -223 z"
    id="path845"
@@ -2098,6 +2133,7 @@
        id="tspan851"><tspan
          id="tspan849"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 12501,3199 h 224 v 256 h -224 z"
@@ -2124,6 +2160,7 @@
          id="tspan861"
          style="fill:#000000;stroke:none">1</tspan></tspan></tspan></text>
 
+
          <path
    d="m 23185,7867 h 223 v 256 h -223 z"
    id="path869"
@@ -2148,6 +2185,7 @@
        id="tspan875"><tspan
          id="tspan873"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 10898,5485 h 223 v 256 h -223 z"
@@ -2174,6 +2212,7 @@
          id="tspan885"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 12200,4470 h 223 v 254 h -223 z"
    id="path893"
@@ -2198,6 +2237,7 @@
        id="tspan899"><tspan
          id="tspan897"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 12200,3454 h 223 v 255 h -223 z"
@@ -2224,6 +2264,7 @@
          id="tspan909"
          style="fill:#000000;stroke:none">1</tspan></tspan></tspan></text>
 
+
          <path
    d="m 12200,2946 h 223 v 254 h -223 z"
    id="path917"
@@ -2248,6 +2289,7 @@
        id="tspan923"><tspan
          id="tspan921"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 9278,7169 h 225 v 254 h -225 z"
@@ -2274,6 +2316,7 @@
          id="tspan933"
          style="fill:#000000;stroke:none">1</tspan></tspan></tspan></text>
 
+
          <path
    d="m 11311,3199 h 223 v 256 h -223 z"
    id="path941"
@@ -2298,6 +2341,7 @@
        id="tspan947"><tspan
          id="tspan945"
          style="fill:#000000;stroke:none">1</tspan></tspan></tspan></text>
+
 
          <path
    d="m 10905,3454 h 225 v 255 h -225 z"
@@ -2324,6 +2368,7 @@
          id="tspan957"
          style="fill:#000000;stroke:none">1</tspan></tspan></tspan></text>
 
+
          <path
    d="m 10898,4470 h 223 v 254 h -223 z"
    id="path965"
@@ -2348,6 +2393,7 @@
        id="tspan971"><tspan
          id="tspan969"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 16709,1802 h 223 v 256 h -223 z"
@@ -2374,6 +2420,7 @@
          id="tspan981"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 10905,2962 h 225 v 255 h -225 z"
    id="path989"
@@ -2398,6 +2445,7 @@
        id="tspan995"><tspan
          id="tspan993"
          style="fill:#000000;stroke:none">1</tspan></tspan></tspan></text>
+
 
          <path
    d="m 17915,3184 h 223 v 255 h -223 z"
@@ -2424,6 +2472,7 @@
          id="tspan1005"
          style="fill:#000000;stroke:none">1</tspan></tspan></tspan></text>
 
+
          <path
    d="m 21470,6629 h 224 v 255 h -224 z"
    id="path1013"
@@ -2448,6 +2497,7 @@
        id="tspan1019"><tspan
          id="tspan1017"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 17581,2962 h 223 v 255 h -223 z"
@@ -2474,6 +2524,7 @@
          id="tspan1029"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 14073,7518 h 224 v 254 h -224 z"
    id="path1037"
@@ -2499,6 +2550,7 @@
          id="tspan1041"
          style="fill:#000000;stroke:none">1</tspan></tspan></tspan></text>
 
+
          <path
    d="m 12906,9042 h 493 v 254 h -493 z"
    id="path1049"
@@ -2511,18 +2563,21 @@
    style="fill:none;stroke:#000000;stroke-width:31;stroke-linejoin:miter" />
          <text
    class="TextShape"
-   id="text1059"><tspan
+   id="text1059"
+   x="8.9152517"
+   y="20.059315"><tspan
      class="TextParagraph"
      font-size="190px"
      font-weight="700"
      id="tspan1057"
      style="font-weight:700;font-size:190px;font-family:DejaVuSans, sans-serif"><tspan
        class="TextPosition"
-       x="14106"
-       y="7690"
+       x="14114.915"
+       y="7710.0591"
        id="tspan1055"><tspan
          id="tspan1053"
-         style="fill:#dc2300;stroke:none">1</tspan></tspan></tspan></text>
+         style="fill:#dc2300;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 10763,4978 h 493 v 255 h -493 z"
@@ -2549,6 +2604,7 @@
          id="tspan1065"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1079"><tspan
@@ -2563,6 +2619,7 @@
        id="tspan1075"><tspan
          id="tspan1073"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 1595,232 h 4287 v 842 H 1595 Z"
@@ -2589,6 +2646,7 @@
          id="tspan1085"
          style="fill:#000000;stroke:none">add x11, x11, x12</tspan></tspan></tspan></text>
 
+
          <path
    d="m 12073,232 h 4288 v 842 h -4288 z"
    id="path1093"
@@ -2608,6 +2666,7 @@
        id="tspan1097"><tspan
          id="tspan1095"
          style="fill:#000000;stroke:none">add x10, x11, x12</tspan></tspan></tspan></text>
+
 
          <path
    d="m 17311,232 h 4287 v 842 h -4287 z"
@@ -2629,6 +2688,7 @@
          id="tspan1105"
          style="fill:#000000;stroke:none">jalr x1, 0(x7)</tspan></tspan></tspan></text>
 
+
          <path
    d="m 22550,232 h 4288 v 842 h -4288 z"
    id="path1113"
@@ -2648,6 +2708,7 @@
        id="tspan1117"><tspan
          id="tspan1115"
          style="fill:#000000;stroke:none">addi x7, x7, -480</tspan></tspan></tspan></text>
+
 
          <path
    d="m 13303,9964 h -86 v -230 l -3550,-1"
@@ -2679,6 +2740,7 @@
          id="tspan1129"
          style="fill:#000000;stroke:none">auipc x7, 0x1</tspan></tspan></tspan></text>
 
+
          <path
    d="m 8167,7613 h 1494 v 2478 H 8167 Z"
    id="path1137"
@@ -2703,6 +2765,7 @@
        id="tspan1143"><tspan
          id="tspan1141"
          style="fill:#000000;stroke:none">07</tspan></tspan></tspan></text>
+
 
          <path
    d="m 9818,9582 h 1780 v 254 H 9818 Z"
@@ -2729,6 +2792,7 @@
          id="tspan1153"
          style="fill:#000000;stroke:none">Registers</tspan></tspan></tspan></text>
 
+
          <path
    d="m 7532,9328 h 447 v 255 h -447 z"
    id="path1161"
@@ -2753,6 +2817,7 @@
        id="tspan1167"><tspan
          id="tspan1165"
          style="fill:#000000;stroke:none">00000000</tspan></tspan></tspan></text>
+
 
          <path
    d="m 15344,8502 v 2033 h -223 V 8502 Z"
@@ -2779,6 +2844,7 @@
          id="tspan1177"
          style="fill:#000000;stroke:none">07</tspan></tspan></tspan></text>
 
+
          <path
    d="m 12344,8851 v 2033 h -224 V 8851 Z"
    id="path1185"
@@ -2804,6 +2870,7 @@
        id="tspan1191"><tspan
          id="tspan1189"
          style="fill:#000000;stroke:none">00000000</tspan></tspan></tspan></text>
+
 
          <path
    d="m 13002,9422 301,120 v 842 l -301,120 v -420 -240 z"
@@ -2846,6 +2913,7 @@
          id="tspan1207"
          style="fill:#000000;stroke:none">00000000</tspan></tspan></tspan></text>
 
+
          <path
    d="m 3334,9091 334,-144 v -571 l -334,-144 v 335 191 z"
    id="path1215"
@@ -2876,6 +2944,7 @@
          id="tspan1221"
          style="fill:#000000;stroke:none">Terminal</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1235"><tspan
@@ -2890,6 +2959,7 @@
        id="tspan1231"><tspan
          id="tspan1229"
          style="fill:#000000;stroke:none">Cycles:</tspan></tspan></tspan></text>
+
 
          <text
    class="TextShape"
@@ -2906,6 +2976,7 @@
          id="tspan1237"
          style="fill:#000000;stroke:none">Stalls:</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1251"><tspan
@@ -2920,6 +2991,7 @@
        id="tspan1247"><tspan
          id="tspan1245"
          style="fill:#000000;stroke:none">11</tspan></tspan></tspan></text>
+
 
          <path
    d="m 9818,7835 h 1780 v 255 H 9818 Z"
@@ -2946,6 +3018,7 @@
          id="tspan1257"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 9627,5819 h 574 v 128 h -574 z"
    id="path1265"
@@ -2966,6 +3039,7 @@
          id="tspan1267"
          style="fill:#000000;stroke:none">00000000</tspan></tspan></tspan></text>
 
+
          <path
    d="m 14339,8328 h 1185"
    id="path1275"
@@ -2982,10 +3056,11 @@
    inkscape:connector-curvature="0"
    style="fill:none;stroke:#000000;stroke-width:31;stroke-linejoin:bevel" />
          <path
-   d="m 14012,8426 346,-121"
+   d="m 14031,8209 308,119"
    id="path1281"
    inkscape:connector-curvature="0"
-   style="fill:none;stroke:#dc2300;stroke-width:70;stroke-linecap:round;stroke-linejoin:bevel" />
+   style="fill:none;stroke:#dc2300;stroke-width:70;stroke-linecap:round;stroke-linejoin:bevel"
+   sodipodi:nodetypes="cc" />
          <path
    d="m 12938,7264 h 493 v 255 h -493 z"
    id="path1283"
@@ -3010,6 +3085,7 @@
        id="tspan1289"><tspan
          id="tspan1287"
          style="fill:#0000fa;stroke:none">AuiPC</tspan></tspan></tspan></text>
+
 
          <path
    d="m 16773,5011 h -286 V 4850 H 9158 v 68"
@@ -3076,6 +3152,7 @@
          id="tspan1315"
          style="fill:#000000;stroke:none">2</tspan></tspan></tspan></text>
 
+
          <path
    d="m 9627,4787 h 939 v 144 h -939 z"
    id="path1323"
@@ -3095,6 +3172,7 @@
        id="tspan1327"><tspan
          id="tspan1325"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 10898,3961 h 223 v 256 h -223 z"
@@ -3121,6 +3199,7 @@
          id="tspan1337"
          style="fill:#0000fa;stroke:none">BranchVal</tspan></tspan></tspan></text>
 
+
          <path
    d="m 11318,5740 h 225 v 255 h -225 z"
    id="path1345"
@@ -3145,6 +3224,7 @@
        id="tspan1351"><tspan
          id="tspan1349"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 18325,4351 -8760,3 h -413"
@@ -3176,6 +3256,7 @@
          id="tspan1363"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 11318,4216 h 225 v 255 h -225 z"
    id="path1371"
@@ -3201,6 +3282,7 @@
          id="tspan1375"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 16105,7549 h 493 v 256 h -493 z"
    id="path1383"
@@ -3225,6 +3307,7 @@
        id="tspan1389"><tspan
          id="tspan1387"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 17883,5075 h 382 v -42"
@@ -3275,6 +3358,7 @@
        id="tspan1411"><tspan
          id="tspan1409"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 6294,2794 h 192 v 10312 h -192 z"
@@ -3401,6 +3485,7 @@
          id="tspan1461"
          style="fill:#000000;stroke:none">IF/ID</tspan></tspan></tspan></text>
 
+
          <path
    d="m 6804,12821 c 0,18 -15,32 -33,32 -16,0 -32,-14 -32,-32 0,-17 16,-33 32,-33 18,0 33,16 33,33 z"
    id="path1469"
@@ -3460,6 +3545,7 @@
        id="tspan1489"><tspan
          id="tspan1487"
          style="fill:#000000;stroke:none">rs2</tspan></tspan></tspan></text>
+
 
          <path
    d="m 12551,9962 c 0,18 -15,34 -33,34 -17,0 -32,-16 -32,-34 0,-18 15,-31 32,-31 18,0 33,13 33,31 z"
@@ -3521,6 +3607,7 @@
          id="tspan1513"
          style="fill:#000000;stroke:none">00000000</tspan></tspan></tspan></text>
 
+
          <path
    d="m 11318,4723 h 225 v 251 h -225 z"
    id="path1521"
@@ -3546,6 +3633,7 @@
        id="tspan1527"><tspan
          id="tspan1525"
          style="fill:#000000;stroke:none">00401020</tspan></tspan></tspan></text>
+
 
          <path
    d="m 16105,10963 319,318 v 318 l -319,317 v -370 l 107,-106 -107,-106 z"
@@ -3602,6 +3690,7 @@
          id="tspan1549"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 9627,4248 h 923 v 160 h -923 z"
    id="path1557"
@@ -3621,6 +3710,7 @@
        id="tspan1561"><tspan
          id="tspan1559"
          style="fill:#0000fa;stroke:none">AluSrc</tspan></tspan></tspan></text>
+
 
          <path
    d="m 16773,8122 v 2032 h -224 V 8122 Z"
@@ -3646,6 +3736,7 @@
        id="tspan1573"><tspan
          id="tspan1571"
          style="fill:#0000fa;stroke:none">BranchJal</tspan></tspan></tspan></text>
+
 
          <path
    d="m 11755,2827 h 192 v 10312 h -192 z"
@@ -3693,6 +3784,7 @@
          id="tspan1591"
          style="fill:#dc2300;stroke:none">00401020</tspan></tspan></tspan></text>
 
+
          <path
    d="m 19598,9264 v 2033 h -223 V 9264 Z"
    id="path1599"
@@ -3717,6 +3809,7 @@
        id="tspan1605"><tspan
          id="tspan1603"
          style="fill:#000000;stroke:none">ID/EX</tspan></tspan></tspan></text>
+
 
          <path
    d="m 17844,11742 333,-143 v -572 l -333,-144 v 335 190 z"
@@ -3779,6 +3872,7 @@
          id="tspan1629"
          style="fill:#000000;stroke:none">00000000</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1643"><tspan
@@ -3793,6 +3887,7 @@
        id="tspan1639"><tspan
          id="tspan1637"
          style="fill:#000000;stroke:none">Control</tspan></tspan></tspan></text>
+
 
          <path
    d="m 12200,3961 h 223 v 256 h -223 z"
@@ -3818,6 +3913,7 @@
        id="tspan1651"><tspan
          id="tspan1649"
          style="fill:#000000;stroke:none">Unit</tspan></tspan></tspan></text>
+
 
          <path
    d="m 18652,4471 h 82"
@@ -3949,6 +4045,7 @@
          id="tspan1703"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 8676,11614 h 445 v 255 h -445 z"
    id="path1711"
@@ -3970,6 +4067,7 @@
          style="fill:#000000;stroke:none"> </tspan><tspan
          id="tspan1715"
          style="fill:#000000;stroke:none">PC+4 </tspan></tspan></tspan></text>
+
 
          <path
    d="m 19376,11851 c 0,19 -14,34 -32,34 -18,0 -33,-15 -33,-34 0,-17 15,-31 33,-31 18,0 32,14 32,31 z"
@@ -4023,6 +4121,7 @@
          id="tspan1739"
          style="fill:#000000;stroke:none">PC </tspan></tspan></tspan></text>
 
+
          <path
    d="m 8961,12756 h 255 v 161 h -255 z"
    id="path1747"
@@ -4042,6 +4141,7 @@
        id="tspan1751"><tspan
          id="tspan1749"
          style="fill:#000000;stroke:none">10</tspan></tspan></tspan></text>
+
 
          <path
    d="m 15152,12694 h 447 v 254 h -447 z"
@@ -4068,6 +4168,7 @@
          id="tspan1761"
          style="fill:#000000;stroke:none">rd</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1775"><tspan
@@ -4082,6 +4183,7 @@
        id="tspan1771"><tspan
          id="tspan1769"
          style="fill:#000000;stroke:none">01</tspan></tspan></tspan></text>
+
 
          <path
    d="m 22232,2603 h 192 v 10377 h -192 z"
@@ -4148,6 +4250,7 @@
          id="tspan1797"
          style="fill:#000000;stroke:none">MEM/WB</tspan></tspan></tspan></text>
 
+
          <path
    d="m 18043,4597 c 0,17 -15,33 -32,33 -17,0 -33,-16 -33,-33 0,-18 16,-32 33,-32 17,0 32,14 32,32 z"
    id="path1805"
@@ -4180,6 +4283,7 @@
          id="tspan1813"
          style="fill:#000000;stroke:none">WriteData </tspan></tspan></tspan></text>
 
+
          <path
    d="m 18486,5375 h 668 v 366 h -668 z"
    id="path1821"
@@ -4200,6 +4304,7 @@
          id="tspan1823"
          style="fill:#0000fa;stroke:none">xor</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1837"><tspan
@@ -4215,6 +4320,7 @@
          id="tspan1831"
          style="fill:#0000fa;stroke:none">Branch</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1845"><tspan
@@ -4229,6 +4335,7 @@
        id="tspan1841"><tspan
          id="tspan1839"
          style="fill:#0000fa;stroke:none">Jalx</tspan></tspan></tspan></text>
+
 
          <path
    d="m 17153,2724 h 192 v 10351 h -192 z"
@@ -4290,6 +4397,7 @@
          id="tspan1865"
          style="fill:#000000;stroke:none">EX/MEM</tspan></tspan></tspan></text>
 
+
          <path
    d="m 3406,7835 h 223 v 255 h -223 z"
    id="path1873"
@@ -4314,6 +4422,7 @@
        id="tspan1879"><tspan
          id="tspan1877"
          style="fill:#0000fa;stroke:none">BranchOutcome</tspan></tspan></tspan></text>
+
 
          <path
    d="m 4453,8026 h 1589 v 2160 H 4453 Z"
@@ -4340,6 +4449,7 @@
          id="tspan1889"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1903"><tspan
@@ -4354,6 +4464,7 @@
        id="tspan1899"><tspan
          id="tspan1897"
          style="fill:#000000;stroke:none">Program</tspan></tspan></tspan></text>
+
 
          <path
    d="M 4453,7999 H 6042 V 9324 H 4453 Z"
@@ -4380,6 +4491,7 @@
          id="tspan1909"
          style="fill:#000000;stroke:none">Memory</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1923"><tspan
@@ -4394,6 +4506,7 @@
        id="tspan1919"><tspan
          id="tspan1917"
          style="fill:#000000;stroke:none">Cache</tspan></tspan></tspan></text>
+
 
          <text
    class="TextShape"
@@ -4410,6 +4523,7 @@
          id="tspan1925"
          style="fill:#000000;stroke:none">Hit:</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1939"><tspan
@@ -4425,6 +4539,7 @@
          id="tspan1933"
          style="fill:#000000;stroke:none">Miss:</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text1947"><tspan
@@ -4439,6 +4554,7 @@
        id="tspan1943"><tspan
          id="tspan1941"
          style="fill:#000000;stroke:none">4</tspan></tspan></tspan></text>
+
 
          <path
    d="m 3119,11868 h 637 v 254 h -637 z"
@@ -4459,6 +4575,7 @@
        id="tspan1953"><tspan
          id="tspan1951"
          style="fill:#000000;stroke:none">6</tspan></tspan></tspan></text>
+
 
          <path
    d="m 14739,12756 h 256 v 161 h -256 z"
@@ -4482,6 +4599,7 @@
          id="tspan1963"
          style="fill:#000000;stroke:none">PC+4 </tspan></tspan></tspan></text>
 
+
          <path
    d="m 20295,12756 h 256 v 161 h -256 z"
    id="path1971"
@@ -4501,6 +4619,7 @@
        id="tspan1975"><tspan
          id="tspan1973"
          style="fill:#000000;stroke:none">rd</tspan></tspan></tspan></text>
+
 
          <path
    d="m 12104,10931 h 1780 v 255 h -1780 z"
@@ -4527,6 +4646,7 @@
          id="tspan1985"
          style="fill:#000000;stroke:none">rd</tspan></tspan></tspan></text>
 
+
          <path
    d="m 2866,13867 h 1398 v 256 H 2866 Z"
    id="path1993"
@@ -4546,6 +4666,7 @@
        id="tspan1997"><tspan
          id="tspan1995"
          style="fill:#000000;stroke:none">00000000</tspan></tspan></tspan></text>
+
 
          <path
    d="m 6612,6756 h 1049 v 254 H 6612 Z"
@@ -4568,6 +4689,7 @@
          style="fill:#000000;stroke:none"> </tspan><tspan
          id="tspan2007"
          style="fill:#000000;stroke:none">BranchTarget </tspan></tspan></tspan></text>
+
 
          <path
    d="m 7659,13487 h 1240 v 255 H 7659 Z"
@@ -4594,6 +4716,7 @@
          id="tspan2019"
          style="fill:#000000;stroke:none">Instruction</tspan></tspan></tspan></text>
 
+
          <path
    d="m 14772,11868 h 636 v 254 h -636 z"
    id="path2027"
@@ -4615,6 +4738,7 @@
          style="fill:#000000;stroke:none"> </tspan><tspan
          id="tspan2031"
          style="fill:#000000;stroke:none">RegWriteData </tspan></tspan></tspan></text>
+
 
          <path
    d="m 14867,11614 h 445 v 255 h -445 z"
@@ -4638,6 +4762,7 @@
          id="tspan2043"
          style="fill:#000000;stroke:none">PC+4 </tspan></tspan></tspan></text>
 
+
          <path
    d="m 9627,5296 h 638 v 128 h -638 z"
    id="path2051"
@@ -4659,6 +4784,7 @@
          style="fill:#000000;stroke:none"> </tspan><tspan
          id="tspan2055"
          style="fill:#000000;stroke:none">PC </tspan></tspan></tspan></text>
+
 
          <path
    d="m 11318,5263 h 225 v 256 h -225 z"
@@ -4685,6 +4811,7 @@
          id="tspan2067"
          style="fill:#0000fa;stroke:none">AluMul</tspan></tspan></tspan></text>
 
+
          <path
    d="m 15883,7549 h 223 v 256 h -223 z"
    id="path2075"
@@ -4709,6 +4836,7 @@
        id="tspan2081"><tspan
          id="tspan2079"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 20010,4501 h 224 v 256 h -224 z"
@@ -4735,6 +4863,7 @@
          id="tspan2091"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 18042,8788 h 763 v 255 h -763 z"
    id="path2099"
@@ -4754,6 +4883,7 @@
        id="tspan2103"><tspan
          id="tspan2101"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 13693,11708 c 0,18 -14,34 -32,34 -18,0 -33,-16 -33,-34 0,-16 15,-31 33,-31 18,0 32,15 32,31 z"
@@ -4792,6 +4922,7 @@
          id="tspan2119"
          style="fill:#000000;stroke:none">AluOut</tspan></tspan></tspan></text>
 
+
          <path
    d="m 9627,3708 h 891 v 254 h -891 z"
    id="path2127"
@@ -4811,6 +4942,7 @@
        id="tspan2131"><tspan
          id="tspan2129"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
+
 
          <path
    d="m 11318,3708 h 225 v 254 h -225 z"
@@ -4837,6 +4969,7 @@
          id="tspan2141"
          style="fill:#0000fa;stroke:none">MemRead</tspan></tspan></tspan></text>
 
+
          <path
    d="m 12517,3708 h 223 v 254 h -223 z"
    id="path2149"
@@ -4862,6 +4995,7 @@
          id="tspan2153"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 20391,3454 h 891 v 255 h -891 z"
    id="path2161"
@@ -4882,6 +5016,7 @@
          id="tspan2163"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 20391,3708 h 891 v 254 h -891 z"
    id="path2171"
@@ -4901,6 +5036,7 @@
        id="tspan2175"><tspan
          id="tspan2173"
          style="fill:#0000fa;stroke:none">MemWrite</tspan></tspan></tspan></text>
+
 
          <path
    d="m 12344,6756 v 2033 h -224 V 6756 Z"
@@ -4926,6 +5062,7 @@
        id="tspan2187"><tspan
          id="tspan2185"
          style="fill:#0000fa;stroke:none">MemRead</tspan></tspan></tspan></text>
+
 
          <path
    d="m 17915,10217 h 223 v 254 h -223 z"
@@ -4953,6 +5090,7 @@
          id="tspan2197"
          style="fill:#000000;stroke:none">00000000</tspan></tspan></tspan></text>
 
+
          <path
    d="m 18740,11042 h 223 v 255 h -223 z"
    id="path2205"
@@ -4978,6 +5116,7 @@
          id="tspan2209"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <path
    d="m 17693,5375 h 667 v 366 h -667 z"
    id="path2217"
@@ -4998,6 +5137,7 @@
          id="tspan2219"
          style="fill:#000000;stroke:none">0</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text2233"><tspan
@@ -5012,6 +5152,7 @@
        id="tspan2229"><tspan
          id="tspan2227"
          style="fill:#0000fa;stroke:none">Branch</tspan></tspan></tspan></text>
+
 
          <path
    d="m 3755,6914 h 2287 v 796 H 3755 Z"
@@ -5038,6 +5179,7 @@
          id="tspan2239"
          style="fill:#0000fa;stroke:none">Jalr</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text2253"><tspan
@@ -5053,6 +5195,7 @@
          id="tspan2247"
          style="fill:#000000;stroke:none">0x00400210</tspan></tspan></tspan></text>
 
+
          <text
    class="TextShape"
    id="text2261"><tspan
@@ -5067,6 +5210,7 @@
        id="tspan2257"><tspan
          id="tspan2255"
          style="fill:#000000;stroke:none">PC</tspan></tspan></tspan></text>
+
 
         </g>
         <g
