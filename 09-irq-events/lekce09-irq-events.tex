@@ -795,6 +795,14 @@ Zdroj: bootlin: Kernel, drivers and embedded Linux development \url{https://boot
 \end{itemize}
 
 \begin{minted}[fontsize=\footnotesize]{c}
+asm volatile("lock; addl $0,-4(%%esp)" ::: "memory", "cc")
+\end{minted}
+
+Na novějších verzích v rámci SSE2 i přímo \texttt{mfence}, \texttt{lfence} a \texttt{sfence}.
+
+Další základ pro sychronizaci je operace porovnat a prohodit (Anglicky: Compare and Swap). Na x86
+
+\begin{minted}[fontsize=\footnotesize]{c}
 __asm__ volatile ("xchgl %0,%1" :"=r" (x) :"m" (y), "0" (x) :"memory");
 \end{minted}
 \end{frame}
