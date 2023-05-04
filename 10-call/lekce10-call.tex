@@ -95,6 +95,26 @@ cond_1:
 
 
 \begin{frame}
+\frametitle{Proč se zabývat překladem?}
+
+\begin{itemize}
+ \item Buď používáte interpretované jazyky, které jsou ze své podstaty pomalejší 
+ \begin{itemize}
+ \item rychlejší jsou pouze, pokud využívají knihovny přeložené do strojových instrukcí a většinou velmi optimalizované např. OpenCV, NumPy, TensorFlow,  PyTorch apod.
+ \end{itemize}
+ \item nebo používáte překládané jazyky, jako je C/C++, Rust, Fortran, Pascal a pak neběží program v C, ale program přeložený do strojových instrukcí. 
+ \item Pokud nevíte, jak se program přeloží:
+\begin{itemize}
+ \item plně spoléháte na překladač a jeho optimalizace
+ \item nadefinujete si ve funkci pole o velikostech 100MiB
+ \item bude používat rekurzi, i když neznáte hloubku této rekurze
+\end{itemize}
+\item V domácím úkolu 4 si procvičíte analýzu strojového kódu a zkusíte si napsat C program, který se bude chovat obdobně (ideálním cílem by bylo, že se přeloží do zadaného kódu strojových instrukcí). 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
 \frametitle{Jak se přeložit funkci?}
 
 Pro překlad funkce např. \texttt{int secti(int a, int b);} je nutné vymyslet:
@@ -107,7 +127,7 @@ Pro překlad funkce např. \texttt{int secti(int a, int b);} je nutné vymyslet:
 Volající (caller) a volaný (callee) se musí dohodnout na těchto otázkách, aby si rozuměli.
 \begin{itemize}
  \item Překlad volaného může být na jiném počítači, jiným překladačem (typicky knihovny) než překlad volajícího - Vaším překladačem na Vašem počítači.
- \item Je nutné definovat konvenci, typ konvence volání funkce musí být v hlavičce objektových souborů (a tím i knohoven) aby zajistila správnost předání dat a získání návratové hodnoty.
+ \item Je nutné definovat konvenci, typ konvence volání funkce musí být v hlavičce objektových souborů (a tím i knohoven) aby zajistila správnost předání dat a získání návratové hodnoty funkce.
 \end{itemize}
 \end{frame}
 
@@ -187,8 +207,8 @@ nebo jinam
 \begin{itemize}
  \item funkce soucet může být volána z mnoha různých míst programu
  \item nelze vygenerovat adresu skoku návrat z funkce v době překladu
- \item návratová hodnota musí být nastavena volajícím
- \item konvence volání funkce -- návratová hodnota adresy je uložena v registru ra (return address) -- registr x1
+ \item návratová adresa musí být nastavena volajícím
+ \item konvence volání funkce -- návratová adresa je uložena v registru ra (return address) -- registr x1
  \item potřebujeme instrukci, která skočí na adresu uloženou v registru
  \item hodila by se i instrukce, která uloží do registru ra adresu následující instrukce
 \end{itemize}
@@ -255,7 +275,7 @@ Kvíz: Kolik různých čar byste uměli vysvětlit
 \begin{frame}
 \frametitle{Co když funkce ve svém těle volá jinou funkci?}
 
-Volající připraví argumenty do registrů a0 až a7 a do registru ra návratovou hodnotu.
+Volající připraví argumenty do registrů a0 až a7 a do registru ra návratovou adresu.
 
 \bigskip
 
@@ -334,7 +354,7 @@ Každý register buď nastavuje a je za něj zodpovědný volající (caller), n
 Symbolické & Registr & Popis & Ukládá \\
    jméno   &         &       &        \\ \hline
 a0 - a7 & x10 - x17 & vstupní parametry funkce & volající \\\hline
-a0, a1 & x10, x11 & výstupní hodnota funkce & volající \\\hline
+a0, a1 & x10, x11 & výstupní hodnota funkce & volaný \\\hline
 ra & x1 & návratová adresa & volající \\\hline
 t0 - t6 & x5-7, x28-x31 & dočasné registry & volající\\\hline
 s0 - s11 & x8-9, x18-x27 & ukládané registry & volaný\\\hline
@@ -350,10 +370,36 @@ tp & x4 & ukazatel na vlákno (thread) & -- --\\\hline
 
 \begin{itemize}
  \item char, short, int, long, float, pointer -- každý parametr jeden registr
- \item long long int, double -- každý parametr dva registry
+ \item long long int, double -- každý parametr dva registry (první registr má sudé číslo)
  \item struct předávaná hodnotou se kopíruje do tolika registrů, kolik je potřeba
  \item pokud je překládáno pro RISC-V s rozšířením pro práci s reálnými čísly, pak se pro předávání float, double i struktur využijí registry f10 -- f17 označovaných také fa0 -- fa7
  \item pokud se parametry nevejdou do registrů a0-a7, tak se přebývající parametry umístí na zásobník do rámce nově volané funkce
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Kvíz}
+
+Kdy se parametry funkce, nebo registry s0-s11 uloží na zásobník?
+\begin{itemize}
+ \item[A] nikdy.
+ \item[B] když se v těle funkce uloží do parametru jiná hodnota.
+ \item[C] když bude v těle funkce volání jiné funkce se stejným počtem parametrů.
+ \item[D] když bude v těle funkce použit vstupní parametr po volání funkce.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Kvíz}
+
+Kdy se lokální proměnné, nebo registry s0-s11 uloží na zásobník?
+\begin{itemize}
+ \item[A] nikdy.
+ \item[B] když se v těle funkce bude využívat tolik lokálních proměnných, že se jejich hodnoty nevejdou do registrů.
+ \item[C] když bude v těle funkce volání jiné funkce.
+ \item[D] pouze když bude v těle funkce rekurzivní volání té samé funkce.
 \end{itemize}
 \end{frame}
 
@@ -405,9 +451,8 @@ jal ra,10054 <secti>
 \end{minted}
 \end{column}
 \end{columns}
-
-
 \end{frame}
+
 
 
 
@@ -453,7 +498,7 @@ Ukončení funkce:
 Příklad s 10 parametry, volání funkce uvnitř funkce, se dvěma lokálními proměnými.
 
 \begin{columns}
-\begin{column}{0.32\textwidth}
+\begin{column}{0.35\textwidth}
 Začátek funkce:
 
 \begin{minted}[fontsize=\footnotesize]{gas}
@@ -465,8 +510,22 @@ sw  s2,32(sp)
 sw  s3,28(sp)
 sw  s4,24(sp)
 \end{minted}
+
+Lokální proměnné:
+\begin{minted}[fontsize=\footnotesize]{gas}
+lw  t0,8(sp)
+lbu t1,15(sp)
+\end{minted}
+
+\texttt{int i;} na adrese 8(sp)
+
+\texttt{char c;} na adrese 15(sp)
+
+0(sp) -- 7(sp) nevyužito
+
+
 \end{column}   
-\begin{column}{0.32\textwidth}
+\begin{column}{0.29\textwidth}
 Ukončení funkce:
 
 \begin{minted}[fontsize=\footnotesize]{gas}
@@ -479,13 +538,13 @@ lw   s4,24(sp)
 addi sp,sp,48
 ret
 \end{minted}
+
 \end{column}
 \begin{column}{0.35\textwidth}  
 \includegraphics[width=0.7\textwidth]{slozita_fce.pdf}
 \end{column}
 \end{columns}
 \end{frame}
-
 
 
 \begin{frame}[shrink=5]
@@ -566,6 +625,41 @@ ret
 \end{frame}
 
 
+\begin{frame}[fragile,shrink=5]
+\frametitle{Řešení domácího úkolu 4}
+
+Analyzovat funkci subrutine\_fnc:
+\begin{itemize}
+\item zjistit, jaké registry a0 -- a7 se ve funkci používají a jaké se před volání funkce naplní
+ \begin{itemize}
+ \item POZOR překladač využívá registry aX také pro pomocné výpočty stejně jako registry t0 -- t6, protože jejich hodnoty může měnit
+ \end{itemize}
+\item zjistit, co je v registru a0 před zavoláním instrukce \texttt{ret} (\texttt{jalr 0(x1)})
+\item prozkoumat začátek funkce:
+ \begin{itemize}
+ \item pokud funkce začíná sekvencí instrukcí podobné:
+\begin{minted}[fontsize=\footnotesize]{gas}
+addi  sp,sp,-48
+sw  ra,44(sp)
+sw  s0,40(sp)
+sw  s1,36(sp)
+sw  s2,32(sp)
+sw  s3,28(sp)
+sw  s4,24(sp)
+\end{minted}
+\begin{itemize}
+ \item pak funkce využívá zásobník pro uložení návratové adresy a lokálních dat
+ \item adresy od 0(sp) do 23(sp) jsou využity pro lokální proměnné funkce
+ \item registry s0 -- s4 (v tomto případě) jsou využity pro uchování dočasných hodnot, pravděpodobně argumentů funkce
+ \end{itemize}
+ \item pokud funkce neobsahuje instrukci \texttt{addi sp,sp,-X} pak se jedná o "jednoduchoou" funkci, která nepoužívá zásobník
+\begin{itemize}
+ \item všechny lokální proměnné a mezivýpočty jsou uloženy v nepoužitých registrech a0 -- a7 a registrech t0 -- t6
+ \end{itemize}
+ \end{itemize}
+ \end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Rozložení běžícího programu v paměti}
@@ -590,22 +684,126 @@ Každý proces má pro sebe 4GiB virtuálního prostoru:
 \end{columns}
 \end{frame}
 
+\begin{frame}[fragile,shrink=5]
+\frametitle{Řešení domácího úkolu 4}
 
-\begin{frame}
-\frametitle{Jak se pracuje s char a short?}
-
-ukázky překladu.
-
+Využití globálních proměnných:
+\begin{itemize}
+\item globální proměnná je proměnná definovaná mimo funkci, nebo uvnitř funkce s použitím klíčového slova \texttt{static}
+\item globální inicializované proměnné jsou umístěné v sekci .data, neinicializované proměnné v sekci .bss
+\item Jak zjistit, zda v mém programu jsou globální proměnné?
+ \begin{itemize}
+ \item podívejte se na konec výpisu riscv assembleru a najděte sekci my\_data. 
+ 
+ Tato sekce může vypadat takto:
+\begin{minted}[fontsize=\footnotesize]{gas}
+Contents of section my_data:
+    11008 00000000                ....
+\end{minted}
+\begin{itemize}
+ \item 11008 je adresa dat ve virtuálním prostoru procesu
+ \item 00000000 je hexadecimální výpis uložených dat
+ \item .... je textový výpis uložených dat, pokud znak nelze zobrazit je místo něj použita tečka
+ \item využití dat v programu vypadá takto:
+\begin{minted}[fontsize=\footnotesize]{gas}
+lui  a5, 0x11
+addi a5, a5, 8 # 11008 <nazev_promenne>
+lw   a4, 0(a5)
+\end{minted}
+ \end{itemize}
+ \end{itemize}
+ \end{itemize}
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}[fragile]
+\frametitle{Kvíz}
+
+Uvažujte tuto funkci
+\begin{minted}[fontsize=\footnotesize]{c}
+int fce (int a) {
+  int i;
+  
+  // telo funkce
+  
+  return i+a;
+}
+\end{minted}
+Kde budou umístěny proměnné \texttt{a} a \texttt{i}:
+\begin{itemize}
+ \item[A] obě na zásobníku nebo v registrech
+ \item[B] obě v datové sekci
+ \item[C] \texttt{a} na zásobníku nebo v registru, \texttt{i} v datové sekci
+ \item[D] \texttt{a} v datové sekci, \texttt{i} na zásobníku nebo v registru
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile,shrink=5]
 \frametitle{Útok na program přes zásobník}
 
-obrázek s použitím pole ke změně návratové hodnoty
+\begin{columns}
+\begin{column}{0.42\textwidth}
+Uvažujme tento program:
 
-OSY
+\begin{minted}[fontsize=\footnotesize]{c}
+int virus() {
+  // skodi
+  return 0;
+}
 
+int secti(int a, int b, int c, 
+  int d, int e, int f, int g, 
+  int h, int i, int j) {
+  
+  volatile int ii,jj=i+j;
+  volatile int pole[2];
+  
+  // neco pocita a
+  // vola nejakou funkci
+  
+  pole[11] = (int)&virus;
+  
+  return pole[0]+pole[1];
+}
+\end{minted}
+\end{column}   
+\begin{column}{0.25\textwidth}
+Úvod funkce:
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+addi sp,sp,-48
+sw   ra,44(sp)
+sw   s0,40(sp)
+sw   s1,36(sp)
+sw   s2,32(sp)
+sw   s3,28(sp)
+\end{minted}
+
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+# pole[11]=(int)&virus;
+lui  a5,0x10
+addi a5,a5,84 # <virus>
+sw   a5,44(sp)
+\end{minted}
+
+Ukončení funkce:
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+lw   ra,44(sp)
+lw   s0,40(sp)
+lw   s1,36(sp)
+lw   s2,32(sp)
+lw   s3,28(sp)
+addi sp,sp,48
+ret
+\end{minted}
+\end{column}
+\begin{column}{0.33\textwidth}  
+\includegraphics[width=\textwidth]{overflow_fce.pdf}
+\end{column}
+\end{columns}
 \end{frame}
 
 
@@ -652,12 +850,14 @@ int  main() {
 \end{frame}
 
 \begin{frame}[fragile,shrink=5]
-\frametitle{Překlad funkce s proměnným počtem parametrů}
+\frametitle{Překlad funkce secti s proměnným počtem parametrů}
 
 Makro \texttt{va\_start} a \texttt{va\_arg} potřebuje mít uloženy všechny parametry v paměti:
 
 \begin{columns}
 \begin{column}{0.25\textwidth}
+Začátek funkce:
+
 \begin{minted}[fontsize=\footnotesize]{gas}
 addi sp,sp,-64
 sw   ra,28(sp)
@@ -737,7 +937,6 @@ OS podle čísla systémového volání zavolá odpovídající funkci.
 \end{center}
 
 Návrat ze systémového volání odpovídá návratu z přerušení.
-
 \end{frame}
 
 \begin{frame}[shrink=5]
@@ -764,6 +963,101 @@ Návrat ze systémového volání odpovídá návratu z přerušení.
 \end{itemize}
 
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Příklad Hello world!}
+
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+.global _start
+.text
+_start:
+#   write(1, "Hello world!\n", 13);
+   addi  a7, zero, 64
+   addi  a0, zero, 1
+   la    a1, zero, text_1
+   addi  a2, zero, 13
+   ecall
+final:
+#   exit(0);
+   addi  a7, zero, 93
+   addi  a0, zero, 0
+   ecall
+   ebreak
+   j final
+.data
+# store ASCII text, no termination
+text_1: .ascii "Hello world!\n"
+\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Řešení domácího úkolu 4}
+
+Co dělat se systémovým voláním?
+\begin{itemize}
+\item najděte instrukci \texttt{ecall}.
+\item podle hodnotu registru a7, z ní zjistěte o jaké systémové volání se jedná.
+\item zjistěte hodnoty registrů a0, a1, a2 (případně a3 pokud je použit).
+\item do C programu zařaďte volání funkce z API, která provede dané systémové volání.
+\item Příklad: zjistíte, že registr a7 má hodnotu 63 -- read, vygenerujete volání funkce read
+\begin{minted}[fontsize=\footnotesize]{c}
+read(a0, a1, a2);
+\end{minted}
+\begin{itemize}
+ \item jediný problém je s funkcí open/openat, jejíž parametry mají jiné hodnoty pro systém x86 a pro riscv
+ \item protože programy kontroluje Brute na systému x86, je lepší ověřit hodnoty parametrů ve výpisu program-x86.list
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Systémové volání x86}
+
+\begin{itemize}
+\item systémové volání provádí instrukce \texttt{int 0x80}.
+\item číslo systémového volání je v registru eax.
+ \begin{itemize}
+ \item POZOR čísla systémových volání x86 a riscv se liší.
+ \end{itemize}
+\item parametry systémového volání jsou uloženy postupně v registrech:
+ \begin{itemize}
+ \item ebx 
+ \item ecx 
+ \item edx 
+ \item esi 
+ \item edi 
+ \item ebp 
+ \end{itemize}
+\item příští přednášku si probereme assembler x86, abyste mohli využít pro řešení domácího úkolu 4 i výpis instrukcí pro procesor x86.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Kvíz za bonusový bod}
+
+Uvažujte tuto funkci
+\begin{minted}[fontsize=\footnotesize]{c}
+int fce (int a) {
+  static int s;
+  int i;
+  
+  // telo funkce
+  
+  return i+s;
+}
+\end{minted}
+Kde budou umístěny proměnné \texttt{s} a \texttt{i}:
+\begin{itemize}
+ \item[A] obě na zásobníku
+ \item[B] obě v datové sekci
+ \item[C] \texttt{s} na zásobníku, \texttt{i} v datové sekci
+ \item[D] \texttt{s} v datové sekci, \texttt{i} na zásobníku
+\end{itemize}
+\end{frame}
+
 
 \end{document}
 

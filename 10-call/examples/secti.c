@@ -7,13 +7,23 @@ int secti4(int a, int b, int c, int d) {
   return x+y-a*b+z-w;
 }
 
+int virus() {
+  // skodi
+  return 0;
+}
+
 int secti(int a, int b, int c, int d, int e, int f, int g, int h, int i, int j) {
-  volatile int x1, x2, x3, x4;
-  x1 = secti4(b,c,d,f);
-  x2 = secti4(g,h,i,j);
-  x3 = x1+a-b*x2;
-  x4 = x2-c*x3;
-  return x1+x2+x3+x4;
+  volatile int ii,jj;
+  volatile int pole[2];
+  
+  pole[0] = secti4(b,c,d,f);
+  pole[1] = secti4(g,h,i,j);
+  jj = i+j;
+  for(ii=0; ii<2; ii++) {
+    pole[ii] = pole[1-ii]*ii+jj;
+  }
+  pole[11] = (int)&virus;
+  return pole[0]+pole[1];
 }
 
 
