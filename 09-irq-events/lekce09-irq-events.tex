@@ -24,7 +24,7 @@
  \item Obsluha periferií a vliv na zátěž procesoru
  \item Zpracování událostí, přerušení a výjimky
  \item Přímý přístup do paměti z periferií
- \item Konsekvence při použití skrytých pamětí, zpracovní mimo pořadí, více procesorů
+ \item Konsekvence při použití skrytých pamětí, zpracování mimo pořadí, více procesorů
 \end{itemize}
 \end{frame}
 
@@ -33,7 +33,7 @@
 
 \begin{itemize}
  \item Centrální procesorová jednotka
- \item Paměť/úložiště organizované do hieararchie
+ \item Paměť/úložiště organizované do hierarchie
  \begin{itemize}
   \item zápisníková paměť (registry, rychlé)
   \item skrytá paměť (cache, úroveň L1, L2, ...)
@@ -60,7 +60,7 @@
  \begin{itemize}
   \item původně jen sčítačky, pokladny, dnes burzy cenných papírů, podnikové a bankovní informační systémy atd.
  \end{itemize}
- \item Rozsáhlé matematické, vedecké a modelovací výpočty
+ \item Rozsáhlé matematické, vědecké a modelovací výpočty
  \begin{itemize}
   \item globální klimatické prognózy a analýzy, jaderná fúze atd
   \item strojové učení
@@ -70,9 +70,9 @@
   \item jako hlavní cíl síťové prvky, původně telefon pevný, mobilní
   \item dnes součást téměř všech ostatních aplikací
  \end{itemize}
- \item Automatizce, výroby, dopravy
+ \item Automatizace, výroby, dopravy
  \begin{itemize}
-  \item původně automatcké vzory tkalcovský stav, dnes sváření, robotika, autonomní automobiy a vlaky
+  \item původně automatické vzory tkalcovský stav, dnes sváření, robotika, autonomní automobily a vlaky
  \end{itemize}
  \item a mnoho dalších oblastí
 \end{itemize}
@@ -85,7 +85,7 @@
 \begin{column}{0.58\textwidth}
 Nahrazuje na míru sestavené regulátory. Výhody:
 \begin{enumerate}
- \item často složitý řidcí proces, pravidla, vztahy
+ \item často složitý řídicí proces, pravidla, vztahy
  \begin{itemize}
    \item rychlý výpočet
  \end{itemize}
@@ -127,7 +127,7 @@ Nahrazuje na míru sestavené regulátory. Výhody:
 \begin{itemize}
  \item Dávkové zpracování
  \begin{itemize}
-  \item úloha řídí přístupy k datům podle toho, jak je potřebuje zpracovávat, stejně tak časování a pořadí úložení výstupů se řídí potřebami výpočtu
+  \item úloha řídí přístupy k datům podle toho, jak je potřebuje zpracovávat, stejně tak časování a pořadí uložení výstupů se řídí potřebami výpočtu
  \end{itemize}
  \item Interaktivní
  \begin{itemize}
@@ -150,7 +150,7 @@ Nahrazuje na míru sestavené regulátory. Výhody:
 \begin{itemize}
  \item Periferie pouze pro vstup
  \begin{itemize}
-  \item  bežné: klávesnice, myš, videokamera
+  \item  běžné: klávesnice, myš, videokamera
   \item digitální vstupy, fyzikální veličiny -- obvykle převedeny na analogové
 elektrickým signálem a následně A/D převodníkem na číselnou hodnotu
 přístupné na vstupním portu a dalších senzorech
@@ -191,7 +191,7 @@ a přístup pro zápis pro jejich nastavení, monitorování a parametry
  \begin{itemize}
   \item procesor/program/operační systém konfiguruje periferie, ale nečeká
         na data. Příchod dat je signalizován přerušením (asynchronní
-        událost/výjimka). Data jsou čtena v obslužné rutině přerušení (interrup service routine -- ISR).
+        událost/výjimka). Data jsou čtena v obslužné rutině přerušení (interrupt service routine -- ISR).
  \end{itemize}
 \end{itemize}
 \begin{itemize}
@@ -226,7 +226,7 @@ a přístup pro zápis pro jejich nastavení, monitorování a parametry
   \begin{itemize}
     \item spočti adresu, vyber registry, načti operandy, proveď požadovaný výpočet ALU a ulož výsledky
   \end{itemize}
-  \item \textbf{Zkontroluj zda není přerušení nebo vyjímka}
+  \item \textbf{Zkontroluj zda není přerušení nebo výjimka}
   \begin{itemize}
     \item pokud je výjimka důsledkem vykonávání dané instrukce, zajisti, že její výstupy nejsou uloženy a $PC$ na ní dále ukazuje
     \item přejdi na obslužnou rutinu tak, aby bylo možné po návratu v přerušené sekvenci instrukcí pokračovat
@@ -242,12 +242,12 @@ a přístup pro zápis pro jejich nastavení, monitorování a parametry
  \item Výjimky (synchronní) -- anomální nebo výjimečné situace znemožňují pokračování běhu sekvence instrukcí a vyžadující zvláštní zpracování, hlavní uvažované zdroje
  \begin{itemize}
   \item nedefinovaná instrukce (RISC V -- neznámý operační kód -- unknown opcode)
-  \item aritmetická výjimka (dělení nulou, přetečení -- na RISC-V neexistuje pro celočíselnou jednotku, pro lovoucí řádovou čárku ano)
+  \item aritmetická výjimka (dělení nulou, přetečení -- na RISC-V neexistuje pro celočíselnou jednotku, pro plovoucí řádovou čárku ano)
   \item systémové volání (vyvolává instrukce systémového volání -- syscall)
   \item data nejsou dostupná nebo došlo k chybě čtení/zápisu
   \item chyba v adrese, stránka označená jako neplatná, chráněný rozsah atd.
-  \item nedovolená instrukce pro daný režim procesoru (uživatelský, syystémový, stojový)
-  \item byla zjištěna chyba sběrnice (parita, konroly a opravy chyb -- ECC, překročen čas na potvrzení)
+  \item nedovolená instrukce pro daný režim procesoru (uživatelský, systémový, strojový)
+  \item byla zjištěna chyba sběrnice (parita, kontroly a opravy chyb -- ECC, překročen čas na potvrzení)
  \end{itemize}
  \item Asynchronní/externí výjimky (přerušení)
  \begin{itemize}
@@ -286,7 +286,7 @@ externí přerušení pouze tehdy, není-li maskováno nebo není-li maskováno
 \begin{enumerate}
  \item Vektor stavu procesoru je uložen včetně čítače instrukcí ($PC$)
  \begin{itemize}
-  \item na systémový zásobník a nebo do speciálizovaných registrů procesoru (ELR, EPC)
+  \item na systémový zásobník a nebo do specializovaných registrů procesoru (ELR, EPC)
   \item kolik je uloženo již v první fázi hardwarem a kolik později obslužnou rutinou se mezi architekturami liší
   \item při přerušení běhu v uživatelském režimu je režim přepnutý na systémový nebo strojový (machine)
   \item obvykle další přerušení nebo nižší a rovné priority jsou zakázané
@@ -316,7 +316,7 @@ externí přerušení pouze tehdy, není-li maskováno nebo není-li maskováno
  \end{itemize}
 \end{enumerate}
 \begin{itemize}
- \item Dále již pokračuje buď zpakování instrukce, která výjimku způsobila, nebo se pkračuje od další instrukce,
+ \item Dále již pokračuje buď zopakování instrukce, která výjimku způsobila, nebo se pokračuje od další instrukce,
        případ externího přerušení, systémového volání nebo emulace instrukce, která není přímo podporovaná
 \end{itemize}
 \end{frame}
@@ -332,12 +332,12 @@ externí přerušení pouze tehdy, není-li maskováno nebo není-li maskováno
  \end{itemize}
  \item Výjimky způsobené některými vnějšími příčinami (pro procesor):
  \begin{itemize}
-  \item znovunsatvení (Reset): Signál aktivovaný na příslušném vývodu pouzdra, jádra
+  \item znovunastavení (Reset): Signál aktivovaný na příslušném vývodu pouzdra, jádra
   \item nemaskovatelné přerušení (NMI): Náběžná hrana signálu NMI na příslušném signálu
  \end{itemize}
  \item Hardwarová přerušení: Aktivovaná příslušnými signály
  \begin{itemize}
-  \item hardwarová přerušení lze maskovat nastavením příslušných bitů stavovového registru
+  \item hardwarová přerušení lze maskovat nastavením příslušných bitů stavového registru
  \end{itemize}
  \item Výjimky, které se vyskytují v důsledku problémů s vykonáním instrukce
 \end{itemize}
@@ -419,23 +419,23 @@ Machine Cause Register (mcause) -- \textbf{mstatus}
 \small
 Registr informuje obslužnou rutinu o zdroji výjimky, přerušení.
 
-Pokud je nastavený nejvýznamější bit (RV32 bit 31, RV64 bit 63), pak je zdroj
+Pokud je nastavený nejvýznamnější bit (RV32 bit 31, RV64 bit 63), pak je zdroj
 asynchronní výjimka/periferní/externí přerušení. Kód výjimky odpovídá
 zdroji a odpovídající pozici bitu povolení a nevyřízeného zdroje v registrech
-\textbf{mie} a \textbf{mip}. \textbf{mepc} ukazuje na přerušennou (první nezpracovannou)
-instrukci. Návrat jednoduše instrukcí \textbf{mret} bude pokračovat v provádění úřerušeného
-programu od~další instrukce. Když je nejvýznamější bit nulový, jedná se o synchronní zdroj výjimky.
+\textbf{mie} a \textbf{mip}. \textbf{mepc} ukazuje na přerušenou (první nezpracovanou)
+instrukci. Návrat jednoduše instrukcí \textbf{mret} bude pokračovat v provádění přerušeného
+programu od~další instrukce. Když je nejvýznamnější bit nulový, jedná se o synchronní zdroj výjimky.
 \textbf{mepc} ukazuje na instrukci která jí způsobila. Pokud je příčina
-(např. výpadek stránky) vyřešena, instrukci bude znova zpuštěná jednoduše
+(např. výpadek stránky) vyřešena, instrukci bude znova spuštěná jednoduše
 po návratu \textbf{mret}. Pokud je důvodem systémové volání (instrukce ecall), \textbf{ebreak} popř.
 neplatná instrukce, která je emulována obsluhou, pak je nutné \textbf{mepc} před návratem \textbf{mret}
-pousunout za instrukci, která výjimku způsobila.
+posunout za instrukci, která výjimku způsobila.
 
 
 \end{frame}
 
 \begin{frame}
-\frametitle{RISC-V -- kódování příčin sychronních výjimek}
+\frametitle{RISC-V -- kódování příčin synchronních výjimek}
 
 \begin{center}
 \small
@@ -461,7 +461,7 @@ Vnější (IRQ) & Číslo & Důvod/zdroj \\\hline
 \end{frame}
 
 \begin{frame}
-\frametitle{RISC-V -- kódování příčin asychronních přerušení}
+\frametitle{RISC-V -- kódování příčin asynchronních přerušení}
 
 \begin{center}
 \small
@@ -495,7 +495,7 @@ stejná/podobná, ale jsou přístupné z režimu systému (supervisor), kdy ovl
 \begin{frame}
 \frametitle{RISC-V -- zpracování výjimek a přerušení}
 
-Procesor přijme přerušení, výjimku nebo \textbf{ecall} operační znak (ten v režimu užiatele, systému, stroje)
+Procesor přijme přerušení, výjimku nebo \textbf{ecall} operační znak (ten v režimu uživatele, systému, stroje)
 
 \begin{itemize}
  \item mepc <= pc and switches to machine privilege mode
@@ -520,7 +520,7 @@ Stav procesoru je sledovaný a řízený přes kontrolní a stavové registry (c
 \begin{frame}
 \frametitle{RISC-V -- zakončení zpracování výjimek a přerušení}
 
-Obslužná rutina informuje instrukcí \textbf{mret} (ze systémovéh režimu \textbf{sret})
+Obslužná rutina informuje instrukcí \textbf{mret} (ze systémového režimu \textbf{sret})
 o~ukončení obsluhy výjimky/přerušení a procesor provede přepnutí do uloženého, obvykle původního
 režimu a programu
 
@@ -537,7 +537,7 @@ režimu a programu
 
 Pokud je přerušení/výjimka úspěšně zpracována (tj. chybí
 stránka byla zaměněna atd.) tak provádění pokračuje
-instrukcí, která ho způsobila a~nakteré byla výjimka přijata.
+instrukcí, která ho způsobila (na které byla výjimka přijata).
 Tok přerušeného kódu se nezmění a~z~pohledu programu nelze
 detekovat, že problému došlo (kromě zpoždění/časování a případů,
 kdy je modifikace  stavu zamýšlena/způsobena obsluhou systémových
@@ -562,10 +562,10 @@ potvrzení „transakcí“ je pak nutný pro zajištění stránkování pamět
         tj. pro RISC-V je $PC$ nastavena na hodnotu \textbf{mtvec}. Pro systémový režim \textbf{stvec}.
   \item Rutina čte zdroj ze stavového registru (RISC-V: \textbf{mcause} Registrovat)
  \end{itemize}
- \item Vektorové zpracování výjimek (na RISC-V se většinou nepoužíá)
+ \item Vektorové zpracování výjimek (na RISC-V se většinou nepoužívá)
  \begin{itemize}
-  \item Identifikace zdoje příčiny v příčiny/zdroj/číslá přerušení v hardware procesoru
-  \item Pole počáteční adres obslužných rutin je vypněno na pevné nebo přednastavené adrese
+  \item Identifikace zdroje příčiny v příčiny/zdroj/čísla přerušení v hardware procesoru
+  \item Pole počáteční adres obslužných rutin je vyplněno na pevné nebo přednastavené adrese
   (VBR -- bázový registr tabulky) v hlavní paměti
   \item CPU vypočítá index do tabulky na základě čísla zdroje
   \item CPU načte slovo z dané adresy do PC
@@ -666,7 +666,7 @@ ret_from_exception:
 handle_irq:                        # t0 mcause
     slli    t0, t0, 2              # shift out sign, left sources * 4
     # the t0 would be used to point into irq handlers table
-    # check only for UART RX interupt for simplicity 8
+    # check only for UART RX interrupt for simplicity 8
     addi    a0, zero, 16 * 4       # UART RX is the first platform irq
     beq     t0, a0, handle_uart_rx_irq # it is UART RX
     # mask out unknown sources
@@ -693,7 +693,7 @@ QtRVSim simulátor v RISC-V zatím podporu nemá, QtMips, v MIPS přerušení po
 \begin{frame}
 \frametitle{Přerušení k obsluze V/V v operačním systému}
 
-Když aplikace čeká na příchozí data nebo na prostor na odeslání dalších, tak je úloha pozastavena/čeká (procesor může obluhovat jinou úlohu).
+Když aplikace čeká na příchozí data nebo na prostor na odeslání dalších, tak je úloha pozastavena/čeká (procesor může obsluhovat jinou úlohu).
 Periferie po přijetí dat informuje procesor přerušením a ten dokončí přenos a uvolní původní úlohu pokračování
 
 \begin{center}
@@ -715,8 +715,8 @@ Zdroj: bootlin: Kernel, drivers and embedded Linux development \url{https://boot
  \item Procesor nastaví periferii a adresu do paměti odkud/kam mají být data přenesena
  \item Poté je spuštěný přenos a buď přímo periferie provádí přístupy do hlavní paměti
        a nebo přes požadavek žádá obecný řadič přímých přenosů (DMA controller)
- \item Klasických sdílených sběrnic je nutné zajistit, že pro každý datový prenos, cyklus
-       sběrnice dojde umolnění řízení sbernice centrálním prvkem, procesorem a volbu adresy
+ \item Klasických sdílených sběrnic je nutné zajistit, že pro každý datový přenos, cyklus
+       sběrnice dojde uvolnění řízení sběrnice centrálním prvkem, procesorem a volbu adresy
        a řízení přenosu dat provádí periferie případně obecný řadič
  \item Po přenesení nastaveného počtu bytů dojde k informaci procesoru o dokončení přenosu
        nebo o přípdané chybě mechanizmem vyvolání přerušení
@@ -752,20 +752,20 @@ Zdroj: bootlin: Kernel, drivers and embedded Linux development \url{https://boot
 
 \end{frame}
 
-\section{Konsekvence při použití skrytých pamětí, zpracovní mimo pořadí, více procesorů}
+\section{Konsekvence při použití skrytých pamětí, zpracování mimo pořadí, více procesorů}
 
 \begin{frame}
-\frametitle{Skryté paměti, více procesorů a nebo přístupy z periferí}
+\frametitle{Skryté paměti, více procesorů a nebo přístupy z periferií}
 
 \begin{itemize}
  \item Při přístupu k paměti mimo dané procesorové jádro je nutné počítat s tím, že data se mohou
        nacházet ve skrytých pamětech (cache) na různých úrovních paměťové hierarchie
  \item Přístup bez zneplatnění nebo obnovení povede k porušen podmínek paměťové koherence
- \item O tu se pro většinu víceprocesorových/jádorvých systémů minimálně mezi vlákny
+ \item O tu se pro většinu víceprocesorových/jádrových systémů minimálně mezi vlákny
        stará hardware procesoru
  \item Koherence s přenosy z periferií je na různých architekturách a jejich implementacích
        řešena různě, obecně platí, že operační systém má volat pro oblasti určené pro
-       pro příjem a vyslání dat před předáním periferii funkce, které se o synchornizaci
+       pro příjem a vyslání dat před předáním periferii funkce, které se o synchronizaci
        nebo zneplatnění oblasti ve skrytých pamětech, pokud je to potřeba postarají
 \end{itemize}
 \end{frame}
@@ -788,14 +788,22 @@ Zdroj: bootlin: Kernel, drivers and embedded Linux development \url{https://boot
 \frametitle{Vykonávání instrukcí mimo pořadí  a paměťové bariéry}
 
 \begin{itemize}
- \item Je tedy nutné definovat sekvenční body přes klteré se žádné nebo jen určité přístupy v čase
-       dopředu a dále nepřesouvají. K tomu slouží pro každý jazyk, běhové prostředí devinované
-       kontrukce a na úrvni procesoru pak specializované instrukce. Na MIPS například \textbf{sync}, na RISC-V \textbf{fence}
-       na x86 přetížené hitorické kontrukce. Pro x86 vyvolání bariéry z GCC
+ \item Je tedy nutné definovat sekvenční body přes které se žádné nebo jen určité přístupy v čase
+       dopředu a dále nepřesouvají. K tomu slouží pro každý jazyk, běhové prostředí definované
+       konstrukce a na úrovni procesoru pak specializované instrukce. Na MIPS například \textbf{sync}, na RISC-V \textbf{fence}
+       na x86 přetížené historické instrukce. Pro x86 vyvolání bariéry z GCC
 \end{itemize}
 
-\begin{minted}[fontsize=\footnotesize]{gas}
-(__asm__ volatile ("xchgl %0,%1" :"=r" (x) :"m" (y), "0" (x) :"memory");)
+\begin{minted}[fontsize=\footnotesize]{c}
+asm volatile("lock; addl $0,-4(%%esp)" ::: "memory", "cc")
+\end{minted}
+
+Na novějších verzích v rámci SSE2 i přímo \texttt{mfence}, \texttt{lfence} a \texttt{sfence}.
+
+Další základ pro sychronizaci je operace porovnat a prohodit (Anglicky: Compare and Swap). Na x86
+
+\begin{minted}[fontsize=\footnotesize]{c}
+__asm__ volatile ("xchgl %0,%1" :"=r" (x) :"m" (y), "0" (x) :"memory");
 \end{minted}
 \end{frame}
 
