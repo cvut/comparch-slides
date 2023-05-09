@@ -42,17 +42,17 @@ Základní vlastnosti:
 
 \begin{columns}[t,onlytextwidth]
 \begin{column}{0.48\textwidth}
-\textbf{8086} -- A16 F20 (1978) první IBM PC (8088 - 1979) \\
-\textbf{80286} -- A16 F24 (1982) protected mode\\
-\textbf{80386} -- A32 F32 (1985) stránkování\\
-\textbf{80486} -- A32 F32 (1989) pipelining, FPU, cache\\
-\textbf{80586} -- A32 F32 (1993) Pentium superscalar\\
+\textbf{8086} -- R16 A20 (1978) první IBM PC (8088 - 1979) \\
+\textbf{80286} -- R16 A24 (1982) protected mode\\
+\textbf{80386} -- R32 A32 (1985) stránkování\\
+\textbf{80486} -- R32 A32 (1989) pipelining, FPU, cache\\
+\textbf{80586} -- R32 A32 (1993) Pentium superscalar\\
 \end{column}
 \begin{column}{0.48\textwidth}  
-\textbf{80686} -- A32 F36 (1995) Pentium Pro PAE, L2 cache, out-of-order \& speculative exec\\
-\textbf{IA-64} -- A52 F52 (2001) Itanium 64-bitová verze\\
-\textbf{AMD64} -- A40 F40 (2003) Athlonn 64-bitová verze od AMD\\
-\textbf{Core2} -- A36 F36 (2006) Intel 64 EM64T, SSSE3, $\mu$op, virtualization
+\textbf{80686} -- R32 A36 (1995) Pentium Pro PAE, L2 cache, out-of-order \& speculative exec\\
+\textbf{IA-64} -- R64 A52 (2001) Itanium 64-bitová verze\\
+\textbf{AMD64} -- R64 A40 (2003) Athlonn 64-bitová verze od AMD\\
+\textbf{Core2} -- R64 A36 (2006) Intel 64 EM64T, SSSE3, $\mu$op, virtualization
 \end{column}
 \end{columns}
 
@@ -62,10 +62,8 @@ Základní vlastnosti:
 
 \end{frame}
 
-\section{Registry x86}
-
 \begin{frame}[shrink=1.2]
-\frametitle{Procesor -- x86/AMD64}
+\frametitle{Registry -- x86/AMD64}
 \small
 Uživatelské registry
 \begin{itemize}
@@ -104,7 +102,7 @@ O -- Overflow flag\\
 A -- Auxiliary flag (BCD)
 \end{column}
 \begin{column}{0.5\textwidth}  
-I -- Intterupt enable\\
+I -- Interrupt enable\\
 T -- Trap flag\\
 IOPL -- I/O privilege level\\
 Systémové příznaky:
@@ -167,6 +165,13 @@ hodnoty \$, hex 0x & číslo, hex postfix h\\
 &\\
 \texttt{movl \$0xff, \%ebx} & \texttt{mov ebx, 0ffh}\\
 \end{tabular}
+
+Pokud je zdroj menší než cíl, existují dvě verze:
+\begin{itemize}
+ \item movsX -- sign extension, na nejvyšší bity zopakuj znaménko
+ \item movzX -- zero extension, nejvyšší bity vynuluj
+\end{itemize}
+ 
 \end{frame}
 
 
@@ -207,7 +212,7 @@ Instrukce pro řetězce  - \texttt{REP} opakování pro pole hodnot
 \item \texttt{REPE/REPNE} opakování podle hodnoty \texttt{ecx} a podle porovnání
   \begin{itemize}
   \item operace \texttt{cmps} se navíc zastaví, pokud je/není rozdíl mezi \texttt{(edi)} a \texttt{(esi)} 
-  \item operace scas se navíc zastaví, pokud je/není rozdíl mezi \texttt{(edi)} a hodnotou v registru \texttt{eax} 
+  \item operace \texttt{scas} se navíc zastaví, pokud je/není rozdíl mezi \texttt{(edi)} a hodnotou v registru \texttt{eax} 
   \end{itemize}
 \end{itemize}
 
@@ -225,10 +230,10 @@ for (int i=0; i<128; i++) {
 \end{minted}
 přeloženo:
 \begin{minted}[fontsize=\footnotesize]{gas}
-mov   array, %edi  ; Nastav do edi ukazatel na zacatek pole
-mov   $128,  %ecx  ; Nastav pocet opakovani
-mov   $-1,   %eax  ; Nastav hodnotu pro ulozeni
-rep stosd          ; Vypln cele pole
+mov   array, %edi  ; Nastav do edi ukazatel na začátek pole
+mov   $128,  %ecx  ; Nastav počet opakování
+mov   $-1,   %eax  ; Nastav hodnotu pro uložení
+rep stosd          ; Vyplň celé pole
 \end{minted}
 \end{frame}
 
@@ -247,7 +252,7 @@ for (i=0; i<128; i++) {
 přeloženo:
 \begin{minted}[fontsize=\footnotesize]{gas}
 mov   str,  %edi  ; Nastav do EDI začátek pole
-mov   $128, %ecx  ; Nastav počet opakovani
+mov   $128, %ecx  ; Nastav počet opakování
 mov   $0,   %eax  ; Nastav hodnotu konce řetězce
 rep scasb         ; Projdi str a najdi hodnotu 0
 \end{minted}
@@ -269,10 +274,10 @@ operace co, k čemu &\\
 \texttt{andX} co , k čemu& bitový and\\
 \texttt{orX} co , k čemu& bitový or\\
 \texttt{xorX} co , k čemu& bitový xor (nejrychlejší vynulování registru)\\
-\texttt{mulX} čím & násobení čísel bez znamének\\
-\texttt{divX} čím & dělení čísel bez znamének\\
-\texttt{imulX} čím & násobení čísel se znaménky\\
-\texttt{idivX} čím & dělení čísel se znaménky\\
+\texttt{mulX} čím & násobení eax číslem bez znamének\\
+\texttt{divX} čím & dělení edx:eax číslem bez znamének\\
+\texttt{imulX} čím & násobení eax číslem se znaménky\\
+\texttt{idivX} čím & dělení edx:eax číslem se znaménky\\
 \end{tabular}
 \end{frame}
 
@@ -330,16 +335,16 @@ Liší se velikost programů pro CISC (x86) a RISC (RISC V)?
 \frametitle{Porovnání CISC vs. RISC}
 CISC programy jsou většinou kratší:
 \begin{minted}[fontsize=\footnotesize]{gas}
-incl 10(%ecx)      -      lw   t2, 10(t1)
-                          addi t2, t2, 1
-                          sw   t2, 10(t1)
+incl 10(%ecx)   -      lw   t2, 10(t1)
+                       addi t2, t2, 1
+                       sw   t2, 10(t1)
 
-rep movs           - l1:  lw   t3, 0(t1) 
-                          sw   t3, 0(t2)
-                          addi t1, t1, 4
-                          addi t2, t2, 4
-                          addi t4, t4, -1
-                          jne  t4, zero, l1 
+rep movs        - l1:  lw   t3, 0(t1) 
+                       sw   t3, 0(t2)
+                       addi t1, t1, 4
+                       addi t2, t2, 4
+                       addi t4, t4, -1
+                       jne  t4, zero, l1 
 \end{minted}
 
 \end{frame}
@@ -446,12 +451,12 @@ mov %edx, 12(sp)
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Volání funkce -- x86}
+\begin{frame}
+\frametitle{Volání funkce -- x86 cdecl}
 
 \begin{itemize}
 \item Volající uloží na zásobník všechny parametry
-\item Pořadí ukládání na zísobník je od posledního parametru k prvnímu
+\item Pořadí ukládání na zásobník je od posledního parametru k prvnímu
 \end{itemize}
 
 \bigskip
@@ -459,13 +464,16 @@ mov %edx, 12(sp)
 Volání funkce\\
 \begin{tabular}{ l l}
 \texttt{call adr} &         vlastně \texttt{push \%eip}, \texttt{jmp adr}\\
+\end{tabular}\\
+Návrat z funkce\\
+\begin{tabular}{ l l}
 \texttt{ret} &              vlastně \texttt{pop \%eip}\\
 \end{tabular}\\
 \bigskip
 
 \begin{itemize}
 \item Návratová hodnota funkce bude uložena v registru eax.
-\item Registr ebx nesmí funkce změnit. Pokud ho chce využít musí být uložena původní hodnota na zásobník.
+\item Registry ebp, ebx, esi, edi nesmí funkce změnit. Pokud je chce funkce využít musí být uložena původní hodnota na zásobník.
 \end{itemize}
 
 \end{frame}
@@ -499,6 +507,83 @@ Speciální instrukce pro návrat z funkce:
 mov   %ebp, %esp 
 pop   %ebp        
 \end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Volání funkce -- x86 -- příklad}
+
+\begin{columns}
+\begin{column}{0.35\textwidth}
+Volání funkce:
+
+\begin{minted}[fontsize=\footnotesize]{c}
+t = secti(1, 2, 3, 4);
+\end{minted}
+
+Překlad do x86
+\begin{minted}[fontsize=\footnotesize]{gas}
+push $4
+push $3
+push $2
+push $1
+call 10e2 <secti>
+add $0x10, %esp
+\end{minted}
+\end{column}
+
+
+\begin{column}{0.35\textwidth}  
+Začátek funkce
+\begin{minted}[fontsize=\footnotesize]{gas}
+push %ebp
+mov  %esp, %ebp
+push %ebx
+sub  $0x10, %esp
+\end{minted}
+
+Lokální proměnné
+\begin{minted}[fontsize=\footnotesize]{gas}
+mov %eax, -4(ebp)
+\end{minted}
+
+První a druhý parametr:
+\begin{minted}[fontsize=\footnotesize]{gas}
+mov 0x8(ebp), %edx
+mov 0xc(ebp), %eax
+\end{minted}
+
+Zakončení funkce:
+\begin{minted}[fontsize=\footnotesize]{gas}
+leave
+ret
+\end{minted}
+\end{column}
+
+\begin{column}{0.3\textwidth}  
+\includegraphics[width=0.95\textwidth]{fce_frame.pdf}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Volání funkce -- AMD64 Linux}
+
+\begin{itemize}
+\item Volající uloží do registrů rdi, rsi, rdx, rcx, r8, r9, zmm0-7 prvních 6 parametrů celočíselných, nebo 8 parametrů reálných čísel
+\item Ostatní parametry na zásobník
+\end{itemize}
+
+\bigskip
+
+\begin{itemize}
+\item Návratová hodnota funkce bude uložena v registru rax a rdx.
+\item Registry rbp, rbx, r12-r15 nesmí funkce změnit. Pokud je chce funkce využít musí být uložena původní hodnota na zásobník.
+\item Red Zone -- zóna 128 bajtů od pointeru rsp, kterou nesmí měnit obsluha přerušení. Tato zóna umožňuje využívat tuto paměť pro dočasné proměnné bez posunování rsp ukazatele.
+Samozřejmě volání funkce tuto zónu mění.
+\end{itemize}
 
 \end{frame}
 
@@ -556,10 +641,10 @@ int main() {
 
 Kde se bude nacházet proměnná i?
 \begin{itemize}
-\item[A] Pro RISC V i pro x86 na zásobníku
-\item[B] Pro RISC V dynamicky alokovaná, pro x86 na zásobníku
-\item[C] Pro RISC V i pro x86 na místě v paměti určeném při překladu
-\item[D] Pro RISC V i pro x86 nelze uričit
+\item[A] Pro RISC V i pro x86 na zásobníku.
+\item[B] Pro RISC V dynamicky alokovaná, pro x86 na zásobníku.
+\item[C] Pro RISC V i pro x86 na místě v paměti určeném při překladu.
+\item[D] Pro RISC V i pro x86 pouze v registru.
 \end{itemize}
 \end{frame}
 
@@ -597,10 +682,10 @@ int main() {
 
 Kde se bude nacházet proměnná y při překladu bez optimalizace?
 \begin{itemize}
-\item[A] Pro RISC V i pro x86 na zásobníku
+\item[A] Pro RISC V i pro x86 na zásobníku nebo v registru
 \item[B] Pro RISC V i pro x86 dynamicky alokovaná
 \item[C] Pro RISC V i pro x86 na místě v paměti určeném při překladu
-\item[D] Pro RISC V i pro x86 nelze uričit
+\item[D] Pro RISC V i pro x86 nelze určit
 \end{itemize}
 \end{frame}
 
@@ -738,14 +823,14 @@ Základní operace pro uložení celého čísla (integer) z/do registrů:
 \begin{itemize}
 \item fild - uloží celé číslo z paměti na zásobník registrů -- push
 \item fist - uloží celé číslo z registru do paměti bez pop
-\item fistp - uloží celé číclo z registru do paměti a udělá pop
-\item fisttp - uloží zaokrouhlené celé číclo z registru do paměti a udělá pop
+\item fistp - uloží celé číslo z registru do paměti a udělá pop
+\item fisttp - uloží zaokrouhlené celé číslo z registru do paměti a udělá pop
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Operace FPU}
-Práci základních operací si ukážeme na sčítání (ostatní oprace mají shodný tvar, ST(0) je vrchol zásobníku, ST(1) hodnota pod ním, atd.):
+Práci základních operací si ukážeme na sčítání (ostatní operace mají shodný tvar, ST(0) je vrchol zásobníku, ST(1) hodnota pod ním, atd.):
 \begin{itemize}
 \item fadd float/double - přičti obsah paměti k ST(0) a výsledek ulož do ST(0)
 \item fiadd short/int - přičti celé číslo z paměti k ST(0) a výsledek ulož do ST(0)

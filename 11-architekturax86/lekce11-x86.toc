@@ -1,7 +1,0 @@
-\babel@toc {czech}{}
-\beamer@sectionintoc {1}{Historie x86}{2}{0}{1}
-\beamer@sectionintoc {2}{Registry x86}{5}{0}{2}
-\beamer@sectionintoc {3}{Instrukce x86}{9}{0}{3}
-\beamer@sectionintoc {4}{FPU - x87}{31}{0}{4}
-\beamer@sectionintoc {5}{Rozšíření MMX}{38}{0}{5}
-\beamer@sectionintoc {6}{Rozšíření SSE}{44}{0}{6}

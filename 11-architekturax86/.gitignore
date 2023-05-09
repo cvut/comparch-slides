@@ -23,3 +23,10 @@
 /apo11_2021.pdf
 /anim
 /_minted*
+*log
+*synctex.gz
+*aux
+*nav
+*out
+*toc
+/fce_frame.pdf
