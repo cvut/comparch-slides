@@ -63,53 +63,57 @@
 \headcommand {\beamer@framepages {27}{27}}
 \headcommand {\slideentry {3}{0}{20}{28/28}{}{0}}
 \headcommand {\beamer@framepages {28}{28}}
-\headcommand {\beamer@sectionpages {9}{28}}
-\headcommand {\beamer@subsectionpages {9}{28}}
-\headcommand {\sectionentry {4}{FPU - x87}{29}{FPU - x87}{0}}
-\headcommand {\slideentry {4}{0}{1}{29/29}{}{0}}
+\headcommand {\slideentry {3}{0}{21}{29/29}{}{0}}
 \headcommand {\beamer@framepages {29}{29}}
-\headcommand {\slideentry {4}{0}{2}{30/30}{}{0}}
+\headcommand {\slideentry {3}{0}{22}{30/30}{}{0}}
 \headcommand {\beamer@framepages {30}{30}}
-\headcommand {\slideentry {4}{0}{3}{31/31}{}{0}}
+\headcommand {\beamer@sectionpages {9}{30}}
+\headcommand {\beamer@subsectionpages {9}{30}}
+\headcommand {\sectionentry {4}{FPU - x87}{31}{FPU - x87}{0}}
+\headcommand {\slideentry {4}{0}{1}{31/31}{}{0}}
 \headcommand {\beamer@framepages {31}{31}}
-\headcommand {\slideentry {4}{0}{4}{32/32}{}{0}}
+\headcommand {\slideentry {4}{0}{2}{32/32}{}{0}}
 \headcommand {\beamer@framepages {32}{32}}
-\headcommand {\slideentry {4}{0}{5}{33/33}{}{0}}
+\headcommand {\slideentry {4}{0}{3}{33/33}{}{0}}
 \headcommand {\beamer@framepages {33}{33}}
-\headcommand {\slideentry {4}{0}{6}{34/34}{}{0}}
+\headcommand {\slideentry {4}{0}{4}{34/34}{}{0}}
 \headcommand {\beamer@framepages {34}{34}}
-\headcommand {\slideentry {4}{0}{7}{35/35}{}{0}}
+\headcommand {\slideentry {4}{0}{5}{35/35}{}{0}}
 \headcommand {\beamer@framepages {35}{35}}
-\headcommand {\beamer@sectionpages {29}{35}}
-\headcommand {\beamer@subsectionpages {29}{35}}
-\headcommand {\sectionentry {5}{Rozšíření MMX}{36}{Rozšíření MMX}{0}}
-\headcommand {\slideentry {5}{0}{1}{36/36}{}{0}}
+\headcommand {\slideentry {4}{0}{6}{36/36}{}{0}}
 \headcommand {\beamer@framepages {36}{36}}
-\headcommand {\slideentry {5}{0}{2}{37/37}{}{0}}
+\headcommand {\slideentry {4}{0}{7}{37/37}{}{0}}
 \headcommand {\beamer@framepages {37}{37}}
-\headcommand {\slideentry {5}{0}{3}{38/38}{}{0}}
+\headcommand {\beamer@sectionpages {31}{37}}
+\headcommand {\beamer@subsectionpages {31}{37}}
+\headcommand {\sectionentry {5}{Rozšíření MMX}{38}{Rozšíření MMX}{0}}
+\headcommand {\slideentry {5}{0}{1}{38/38}{}{0}}
 \headcommand {\beamer@framepages {38}{38}}
-\headcommand {\slideentry {5}{0}{4}{39/39}{}{0}}
+\headcommand {\slideentry {5}{0}{2}{39/39}{}{0}}
 \headcommand {\beamer@framepages {39}{39}}
-\headcommand {\slideentry {5}{0}{5}{40/40}{}{0}}
+\headcommand {\slideentry {5}{0}{3}{40/40}{}{0}}
 \headcommand {\beamer@framepages {40}{40}}
-\headcommand {\slideentry {5}{0}{6}{41/41}{}{0}}
+\headcommand {\slideentry {5}{0}{4}{41/41}{}{0}}
 \headcommand {\beamer@framepages {41}{41}}
-\headcommand {\beamer@sectionpages {36}{41}}
-\headcommand {\beamer@subsectionpages {36}{41}}
-\headcommand {\sectionentry {6}{Rozšíření SSE}{42}{Rozšíření SSE}{0}}
-\headcommand {\slideentry {6}{0}{1}{42/42}{}{0}}
+\headcommand {\slideentry {5}{0}{5}{42/42}{}{0}}
 \headcommand {\beamer@framepages {42}{42}}
-\headcommand {\slideentry {6}{0}{2}{43/43}{}{0}}
+\headcommand {\slideentry {5}{0}{6}{43/43}{}{0}}
 \headcommand {\beamer@framepages {43}{43}}
-\headcommand {\slideentry {6}{0}{3}{44/44}{}{0}}
+\headcommand {\beamer@sectionpages {38}{43}}
+\headcommand {\beamer@subsectionpages {38}{43}}
+\headcommand {\sectionentry {6}{Rozšíření SSE}{44}{Rozšíření SSE}{0}}
+\headcommand {\slideentry {6}{0}{1}{44/44}{}{0}}
 \headcommand {\beamer@framepages {44}{44}}
-\headcommand {\slideentry {6}{0}{4}{45/45}{}{0}}
+\headcommand {\slideentry {6}{0}{2}{45/45}{}{0}}
 \headcommand {\beamer@framepages {45}{45}}
-\headcommand {\slideentry {6}{0}{5}{46/46}{}{0}}
+\headcommand {\slideentry {6}{0}{3}{46/46}{}{0}}
 \headcommand {\beamer@framepages {46}{46}}
-\headcommand {\beamer@partpages {1}{46}}
-\headcommand {\beamer@subsectionpages {42}{46}}
-\headcommand {\beamer@sectionpages {42}{46}}
-\headcommand {\beamer@documentpages {46}}
-\headcommand {\gdef \inserttotalframenumber {46}}
+\headcommand {\slideentry {6}{0}{4}{47/47}{}{0}}
+\headcommand {\beamer@framepages {47}{47}}
+\headcommand {\slideentry {6}{0}{5}{48/48}{}{0}}
+\headcommand {\beamer@framepages {48}{48}}
+\headcommand {\beamer@partpages {1}{48}}
+\headcommand {\beamer@subsectionpages {44}{48}}
+\headcommand {\beamer@sectionpages {44}{48}}
+\headcommand {\beamer@documentpages {48}}
+\headcommand {\gdef \inserttotalframenumber {48}}

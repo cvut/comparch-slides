@@ -217,35 +217,40 @@ Instrukce pro řetězce  - \texttt{REP} opakování pro pole hodnot
 \begin{frame}[fragile]
 \frametitle{Instrukce opakování – x86/AMD64}
 Příklad nastav pole na hodnotu -1:
-\begin{lstlisting}[language={C},columns=flexible]
+\begin{minted}[fontsize=\footnotesize]{c}
 int array[128];
-for (int i=0; i<128; i++) {array[i]=-1;}
-\end{lstlisting}
+for (int i=0; i<128; i++) {
+  array[i]=-1;
+}
+\end{minted}
 přeloženo:
-\begin{lstlisting}[language={[x86masm]Assembler},columns=flexible]
+\begin{minted}[fontsize=\footnotesize]{gas}
 mov   array, %edi  ; Nastav do edi ukazatel na zacatek pole
 mov   $128,  %ecx  ; Nastav pocet opakovani
 mov   $-1,   %eax  ; Nastav hodnotu pro ulozeni
 rep stosd          ; Vypln cele pole
-\end{lstlisting}
+\end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Instrukce opakování – x86/AMD64}
 
 Najdi konec řetězce:
-\begin{lstlisting}[language={C},columns=flexible]
+\begin{minted}[fontsize=\footnotesize]{c}
 char str[128];
 int i;
-for (i=0; i<128; i++) {if (str[i]==0) break;}
-\end{lstlisting}
+for (i=0; i<128; i++) {
+  if (str[i]==0) 
+    break;
+}
+\end{minted}
 přeloženo:
-\begin{lstlisting}[language={[x86masm]Assembler},columns=flexible]
-mov   str,  %edi  ; Nastav do EDI zacattek pole
-mov   $128, %ecx  ; Nastav pocet opakovani
-mov   $0,   %eax  ; Nastav hodnotu konce retezce
-rep scasb         ; Projdi str a najdi 0 hodnotu
-\end{lstlisting}
+\begin{minted}[fontsize=\footnotesize]{gas}
+mov   str,  %edi  ; Nastav do EDI začátek pole
+mov   $128, %ecx  ; Nastav počet opakovani
+mov   $0,   %eax  ; Nastav hodnotu konce řetězce
+rep scasb         ; Projdi str a najdi hodnotu 0
+\end{minted}
 
 \end{frame}
 
@@ -254,19 +259,20 @@ rep scasb         ; Projdi str a najdi 0 hodnotu
 \begin{frame}
 \frametitle{Instrukce – x86/AMD64}
 Aritmetika -- AT\&T syntax
+
+následující instrukce mají argumenty typu X -- b, w, l, q
 \begin{tabular}{ l l}
 operace co, k čemu &\\
 \texttt{addq    \$0x05,\%rax} & rax = rax + 5\\
 \texttt{subl    -4(\%ebp), \%eax} &  eax = eax -- mem(ebp-4)\\
 \texttt{subl    \%eax, -4(\%ebp)} & mem(ebp-4) = mem(ebp-4)-eax\\
-\multicolumn{2}{l}{následující instrukce mají argumenty typu X -- b, w, l, q}\\
-\texttt{andX} & bitový and\\
-\texttt{orX} & bitový or\\
-\texttt{xorX} & bitový xor (nejrychlejší vynulování registru)\\
-\texttt{mulX} & násobení čísel bez znamének\\
-\texttt{divX} & dělení čísel bez znamének\\
-\texttt{imulX} & násobení čísel se znaménky\\
-\texttt{idivX} & dělení čísel se znaménky\\
+\texttt{andX} co , k čemu& bitový and\\
+\texttt{orX} co , k čemu& bitový or\\
+\texttt{xorX} co , k čemu& bitový xor (nejrychlejší vynulování registru)\\
+\texttt{mulX} čím & násobení čísel bez znamének\\
+\texttt{divX} čím & dělení čísel bez znamének\\
+\texttt{imulX} čím & násobení čísel se znaménky\\
+\texttt{idivX} čím & dělení čísel se znaménky\\
 \end{tabular}
 \end{frame}
 
@@ -280,8 +286,8 @@ operace   s cim&\\
 \texttt{shlb            \$3, \%al} &                al = al$<<$3\\
 \texttt{shrb            \$1, \%bl} &                bl=11000000, po bl=01100000\\
 \texttt{sarb            \$1, \%bl} &                bl=11000000, po bl=11100000\\
-\texttt{rorx, rolx} & bitová rotace doprava a doleva\\
-\texttt{rcrx, rcl} & bitova rotace – pres C -- carry flag\\
+\texttt{rorX, rolX} & bitová rotace doprava a doleva\\
+\texttt{rcrX, rclX} & bitova rotace přes C -- carry flag\\
 \end{tabular}
 \end{frame}
 
@@ -322,25 +328,25 @@ Liší se velikost programů pro CISC (x86) a RISC (RISC V)?
 
 \begin{frame}[fragile]
 \frametitle{Porovnání CISC vs. RISC}
-CISC programy jsou kratší:
-\begin{lstlisting}[language={[x86masm]Assembler},columns=flexible]
-incl 10(%ecx)      =      lw   t2, 10(t1)
+CISC programy jsou většinou kratší:
+\begin{minted}[fontsize=\footnotesize]{gas}
+incl 10(%ecx)      -      lw   t2, 10(t1)
                           addi t2, t2, 1
                           sw   t2, 10(t1)
 
-rep movs           = l1:  lw   t3, 0(t1) 
+rep movs           - l1:  lw   t3, 0(t1) 
                           sw   t3, 0(t2)
                           addi t1, t1, 4
                           addi t2, t2, 4
                           addi t4, t4, -1
                           jne  t4, zero, l1 
-\end{lstlisting}
+\end{minted}
 
 \end{frame}
 
 \begin{frame}
 \frametitle{Quiz}
-Jsou prgramy pro CISC (x86) rychlejší než pro RISC (RISC V)?
+Jsou programy pro CISC (x86) rychlejší než pro RISC (RISC V)?
 \begin{itemize}
 \item[A] Ano 
 \item[B] Ne
@@ -356,19 +362,12 @@ Jsou prgramy pro CISC (x86) rychlejší než pro RISC (RISC V)?
 
 \begin{columns}
 \begin{column}{0.45\textwidth}
+\small
 Zásobník:
 \begin{itemize}
-\item obecná struktura LIFO
-\item operace push vloží data do zásobníku
-\item operace pop vybere data ze zásobníku
+\item datová struktura LIFO
 \end{itemize}
-\begin{center}
-   \includegraphics[width=0.5\textwidth]{stack.pdf}
-\end{center}
 
-\end{column}
-
-\begin{column}{0.55\textwidth}  
 Implemetace:
 \begin{itemize}
 \item implementace registrem \textit{SP} - ukazuje na vrchol zásobníku
@@ -384,8 +383,144 @@ Implemetace:
                      &  uživatelské registry\\
 \end{tabular}
 \end{column}
+
+\begin{column}{0.55\textwidth}  
+\small
+\begin{itemize}
+\item operace push vloží data do zásobníku
+\begin{itemize}
+\item \texttt{sub \$size, sp}
+\item \texttt{mov \%eax, 0(sp)}
+\end{itemize}
+\item operace pop vybere data ze zásobníku
+\begin{itemize}
+\item \texttt{mov 0(sp), \%eax}
+\item \texttt{add \$size, sp}
+\end{itemize}
+\item lze k zásobníku přistupovat podobně, jako v RISC-V:
+\begin{itemize}
+\item \texttt{sub \$16, sp}
+\item \texttt{mov \%eax, 0(sp)}
+\item \texttt{mov \%ebx, 4(sp)}
+\item \texttt{mov \%ecx, 8(sp)}
+\item \texttt{mov \%edx, 12(sp)}
+\end{itemize}
+\end{itemize}
+\end{column}
 \end{columns}
 \end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Kvíz}
+
+Který program provede superskalární architektura rychleji:
+\begin{columns}
+\begin{column}{0.45\textwidth}
+A
+\begin{minted}[fontsize=\footnotesize]{gas}
+push %eax
+push %ebx
+push %ecx
+push %edx
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}  
+B
+\begin{minted}[fontsize=\footnotesize]{gas}
+sub $16, sp
+mov %eax, 0(sp)
+mov %ebx, 4(sp)
+mov %ecx, 8(sp)
+mov %edx, 12(sp)
+\end{minted}
+\end{column}
+\end{columns}
+
+\begin{itemize}
+\item[A] Oba přibližně stejně
+\item[B] A rychleji než B
+\item[C] B rychleji než A
+\item[D] Nelze určit
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Volání funkce -- x86}
+
+\begin{itemize}
+\item Volající uloží na zásobník všechny parametry
+\item Pořadí ukládání na zísobník je od posledního parametru k prvnímu
+\end{itemize}
+
+\bigskip
+
+Volání funkce\\
+\begin{tabular}{ l l}
+\texttt{call adr} &         vlastně \texttt{push \%eip}, \texttt{jmp adr}\\
+\texttt{ret} &              vlastně \texttt{pop \%eip}\\
+\end{tabular}\\
+\bigskip
+
+\begin{itemize}
+\item Návratová hodnota funkce bude uložena v registru eax.
+\item Registr ebx nesmí funkce změnit. Pokud ho chce využít musí být uložena původní hodnota na zásobník.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Volání funkce -- x86 -- rámec funkce}
+Registr ebp ukazuje na zásobník, kam byla uložena stará hodnota rámce předchozí funkce\\
+\bigskip
+Úvod funkce – příklad implementace
+\begin{minted}[fontsize=\footnotesize]{gas}
+push  %ebp        ; Uložíme hodnotu EBP do zasobníku
+mov   %esp, %ebp  ; Nastav EBP na současnou hodnotu zasobníku
+sub   $12, %esp   ; Připrav místo na zasobníku pro 12 bajtů
+                  ; lokálních proměnných
+\end{minted}
+
+První proměnná bude na adrese \texttt{-4(\%ebp)}, druha \texttt{-8(\%ebp)}\\
+První parametr bude na adrese \texttt{8(\%ebp)}, další \texttt{12(\%ebp)}
+
+Ukončení funkce:
+\begin{minted}[fontsize=\footnotesize]{gas}
+mov   %ebp, %esp  ; Vrať stav zásobníku na původní pozici.
+pop   %ebp        ; Obnov puvodní hodnotu registru EBP
+ret               ; Návrat z funkce
+\end{minted}
+
+Speciální instrukce pro návrat z funkce:
+\texttt{leave} vlastně: 
+\begin{minted}[fontsize=\footnotesize]{gas}
+mov   %ebp, %esp 
+pop   %ebp        
+\end{minted}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Funkce zásobníku}
+
+Zásobník:
+\begin{itemize}
+  \item parametry pro funkci
+  \item kam se vrátit po ukončení funkce, místo odkud program volal funkci
+  \item lokální proměnné funkce
+  \begin{itemize}
+    \item zásobník je vetšinou malý
+    \item omezená velikost lokálních proměnných
+    \item pozor při rekurzi - lépe se rekurzi vyhnout
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
 
 
 \begin{frame}[fragile]
@@ -551,49 +686,6 @@ Kde se bude nacházet návratová adresa z funkce factorial?
 \end{itemize}
 \end{frame}
 
-
-\begin{frame}
-\frametitle{Funkce zásobníku}
-
-Zásobník:
-\begin{itemize}
-  \item parametry pro funkci
-  \item kam se vrátit po ukončení funkce, místo odkud program volal funkci
-  \item lokální proměnné funkce
-  \begin{itemize}
-    \item zásobník je vetšinou malý
-    \item omezená velikost lokálních proměnných
-    \item pozor při rekurzi - lépe se rekurzi vyhnout
-  \end{itemize}
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Instrukce – x86/AMD64}
-Volání funkce\\
-\begin{tabular}{ l l}
-\texttt{call adr} &         vlastně \texttt{push \%eip}, \texttt{jmp adr}\\
-\texttt{ret} &              vlastně \texttt{pop \%eip}\\
-\texttt{leave} &            vlastně \texttt{mov \%ebp, \%esp} a \texttt{pop \%ebp}\\
-\end{tabular}\\
-\bigskip
-Lokální proměnné ve funkci – příklad implementace
-\begin{lstlisting}[language={[x86masm]Assembler},columns=flexible]
-push  %ebp        ; Ulozime hodnotu EBP do zasobniku
-mov   %esp, %ebp  ; Zkopirujeme hodnotu registru ESP to EBP
-sub   $12, %esp   ; Snizime ukazatel zasobniku o 3x4 bajty
-\end{lstlisting}
-První proměnná bude na adrese \texttt{-4(\%ebp)}, druha \texttt{-8(\%ebp)}\\
-První parametr bude na adrese \texttt{8(\%ebp)}, další \texttt{12(\%ebp)}
-
-\begin{lstlisting}[language={[x86masm]Assembler},columns=flexible]
-mov   %ebp, %esp  ; Vratime ukazatel zpet na puvodni pozici.
-pop   %ebp        ; Obnovime puvodni hodnotu registru EBP
-ret               ; Navrat z funkce
-\end{lstlisting}
-\end{frame}
 
 
 \begin{frame}

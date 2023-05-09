@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.9.13)  16 DEC 2022 12:27
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.1.10)  7 MAY 2023 16:38
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1502,21 +1502,52 @@ Overfull \hbox (15.13206pt too wide) in paragraph at lines 190--190
 \openout4 = `lekce11-x86.vrb'.
 
  (./lekce11-x86.vrb
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2019/09/10 1.8c listings language file
+\openout5 = `lekce11-x86.pyg'.
+
+ (./_minted-lekce11-x86/default-pyg-prefix.pygstyle) (./_minted-lekce11-x86/def
+ault.pygstyle)
+runsystem(pygmentize -l c -f latex -P commandprefix=PYG -F tokenmerge -o _minte
+d-lekce11-x86/C9D40EBE1148659DC362B795D0CE7D084E57525354F0E7586C5D58223859F8A5.
+pygtex lekce11-x86.pyg)...executed.
+
+
+(./_minted-lekce11-x86/C9D40EBE1148659DC362B795D0CE7D084E57525354F0E7586C5D5822
+3859F8A5.pygtex
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <9> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 2.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2019/09/10 1.8c listings language file
-)
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang3.sty
-File: lstlang3.sty 2019/09/10 1.8c listings language file
-)) [13
+\openout5 = `lekce11-x86.pyg'.
+
+runsystem(pygmentize -l gas -f latex -P commandprefix=PYG -F tokenmerge -o _min
+ted-lekce11-x86/2319C6549D36CA82D7C30FCC8FF5153E9C0B5406D45CD39075ADF8A2E5350C3
+8.pygtex lekce11-x86.pyg)...executed.
+
+
+(./_minted-lekce11-x86/2319C6549D36CA82D7C30FCC8FF5153E9C0B5406D45CD39075ADF8A2
+E5350C38.pygtex)) [13
 
 ]
 \openout4 = `lekce11-x86.vrb'.
 
+ (./lekce11-x86.vrb
+\openout5 = `lekce11-x86.pyg'.
 
-(./lekce11-x86.vrb) [14
+runsystem(pygmentize -l c -f latex -P commandprefix=PYG -F tokenmerge -o _minte
+d-lekce11-x86/C38FF0AFBFB1856674F24F9AF0DD3A5D4E57525354F0E7586C5D58223859F8A5.
+pygtex lekce11-x86.pyg)...executed.
+
+
+(./_minted-lekce11-x86/C38FF0AFBFB1856674F24F9AF0DD3A5D4E57525354F0E7586C5D5822
+3859F8A5.pygtex)
+\openout5 = `lekce11-x86.pyg'.
+
+runsystem(pygmentize -l gas -f latex -P commandprefix=PYG -F tokenmerge -o _min
+ted-lekce11-x86/B0562ED48384040E71BB42425AC9B1819C0B5406D45CD39075ADF8A2E5350C3
+8.pygtex lekce11-x86.pyg)...executed.
+
+
+(./_minted-lekce11-x86/B0562ED48384040E71BB42425AC9B1819C0B5406D45CD39075ADF8A2
+E5350C38.pygtex)) [14
 
 ] [15
 
@@ -1529,91 +1560,145 @@ File: lstlang3.sty 2019/09/10 1.8c listings language file
 ]
 \openout4 = `lekce11-x86.vrb'.
 
- (./lekce11-x86.vrb) [19
+ (./lekce11-x86.vrb
+\openout5 = `lekce11-x86.pyg'.
+
+
+(./_minted-lekce11-x86/215CC35F2A62AF8C99390C1A0AB7E5D89C0B5406D45CD39075ADF8A2
+E5350C38.pygtex)) [19
 
 ] [20
 
 ]
-File: stack.pdf Graphic file (type pdf)
-<use stack.pdf>
+Overfull \hbox (8.81815pt too wide) in paragraph at lines 411--411
+[]  
+ []
+
+
+Overfull \vbox (5.04466pt too high) detected at line 411
+ []
 
 [21
 
 ]
 \openout4 = `lekce11-x86.vrb'.
 
+ (./lekce11-x86.vrb
+\openout5 = `lekce11-x86.pyg'.
+
+
+(./_minted-lekce11-x86/FA49558954F47D9EBC5258ABE2AC1B5F9C0B5406D45CD39075ADF8A2
+E5350C38.pygtex)
+\openout5 = `lekce11-x86.pyg'.
+
+
+(./_minted-lekce11-x86/DF25E3338B3453D2BFFE3AB7AD3E69849C0B5406D45CD39075ADF8A2
+E5350C38.pygtex)) [22
+
+]
+\openout4 = `lekce11-x86.vrb'.
+
+ (./lekce11-x86.vrb) [23
+
+]
+\openout4 = `lekce11-x86.vrb'.
+
+ (./lekce11-x86.vrb
+\openout5 = `lekce11-x86.pyg'.
+
+
+(./_minted-lekce11-x86/C082514E4CD814655BDF28E6D25FB3AE9C0B5406D45CD39075ADF8A2
+E5350C38.pygtex)
+\openout5 = `lekce11-x86.pyg'.
+
+
+(./_minted-lekce11-x86/465B83ABBC184E86ABBEE17ADD2EFFA39C0B5406D45CD39075ADF8A2
+E5350C38.pygtex)
+\openout5 = `lekce11-x86.pyg'.
+
+
+(./_minted-lekce11-x86/3DAB1FA0CAF0310A625EFA2F7F5EA82B9C0B5406D45CD39075ADF8A2
+E5350C38.pygtex)) [24
+
+] [25
+
+]
+\openout4 = `lekce11-x86.vrb'.
+
  (./lekce11-x86.vrb)
-Overfull \vbox (1.91093pt too high) detected at line 429
+Overfull \vbox (5.6345pt too high) detected at line 564
  []
 
-[22
+[26
 
 ]
 \openout4 = `lekce11-x86.vrb'.
 
  (./lekce11-x86.vrb)
-Overfull \vbox (1.91093pt too high) detected at line 470
+Overfull \vbox (5.6345pt too high) detected at line 605
  []
 
-[23
+[27
 
 ]
 \openout4 = `lekce11-x86.vrb'.
 
  (./lekce11-x86.vrb)
 
-Class beamer Warning: Frame text is shrunk by a factor of 13.17444 percent inst
-ead of 10 percent on input line 511.
+Class beamer Warning: Frame text is shrunk by a factor of 14.64691 percent inst
+ead of 10 percent on input line 646.
 
-[24
+[28
 
 ]
 \openout4 = `lekce11-x86.vrb'.
 
  (./lekce11-x86.vrb)
 
-Class beamer Warning: Frame text is shrunk by a factor of 13.17444 percent inst
-ead of 10 percent on input line 552.
+Class beamer Warning: Frame text is shrunk by a factor of 14.64691 percent inst
+ead of 10 percent on input line 687.
 
-[25
-
-] [26
-
-]
-\openout4 = `lekce11-x86.vrb'.
-
- (./lekce11-x86.vrb) [27
-
-] [28
-
-] (./lekce11-x86.toc) [29
+[29
 
 ] [30
 
-] [31
+] (./lekce11-x86.toc) [31
 
-]
-[32
+] [32
 
 ] [33
+
+] [34
+
+] [35
 
 ]
 \openout4 = `lekce11-x86.vrb'.
 
- (./lekce11-x86.vrb) [34
-
-] [35
-
-] (./lekce11-x86.toc) [36
+ (./lekce11-x86.vrb
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2019/09/10 1.8c listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2019/09/10 1.8c listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2019/09/10 1.8c listings language file
+)) [36
 
 ] [37
+
+]
+(./lekce11-x86.toc) [38
+
+] [39
 
 ]
 File: mmx-add.pdf Graphic file (type pdf)
 <use mmx-add.pdf>
 File: mmx-add-sat.pdf Graphic file (type pdf)
 <use mmx-add-sat.pdf>
- [38
+ [40
 
 ]
 File: mmx-mul-add.pdf Graphic file (type pdf)
@@ -1622,31 +1707,30 @@ File: mmx-mull.pdf Graphic file (type pdf)
 <use mmx-mull.pdf>
 File: mmx-mulh.pdf Graphic file (type pdf)
 <use mmx-mulh.pdf>
-
-[39
+ [41
 
 ]
 \openout4 = `lekce11-x86.vrb'.
 
- (./lekce11-x86.vrb) [40
-
-] [41
-
-] (./lekce11-x86.toc) [42
+ (./lekce11-x86.vrb) [42
 
 ] [43
 
-] [44
+]
+(./lekce11-x86.toc) [44
+
+] [45
+
+] [46
 
 ]
 File: sse.pdf Graphic file (type pdf)
 <use sse.pdf>
 File: sse-s.pdf Graphic file (type pdf)
 <use sse-s.pdf>
- [45
+ [47
 
-]
-[46
+] [48
 
 ]
 \tf@nav=\write9
@@ -1658,21 +1742,30 @@ File: sse-s.pdf Graphic file (type pdf)
 \tf@snm=\write11
 \openout11 = `lekce11-x86.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 918.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 918.
+runsystem(rm _minted-lekce11-x86/FAA7422CD55F05C80E96053E97228D124E57525354F0E7
+586C5D58223859F8A5.pygtex)...executed.
+
+runsystem(rm _minted-lekce11-x86/192ACB6660FA4629899FF45A1C9493E09C0B5406D45CD3
+9075ADF8A2E5350C38.pygtex)...executed.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1010.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1010.
  (./lekce11-x86.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 918.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 918.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1010.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1010.
+
 Package rerunfilecheck Info: File `lekce11-x86.out' has not changed.
 (rerunfilecheck)             Checksum: 9BFFC396DF0B8F44DAC116B4F0500A47;305.
+runsystem(rm lekce11-x86.pyg)...executed.
+
  ) 
 Here is how much of TeX's memory you used:
- 35739 strings out of 479819
- 695825 string characters out of 5895846
- 1169933 words of memory out of 5000000
- 52076 multiletter control sequences out of 15000+600000
- 541980 words of font info for 81 fonts, out of 8000000 for 9000
+ 36007 strings out of 479819
+ 704791 string characters out of 5895846
+ 1176487 words of memory out of 5000000
+ 52295 multiletter control sequences out of 15000+600000
+ 542004 words of font info for 84 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 58i,15n,82p,802b,1504s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 58i,15n,82p,802b,1493s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on lekce11-x86.pdf (46 pages).
+Output written on lekce11-x86.pdf (48 pages).
