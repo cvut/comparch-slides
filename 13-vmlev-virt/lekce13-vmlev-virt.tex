@@ -1,0 +1,206 @@
+\documentclass{beamer}
+%[aspectratio=169]   \usepackage[czech]{babel}
+\usepackage{apo-lecture}
+\usepackage{pdfpages}
+\usepackage{pdfcomment}
+\usepackage{listings}
+\usepackage{array,multirow}
+\usepackage{environ}
+
+\subtitle{Lekce 13. Vituální stroje a virtualizace}
+\author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
+
+\begin{document}
+
+\maketitle
+
+\section{Mnohaúrovňová organizace počítače}
+
+\begin{frame}
+\frametitle{Cíl dnešní přednášky}
+
+\begin{itemize}
+ \item Mnohaúrovňová organizace počítače
+ \item Virtualizace
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mnohaúrovňová organizace počítače}
+
+\begin{itemize}
+ \item Strojový jazyk počítače
+ \begin{itemize}
+  \item množina jednotlivých instrukcí
+  \item úroveň L1 -- abeceda {0,1}
+  \item do ní je potřeba převést program pro vykonání
+  \item pro návrh aplikace člověkem i generátorem vhodnější jazyky vyšší úrovně L2 + další
+ \end{itemize}
+ \item Vykonání programu v L2 na stroji jenž poskytuje L1
+ \begin{itemize}
+  \item Kompilace -- instrukce v L2 se nahradí posloupností instrukcí v L1
+  \item Interpretace -- program v L1 zpracovává program v L2 jako data (pomalejší)
+ \end{itemize}
+ \item Vývoj víceúrovňvého stroje
+ \begin{itemize}
+  \item první počítače -- běžná strojová úroveň - 1.úr.
+  \item 50-tá léta -- Wilkes -- mikroprogram. - 2.úr.
+  \item 60-tá léta -- operační systémy - 3.úr.
+  \item překladače, program. jazyky - 4.úr.
+  \item uživatelské aplikační programy - 5.úr.
+  \item problémově orientované jazyky a prostředí
+ \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Virtuální počítač}
+
+Technické prostředky (HW) a programoví vybavení (SW) jsou logicky ekvivalentní (lze je navzájem nahradit) souboj a splývání  RISC a CISC procesorů
+\vspace{0.2cm}
+Na úrovni $i$ zavádíme virtuální počítač $M_i$ s jazykem $L_i$.
+Program v $L_i$ je překládán nebo interpretován počítačem $M_{i-1}$ atd.
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{mutilevel-machine-cz.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{title}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{mutilevel-mcode-to-highlev-cz.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Procesy a jejich stavy}
+
+\begin{description}
+ \item[proces] probíhající program (program -- pasivní, proces -- aktivní)
+ \item[stav procesu] informace, které při zastavení procesu umožní jeho znovuspuštění
+ \begin{enumerate}
+  \item program
+  \item násled. instrukce
+  \item hodnoty proměnných a data
+  \item stavy a polohy všech V/V (pozice v otevřených souborech atd..)
+  \item rozložení/obsazení adresního prostoru (paměťový kontext)
+ \end{enumerate}
+ \item[předpoklad] proces P sám nemění svůj program, pokud ano, tak jsou změněné části součástí stavu, dat
+ \item[stavový vektor] proměnné složky stavu procesu -- mění je program, OS nebo HW
+   $$PROCES = PROGRAM + STAVOVÝ \medskip  VEKTOR$$
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Konvenční strojová úroveň (ISA) (M2)}
+
+Definovaná Instrukční sadou (často označovaná architektura procesoru) ISA -- Instruction Set Architecture $\times$ Mikroarchitektura (Implementece v M1 nebo přímo v logickém návrhu procesoru)
+
+\begin{itemize}
+ \item struktura počítače, procesoru, V/V kanálů, sběrnic, organizce a přístupy k paměti, organizace registrů a další
+ \item instrukční soubor, formát dat a uložení v pamšti, adresování, záspisníková paměť (registry) 
+\end{itemize}
+
+Instrukční formát
+
+\begin{itemize}
+ \item skládá se z polí uložených v jednom nebo více po sobě jdoucí slovech
+ \item operační znak (opcode)
+ \item přímé operady (immediate), kosntanty vložené do instrukce
+ \item adresové části mohou být adresami do paměti nebo odkazy, čísla registrů a ty použity buď přímo nebo jako adresy do paměti (nepřímá adresace)
+\end{itemize}
+
+\end{frame}
+
+\section{Virtualizace}
+
+\begin{frame}
+\frametitle{Virtualizace}
+
+\begin{itemize}
+ \item Virtualizace skrývá implementaci/vlastnosti nižších vrstev (reality) a předkládá prostředí s požadovanými vlastnostmi
+ \item V počítačové technice rozdělujeme virtualizaci na
+ \begin{itemize}
+  \item Čistě aplikační/na úrovni jazyků a kompilovaného kódu (byte-kód) – virtuální stroje, např. JVM, dotNET
+  \item Emulace a simulace typicky jiné počítačové architektury (také zvaná křížová virtualizace)
+  \item Nativní virtualizace – izolované prostředí poskytující shodný typ architektury pro nemodifikovaný OS
+  \item Virtualizace s plnou podporou přímo v HW
+  \item Částečná virtualizace -- typicky jen adresní prostory
+  \item Paravirtualizace -- systém musí být pro běh v nabízeném prostředí upraven
+  \item Virtualizace na úrovni OS -- pouze oddělená uživ. prostředí (kontejnery)
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Virtualizace na úrovni operačního systému a aplikací}
+
+\begin{itemize}
+ \item I vlákna lze brát jako virtualizaci stavu procesoru a procesy jako virtualizaci celého ptrostředí včetně oddělení paměti
+ \item Virtuální stroje a interpretery v rámci aplikací (prohlížeč, Python v LibreOffice, atd.)
+ \begin{itemize}
+  \item přímá interpretace v textové pdobě málo častá, většinou překlad do binární repreznetace (bytecode) a z té často i do nativního kódu (JVM)
+ \end{itemize}
+ \item Konterjnery
+ \begin{itemize}
+  \item chroot -- samostatný pohled na adresářovou strukturu (Mount -- mnt)
+  \item LXC (Linux Containers) -- odělitelnost různých jmenných prostorů jádra (namespace) a prioritizace prstředků (cgroups)
+  \begin{itemize}
+   \item Mount (mnt), Process ID (pid), Network (net), Inter-process Communication (ipc), UTS (host+domain), User ID (user), Control group (cgroup) Namespace, Time Namespace
+  \end{itemize}
+  \item Docker -- většinou nad LXC
+  \item systemd-nspawn
+  \item Solaris Containers (Zones)
+  \item FreeBSD jail
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Virtualizace na úrovni celého stroje}
+
+\begin{itemize}
+ \item Hostitelský počítač (Host, Domain DOM 0)
+ \item Hostovaný systém (Guest)
+ \item Procesor pro hostovaný systém
+ \begin{itemize}
+  \item pro nativní případ běžný kód/neprivilegované instrukce zpracovány přímo CPU
+  \item pro křížový případ interpretace instrukcí emulátorem (program v DOM 0), případně akcelerace
+ \end{itemize}
+ \item Privilegované instrukce v hostovaném systému
+ \begin{itemize}
+  \item způsobí výjimky, které obslouží monitor/hypervizor tak, že je odemuluje
+  \item CPU má podporu pro HW virtualizaci (AMD-V, Intel VT-x), stínové stránkovací tabulky
+ \end{itemize}
+ \item Periferie/zařízení
+ \begin{itemize}
+  \item přístupu na IO a paměťově mapované periferie způsobují výjimky a hypervizor odsimuluje jejich činnost
+  \item hostovaný systém se přizpůsobí tak, aby předal požadavky přímo ve formátu, kterému hypervizor rozumí (ovladače na míru atd.)
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hypervizor}
+
+\begin{itemize}
+ \item zajišťuje spouštění a zastavování domén
+ \item monitoruje jejich činnost a ošetřuje výjimky – především emuluje činnost privilegovaných instrukcí
+ \item zajišťuje rozdělení paměti a výpočetního výkonu do hostovaných systémů
+ \item emuluje činnost periferií a předává data do ovladačů fyzických zařízení a sítí na úrovni hostitelského systému
+ \item může být implementovaný
+ \begin{itemize}
+  \item v uživatelském prostoru hostitelského systému (QEMU)
+  \item s využitím podpory v HW a jádře OS (KVM)
+  \item jako samostatný systém/mikrojádro, který využívá systém v jedné doméně (DOM 0) pro komunikaci s fyzickými zařízeními a z tohoto systému data přeposílá do ostatních (XEN)
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{document}
+

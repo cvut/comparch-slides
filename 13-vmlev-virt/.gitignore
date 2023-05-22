@@ -1,0 +1,17 @@
+/*.aux
+/*.log
+/*.snm
+/*.gz
+/*.nav
+/*.out
+/*.toc
+/*.upa
+/*.vrb
+/anim
+/_minted*
+/lekce13-vmlev-virt.pdf
+/apo13_2021.pdf
+/mutilevel-mcode-to-highlev.pdf
+/mutilevel-machine.pdf
+/mutilevel-mcode-to-highlev-cz.pdf
+/mutilevel-machine-cz.pdf
