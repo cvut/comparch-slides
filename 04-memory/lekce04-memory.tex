@@ -435,7 +435,7 @@ Adresa 12 může být umístěna do sady 0 (12 mod 4) \\
 \begin{itemize}
 \item \textbf{Capacity} -- C ... kapacita (zde 1024 v bytech a 256 v slovech)
 \item \textbf{Number of sets} -- SN .. počet setů, (zde 256)
-\item \textbf{Word size} – WS .. velikost bloku (zde 4 byte)
+\item \textbf{Word size} – WS .. velikost slova (zde 4 byte)
 \item \textbf{Block size} – BS .. velikost bloku (zde 1 slovo, 4 byte)
 \item \textbf{Number of blocks} -- BN .. počet bloků (zde 256)
 \item \textbf{Degree of associativity} -- N . stupeň asciativity, počet cest (zde 1)
@@ -486,6 +486,14 @@ set = (adresa div BS) mod SN
 
 \begin{frame}
 \frametitle{Ukázka: QtRvSim vect-inc, vect-add2, vect-add}
+
+Začneme s přímomapovanou skrytou pamětí (direct mapped cache) a \texttt{vect-inc}. Při velikosti bloku větší než jedno slovo a velikosti vektoru větší než kapacita jedné cesty bude u \texttt{vect-add2} docházet k značné degradaci výkonu. Po navýšení stupně asociativity na dvě cesty i při zachování celkové kapacity již ke kolizím při každé iteraci docházet nebude. Ovšem po rozšíření algoritmu na práci s třemi vektory (\texttt{vect-add}) opět problém při zpětném/odloženém zápisu (write-back) nastane a nejhorší situace nastane pro politiku záměny nejdéle nepoužívaného prvku (LRU). Zvýšení stupně na tři, nebo spíše obvyklejší čtyři, cesty se opět pro na začátek prázdnou cache počet výpadků omezí na jeden za každý načatý blok.
+
+\begin{itemize}
+\item \url{https://gitlab.fel.cvut.cz/b35apo/stud-support/-/tree/master/seminaries/qtrvsim/vect-inc}
+\item \url{https://gitlab.fel.cvut.cz/b35apo/stud-support/-/tree/master/seminaries/qtrvsim/vect-add2}
+\item \url{https://gitlab.fel.cvut.cz/b35apo/stud-support/-/tree/master/seminaries/qtrvsim/vect-add}
+\end{itemize}
 
 \end{frame}
 
@@ -602,11 +610,11 @@ systému pro 4\,kB stránky potřeba alokovat 4\,MB (překlad 20-bitů adresy,
 
 }
 
-Adresář stránek pro každý proces, úroveň tabulek s vlastními položekami
+Adresář stránek pro každý proces, úroveň tabulek s vlastními položkami
 se alokuje jen, když je daná oblast virtuálního prostoru použitá.
 
 Za pozornost stojí, že při překladu po 10-ti bitech vychází pole položek
-adresáře i tabulky na velikost 4\,kB. Nepotřebuje aloace vyššího řádu
+adresáře i tabulky na velikost 4\,kB. Nepotřebuje alokace vyššího řádu
 ohrožené fragmentací.
 
 \end{frame}
