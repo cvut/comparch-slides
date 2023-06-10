@@ -56,7 +56,7 @@ J & imm [20] & \multicolumn{2}{c|}{ imm[10:1] } & imm [11] & \multicolumn{2}{c|}
 \end{frame}
 
 \begin{frame}
-\frametitle{Kritická cesta v omezující propustnost}
+\frametitle{Kritická cesta omezující propustnost}
 
 $f_{clk} = 1 / T_{C}$ kde $T_{C}$ je perioda hodin/čas na zpracování jednoho cycklu
 
@@ -97,8 +97,8 @@ $IPS = 1 \cdots 980e3 = 980\,000$ instrukcí za sekundu
 \frametitle{Rozdělení načítání a vykonávání instrukcí}
 
 \begin{itemize}
- \item Načtení innstrukce a čtení z paměti ($2 \times t_{Mem}$) představuje obvykle značnou část celkové doby potřebné na cyklus
- \item Ke zkrácení doy cyklu přispěje, pokud je instrukce načtena již v předchozím cyklu
+ \item Načtení instrukce a čtení z paměti ($2 \times t_{Mem}$) představuje obvykle značnou část celkové doby potřebné na cyklus
+ \item Ke zkrácení doby cyklu přispěje, pokud je instrukce načtena již v předchozím cyklu
 \end{itemize}
 
 \vskip 2 mm
@@ -228,7 +228,7 @@ $\lim_{n \rightarrow \infty} S_k = k$
 \vskip 2 mm
 
 \begin{itemize}
- \item K zápisníkové paměťi (register file) se přistupuje ze dvou stupňů (Decode, WriteBack) --
+ \item K zápisníkové paměti (register file) se přistupuje ze dvou stupňů (Decode, WriteBack) --
        zápis se uskutečňuje v první půli cyklu, čtení v druhé $\Rightarrow$ v instrukci sub pro vstop \textbf{s0} hazard nevzniká
  \item Čtení-po-zápisu (Read After Write -- RAW) hazard vzniká u instrukcí
        \textbf{and} a \textbf{or} při čtení \textbf{s0} v cychlech 3 a 4
@@ -348,7 +348,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
        pipeline pozastavit (\textbf{stall}) a do pokračování pipeline jsou vloženy stall/\textbf{nop}
        stavy
  \item Pozastavení řeší hazardy ale degraduje propustnost
- \item Stupně, které předchází stupni dotčenému hazardem, jsou pozastaveny dokud nejsou všechny dalšími
+ \item Stupně, které předchází stupni dotčenému hazardem, jsou pozastaveny, dokud nejsou všechny dalšími
        instrukcemi požadované výsledky k dispozici -- výsledky jsou pak přeposlané na všechna místa, kde
        jsou požadované
 \end{itemize}
@@ -356,7 +356,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{Řešení datových hhazardů pozastavením (pipeline stall)}
+\frametitle{Řešení datových hazardů pozastavením (pipeline stall)}
 \includegraphics[width=0.85\textwidth]{pipeline_stall2.pdf}
 
 \begin{itemize}
