@@ -7,7 +7,7 @@
 \usepackage{array,multirow}
 \usepackage{environ}
 
-\subtitle{Lekce 13. Vituální stroje a virtualizace}
+\subtitle{Lekce 13. Virtuální stroje a virtualizace}
 \author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
 
 \begin{document}
@@ -41,7 +41,7 @@
   \item Kompilace -- instrukce v L2 se nahradí posloupností instrukcí v L1
   \item Interpretace -- program v L1 zpracovává program v L2 jako data (pomalejší)
  \end{itemize}
- \item Vývoj víceúrovňvého stroje
+ \item Vývoj víceúrovňového stroje
  \begin{itemize}
   \item první počítače -- běžná strojová úroveň - 1.úr.
   \item 50-tá léta -- Wilkes -- mikroprogram. - 2.úr.
@@ -69,7 +69,7 @@ Program v $L_i$ je překládán nebo interpretován počítačem $M_{i-1}$ atd.
 \end{frame}
 
 \begin{frame}
-\frametitle{title}
+\frametitle{Současná mnohaúrovňová architektura počítače}
 
 \begin{center}
 \includegraphics[width=0.75\textwidth]{mutilevel-mcode-to-highlev-cz.pdf}
@@ -99,11 +99,11 @@ Program v $L_i$ je překládán nebo interpretován počítačem $M_{i-1}$ atd.
 \begin{frame}
 \frametitle{Konvenční strojová úroveň (ISA) (M2)}
 
-Definovaná Instrukční sadou (často označovaná architektura procesoru) ISA -- Instruction Set Architecture $\times$ Mikroarchitektura (Implementece v M1 nebo přímo v logickém návrhu procesoru)
+Definovaná Instrukční sadou (často označovaná architektura procesoru) ISA -- Instruction Set Architecture $\times$ Mikroarchitektura (Implementace v M1 nebo přímo v logickém návrhu procesoru)
 
 \begin{itemize}
- \item struktura počítače, procesoru, V/V kanálů, sběrnic, organizce a přístupy k paměti, organizace registrů a další
- \item instrukční soubor, formát dat a uložení v pamšti, adresování, záspisníková paměť (registry) 
+ \item struktura počítače, procesoru, V/V kanálů, sběrnic, organice a přístupy k paměti, organizace registrů a další
+ \item instrukční soubor, formát dat a uložení v paměti, adresování, zápisníková paměť (registry)
 \end{itemize}
 
 Instrukční formát
@@ -111,7 +111,7 @@ Instrukční formát
 \begin{itemize}
  \item skládá se z polí uložených v jednom nebo více po sobě jdoucí slovech
  \item operační znak (opcode)
- \item přímé operady (immediate), kosntanty vložené do instrukce
+ \item přímé operandy (immediate), konstanty vložené do instrukce
  \item adresové části mohou být adresami do paměti nebo odkazy, čísla registrů a ty použity buď přímo nebo jako adresy do paměti (nepřímá adresace)
 \end{itemize}
 
@@ -141,15 +141,15 @@ Instrukční formát
 \frametitle{Virtualizace na úrovni operačního systému a aplikací}
 
 \begin{itemize}
- \item I vlákna lze brát jako virtualizaci stavu procesoru a procesy jako virtualizaci celého ptrostředí včetně oddělení paměti
+ \item I vlákna lze brát jako virtualizaci stavu procesoru a procesy jako virtualizaci celého prostředí včetně oddělení paměti
  \item Virtuální stroje a interpretery v rámci aplikací (prohlížeč, Python v LibreOffice, atd.)
  \begin{itemize}
-  \item přímá interpretace v textové pdobě málo častá, většinou překlad do binární repreznetace (bytecode) a z té často i do nativního kódu (JVM)
+  \item přímá interpretace v textové podobě málo častá, většinou překlad do binární reprezentace (bytecode) a z té často i do nativního kódu (JVM)
  \end{itemize}
- \item Konterjnery
+ \item Kontejnery
  \begin{itemize}
   \item chroot -- samostatný pohled na adresářovou strukturu (Mount -- mnt)
-  \item LXC (Linux Containers) -- odělitelnost různých jmenných prostorů jádra (namespace) a prioritizace prstředků (cgroups)
+  \item LXC (Linux Containers) -- oddělitelnost různých jmenných prostorů jádra (namespace) a prioritizace prostředků (cgroups)
   \begin{itemize}
    \item Mount (mnt), Process ID (pid), Network (net), Inter-process Communication (ipc), UTS (host+domain), User ID (user), Control group (cgroup) Namespace, Time Namespace
   \end{itemize}
