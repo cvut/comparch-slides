@@ -62,8 +62,10 @@ unsigned long long & 0 & 18 446 744 073 709 551 615 & 8 \\ \hline
 \end{tabular}
 
 \begin{itemize}
-\item Norma není vždy dodržována, \texttt{unsigned int} by měl mít jen 2 bajty, ale většinou má 4 bajty (GNU, MS C).
-\item Pokud chcete mít jistotu, musíte si pro cílovou platformu zjistit rozsah pomocí příkazu např. \texttt{sizeof(int)}
+\item Norma definuje většinou minimální rozsahy, \texttt{unsigned int} nemusí mít jen 2 bajty, ale většinou má 4 bajty (GNU, MS C).
+\item Pokud chcete zjistit skutečnou velikost, použijte např. příkaz \texttt{sizeof(int)}
+\item Doporučujeme používat typy \texttt{uintX\_t} a \texttt{intX\_t} (kde \texttt{X} je 8, 16, 32, nebo 64), např. \texttt{uint8\_t}, \texttt{int64\_t} 
+\item V některých případech je vhodné použít typy \texttt{[u]int\_fastX\_t} a \texttt{[u]int\_leastX\_t}, např. \texttt{uint\_least8\_t}, \texttt{int\_fast64\_t} 
 \end{itemize}
 
 \end{frame}

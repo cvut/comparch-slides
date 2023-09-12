@@ -238,7 +238,7 @@ V současné době je jeho modifikace základem architektury všech moderních p
 Základní fáze jsou:
 \begin{itemize}
 \item Zavedení instrukce do ROB a přejmenování registru výsledku operace - získání čísla registru ze souboru záložních registrů. 
-\item Zavedení instrukce do Register Station a čekání na připravená data
+\item Zavedení instrukce do Reservation Station a čekání na připravená data
 \item Provedení výpočtu a zapsání výsledku do přejmenovaného registru přes Common Data Bus
 \item Dokončení nejstarší instrukce (kruhová fronta -- FIFO) z ROB a aktualizace systémového registru.
 \end{itemize}
@@ -447,7 +447,7 @@ for (i=0; i<N; i++) {
 \end{column}
 \end{columns}
 \bigskip
-Pro nepodmíněný skok platí, že se $N-1$ krát skočí a $1$ neskočí.\\
+Pro podmíněný skok platí, že se $N-1$ krát skočí a $1$ neskočí.\\
 Skáče se vzad a pravděpodobnost správné předpovědi je tedy $\frac{N-1}{N}$
 
 \end{frame}
@@ -537,7 +537,7 @@ Nejjednodušší prediktor je 1-bitový Smithův prediktor
 Predikce pro for cyklus:
 
 \begin{columns}[T]
-\begin{column}{0.4\textwidth}
+\begin{column}{0.35\textwidth}
 \begin{minted}{c}
 for (i=0; i<5; i++) {
   ...
@@ -545,24 +545,24 @@ for (i=0; i<5; i++) {
 \end{minted}
 \end{column}
 \hfill
-\begin{column}{0.4\textwidth}
+\begin{column}{0.45\textwidth}
 \begin{minted}{gas}
-addi t0, x0, 0
-addi t1, x0, 5
-j podm
-...
-addi t0, t0, 1
-slt    t2, t0, t1
-bne  t2, x0, telo
+      addi t0, x0, 0
+      addi t1, x0, 5
+      j podm
+telo: ...
+      addi t0, t0, 1
+podm: slt  t2, t0, t1
+      bne  t2, x0, telo
 \end{minted}
 \end{column}
 \end{columns}
 \bigskip
 Pokud prediktor neinterferuje s jinými skoky, pak začíná ve stavu 0 -- NT (Not taken).
 
-\begin{tabular}{|l|c|c|c|c|c|}\hline
-Skutečné chování & T & T & T & T & NT\\ \hline
-Predikce         & {\color{red}NT} & T & T & T & {\color{red}T}\\ \hline
+\begin{tabular}{|l|c|c|c|c|c|c|}\hline
+Skutečné chování & T & T & T & T & T & NT\\ \hline
+Predikce         & {\color{red}NT} & T & T & T & T & {\color{red}T}\\ \hline
 \end{tabular}
 
 Vidíte, že prediktor není úspěšný na počátku for cyklu a na jeho konci.
@@ -593,7 +593,7 @@ Vidíte, že prediktor není úspěšný na počátku for cyklu a na jeho konci.
 Predikce pro for cyklus:
 
 \begin{columns}[T]
-\begin{column}{0.4\textwidth}
+\begin{column}{0.35\textwidth}
 \begin{minted}{c}
 for (i=0; i<5; i++) {
   ...
@@ -601,15 +601,15 @@ for (i=0; i<5; i++) {
 \end{minted}
 \end{column}
 \hfill
-\begin{column}{0.4\textwidth}
+\begin{column}{0.45\textwidth}
 \begin{minted}{gas}
-addi t0, x0, 0
-addi t1, x0, 5
-j podm
-...
-addi t0, t0, 1
-slt    t2, t0, t1
-bne  t2, x0, telo
+      addi t0, x0, 0
+      addi t1, x0, 5
+      j podm
+telo: ...
+      addi t0, t0, 1
+podm: slt  t2, t0, t1
+      bne  t2, x0, telo
 \end{minted}
 \end{column}
 \end{columns}
@@ -617,10 +617,10 @@ bne  t2, x0, telo
 \small
 Pokud prediktor neinterferuje s jinými skoky, pak začíná ve stavu 10 -- WT (Weakly taken).
 
-\begin{tabular}{|l|c|c|c|c|c|c|}\hline
-Skutečné chování & T & T & T & T & NT &\\ \hline
-Stav & WT & ST & ST & ST & ST & WT\\ \hline
-Predikce         & T & T & T & T & {\color{red}T} &\\ \hline
+\begin{tabular}{|l|c|c|c|c|c|c|c|}\hline
+Skutečné chování & T & T & T & T & T & NT &\\ \hline
+Stav & WT & ST & ST & ST & ST & ST & WT\\ \hline
+Predikce         & T & T & T & T & T & {\color{red}T} &\\ \hline
 \end{tabular}
 
 Vidíte, že prediktor není úspěšný pouze na konci for cyklu.
@@ -827,7 +827,7 @@ Výhoda -- lepší výsledky než gshare, lze použít i pro dlouhé registry hi
 \item úroveň 2 -- 512 prediktorů, které v dalším hodinovém cyklu upřesní předpověď, buď se zahodí načítané instrukce, nebo se potvrdí
 \item úroveň 3 -- 7168 prediktorů, za 4 hodinové cykly zpřesní předpověď. Opět se dosavadní načtené instrukce buď uchovají, nebo zahodí.
 \end{itemize}
-\item Průměrná časová prodleva při špatné konečné predikci je přibližně 18 hodinových cyků.
+\item Průměrná časová prodleva při špatné konečné predikci je přibližně 18 hodinových cyklů.
 \item Při rychlosti 4GHz a pokud je každá desátá instrukce skok, tak 1\% chybné predikce vede ke snížení výkonu o téměř 2\%.
 \end{itemize}
 \end{frame}
