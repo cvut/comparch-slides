@@ -233,7 +233,7 @@ přeloženo:
 mov   array, %edi  ; Nastav do edi ukazatel na začátek pole
 mov   $128,  %ecx  ; Nastav počet opakování
 mov   $-1,   %eax  ; Nastav hodnotu pro uložení
-rep stosd          ; Vyplň celé pole
+rep   stosd        ; Vyplň celé pole
 \end{minted}
 \end{frame}
 
@@ -254,7 +254,7 @@ přeloženo:
 mov   str,  %edi  ; Nastav do EDI začátek pole
 mov   $128, %ecx  ; Nastav počet opakování
 mov   $0,   %eax  ; Nastav hodnotu konce řetězce
-rep scasb         ; Projdi str a najdi hodnotu 0
+repne scasb       ; Projdi str a najdi hodnotu 0
 \end{minted}
 
 \end{frame}

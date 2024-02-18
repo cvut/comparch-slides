@@ -367,7 +367,7 @@ Z čeho se vlastně procesor skládá?
 \item Více méně platí až do dnes, i když už se dostáváme na hranice fyzikálních možností.
 \end{itemize}
 
-K čemu potřebujeme v procesoru = CPU tranzistory?
+K čemu potřebujeme tranzistory v procesoru (CPU)?
 \begin{itemize}
 \item Abychom implementovali Booleovu algebru.
 \end{itemize}
@@ -692,12 +692,12 @@ $a_5a_4a_3a_2a_1a_0 + b_5b_4b_3b_2b_1b_0 = s_6s_5s_4s_3s_2s_1s_0$ platí, že $s
 
 Jak rychlá je Ripple Carry Adder?
 \begin{itemize}
-\item Pokud je zpoždění jednoho hradla N pak zpoždění Ripple Carry Adder pro dvě 64-bitové hodnoty 63*3*N+2*N
+\item Pokud je zpoždění jednoho hradla N pak zpoždění Ripple Carry Adder pro dvě 64-bitové hodnoty 63*2*N+N
 \item Je to důležité?
 \begin{itemize}
 \item Ano, při taktu CPU 4GHz trvá jeden takt 250 ps (pikosekund)
 \item Omezení je i rychlost světla 0.3 mm/ps, to je maximální rychlost šíření informace
-\item Při zpoždění hradla kolem 10ps, pak Ripple Carray Adder by sečetla 2 čísla za 1910ps  
+\item Při zpoždění hradla kolem 10ps, pak Ripple Carray Adder by sečetla 2 čísla za 1270 ps (to je více než 5 taktů procesoru).  
 \end{itemize}
 \item Lze to rychleji?
 \begin{itemize}
@@ -773,7 +773,7 @@ Co tedy s většími čísly, třeba 64-bitovými?
 
 \begin{itemize}
 \item Rychlost 16-ti bitové sčítačky z obrázku bude 16 zpoždění hradel
-\item Rychlost 64-ti bitové sčítačky bude 64 zpoždění hradel, což je daleko lepší, než 191 zpoždění u jednoduché Ripple carry adder.
+\item Rychlost 64-ti bitové sčítačky bude 64 zpoždění hradel, což je daleko lepší, než 127 zpoždění u jednoduché Ripple carry adder.
 \end{itemize}
 
 \end{frame}
@@ -1000,7 +1000,7 @@ Rotaci o 0-7bitů lze složit z rotací o 1, 2, 4:
 \begin{frame}
 \frametitle{Kvíz}
 
-Kolik úrovní (řádek) Barrel shifter musí mít pro 64 bitové číslo, tedy pro rotace od 0 do 63?
+Kolik vrstev (řádek) Barrel shifter musí mít pro 64 bitové číslo, tedy pro rotace od 0 do 63? (Pro rotaci od 0 do 7 to byly 3 vrstvy)
 \begin{itemize}
 \item[A] 4
 \item[B] 6
