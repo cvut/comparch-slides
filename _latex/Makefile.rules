@@ -17,7 +17,7 @@ gitignore_target = grep -q '/$@' .gitignore || echo '/$@' >> .gitignore
 all: $(DOC).pdf $(NUM:%=apo%_2021.pdf)
 
 $(DOC).pdf: export TEXINPUTS=.:$(MAKEFILE_RULES_DIR):
-$(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture.sty $(FIGS)
+$(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture-en.sty $(FIGS)
 	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
 	$(gitignore_target)
 
