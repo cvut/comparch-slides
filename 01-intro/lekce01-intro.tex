@@ -5,6 +5,7 @@
 \usepackage{pdfcomment}
 \usepackage{listings}
 \usepackage{array,multirow}
+\usepackage{hhline}
 
 \subtitle{Lekce 01. Úvod}
 \author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
@@ -826,6 +827,8 @@ Můžeme ještě něco vylepšit?
 
 \end{frame}
 
+
+
 \begin{frame}
 \frametitle{Sčítání - Carry Lookahead Adder}
 
@@ -851,6 +854,32 @@ Doba výpočtu dvojic $G_{i,k}$ a $P_{i,k}$:
 \end{columns}
 
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Sčítání - Carry Lookahead Adder - Příklad}
+
+Výpočet generování a propagace carry bloku pomocí:
+\begin{itemize}
+\item $g_h$, $p_h$ - generování a propagace carry ve vyšším podbloku 
+\item $g_l$, $p_l$ - generování a propagace carry v nižším podbloku
+\end{itemize}
+\begin{table}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}\hline
+a & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 \\ \hline
+b & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 1 \\ \hhline{|=|=|=|=|=|=|=|=|=|}
+g = $a_i$ and $b_i$ & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 \\ \hline
+p = $a_i$ xor $b_i$ & 1 & 0 & 0 & 1 & 1 & 1 & 1 & 0 \\ \hhline{|=|=|=|=|=|=|=|=|=|}
+g = $g_h$ or ( $g_l$ and $p_h$ )& \multicolumn{2}{c|} 0 & \multicolumn{2}{c|} 1 & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|} 1 \\ \hline
+p = $p_h$ and $p_l$ & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|} 1 & \multicolumn{2}{c|} 0 \\ \hhline{|=|==|==|==|==|}
+g = $g_h$ or ( $g_l$ and $p_h$ ) & \multicolumn{4}{c|} 0 & \multicolumn{4}{c|} 1  \\ \hline
+p = $p_h$ and $p_l$ & \multicolumn{4}{c|} 0 & \multicolumn{4}{c|} 0  \\ \hhline{|=|====|====|}
+g = $g_h$ or ( $g_l$ and $p_h$ ) & \multicolumn{8}{c|} 0   \\ \hline
+p = $p_h$ and $p_l$ & \multicolumn{8}{c|} 0   \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
 
 
 \begin{frame}
@@ -898,6 +927,92 @@ Doba výpočtu dvojic $G_{i,k}$ a $P_{i,k}$:
 \end{column}
 \end{columns}
 
+\end{frame}
+
+\begin{frame}{shrink=5}
+\frametitle{Sčítání - Carry Lookahead Adder - Příklad}
+
+Výpočet carry na základě carry nižších řádů a příznaků g,p:
+\begin{itemize}
+\item $C_i = g$ or $(p$ and $C_{i-k})$ - buď se carry vygeneruje a nebo se propaguje z nižších řádů
+\end{itemize}
+\begin{table}
+\footnotesize
+\begin{tabular}{|p{0.02\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|}\hline
+a & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 \\ \hline
+b & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 1 \\ \hhline{|=|=|=|=|=|=|=|=|=|}
+g  & 0 & 0 & 1 & 0 & 0 & 0  & 0 & 1 \\ \hline
+p & 1 & 0 & 0 & 1   & 1 & 1 & 1 & 0 \\ \hline
+C & \multicolumn{2}{p{0.16\textwidth}|}{}  & \multicolumn{2}{p{0.16\textwidth}|}{} & \multicolumn{2}{p{0.16\textwidth}|}{} & \multicolumn{2}{p{0.16\textwidth}|}{}  \\ \hhline{|=|=|=|=|=|=|=|=|=|}
+g & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|}{\textcolor{brown}1} & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|} 1 \\ \hline
+p  & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|}{\textcolor{teal} 0} & \multicolumn{2}{c|} 1 & \multicolumn{2}{c|} 0 \\ \hline
+C  & \multicolumn{2}{l|}{} & \multicolumn{2}{l|}{} & \multicolumn{2}{l|}{} & \multicolumn{2}{l|}{} \\ \hhline{|=|==|==|==|==|}
+g  & \multicolumn{4}{c|} 0 & \multicolumn{4}{c|}{\textcolor{cyan}1}  \\ \hline
+p  & \multicolumn{4}{c|} 0 & \multicolumn{4}{c|}{\textcolor{green}0}  \\ \hline
+C  & \multicolumn{3}{c|}{} & \multicolumn{5}{l|}{$C_4$ = \textcolor{cyan}1 or ( \textcolor{green}0 and $C_0$) = 1}  \\ \hhline{|=|====|====|}
+g  & \multicolumn{8}{c|} 0   \\ \hline
+p  & \multicolumn{8}{c|} 0   \\ \hline
+C  & \multicolumn{8}{l|}{$C_8$ = 0 or ( 0 and $C_0$) = 0}   \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+
+\begin{frame}{shrink=5}
+\frametitle{Sčítání - Carry Lookahead Adder - Příklad}
+
+Výpočet carry na základě carry nižších řádů a příznaků g,p:
+\begin{itemize}
+\item $C_i = g$ or $(p$ and $C_{i-k})$ - buď se carry vygeneruje a nebo se propaguje z nižších řádů
+\end{itemize}
+\begin{table}
+\footnotesize
+\begin{tabular}{|p{0.02\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|}\hline
+a & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 \\ \hline
+b & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 1 \\ \hhline{|=|=|=|=|=|=|=|=|=|}
+g  & 0 & 0 & 1 & 0 & 0 & 0  & 0 & 1 \\ \hline
+p & 1 & 0 & 0 & 1   & 1 & 1 & 1 & 0 \\ \hline
+C & \multicolumn{2}{p{0.16\textwidth}|}{}  & \multicolumn{2}{p{0.16\textwidth}|}{} & \multicolumn{2}{p{0.16\textwidth}|}{} & \multicolumn{2}{p{0.16\textwidth}|}{}  \\ \hhline{|=|=|=|=|=|=|=|=|=|}
+g & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|}{\textcolor{brown}1} & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|} 1 \\ \hline
+p  & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|}{\textcolor{teal} 0} & \multicolumn{2}{c|} 1 & \multicolumn{2}{c|} 0 \\ \hline
+C  &  & \multicolumn{3}{l|}{$C_6$ = \textcolor{brown}1 or ( \textcolor{teal}0 and $C_4$) = 1} &  & \multicolumn{3}{l|}{$C_2$ = 1 or ( 0 and $C_0$) = 1} \\ \hhline{|=|==|==|==|==|}
+g  & \multicolumn{4}{c|} 0 & \multicolumn{4}{c|}{\textcolor{cyan}1}  \\ \hline
+p  & \multicolumn{4}{c|} 0 & \multicolumn{4}{c|}{\textcolor{green}0}  \\ \hline
+C  & \multicolumn{3}{c|}{} & \multicolumn{5}{l|}{$C_4$ = \textcolor{cyan}1 or ( \textcolor{green}0 and $C_0$) = 1}  \\ \hhline{|=|====|====|}
+g  & \multicolumn{8}{c|} 0   \\ \hline
+p  & \multicolumn{8}{c|} 0   \\ \hline
+C  & \multicolumn{8}{l|}{$C_8$ = 0 or ( 0 and $C_0$) = 0}   \\ \hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+
+\begin{frame}{shrink=5}
+\frametitle{Sčítání - Carry Lookahead Adder - Příklad}
+
+Výpočet carry na základě carry nižších řádů a příznaků g,p:
+\begin{itemize}
+\item $C_i = g$ or $(p$ and $C_{i-k})$ - buď se carry vygeneruje a nebo se propaguje z nižších řádů
+\end{itemize}
+\begin{table}
+\footnotesize
+\begin{tabular}{|p{0.02\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|p{0.08\textwidth}|}\hline
+a & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 1 \\ \hline
+b & 1 & 0 & 1 & 1 & 0 & 1 & 1 & 1 \\ \hhline{|=|=|=|=|=|=|=|=|=|}
+g  & 0 & \textcolor{red}0 & 1 & \textcolor{magenta}0 & 0 & \textcolor{brown}0  & 0 & \textcolor{purple}1 \\ \hline
+p & 1 & \textcolor{blue}0 & 0 & \textcolor{green}1   & 1 & \textcolor{orange}1 & 1 & \textcolor{teal}0 \\ \hline
+C & \multicolumn{2}{p{0.16\textwidth}|}{$C_7$ = \textcolor{red}0 or ( \textcolor{blue}0 and $C_6$) = 0}  & \multicolumn{2}{p{0.16\textwidth}|}{$C_5$ = \textcolor{magenta}0 or ( \textcolor{green}1 and $C_4$) = 1} & \multicolumn{2}{p{0.16\textwidth}|}{$C_3$ = \textcolor{brown}0 or ( \textcolor{orange}1 and $C_2$) = 1} & \multicolumn{2}{p{0.16\textwidth}|}{$C_1$ = \textcolor{purple}1 or ( \textcolor{teal}0 and $C_0$) = 1}  \\ \hhline{|=|=|=|=|=|=|=|=|=|}
+g & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|}{\textcolor{brown}1} & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|} 1 \\ \hline
+p  & \multicolumn{2}{c|} 0 & \multicolumn{2}{c|}{\textcolor{teal} 0} & \multicolumn{2}{c|} 1 & \multicolumn{2}{c|} 0 \\ \hline
+C  &  & \multicolumn{3}{l|}{$C_6$ = \textcolor{brown}1 or ( \textcolor{teal}0 and $C_4$) = 1} &  & \multicolumn{3}{l|}{$C_2$ = 1 or ( 0 and $C_0$) = 1} \\ \hhline{|=|==|==|==|==|}
+g  & \multicolumn{4}{c|} 0 & \multicolumn{4}{c|}{\textcolor{cyan}1}  \\ \hline
+p  & \multicolumn{4}{c|} 0 & \multicolumn{4}{c|}{\textcolor{green}0}  \\ \hline
+C  & \multicolumn{3}{c|}{} & \multicolumn{5}{l|}{$C_4$ = \textcolor{cyan}1 or ( \textcolor{green}0 and $C_0$) = 1}  \\ \hhline{|=|====|====|}
+g  & \multicolumn{8}{c|} 0   \\ \hline
+p  & \multicolumn{8}{c|} 0   \\ \hline
+C  & \multicolumn{8}{l|}{$C_8$ = 0 or ( 0 and $C_0$) = 0}   \\ \hline
+\end{tabular}
+\end{table}
 \end{frame}
 
 
@@ -1014,7 +1129,7 @@ Kolik vrstev (řádek) Barrel shifter musí mít pro 64 bitové číslo, tedy pr
 \begin{frame}
 \frametitle{Testovací kvíz}
 
-Kolik jste toho dnes pochopili?
+Kolik jste toho zatím pochopili?
 \begin{itemize}
 \item[A] Vše bez problému.
 \item[B] Téměř vše.
