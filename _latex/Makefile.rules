@@ -42,5 +42,5 @@ INKSCAPE_0.X = $(eval INKSCAPE_0.X := $(shell inkscape --version|grep '^Inkscape
 # Generate last modification date from commit dates of all files under the current directory
 moddate.tex: FORCE_MAKE
 	( git ls-files -z | xargs -0 -n1 -- git log -1 --date=format:"%s" --format="%cd"; echo 0 ) \
-	| python3 -c "from locale import *; setlocale(LC_TIME, 'cs_CZ.UTF-8'); import sys; from datetime import *; print(date.fromtimestamp(max([int(v) for v in sys.stdin.readlines()])).strftime('%e. %B, %Y'))" > $@.tmp
+	| python3 -c "from locale import *; setlocale(LC_TIME, 'en_US.UTF-8'); import sys; from datetime import *; print(date.fromtimestamp(max([int(v) for v in sys.stdin.readlines()])).strftime('%e. %B, %Y'))" > $@.tmp
 	@cmp -s $@.tmp $@ && ( echo "Keeping $@ unchanged"; rm -f $@.tmp ) || ( echo "Updating $@"; mv $@.tmp $@ )
