@@ -241,9 +241,10 @@ Když se podíváme jen na prostřední nejdelší sloupec:
 
 \begin{itemize}
 \item Vidíme, že za 8 kroků sčítaček, tedy 16 zpoždění hradel nám zbývá sečíst dva bity
-\item Vpravo od tohoto sloupce je již vše sečteno a již se i propagovali všechny carry
-\item Zbývá sečíst dvě 64-bitová čísla (součty a carry), což se dá stihnout také za 16 zpoždění hradel
-\item Výsledek - vynásobíme dvě čísla za cenu doby odpovídající dvou součtům
+\item Vpravo od tohoto sloupce je již něco sečteno a již se i propagovali carry posledních 8 sčítanců
+\item Zbývá sečíst dvě 120-bitová čísla (součty a carry), což se dá stihnout asi za 30 zpoždění hradel
+\item Výsledek - vynásobíme dvě čísla za cenu doby odpovídající přibližně dvěma součtům 64-bitových čísel
+\item V praxi to trvá trochu déle, je použito méně sčítaček CSA. 
 \end{itemize}
 
 \end{frame}
@@ -307,7 +308,7 @@ Dělička počítající \texttt{A/B}, A má 64 bitů, B 32 bitů:\\
 \item v posledním kroku je nutné posunout pouze registr A, AC se již neposouvá -- promyslete proč
 \item Dělička -- existuje rychlejší algoritmus High Radix Division (je velmi složitý, přesahuje rozsah tohoto předmětu)
 \begin{itemize}
-\item Odhaduje několik bitů na jednou a pak upřesňuje iteracemi
+\item Odhaduje několik bitů najednou a pak upřesňuje iteracemi
 \item 1994 -- Pentium FDIV bug -- chyba při implementaci algoritmu Sweeney, Robertson, and Tocher (SRT) - odhaduje dva bity
 \end{itemize}
 \end{itemize}
@@ -946,13 +947,32 @@ Příklad: Vynásobíme čísla $0.375 \cdot 1.5$
 $0.375_{(10)} = 0.011_{(2)} = 1.1\text{E}-2$ \phantom{xxx} $1.5_{(10)} = 1.1_{(2)} = 1.1\text{E}0$
 
 Součin mantis je:\\
+\begin{columns}
+\begin{column}{0.45\textwidth}
 \texttt{\phantom{xxx}11} odpovídá \texttt{1.1}\\
 \texttt{\phantom{xx}*11} odpovídá \texttt{1.1}\vspace{-6pt}\\
 \rule[0pt]{2cm}{0.4pt}\\
 \texttt{\phantom{xxx}11}\\
 \texttt{\phantom{xx}11}\vspace{-6pt}\\
 \rule[0pt]{2cm}{0.4pt}\\
-\texttt{\phantom{x}1001} odpovídá \texttt{10.01} protože výsledek má dvě desetinná čísla
+\texttt{\phantom{x}1001} 
+
+odpovídá \texttt{10.01}, výsledek má 2 desetinná čísla
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+\texttt{\phantom{xx}375} odpovídá \texttt{0.375}\\
+\texttt{\phantom{xx}*15} odpovídá \texttt{1.5}\vspace{-6pt}\\
+\rule[0pt]{2cm}{0.4pt}\\
+\texttt{\phantom{x}1875}\\
+\texttt{\phantom{x}375}\vspace{-6pt}\\
+\rule[0pt]{2cm}{0.4pt}\\
+\texttt{\phantom{x}5625} 
+
+odpovídá \texttt{0.5625}, výsledek má 4 desetinná čísla
+\end{column}
+\end{columns}
+\bigskip
 
 Exponent vychází $-2+0=-2$, ale výsledek součinu mantis potřebujeme normalizovat, neboli zvětšit exponent o 1 na $-1$.
 
@@ -986,19 +1006,6 @@ POZOR: Následující \texttt{while} cyklus neskončí:
 \end{minted}
 \end{frame}
 
-
-\begin{frame}
-\frametitle{Bonusový bod}
-
-Jaká je dekadická hodnota 8-bitového čísla se znaménkem, jehož reprezentace v paměti je dána bajtem 0xFE?
-\begin{itemize}
-\item[A] 254
-\item[B] -0
-\item[C] -1
-\item[D] -2
-\end{itemize}
-
-\end{frame}
 
 
 \end{document}
