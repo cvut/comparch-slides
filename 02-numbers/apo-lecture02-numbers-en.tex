@@ -699,14 +699,14 @@ Binary coded decimal (BCD) representation
 \frametitle{Real Numbers}
 
 \begin{itemize}
-\item Integer number $X$ in $k$-bit binary representation divided sum of bits where each $b_i$ is multiplied by corresponding power of two weight, that is $ X = \sum_{i=0}^{k-1} b_i 2^{i} $
+\item Integer number $X$ in $k$-bit binary representation can be split into bits where each $b_i$ is multiplied by corresponding power of two (weight), that is $ X = \sum_{i=0}^{k-1} b_i 2^{i} $
 \item Real number $X$ is again similar sum of $k+j$ bits $b_i$ which are multiplied by powers of two (2), but we add negative powers of two: $X = \sum_{i=-j}^{k} b_i 2^{i}$
 \item remember grammar school math lessons $2^{-j} = \frac{1}{2^j}$
 \end{itemize}
 
 
 \begin{center}
-\includegraphics[width=0.65\textwidth]{float_bin.pdf}
+\includegraphics[width=0.65\textwidth]{float_bin-1.pdf}
 \end{center}
 
 \end{frame}
