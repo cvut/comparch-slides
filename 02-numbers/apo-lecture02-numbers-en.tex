@@ -7,7 +7,9 @@
 \usepackage{array,multirow}
 
 \subtitle{Lecture 02. Integer and Floating Point Numbers}
-\author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
+\author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz} \phantom{xxxx} \small\texttt{stepan@fel.cvut.cz} \\
+\phantom{xxxxxxxxx} \\
+License: CC-BY-SA}
 \begin{document}
 
 \maketitle
@@ -765,7 +767,7 @@ Some SIMD instructions set extensions provide implementation of operations for c
 
 It is equivalent to scientific notation format for decimal real numbers writting:
 $-123 000 000 000 000.0 = -1.23 \cdot 10^{14} = -1.23\text{E} 14$\\
-$0.000 000 000 000 123 = -1.23 \cdot 10^{-13} = -1.23\text{E}-13$\\
+$-0.000 000 000 000 123 = -1.23 \cdot 10^{-13} = -1.23\text{E}-13$\\
 Significand (mantissa) $\in \left\langle 1; 10 \right)$ for normalized form
 \bigskip
 
@@ -797,7 +799,7 @@ Standard IEEE-754 defines how to encode real numbers into 32 (C float), 64 bits 
 64-bit representation of the real number composes of:
 \begin{itemize}
 \item 1 bit sign (the both +0 and -0 are defined)
-\item 11 bits two based exponet in excess-k representation (K=127)
+\item 11 bits two based exponet in excess-k representation (K=1023)
 \item 52 bits to represent significand fractions (plus implicit MSB one)
 \end{itemize}
 
