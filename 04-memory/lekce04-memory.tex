@@ -379,7 +379,7 @@ Princip se využívá jak v algoritmech (lokální proměnné), kompilátorech (
 \item \textbf{Cache replacement policy} -- pravidla pro výběr položky k vyřazení
 \begin{itemize}
 \item \textbf{Random} -- vybraná je náhodná položka
-\item \textbf{LRU} (Least Recently Used) -- vybrána je nejdelší dobu neoužitá položka, do obvodů cache musí být ke každé skupině bloků přidané další informace, které umožňují sledovat pořadí posledních přístupů k jednotlivým položkám.
+\item \textbf{LRU} (Least Recently Used) -- vybrána je nejdelší dobu nepoužitá položka, do obvodů cache musí být ke každé skupině bloků přidané další informace, které umožňují sledovat pořadí posledních přístupů k jednotlivým položkám.
 \item \textbf{LFU} (Least Frequently Used) -- sleduje se, jak často/kolikrát se k položkám přistupuje, vyžaduje přidat zapomínání.
 \item \textbf{ARC} (Adaptive Replacement Cache) – kombinace LRU a LFU
 \end{itemize}
