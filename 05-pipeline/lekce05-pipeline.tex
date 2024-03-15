@@ -1,26 +1,26 @@
 \documentclass{beamer}
 %[aspectratio=169]   \usepackage[czech]{babel}
-\usepackage{apo-lecture}
+\usepackage{apo-lecture-en}
 \usepackage{pdfpages}
 \usepackage{pdfcomment}
 \usepackage{listings}
 \usepackage{array,multirow}
 
-\subtitle{Lekce 05. Zřetězené zpracování\\Pipelining}
+\subtitle{Lecture 05. Pipelined execution}
 \author{Pavel Píša \phantom{xxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
 \begin{document}
 
 \maketitle
 
-\section{Zřetězené zpracování}
+\section{Pipelined execution}
 
 \begin{frame}
-\frametitle{Cíl dnešní přednášky}
+\frametitle{The aim of today's lecture}
 
 \begin{itemize}
- \item Navrhnout úpravy procesoru z lekce 3 tak, aby využíval zřetězené zpracování (pipelining) a tím ho bylo možné zrychlit
- \item Stále uvažujeme následující instrucke: \texttt{add}, \texttt{sub}, \texttt{and}, \texttt{or}, \texttt{slt}, \texttt{addi}, \texttt{lw}, \texttt{sw}, a \texttt{beq}
- \item Kódování instrukcí také zůstává
+ \item Suggest modifications to the processor from lecture 3 to use pipelining to make it faster
+ \item Still consider the following instructions: \texttt{add}, \texttt{sub}, \texttt{and}, \texttt{or}, \texttt{slt}, \texttt{addi}, \texttt{lw}, \texttt{sw}, and \texttt{beq}
+ \item Instruction coding also remains
 \end{itemize}
 
 \begin{table}
@@ -39,26 +39,26 @@ J & imm [20] & \multicolumn{2}{c|}{ imm[10:1] } & imm [11] & \multicolumn{2}{c|}
 \end{frame}
 
 \begin{frame}
-\frametitle{Jednocyklový procesor s pamětí (z přednášky 3)}
+\frametitle{Single-cycle processor with memory (from lecture 3)}
 \includegraphics[width=0.95\textwidth]{single_cpu.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Propustnost jednocyklového procesoru je omezená}
+\frametitle{The throughput of a single-cycle processor is limited}
 
 \begin{itemize}
- \item Maximum instrukcí za sekundu $IPS = IC / T = IPC_{avk} \cdot f_{clk}$
- \item Omezené nejdelší dobou průchodu signálu od zapamatované hodnoty na vstup zápisu do paměti, registru  (critical path)
- \item V našem návrhu omezení z kritické cesty instrukce \texttt{lw}
+ \item Maximum instructions per second $IPS = IC / T = IPC_{avk} \cdot f_{clk}$
+ \item Limited by the longest signal transit time from the remembered value to the input of the register (critical path)
+ \item In our design, the constraints from the critical path of the \texttt{lw} instruction
 \end{itemize}
 
 \includegraphics[width=0.92\textwidth]{cpu-time.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Kritická cesta omezující propustnost}
+\frametitle{Critical path limiting throughput}
 
-$f_{clk} = 1 / T_{C}$ kde $T_{C}$ je perioda hodin/čas na zpracování jednoho cycklu
+$f_{clk} = 1 / T_{C}$ where $T_{C}$ is the period of hours/time to process one cycle
 
 \vskip 2 mm
 
@@ -66,7 +66,7 @@ $T_{C} = t_{PC} + t_{Mem} + t_{RFread} + t_{ALU} + t_{Mem} + t_{Mux} + t_{RFsetu
 
 \vskip 2 mm
 
-Uvažujeme následující zpoždění a časové požadavky
+We consider the following delays and time requirements
 
 \vskip 2 mm
 
@@ -81,7 +81,7 @@ $t_{RFsetup}$ & = & $20$ ns \\
 
 \vskip 2 mm
 
-tak $T_{C} = 1020$\,ns $\rightarrow$ $f_{clk max} = 980$\,kHz
+$T_{C} = 1020$\,ns $\rightarrow$ $f_{clk max} = 980$\,kHz
 
 \vskip 2 mm
 
@@ -89,16 +89,16 @@ $IPS = IC / T = IPC_{avg} \cdot f_{clk}$
 
 \vskip 2 mm
 
-$IPS = 1 \cdots 980e3 = 980\,000$ instrukcí za sekundu
+$IPS = 1 \cdots 980e3 = 980\,000$ instructions per second
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Rozdělení načítání a vykonávání instrukcí}
+\frametitle{Split of instruction fetch and execution}
 
 \begin{itemize}
- \item Načtení instrukce a čtení z paměti ($2 \times t_{Mem}$) představuje obvykle značnou část celkové doby potřebné na cyklus
- \item Ke zkrácení doby cyklu přispěje, pokud je instrukce načtena již v předchozím cyklu
+ \item Fetching an instruction and reading it from memory ($2 \times t_{Mem}$) usually accounts for a significant part of the total cycle time
+ \item It helps to reduce the cycle time if an instruction is already loaded in a previous cycle
 \end{itemize}
 
 \vskip 2 mm
@@ -111,25 +111,25 @@ $IPS = 1 \cdots 980e3 = 980\,000$ instrukcí za sekundu
 \vskip 2 mm
 
 \begin{enumerate}
- \item Načtení instrucke (instrukcion fetch) a zvýšení čítače instrukcí $PC = PC + 4$
- \item Vlastní vykonání (execution) instrukce až v následujícím cyklu
+ \item Instruction fetch and instruction counter increment $PC = PC + 4$
+ \item Actual execution of the instruction only in the next loop
 \end{enumerate}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Úprava procesoru pro přednačítání instrukcí}
+\frametitle{Processor modification for instruction prefetching}
 \includegraphics[width=0.95\textwidth]{cpu_clock.pdf}
 \begin{itemize}
- \item $\downarrow$ v obrázku představuje hodinový vstup aktivní na vzestupnou hranu hodinového signálu
+ \item $\downarrow$ in the figure represents the clock input active on the rising edge of the clock signal
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Kritická cesta v případě přednačítání}
+\frametitle{Critical path in case of prefetching}
 
-Pro již dříve uvažované parametry
+For the previously considered parameters
 
 \vskip 2 mm
 
@@ -142,29 +142,29 @@ $t_{Mux}$ & = & $20$ ns  & & $t_{RFsetup}$ & = & $20$ ns \\
 \vskip 2 mm
 
 \begin{itemize}
- \item Uvažujeme $T_{C_{fetch}} =  t_{PC} + t_{Mem}$ probíhající paralelně s výkonáváním instrukce
+ \item We consider $T_{C_{fetch}} = t_{PC} + t_{Mem}$ running in parallel with the execution of the instruction
  \item $T_{C_{exec}} = t_{RFread} + t_{ALU} + t_{Mem} + t_{Mux} + t_{RFsetup}$
 \end{itemize}
 
-po dosazení
+after setting
 
 \begin{itemize}
- \item Uvažujeme $T_{C_{fetch}} =  30 + 300 = 330$\,ns
+ \item Consider $T_{C_{fetch}} = 30 + 300 = 330$\,ns
  \item $T_{C_{exec}} = 150 + 200 + 300 + 20 + 20 = 690$\,ns
- \item $T_{C_{fetch}} < T_{C_{exec}}$ tedy $T_{C} = T_{C_{exec}} = 690$\,ns
+ \item $T_{C_{fetch}} < T_{C_{exec}}$ so $T_{C} = T_{C_{exec}} = 690$\,ns
  \item $\rightarrow f_{C} = 1.45$\,MHz $\rightarrow IPS = 1\,450\,000$
 \end{itemize}
 
-Bez úprav dojde ke zpoždění skolových instrukcí (\texttt{beq}), viz poději
+Without modifications, the delay of the jump instructions (\texttt{beq}) will occur, see later in the lecture
 
 \end{frame}
 
-\section{Pětistupňová pipeline}
+\section{Five-stage pipeline}
 
 \begin{frame}
-\frametitle{Zřetězené vykonávání instrukcí -- pipelining}
+\frametitle{Pipelined instruction execution}
 
-Budeme uvažovat rodělení vykonávání instrukcí do pěti stupní (stages).
+We will consider splitting instruction execution into five stages.
 
 \vskip 2 mm
 
@@ -174,24 +174,24 @@ Budeme uvažovat rodělení vykonávání instrukcí do pěti stupní (stages).
 }
 
 \begin{enumerate}
- \item \textbf{IF} načtení instrukce \textbf{Instruction Fetch} -- přivedení \textbf{PC} na adresový vstup paměti, načtení instrukce a paralelně příprava $PC = PC + 4$
- \item \textbf{ID} dekódování instrukce \textbf{Instrukction Decode} -- dekódování operačního znaku (opcode), přímého operand a načtení registrů podle polí \texttt{rs1} a \texttt{rs2}
- \item \textbf{EX} vykonání instrukce \textbf{EXecution} -- provedení požadované funkce, průchod hodnot registrů a konstant ALU
- \item \textbf{MEM} paměťové přístupy \textbf{MEMory} -- pokud je požadovaný, proběhne v tomto stupni zápis (\textbf{sw}) nebo čtení (\textbf{lw}) paměti
- \item \textbf{WB} aktualizace registrů \textbf{WriteBack} -- zápis výsledku do pole registrů pro meziregistrové instrukce a paměti
+ \item \textbf{IF} instruction fetch \textbf{Instruction Fetch} -- bringing \textbf{PC} to the memory address input, fetching the instruction and preparing $PC = PC + 4$ in parallel
+ \item \textbf{ID} instruction decode \textbf{Instruction Decode} -- decode opcode, immediate operand and fetch registers according to \texttt{rs1} and \texttt{rs2} fields
+ \item \textbf{EX} instruction execution \textbf{EXecution} -- execution of the requested function, passing register values and ALU constants
+ \item \textbf{MEM} memory accesses \textbf{MEMory} -- if requested, memory writes (\textbf{sw}) or reads (\textbf{lw}) are performed at this stage
+ \item \textbf{WB} register update \textbf{WriteBack} -- write the result to the register array for intermediate register instructions and memory
 \end{enumerate}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Překrývající se zřetězené vykonávání instrukcí}
+\frametitle{Overlapping sequential execution of instructions}
 \includegraphics[width=0.9\textwidth]{cpu_pipe_inst_flow.pdf}
 
-$\tau = max{\left\lbrace \tau_i \right\rbrace}^k_{i=1}$,  kde $\tau_i$ je zpožení v jednotlivých stupních
+$\tau = max{\left\lbrace \tau_i \right\rbrace}^k_{i=1}$, where $\tau_i$ is the delay in each stage
 
-Vykonání $n$ instrukcí pro $k$ stupňové zřetězené zpracování trvá
+It takes $n$ instructions to execute $k$ stages of chained processing
 $$T_{k,n} = k \cdot \tau + (n - 1) \tau$$
-Zrychlení (Speedup)
+Speedup
 \hskip 7mm
 $S_{k,n} = \frac{T_{1,n}}{T_{k,n}} = \frac{n k \tau}{k \tau + (n - 1) \tau}$
 \hskip 7mm
@@ -200,46 +200,46 @@ $\lim_{n \rightarrow \infty} S_k = k$
 \end{frame}
 
 \begin{frame}
-\frametitle{Jednocyklový procesor (z přednášky 3) -- datová cesta}
+\frametitle{Single cycle processor (from lecture 3) -- datapath}
 \includegraphics[width=0.95\textwidth]{cpu_nopipe.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Zřetězený pětistupňový návrh -- datová cesta}
+\frametitle{Stringed five-step design -- datapath}
 \includegraphics[width=0.95\textwidth]{cpu_pipe.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Zřetězený pětistupňový návrh včetně řídicí jednotky}
+\frametitle{Stringed five-stage design including controller}
 \includegraphics[width=0.95\textwidth]{cpu_ctrl_pipe.pdf}
 \end{frame}
 
-\section{Vznik a ošetření hazardů}
+\section{Hazard emergence and resolution}
 
 \begin{frame}
-\frametitle{Datové a řídící hazardy a jejich řešení}
+\frametitle{Data and control hazards and their treatment}
 \includegraphics[width=0.95\textwidth]{hazard_kinds.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Zdroj datových hazardů}
+\frametitle{Source of data hazards}
 \includegraphics[width=0.95\textwidth]{hazard_data.pdf}
 
 \vskip 2 mm
 
 \begin{itemize}
- \item K zápisníkové paměti (register file) se přistupuje ze dvou stupňů (Decode, WriteBack) --
-       zápis se uskutečňuje v první půli cyklu, čtení v druhé $\Rightarrow$ v instrukci sub pro vstop \textbf{s0} hazard nevzniká
- \item Čtení-po-zápisu (Read After Write -- RAW) hazard vzniká u instrukcí
-       \textbf{and} a \textbf{or} při čtení \textbf{s0} v cychlech 3 a 4
- \item Jak zamezit takovému hazardu bez degradace propustnosti pipeline?
+ \item The register file is accessed from two stages (Decode, WriteBack) --
+       writing is done in the first half of the loop, reading in the second half $\Rightarrow$ in the sub instruction to enter \textbf{s0} hazard is not created
+ \item Read-After-Write (RAW) hazard occurs in instructions
+       \textbf{and} and \textbf{or} when reading \textbf{s0} in steps 3 and 4
+ \item How to avoid such hazard without degrading pipeline throughput?
 \end{itemize}
 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Datový hazard v instrukci "and" sledovaný v simulátoru}
+\frametitle{Data hazard in the "and" instruction tracked in the simulator}
 \includegraphics[width=0.95\textwidth]{hazard_qtrvsim.pdf}
 
 {\tiny
@@ -253,7 +253,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{Vyřešení datového hazardu pozastavením (stall)}
+\frametitle{Solving data hazard by stalling}
 \includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim.pdf}
 
 {\tiny
@@ -268,37 +268,36 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 
 \begin{frame}
-\frametitle{Rešení datových hazardů přeposíláním (forwarding)}
+\frametitle{Data hazard resolution by forwarding}
 \includegraphics[width=0.85\textwidth]{forward_data.pdf}
 
 \begin{itemize}
- \item pokud je výsledek k dispozici (vypočítaný) před vykonáním následující instrukce/í,
-       která/é vyžadují výsledek, tak je možné datový hazard vyřešit přeposláním hodnoty
- \item K datovému hazardu v uvažovaném návrhu dochází, pokud některý zdrojový registr
-       (\textbf{rs1}, \textbf{rs2}) v stupni \textbf{EX} odovídá cílovému registru
-       ve stupni \textbf{MEM} nebo \textbf{WB} (vyjma X0/zero)
- \item Čísla registrů z daných stupňů jsou přivedena na jednotku řešení hazardů (Hazard Unit -- HU)
+ \item If the result is available (calculated) before the next instruction(s), which requires the result, is executed, the data hazard can be resolved by forwarding the value
+ \item Data hazard occurs in the considered design if a source register
+       (\textbf{rs1}, \textbf{rs2}) in the \textbf{EX} stage corresponds to the target register
+       in \textbf{MEM} or \textbf{WB} (except X0/zero)
+ \item The register numbers from the given stages are mapped to the Hazard Unit (HU)
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Zopakovaný předchozí návrh a příprava na přeposílání}
+\frametitle{Recap of previous design and preparation for forwarding}
 \includegraphics[width=0.95\textwidth]{noforward_data.pdf}
 
-Je potřeba znát předchozí \textbf{A1} (\textbf{rs1}) a \textbf{A2} (\textbf{rs2}) v \textbf{EX}.
-Signály \textbf{RegWrite} z \textbf{MEM} a \textbf{WB} musí být také monitorované aby potvrzovaly,
-že registr určený \textbf{WriteReg} v \textbf{MEM} a \textbf{WB} je opravdu zapisovaný.
+You need to know the previous \textbf{A1} (\textbf{rs1}) and \textbf{A2} (\textbf{rs2}) in \textbf{EX}.
+The \textbf{RegWrite} signals from \textbf{MEM} and \textbf{WB} must also be monitored to confirm,
+that the register specified by \textbf{WriteReg} in \textbf{MEM} and \textbf{WB} is indeed being written.
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Návrh procesoru s přeposíláním z MEM a WB do EX}
+\frametitle{Processor design with MEM and WB to EX forwarding}
 \includegraphics[width=0.95\textwidth]{forward_hazard.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- datové hazardy řešené přeposíláním}
+\frametitle{QtRvSim -- data hazards resolved by forwarding}
 \includegraphics[width=0.95\textwidth]{hazard_forwarding.pdf}
 
 {\tiny
@@ -312,7 +311,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- přeposílání vstupu instrukce "and" z MEM}
+\frametitle{QtRvSim -- forwarding the "and" instruction input from MEM}
 \includegraphics[width=0.95\textwidth]{hazard_forwarding2.pdf}
 
 {\tiny
@@ -326,7 +325,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- přeposílání vstupu instrukce "or" z WB}
+\frametitle{QtRvSim -- forwarding the input of the "or" instruction from WB}
 \includegraphics[width=0.95\textwidth]{hazard_forwarding3.pdf}
 
 {\tiny
@@ -340,43 +339,43 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{Přetrvávající problém v instrukci "lw" -- řešení pozastavení}
+\frametitle{Persisting problem in the "lw" instruction -- solved by stalling}
 \includegraphics[width=0.85\textwidth]{pipeline_stall.pdf}
 
 \begin{itemize}
- \item Pokud následující instrukce vyžaduje data dříve, než jsou k dispozici v procesoru, tak je nutné
-       pipeline pozastavit (\textbf{stall}) a do pokračování pipeline jsou vloženy stall/\textbf{nop}
-       stavy
- \item Pozastavení řeší hazardy ale degraduje propustnost
- \item Stupně, které předchází stupni dotčenému hazardem, jsou pozastaveny, dokud nejsou všechny dalšími
-       instrukcemi požadované výsledky k dispozici -- výsledky jsou pak přeposlané na všechna místa, kde
-       jsou požadované
+ \item If the following instruction requires data before it is available in the processor, it is necessary to
+       suspend the pipeline (\textbf{stall}) and stall/\textbf{nop} is inserted into the continuation pipeline
+       states
+ \item Stalling solves hazards but degrades throughput
+ \item Stages preceding the stage affected by the hazard are suspended until all others are
+       results required by other instructions are available -- the results are then forwarded to all locations where
+       the required
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Řešení datových hazardů pozastavením (pipeline stall)}
+\frametitle{Data hazard resolution by stalling}
 \includegraphics[width=0.85\textwidth]{pipeline_stall2.pdf}
 
 \begin{itemize}
- \item Pozastavení je realizované podržením obsahu mezistavových (interstage) registrů
-       (hradlováním jejich hodinového signálu nebo nahrávacích signálů)
- \item Výsledky ze stupňů s chybějícími daty se nepoužijí, vynulují se signály
-       pro zápis do paměti a registrů i ostatní řídicí signály
- \item Obojího je dosaženo přidáním řídicích signálů pro pozdržení a nebo
-       nulování mezistupňových registrů
+ \item Stalling is implemented by holding the contents of the interstage registers
+       (by gating their clock or recording signals)
+ \item Results from stages with missing data are not used, signals
+       for writing to memory and registers and other control signals  are reset
+ \item Both are achieved by adding control signals for delay or
+       zeroing of intermediate registers
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Řešení zbývajících datových hazardů pozastavením}
+\frametitle{Solve remaining data hazards by stalling}
 \includegraphics[width=0.95\textwidth]{cpu_fwd_stall.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- datový hazard v "lw" řešený pozastavením}
+\frametitle{QtRvSim -- data hazard in "lw" solved by stalling}
 \includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim2.pdf}
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
@@ -389,7 +388,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- datový hazard v "lw" řešený pozastavenímm}
+\frametitle{QtRvSim -- data hazard in "lw" solved by stalling}
 \includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim3.pdf}
 
 {\tiny
@@ -403,7 +402,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- datový hazard v "lw" řešený pozastavením}
+\frametitle{QtRvSim -- data hazard in "lw" solved by stalling}
 \includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim4.pdf}
 
 {\tiny
@@ -416,96 +415,96 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \end{frame}
 
-\section{Řídící hazardy}
+\section{Control hazards}
 
 \begin{frame}
-\frametitle{Řícicí (control) hazardy (instrukce branch a jump)}
+\frametitle{Control hazards (branch and jump instructions)}
 \includegraphics[width=0.85\textwidth]{hazard_ctrl.pdf}
 
 \begin{itemize}
- \item Výsledek není známý dříve naž ve čtvrtém cyklu, poté se nahraje do PC
-       a tak první instrukce na cílové adrese skoku může být načtena až v cyklu pátém
- \item Skoky takto představují zásadní omezení využití času výkonných jednotek v pipeline
+ \item The result is not known until the fourth cycle, then it is loaded to the PC
+       and so the first instruction at the jump target address may not be loaded until cycle five.
+ \item Jumps in this way represent a major limitation on the time usage of the execution units in the pipeline
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Alternativa, přesunout rozhodování skoků dříve}
+\frametitle{Alternative, move jump decision making earlier}
 \includegraphics[width=0.85\textwidth]{hazard_ctrl2.pdf}
 
 \begin{itemize}
- \item Vzniká strukturální hazard, \textbf{ALU} je potřeba ve stupni \textbf{EX} i \textbf{ID}.
- \item Strukturální hazardy lze řešit duplikací prvků. Kompletní sčítačka, odčítačka nebo porovnání
-       na velikost trvá dlouho, řešením může být omezit podmíny skoků jen na shodu/neshodu (stačí xor
-       mezi operandy a nor přes bity)
+ \item A structural hazard is created, \textbf{ALU} is needed in both \textbf{EX} and \textbf{ID}.
+ \item Structural hazards can be solved by duplicating elements. A complete adder, subtractor or comparison
+       takes a long time, a solution may be to restrict the jump conditions to match/mismatch only (just xor
+       between operands and nor over bits)
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Přesun vykonání skoků do ID -- architektura MIPS}
+\frametitle{Jump execution to ID -- MIPS architecture}
 \includegraphics[width=0.90\textwidth]{hazard_ctrl_mips2.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Vyřešení hazardů na vstupech komparátoru -- MIPS}
+\frametitle{Hazard resolution on comparator inputs -- MIPS}
 \includegraphics[width=0.90\textwidth]{hazard_ctrl_mips2.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Predikce skoků a spekulativní vykonávání instrukcí (příště)}
+\frametitle{Jump prediction and speculative instruction execution (next time)}
 \includegraphics[width=0.90\textwidth]{cpu_branch_pred.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Výsledek návrhu zřetězeného procesoru -- RISC-V}
+\frametitle{Result of pipelined processor design -- RISC-V}
 \includegraphics[width=0.95\textwidth]{cpu_final_design.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Propustnost navrženého zřetězeného procesoru}
+\frametitle{Bandwidth of the proposed pipelined processor}
 
 \begin{itemize}
- \item Jaká bude maximální dosažitelná frekvence procesoru?
- \item Který stupeň je nejpomalejší?
- \item Minimální přípustná perioda cyklu je daná nepomalejším stupněm
- \item V našem případě se jedná o paměti \\
+ \item What will be the maximum achievable frequency of the processor?
+ \item Which stage is the slowest?
+ \item The minimum allowable cycle period is given by the slowest stage
+ \item In our case, we are dealing with memory \\
        $T_C = 300$\,ns $\rightarrow$ $f_{clk\,max} = 3\,333$\,kHz \\
-       pokud neuvažujeme cykly navíc na plnění pipeline (žádná pozastavení
-       a vyprázdnění například při skocích) tak pro ideální $IPC = 1$ \\
-       $IPS = 1 \cdot 3\,333e3 = 3\,333\,000$ instrukcí za sekundu
- \item Zavedení pětistupňového zřetězeného zpracování vedlo k zvýšení
-       propustnosti $3\,333\,000 / 980\,000 = 3.4 \times$ za předpokladu $IPC = 1$
+       if we don't consider extra cycles to fill the pipeline (no pauses
+       and emptying during jumps, for example) then for an ideal $IPC = 1$ \\
+       $IPS = 1 \cdot 3\,333e3 = 3\,333\,000$ instructions per second
+ \item The introduction of five-stage chained processing has led to an increase in
+       throughput of $3\,333\,000 / 980\,000 = 3.4 \times$ assuming $IPC = 1$
 \end{itemize}
 
 \end{frame}
 
-\section{Procesor s pamětí}
+\section{Processor with memory}
 
 \begin{frame}
-\frametitle{Jak koresponduje návrh s reálným procesorem s připojenou pamětí (pro zjednodušení neuvažujeme pipeline)}
+\frametitle{How does the design correspond to a real processor with memory attached (for simplicity we don't consider the pipeline)}
 \includegraphics[width=0.95\textwidth]{cpu_design.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Pamět již nebudeme uvažovat na čipu}
+\frametitle{Memory will no longer be considered on chip}
 \includegraphics[width=0.95\textwidth]{cpu_design2.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Vracíme se k původnímu rozdělení procesor, paměť}
+\frametitle{We're going back to the original CPU, memory split}
 \includegraphics[width=0.85\textwidth]{cpu_design3.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Která instrukce selže při přerušení spoje}
+\frametitle{Which instruction fails on a link break}
 \includegraphics[width=0.95\textwidth]{cpu_final_design_bonus.pdf}
 
-\textbf{A)} add \hfill \textbf{B)} addi \hfill \textbf{C)} beq \hfill \textbf{ D)} or \hfill ?
+\textbf{A)} add \hfill \textbf{B)} addi \hfill \textbf{C)} beq \hfill \textbf{D)} or \hfill ?
 \end{frame}
 
-\section{Úvahy a omezení pro reálný návrh (pro adepty na známku A)}
+\section{Real design considerations and constraints (for A grade adepts)}
 
 \begin{frame}
 \frametitle{Requirements for Pipeline Timing}
@@ -525,7 +524,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
  \item \textbf{Positive Clock Skew} -- clock arrives at the capturing sequential later than it arrives at the launching sequential
  \item \textbf{Negative Clock Skew} -- clock arrives at the launching sequential later than it arrives at the capturing sequential
  \item \textbf{Local Clock Skew} -- skew between any two sequentials with a valid timing path between them.
- \item \textbf{Global Clock Skew} -- clock skew between any two sequentials in the design irrespective of whether a timing paths exists between them
+ \item \textbf{Global Clock Skew} -- clock skew between any two sequentials in the design regardless of whether a timing paths exists between them
 \end{itemize}
 
 \end{frame}
@@ -551,7 +550,7 @@ source: Tawfik, S., Kursun, V.: Clock Distribution Networks with Gradual Signal 
 (applies to tree based adder, multiplier, (unrolled) iterative divider..)
 
 \begin{itemize}
- \item \textbf{Balancing}: the goal is to divide the processing into N stages in such way, that stage propagation delays are roughly the same...
+ \item \textbf{Balancing}: the goal is to divide the processing into N stages in such a way, that stage propagation delays are roughly the same...
  \item The number of stages reflects preference of \underline{performance} (\underline{throughput}) versus latency.
 \end{itemize}
 
@@ -584,7 +583,7 @@ source: Tawfik, S., Kursun, V.: Clock Distribution Networks with Gradual Signal 
 
 \includegraphics[width=0.95\textwidth]{pipeline_today_depths.pdf}
 
-The Optimum Pipeline Depth for a Microprocessor: {\tiny \url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.93.4333&rep=rep1&type=pdf}}
+The Optimum Pipeline Depth for a Microprocessor: {\tiny \url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.93.4333\&rep=rep1\&type=pdf}}
 
 \end{frame}
 
