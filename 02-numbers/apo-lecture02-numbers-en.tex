@@ -305,7 +305,8 @@ The both evaluation of 240 by 11 result in 21 and the remainder is \texttt{240\%
 \begin{frame}
 \frametitle{Sequential Integer Number Division}
 
-The \texttt{A/B} operation, A is 64-bit, B is 32-bit:\\
+The \texttt{A/B} operation, A is 64-bit, B is 32-bit:
+
 \begin{columns}
 \begin{column}{0.45\textwidth}
 The input A is stored into two registers AC,A\\
@@ -318,7 +319,7 @@ The input A is stored into two registers AC,A\\
 \item The A register is shifted only in the last step, AC is not shifted -- why?
 \item There exists an even faster algorithm -- High Radix Division (it is complex, above focus of our subject)
 \begin{itemize}
-\item It estimates more bits for and precision is enhancing by iterations
+\item It estimates more bits by approximation and iteration to enhance precision follows
 \item 1994 -- Pentium FDIV bug -- incorrect implementation of Sweeney, Robertson, and Tocher (SRT) algorithm -- two bits estimated per single cycle
 \end{itemize}
 \end{itemize}
@@ -525,7 +526,7 @@ What will be printed:
 \frametitle{Overflow for Unsigned Numbers}
 
 
-Unsigned char is 8-bit represented number typically then next operation overflows:\\
+Unsigned char is 8-bit represented number typically which is reason that next operation overflows:\\
 \texttt{\phantom{x}150 = \phantom{x}1001 0110}\\
 \texttt{+120 = \phantom{x}0111 1000}\vspace{-6pt}\\
 \rule[0pt]{3.6cm}{0.4pt}\\
