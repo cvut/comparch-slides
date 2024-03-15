@@ -245,7 +245,7 @@ Analysis what fits in given instruction length?
 \item three operand \texttt{$reg_{rd} = reg_{rs1} + reg_{s2}$} intructions fit
 \item common choice 32 registers, and even then 128 thousands three operand instructions (17~+~3~*~5~=~32~bits)
 \end{itemize}
-\item The immediate values are required as well, add one to register, set register to specific value125
+\item The immediate values are required as well, add one to register, set register to specific value
 \begin{itemize}
 \item but addresses to whole memory are required for global variables for example, if extended instruction words are undesirable, only small offsets (12 or 16 bits) fit
 \item the larger ones has to be stored into memory and reverenced by smaller offset which fits into instruction
@@ -407,7 +407,7 @@ The primary selection of operation is \textbf{opcode}:
 \begin{tabular}{|c|l|l|}\hline
 Opcode & The gorup / operation & Actual operations for our subset \\ \hline
 0110011 & R-type (see func7 and func3) & add, sub, slt, or, and \\ \hline
-0010011 & ALU-imm. (see func 3) & addi, subi, slti, ori, andi \\ \hline
+0010011 & ALU-imm. (see func 3) & addi, slti, ori, andi \\ \hline
 0000011 & Memory load (func3 with) & lw \\ \hline
 0100011 & memory store (func3 width) & sw \\ \hline
 1100011 & Branch (func3 condition) & beq \\ \hline
