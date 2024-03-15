@@ -70,7 +70,7 @@ unsigned long long & 0 & 18 446 744 073 709 551 615 & 8 \\ \hline
 
 \begin{itemize}
 \item The standard defines minimal ranges, \texttt{unsigned int} at least $2^{16}-1$ (2 bytes), but usually 4 bytes today.
-\item To find actual size in basic addressable units (C-char) use \texttt{sizeof(int)}, for range \texttt{UINT\_MAX}
+\item To find actual size in basic addressable units (C char) use \texttt{sizeof(int)}, for range \texttt{UINT\_MAX}
 \item For exact size use \texttt{uintX\_t} and \texttt{intX\_t} (where \texttt{X} is 8, 16, 32, or 64), i.e. \texttt{uint8\_t}, \texttt{int64\_t}
 \item Some exact size types can be missing but guaranteed \texttt{[u]int\_fastX\_t} and \texttt{[u]int\_leastX\_t}, i.e. \texttt{uint\_least8\_t}, \texttt{int\_fast64\_t}
 \end{itemize}
@@ -91,7 +91,7 @@ The constant values (integer literal) in C-language source:
 Example: 252 == 0xfc == 0374 == 0b11111100
 \bigskip
 
-Remark: The hexadecimal digits mapping to bytes is straightforward, each digit (nibble) represets four bits and two digits expressed number fits into single byte, i.e. 0x123456 fits into three bytes (24 bits rounded, exact minimum 21 bits)
+Remark: The hexadecimal digits mapping to bytes is straightforward, each digit (nibble) represents four bits and two digits expressed number fits into single byte, i.e. 0x123456 fits into three bytes (24 bits rounded, exact minimum 21 bits)
 \end{frame}
 
 
@@ -132,7 +132,7 @@ int main() {
 }
 \end{minted}
 
-What is the output of above program on Intel processors?
+What is the output of the above program on Intel processors?
 \begin{itemize}
 \item[A] nothing, the code cannot be translated
 \item[B] random result, p (unsigned char *) cannot be casted to *int
@@ -183,7 +183,7 @@ The same principle which you have learned at basic school for decimal numeral sy
 \begin{frame}
 \frametitle{Sequential Integer Number Multiplication}
 
-The realization of the the algorithm form previous slide with shift register and adder:\\
+The realization of the algorithm form previous slide with shift register and adder:\\
 (inputs A,B 32-bit, result 64-bit)
 \begin{center}
 \includegraphics[width=0.55\textwidth]{multiplier-seq-en.pdf}
@@ -212,7 +212,7 @@ The optimization of the sum of four 32-bit integers:\\
 \begin{itemize}
 \item step 1 -- use unchained \texttt{full adder}s and proceed $w_i+x_i+y_i = c'_ip_i$
 \item step 2 -- use \texttt{full adder}s again for bits $p_i+c'_{i-1}+z_i = c_iq_i$
-\item step 3 -- regulat adder (i.e. CLA) for 32-bit numbers ($s_0=q_0$, $c'_32$ added to $q$)
+\item step 3 -- regular adder (i.e. CLA) for 32-bit numbers ($s_0=q_0$, $c'_32$ added to $q$)
 \end{itemize}
 \end{itemize}
 \end{column}
@@ -223,7 +223,7 @@ The optimization of the sum of four 32-bit integers:\\
 \begin{frame}
 \frametitle{Fast Multiplication -- Wallace Tree}
 
-Try to apply described principle to sum fast 32 or 64 values:
+Try to apply the described principle to sum fast 32 or 64 values:
 \begin{columns}
 \begin{column}{0.6\textwidth}
 \includegraphics[width=1.0\textwidth]{wallace-tree2.pdf}
@@ -263,7 +263,7 @@ The longest, central column in more detail:
 \begin{frame}
 \frametitle{Sequential Integer Number Division}
 
-Division in binary system can be done same way as manual decimal division:
+Division in the binary system can be done the same way as manual decimal division:
 \bigskip
 \begin{columns}
 \begin{column}{0.4\textwidth}
@@ -297,7 +297,7 @@ Division in binary system can be done same way as manual decimal division:
 \end{column}
 \end{columns}
 \bigskip
-The both evaluation of 240 by 11 result in 21 and remainder is \texttt{240\%11=9}.
+The both evaluation of 240 by 11 result in 21 and the remainder is \texttt{240\%11=9}.
 
 \end{frame}
 
@@ -316,7 +316,7 @@ The input A is stored into two registers AC,A\\
 \begin{itemize}
 \item Result: A register integral ratio, AC reminder -- modulo
 \item The A register is shifted only in the last step, AC is not shifted -- why?
-\item There exists even faster algorithm -- High Radix Division (it is complex, above focus of our subject)
+\item There exists an even faster algorithm -- High Radix Division (it is complex, above focus of our subject)
 \begin{itemize}
 \item It estimates more bits for and precision is enhancing by iterations
 \item 1994 -- Pentium FDIV bug -- incorrect implementation of Sweeney, Robertson, and Tocher (SRT) algorithm -- two bits estimated per single cycle
@@ -338,7 +338,7 @@ The sign has to be encoded into numeral representation:
 \begin{itemize}
 \item simple way - the most significant bit represents sign
 \begin{itemize}
-\item The absolute value the rest but 0 and -0 even that represents same value
+\item The absolute value the rest but 0 and -0 even that represents the same value
 \item The addition complicated and unsigned adder is hard to reuse
 \end{itemize}
 \item two's complement (complement to module) -- most frequent in use
@@ -498,7 +498,7 @@ long long & -9 223 372 036 & 9 223 372 036  & 8 \\
 \begin{frame}[fragile, shrink=5]
 \frametitle{Signed Numbers -- Quiz 3}
 
-Consider next program:
+Consider the following program:
 \begin{minted}{c}
 #include <stdio.h>
 int main() {
@@ -532,13 +532,13 @@ Unsigned char is 8-bit represented number typically then next operation overflow
 \texttt{\phantom{xx}14 = \phantom{x}0000 1110}\\
 \texttt{\phantom{x}270 =1 0000 1110}
 
-The result does not fit in 8-bit represnetation, the most significant bit is lost and result is 14 only.
+The result does not fit in 8-bit representation, the most significant bit is lost, and the result is only 14.
 
 If we want to signal overflow in addition we can use:
 \begin{itemize}
 \item C23 bool ckd\_add(type1 *result, type2 a, type3 b) -- addition of two numbers with overflow signalling
 \item GNU GCC 5+, Clang 3.8+ \_\_builtin\_add\_overflow(a, b, result) -- both versions even for sub and mul
-\item Can be detected on conventional C by check if result is smaller than both inputs
+\item Can be detected on conventional C by check if the result is smaller than both inputs
 \end{itemize}
 \end{frame}
 
@@ -601,7 +601,7 @@ The overflow in operations with signed numbers is more complex. Examples what re
 \includegraphics[width=0.6\textwidth]{overflow.pdf}
 \end{center}
 
-When two numbers with oposite signs are added:
+When two numbers with opposite signs are added:
 \begin{itemize}
 \item[A] can only overflow in two's complement representation
 \item[B] can only overflow in representation other two's complement representation
@@ -623,7 +623,7 @@ Excess-K (offset binary):
 \item for k-bit representation, offset K is usually $K=2^{k-1}$ or $K=2^{k-1}-1$
 \item representation/code for number X is $A(X) = X+K$
 \item arithmetic value is obtained from $D(A) = A-K$
-\item range of the represented arithmetic values is $<-K, 2^{k}-K-1>$
+\item the range of the represented arithmetic values is $<-K, 2^{k}-K-1>$
 \end{itemize}
 \end{column}
 \hfill
@@ -652,7 +652,7 @@ for k=8 and K=127
 \frametitle{Excess-K -- Arithmetic Operations}
 
 \begin{itemize}
-\item the addition and substraction operations processed directly representation:
+\item the addition and subtraction operations processed directly representation:
 \item $A ( X + Y )=( X + Y )+ K =( X + K ) + (Y + K ) - K = A ( X )+ A (Y ) -K$
 \item $A ( X - Y )=( X - Y )+ K =( X + K ) - (Y +K )+K = A ( X ) - A (Y )+K$
 \item multiplication is even more complex:
@@ -663,7 +663,7 @@ for k=8 and K=127
 \begin{itemize}
 \item Overflow:
 \begin{itemize}
-\item for addition, same sign inputs and oposite sign on output
+\item for addition, same sign inputs and opposite sign on output
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -679,7 +679,7 @@ One's complement:
 \item for $X\ge0$, representation is $A(X) = X$
 \item for $X<0$, representation is $A(X) = 2^k-1-|X|$
 \end{itemize}
-\item disadvantages: two representations of value zero (-0, +0), more complicate addition (hot one correction)
+\item disadvantages: two representations of the value zero (-0, +0) complicate addition (hot one correction)
 \end{itemize}
 \bigskip
 Binary coded decimal (BCD) representation
@@ -703,7 +703,7 @@ Binary coded decimal (BCD) representation
 \begin{itemize}
 \item Integer number $X$ in $k$-bit binary representation can be split into bits where each $b_i$ is multiplied by corresponding power of two (weight), that is $ X = \sum_{i=0}^{k-1} b_i 2^{i} $
 \item Real number $X$ is again similar sum of $k+j$ bits $b_i$ which are multiplied by powers of two (2), but we add negative powers of two: $X = \sum_{i=-j}^{k} b_i 2^{i}$
-\item remember grammar school math lessons $2^{-j} = \frac{1}{2^j}$
+\item Remember grammar school math lessons $2^{-j} = \frac{1}{2^j}$
 \end{itemize}
 
 
@@ -724,15 +724,15 @@ Fixed point numbers:
 \item real number is represented by k-bit signed integer number, the fixed number of fractional bits is chosen, where $0 \le s \le k$
 \item representation for arithmetic value X is $A(X) = \lceil X \cdot 2^s \rceil$
 \item decoding of the representation to arithmetic value $D(A) = \frac{A}{2^s}$
-\item the range of represented numbers $<-\frac{2^{k-1}}{2^s}, \frac{2^{k-1}-1}{2^s}>$
+\item the range of represented numbers $\langle -\frac{2^{k-1}}{2^s}, \frac{2^{k-1}-1}{2^s} \rangle$
 \item absolute precision of the representation is $\pm \frac{1}{2^s}$.
 \end{itemize}
 
  Special case for fractional numbers:
 \begin{itemize}
-\item if numbers from range $<0,1)$ should be represented (usually control systems)
+\item if numbers from range $\langle 0,1)$ should be represented (usually control systems)
 \item ten $s=k$ and we can directly use unsigned integer numbers representation
-\item the better precision can be achieved than for same bit size \texttt{float}, or \texttt{double} representation
+\item the better precision can be achieved than for the same bit size \texttt{float}, or \texttt{double} representation
 \end{itemize}
 
 \end{frame}
@@ -765,7 +765,7 @@ Some SIMD instructions set extensions provide implementation of operations for c
 
 \bigskip
 
-It is equivalent to scientific notation format for decimal real numbers writting:
+It is equivalent to scientific notation format for decimal real numbers writing:
 $-123 000 000 000 000.0 = -1.23 \cdot 10^{14} = -1.23\text{E} 14$\\
 $-0.000 000 000 000 123 = -1.23 \cdot 10^{-13} = -1.23\text{E}-13$\\
 Significand (mantissa) $\in \left\langle 1; 10 \right)$ for normalized form
@@ -791,15 +791,15 @@ Standard IEEE-754 defines how to encode real numbers into 32 (C float), 64 bits 
 
 32-bit representation of the real number composes of:
 \begin{itemize}
-\item 1 bit sign (the both +0 and -0 are defined)
-\item 8 bits two based exponet in excess-k representation (K=127)
+\item 1 bit for the sign (both +0 and -0 are defined)
+\item 8 bits two based exponent in excess-k representation (K=127)
 \item 23 bits to represent significand fractions (plus implicit MSB one)
 \end{itemize}
 \bigskip
 64-bit representation of the real number composes of:
 \begin{itemize}
-\item 1 bit sign (the both +0 and -0 are defined)
-\item 11 bits two based exponet in excess-k representation (K=1023)
+\item 1 bit sign (both +0 and -0 are defined)
+\item 11 bits two based exponent in excess-k representation (K=1023)
 \item 52 bits to represent significand fractions (plus implicit MSB one)
 \end{itemize}
 
@@ -813,7 +813,8 @@ Example:
 Real number $0.828125_{(10)} = 0.5+0.25+0.0625+0.015625=2^{-1}+2^{-2}+2^{-4}+2^{-6} = 0.110101_{(2)}$.\\
 The number is converted into scientific like binary format: $0.110101 = 1.10101\text{E}-1$.\\
 Exponent is $e=-1$, its excess-k representation (K = 127) is $A(-1)=-1+127 = 126$.\\
-The space for leading MSB of significand (hidden one) is not reserved because is is guaranteed by format definition (except zero and some corner cases)a:
+The space for leading MSB of significand (hidden one)
+is not reserved because it is guaranteed by format definition (except for zero and some corner cases):
 
 \begin{center}
 \includegraphics[width=0.4\textwidth]{float_example-en.pdf}
@@ -825,16 +826,17 @@ You can experiment with \url{https://www.h-schmidt.net/FloatConverter/IEEE754.ht
 \begin{frame}
 \frametitle{IEEE-754 -- Normalized Range}
 
-Normalized number is each number which can be written as \texttt{1.XXXXX E exp} and power exponet fits in range -126 till 127 for 32-bit representation. That is exponent in excess-k format is in range 1 to 254.
+\textbf{Normalized number} is each number which can be written as \texttt{1.XXXXX E exp} and power exponent fits in range -126 till 127 for 32-bit representation. That is exponent in excess-k format is in range 1 to 254.
 
 \bigskip
-Demoralized numbers are used to cover range near zero and can be written as \texttt{0.XXXXX E -126}, for example even 0.0, the interval is defined for 32-bit representation as $(-1.17549\text{E}-38,1.17549\text{E}-38)$, that is $(-2^{-126},2^{-126})$.
+\textbf{Denormalized numbers} are used to cover range near zero and can be written as \texttt{0.XXXXX E -126}, for example, even 0.0, the interval is defined for 32-bit representation as $(-1.17549\text{E}-38,1.17549\text{E}-38)$, that is $(-2^{-126},2^{-126})$.
 
 \bigskip
-When exponet is encoded as all ones 1, that is 255, i.e. exponent arithmetic value is 128, then special value is represented 
+When exponent is encoded as all ones 1, that is 255, i.e. exponent arithmetic value is 128, then special value is represented
 \begin{itemize}
-\item if all significand bits are 0, then infinite (value to big to represent) is stored, it can be \textit{-inf}, or \textit{inf} according to sign.
-\item if significand is non-zero, then nothing about arithmetic value can be considered \textit{NaN} -- Not a Number, some error in the computation, for example square root of then negative real number.
+\item if all significand bits are 0, then \textbf{infinite} (value to big to represent) is stored, it can be \text{-inf}, or \textit{inf} according to sign.
+\item if significand is non-zero, then nothing about arithmetic value can be considered \textit{NaN} --
+\textbf{not a number}, some error in the computation, for example square root of a negative real number.
 \end{itemize}
 \end{frame}
 
@@ -853,15 +855,15 @@ Exponent & Significand &  Value \\ \hline
 \end{tabular}
 \bigskip
 
-The smallest normalized number not equal to zero is:
+The \textbf{smallest normalized number not equal to zero} is:
 \begin{itemize}
 \item \small exponent = 0 (-126), significand=000...0001, value = $2^{-23+(-126)} \approx 1.4\text{E}-45$
 \end{itemize}
-Normalized number with the smallest absolute value:
+Normalized number with the \textbf{smallest absolute value}:
 \begin{itemize}
 \item \small exponent = 1 (-126), significand=000...0000, value = $2^{-126} \approx 1.17\text{E}-38$
 \end{itemize}
-Normalized number with the biggest absolute value:
+Normalized number with the \textbf{biggest absolute value}:
 \begin{itemize}
 \item \small exponent = 255 (127), significand=111...1111, value = $(2-2^{-23})2^{127} \approx 3.4\text{E}38$
 \end{itemize}
@@ -876,14 +878,14 @@ The 2008 revision defines 16-bit real numbers encoding (half precision) and 128-
 16-bit real number IEEE-754 representation:
 \begin{itemize}
 \item 1 bit sign (the both +0 and -0 are defined)
-\item 5 bits two based exponet in excess-k representation (K=15)
+\item 5 bits two based exponent in excess-k representation (K=15)
 \item 10 bits significand fractions (plus implicit MSB one)
 \end{itemize}
 \bigskip
 128-bit real number IEEE-754 representation:
 \begin{itemize}
 \item 1 bit sign (the both +0 and -0 are defined)
-\item 15 bits two based exponet in excess-k representation (K=16383)
+\item 15 bits two based exponent in excess-k representation (K=16383)
 \item 112 bits significand fractions (plus implicit MSB one)
 \end{itemize}
 
@@ -895,11 +897,11 @@ The 2008 revision defines 16-bit real numbers encoding (half precision) and 128-
 
 Comparison of the real numbers (equal, greater than):
 \begin{itemize}
-\item A positive number is greater then negative one, check sign the first if different positive is greater than negative except for zero, where +0 and -0 are equal
-\item When signs are removed then absolute numbers values can be compared in the representation format (as they are in memory) same as unsigned numbers of the same size and endianness
+\item A positive number is greater than the negative one, check sign the first if different positive is greater than negative except for zero, where +0 and -0 are equal
+\item When signs are removed, then absolute numbers values can be compared in the representation format (as they are in memory) same as unsigned numbers of the same size and endianness
 \begin{itemize}
 \item This is possible thanks to exponent excess-K (offset binary) representation
-\item Greater exponent then the represented number is greater, when exponets are equal greater significand value represents greater number.
+\item Greater exponent than the represented number is greater, when exponents are equal greater significand value represents greater number.
 \end{itemize}
 \end{itemize}
 \bigskip
@@ -932,7 +934,7 @@ Example: add two real numbers 31.5+0.75 in their binary floating point represent
 $31.5_{(10)} = 11111.1_{(2)} = 1.11111\text{E}4$ \phantom{xxx} $0.75_{(10)} = 0.11_{(2)} = 1.1\text{E}-1$
 
 \bigskip
-Both numbers has to be converted to same binary exponet 4 and then significands are added:\\
+Both numbers have to be converted to the same binary exponent 4 and then significands are added:\\
 \texttt{\phantom{xx}1.11111}\\
 \texttt{\phantom{xx}0.000011}\vspace{-6pt}\\
 \rule[0pt]{2cm}{0.4pt}\\
@@ -952,12 +954,12 @@ The binary floating point number represents 32.25 decimal.
 \begin{enumerate}
 \item Exponents are added and signs xor-ed
 \item Significands are multiplied
-\item Result can require normalization, max 1 bit right shift and ncrement exponent by one for normalized input numbers
+\item Result can require normalization, max 1 bit right shift and increment exponent by one for normalized input numbers
 \item The result is rounded
 \item Special care has to be taken for normalized inputs and or result in out of normalized range
 \end{enumerate}
 
-Hardware for multiplier is of the same or even lower complexity as the adder hardware -- only adder part is replaced by unsigned multiplier
+Hardware for multiplier is of the same or even lower complexity as the adder hardware -- only the adder part is replaced by unsigned multiplier
 
 \end{frame}
 
@@ -996,7 +998,7 @@ result with four decimal fractional digits \texttt{0.5625}
 \end{columns}
 \bigskip
 
-Exponents addition $-2+0=-2$, but result of significands multiplication requires normalization, that is exponent is incremented to $-1$.
+Exponent addition $-2+0=-2$, but the result of significands multiplication requires normalization, that is exponent is incremented to $-1$.
 
 The correct result is obtained $10.01\text{E}-2 = 1.001\text{E}-1$ $\;\equiv\;$ $0.5625_{(10)}$
 
@@ -1007,7 +1009,7 @@ The correct result is obtained $10.01\text{E}-2 = 1.001\text{E}-1$ $\;\equiv\;$ 
 
 Real numbers:
 \begin{itemize}
-\item the floating point real numbers allows to represent values in large dynamic range with allmost constant relative precision when exponent allows normalized form:
+\item the floating point real numbers allows to represent values in large dynamic range with almost constant relative precision when exponent allows normalized form:
 \begin{itemize}
 \item float -- absolute represented value from $1.175494351\text{E}-38$ to $3.402823466\text{E} + 38$
 \item double -- absolute represented value from $2.2250738585072014\text{E} - 308$ to $1.7976931348623158\text{E} + 308$
