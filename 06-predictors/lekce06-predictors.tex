@@ -1,34 +1,34 @@
 \documentclass{beamer}
-%[aspectratio=169]   \usepackage[czech]{babel}
-\usepackage{apo-lecture}
+%[aspectratio=169] \usepackage[czech]{babel}
+\usepackage{apo-lecture-en}
 \usepackage{pdfpages}
 \usepackage{pdfcomment}
 \usepackage{listings}
 \usepackage{array,multirow}
 
-\subtitle{Lekce 06. Superskalární architektura\\a\\prediktory skoků}
+\subtitle{Lecture 06. Superscalar architecture\\a\\jump predictors}
 \author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
 \begin{document}
 
 \maketitle
 
-\section{Superscalární architektura}
+\section{Superscalar architecture}
 
 \begin{frame}
-\frametitle{Cíl dnešní přednášky}
+\frametitle{Today's lecture objective}
 
 \begin{itemize}
- \item Podívat se na další možné zrychlení procesoru, které navazuje na pipelining -- superskalární architekturu
- \item Predikce skoků jako velmi důležitá vlastnost superskalárních procesorů
- \item Obě tyto techniky se využívají jak v RISC-V procesorech, tak i ve všech současných procesorech
+ \item A look at another possible processor speedup that builds on pipelining -- the superscalar architecture
+ \item Jump prediction as a very important feature of superscalar processors
+ \item Both of these techniques are used in RISC-V processors as well as in all current processors
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Opakování - kvíz}
+\frametitle{Recap - quiz}
 
-V kterém případě instrukce obsahují datový hazard?
+In which case do the instructions cause a data hazard?
 
 \begin{columns}[T]
 \begin{column}{0.40\textwidth}
@@ -36,8 +36,8 @@ V kterém případě instrukce obsahují datový hazard?
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 addi t0, s1, 4
-add  t1, s1, s0
-add  s1, s2, x0
+add t1, s1, s0
+add s1, s2, x0
 \end{minted}
 \end{column}
 \begin{column}{0.40\textwidth}
@@ -45,36 +45,36 @@ add  s1, s2, x0
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 addi t0, s1, 4
-add  t1, s2, s3
-add  t2, t0, t1
+add t1, s2, s3
+add t2, t0, t1
 \end{minted}
 \end{column}
 \end{columns}
 \bigskip
 \begin{itemize}
- \item[A] ani v jednom sloupci
- \item[B] hazard je pouze v případě a)
- \item[C] hazard je pouze v případě b)
- \item[D] hazard je v případě a) i b)
+ \item[A] in neither column
+ \item[B] hazard is only in case a)
+ \item[C] hazard is only in case b)
+ \item[D] hazard is in case a) and b)
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Opakování - kvíz}
+\frametitle{Recap - quiz}
 
-Jak lze vyřešit následující datový hazard?
+How can the following data hazard be solved?
 
 \begin{minted}[fontsize=\footnotesize]{gas}
-lw   s2, 10(s0)
-addi s1, s2, -1 
+lw s2, 10(s0)
+addi s1, s2, -1
 \end{minted}
 \bigskip
 \begin{itemize}
- \item[A] tento hazard nelze vyřešit, musí ho řešit překladač nebo programátor
- \item[B] lze ho vyřešit pomocí data forwarding
- \item[C] musí se řešit pouze pomocí stall
- \item[D] lze ho vyřešit kombinací stall a data forwarding
+ \item[A] this hazard cannot be solved, it must be solved by the compiler or programmer
+ \item[B] can be solved by data forwarding
+ \item[C] must only be resolved using stall
+ \item[D] can be solved by a combination of stall and data forwarding
 \end{itemize}
 
 \end{frame}
@@ -82,9 +82,9 @@ addi s1, s2, -1
 
 \begin{frame}
 
-\frametitle{Procesor s pipeline (z přednášky 5)}
+\frametitle{Processor with pipeline (from lecture 5)}
 
-Jak může Hazard Unit rozhodnout o datovém hazardu, když to dělá problémy studentům? Jednoduše:
+How can the Hazard Unit make a decision about data hazard when it's causing problems for students? Simple:
 \begin{columns}
 \begin{column}{0.67\textwidth}
 \includegraphics[width=\textwidth]{cpu_final_design.pdf}
@@ -92,65 +92,65 @@ Jak může Hazard Unit rozhodnout o datovém hazardu, když to dělá problémy 
 \begin{column}{0.33\textwidth}
 \footnotesize
 \begin{itemize}
-\item Pokud je RegWriteM==1, MemToRegM==0 a WriteRegM==RsE1 nebo RsE2 pak nastav ForwardAE na 2 nebo ForwardBE na 2
-\item Pokud je RegWriteW==1, MemToRegW==0 a WriteRegW==RsE1 nebo RsE2 pak nastav ForwardAE na 1 nebo ForwardBE na 1
+\item If RegWriteM==1, MemToRegM==0 and WriteRegM==RsE1 or RsE2 then set ForwardAE to 2 or ForwardBE to 2
+\item If RegWriteW==1, MemToRegW==0 and WriteRegW==RsE1 or RsE2 then set ForwardAE to 1 or ForwardBE to 1
 \end{itemize}
 \end{column}
 \end{columns}
 \bigskip
 \footnotesize
 \begin{itemize}
-\item Pokud MemToRegM==1 a WriteRegW==Rs1E nebo Rs2E pak nastav pozastavení - STALL
+\item If MemToRegM==1 and WriteRegW==Rs1E or Rs2E then set suspend - STALL
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Paralelismus na úrovni instrukcí}
+\frametitle{Instruction-level parallelism}
 
-Paralelní zpracování na úrovni instrukcí (Instruction Level Parallelism, ILP)
+Instruction Level Parallelism (ILP)
 \begin{itemize}
- \item Pipelining -- paralelně se zpracovávají různé fáze různých instrukcí
- \item Superpipelining -- za superpipelining se označuje pipelining s více než 10 kroky. Pomalejší fáze pipeliningu se rozdělí na více částí, tím dojde k možnosti zvýšit frekvenci procesoru a tím i jeho výkon.
- \item Superskalární procesor -- paralelně se zpracovávají stejné fáze různých instrukcí
+ \item Pipelining -- different phases of different instructions are processed in parallel
+ \item Superpipelining -- superpipelining refers to pipelining with more than 10 steps. Slower pipelining phases are split into multiple parts, allowing the processor to increase its frequency and thus its performance.
+ \item Superscalar processor -- the same stages of different instructions are processed in parallel
 \begin{itemize}
-\item můžeme mít více jednotek ALU a provádět paralelně fáze EX více různých instrukcí
-\item ve fázi fetch můžeme paralelně načítat více instrukcí jdoucích po sobě, tedy např. instrukce z adresy PC, PC+4, PC+8 a PC+12
-\item jednotlivé fáze instrukcí jsou navíc zřetězené, takže po paralelním načtení 4 instrukcí, rovnou načítáme další 4 instrukce 
+\item we can have multiple ALUs and execute in parallel EX phases of multiple different instructions
+\item in the fetch phase we can fetch multiple instructions in parallel in succession, i.e. instructions from address PC, PC+4, PC+8 and PC+12
+\item the individual instruction phases are additionally chained, so that after fetching 4 instructions in parallel, we fetch the next 4 instructions directly
 \end{itemize}
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Paralelismus na úrovni instrukcí}
+\frametitle{Instruction-level parallelism}
 
-Zřetězený procesor -- piplened procesor
+Pipelined processor
 \includegraphics[width=0.85\textwidth]{pipeline.pdf}
 
-Superskalární procesor -- super scalar procesor
+Superscalar processor
 \includegraphics[width=0.85\textwidth]{superscalar.pdf}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Superskalární procesory}
+\frametitle{Superscalar processors}
 
 \begin{itemize}
-\item Superskalární procesory mají IPC (Instruction Per Clock) větší než 1. 
+\item Superscalar processors have an IPC (Instruction Per Clock) greater than 1.
   \begin{itemize}
-  \item Normální i pipelined procesor mají neustále IPC=1
+  \item Normal and pipelined processors have IPC=1 all the time
   \end{itemize}
-\item Počet paralelních větví se nazývá šířka zřetězení (instruction pipeline width)
-\item Existují dvě základní varianty:
+\item The number of parallel branches is called the instruction pipeline width.
+\item There are two basic variants:
   \begin{itemize}
-  \item \textbf{Statická} superskalární architektura -- paralelně mohou být spuštěny jen instrukce jdoucí v programu za sebou.
+  \item \textbf{Static} superscalar architecture -- only consecutive instructions in a program can run in parallel.
     \begin{itemize}
-    \item Pokud na sobě instrukce závisí vede to k pozastavení procesoru (stall).
+    \item If instructions depend on each other, this leads to a processor stall.
     \end{itemize}
-  \item \textbf{Dynamická} superskalární architektura -- paralelně mohou být spuštěny libovolné instrukce, které jsou přiravené k vykonávání. 
+  \item \textbf{Dynamic} superscalar architecture -- any instructions that are ready to execute can run in parallel.
     \begin{itemize}
-    \item Umožňuje předbíhání instrukcí tzv. out-of-order execution.
-    \item Lépe využívá HW prostředky procesoru.
+    \item Allows instructions to be preempted by out-of-order execution.
+    \item Makes better use of the processor's HW resources.
     \end{itemize}
   \end{itemize}
 \end{itemize}
@@ -158,35 +158,35 @@ Superskalární procesor -- super scalar procesor
 \end{frame}
 
 \begin{frame}
-\frametitle{Superskalární procesory}
+\frametitle{Superscalar processors}
 
 \begin{itemize}
-\item Jednotlivé paralelní větve mohou být \textbf{unifikované} -- tedy všechny větve jsou stejné a mohou provádět všechny typy operací
+\item Individual parallel branches can be \textbf{unified} -- that is, all branches are the same and can perform all types of operations
   \begin{itemize}
-  \item V praxi by to byl zbytečně složitý procesor -- nepoužívá se
+  \item In practice, this would be an unnecessarily complex processor -- it is not used
   \end{itemize}
-\item Jednotlivé paralelní větve jsou \textbf{specializované} -- každá větev umí jen některé instrukce:
+\item The individual parallel branches are \textbf{specialized} -- each branch can only do certain instructions:
   \begin{itemize}
-  \item instrukce pracující pouze s registry -- výpočty, porovnání
-  \item instrukce pracující s pamětí -- načítání/ukládání dat z/do paměti
-  \item instrukce skoku -- instrukce měnící PC
+  \item register-only instructions -- calculations, comparisons
+  \item instructions working with memory -- loading/loading data from/to memory
+  \item jump instructions -- PC changing instructions
   \end{itemize}
 \end{itemize}
 \end{frame}
 
-\section{Reorganizace výpočtů v registrech}
+\section{Register Computation Reorganization}
 
 \begin{frame}
-\frametitle{Superskalární architektura}
+\frametitle{Superscalar Architecture}
 \begin{columns}
 \begin{column}{0.55\textwidth}
 \includegraphics[width=\textwidth]{superscalar-architecture.pdf}
 \end{column}
 \begin{column}{0.45\textwidth}
 \begin{itemize}
-\item Základem architektury je ReOrder Buffer (ROB), který pomocí přejmenování registrů umí zlepšit paralelizaci instrukcí.
-\item Reservation Station rozšiřuje možnosti ukládání operandů pro operace a organizuje jejich vykonávání
-\item Common Data Bus zajišťuje zapsání vypočtených hodnot do skutečných registrů i pro přejmenované registry.
+\item The basis of the architecture is the ReOrder Buffer (ROB), which can improve instruction parallelization by renaming registers.
+\item Reservation Station extends the possibilities of storing operands for operations and organizes their execution
+\item Common Data Bus ensures that calculated values are written to the actual registers even for renamed registers.
 \end{itemize}
 \end{column}
 \end{columns}
@@ -194,29 +194,29 @@ Superskalární procesor -- super scalar procesor
 
 
 \begin{frame}[fragile]
-\frametitle{Datové hazardy v superskalární architektuře}
+\frametitle{Data hazards in superscalar architecture}
 
-Pro instrukce pracující pouze s registry:
+For register-only instructions:
 \begin{itemize}
-\item je jasné, že není možné paralelně vykonávat všechny instrukce
-\item pomocí skryté sady registrů je možné paralelizaci zvýšit.
+\item is clear that it is not possible to execute all instructions in parallel
+\item is possible to increase parallelization by using a hidden set of registers.
 \end{itemize}
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 1: slli t1, s1, 4
-2: add  t0, t1, s2
+2: add t0, t1, s2
 3: addi s2, t0, 8
 4: mult t1, s0, s0
 5: addi t3, t1, 100
 \end{minted}
 
-Tento program lze paralelizovat s použitím skryté sady registrů pro přejmenování:
+This program can be parallelized using a hidden set of registers for renaming:
 
 \begin{columns}[T]
 \begin{column}{0.40\textwidth}
 \begin{minted}[fontsize=\footnotesize]{gas}
 1: slli RN0, s1, 4
-2: add  RN1, RN0, s2
+2: add RN1, RN0, s2
 3: addi RN2, RN1, 8
 \end{minted}
 \end{column}
@@ -231,22 +231,22 @@ Tento program lze paralelizovat s použitím skryté sady registrů pro přejmen
 
 
 \begin{frame}
-\frametitle{Tomasulo algoritmus}
+\frametitle{Tomasulo algorithm}
 
-Robert Tomasulo z IBM vymyslel v roce 1967 algoritmus pro out-of-order vykonávání výpočtů na FPU.
-V současné době je jeho modifikace základem architektury všech moderních procesorů.
-Základní fáze jsou:
+Robert Tomasulo from IBM invented an algorithm for out-of-order computation on FPUs in 1967.
+Today, a modification of it is the basis of the architecture of all modern processors.
+The basic stages are:
 \begin{itemize}
-\item Zavedení instrukce do ROB a přejmenování registru výsledku operace - získání čísla registru ze souboru záložních registrů. 
-\item Zavedení instrukce do Reservation Station a čekání na připravená data
-\item Provedení výpočtu a zapsání výsledku do přejmenovaného registru přes Common Data Bus
-\item Dokončení nejstarší instrukce (kruhová fronta -- FIFO) z ROB a aktualizace systémového registru.
+\item Introducing an instruction into the ROB and renaming the result register of the operation - getting the register number from the backup register file.
+\item Load the instruction into the Reservation Station and wait for the prepared data
+\item Performing the calculation and writing the result to the renamed register via the Common Data Bus
+\item Completing the oldest instruction (circular queue -- FIFO) from the ROB and updating the system register.
 \end{itemize}
-Instrukce se mohou vypočítávat out-of-order, ale dokončení instrukcí je v pořadí programu.
+Instructions may be computed out-of-order, but instruction completion is in program order.
 \end{frame}
 
 \begin{frame}
-\frametitle{Superskalární architektura}
+\frametitle{Superscalar Architecture}
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{superscalar-architecture2.pdf}
@@ -255,24 +255,24 @@ Instrukce se mohou vypočítávat out-of-order, ale dokončení instrukcí je v 
 \scriptsize
 Rename Register Set:
 \begin{itemize}
-\item Množina pomocných registrů, často i mnohokrát větší než počet CPU registrů.
-\item Příznak Busy značí, že registr je využíván, Příznak valid značí, že hodnota je vypočtena a je validní. Při dokončení instrukce se nastaví CPU registr na RRN.
+\item A set of auxiliary registers, often many times the number of CPU registers.
+\item The Busy flag indicates that the register is being used, the Valid flag indicates that the value is calculated and is valid. When the instruction completes, the CPU register is set to RRN.
 \end{itemize}
 
 ReOrder Buffer:
 \begin{itemize}
-\item Cyklická fronta obsahuje instrukce vložené v pořadí programu
-\item Fronta zaručuje, že instrukce jsou dokončovány v programovém pořadí
-\item Provázání mezi Reservation Station přes číslo přejmenovaného registru (RRN Rename Register Number), který bude obsahovat výsledek operace
-\item Přes Common Data Bus se dozví, že registr RRN byl vypočten a instrukce dostane příznak Finished
-\item Dokončení instrukce - odstraní z ROB pouze nejstarší instrukci, až získá příznak finish.
+\item The cyclic queue contains instructions inserted in program order
+\item The queue ensures that instructions are completed in program order
+\item Binding between Reservation Station via Rename Register Number (RRN Rename Register Number), which will contain the result of the operation
+\item Via the Common Data Bus it learns that the RRN register has been calculated and the instruction gets the Finished flag
+\item Finish instruction - removes only the oldest instruction from the ROB when it gets the finish flag.
 \end{itemize}
 
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Superskalární architektura}
+\frametitle{Superscalar architecture}
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{superscalar-architecture2.pdf}
@@ -281,27 +281,27 @@ ReOrder Buffer:
 \scriptsize
 Reservation Station:
 \begin{itemize}
-\item Obsahuje dva operandy, pokud je nastaven příznak V1/2 pak je hodnota operandu validní. Pokud není příznak V1/2 nastaven, pak operand obsahuje číslo RRN na jehož hodnotu se čeká a která přijde z CDB
-\item Číslo RRN značí, do kterého registru se má zapsat výsledek.
-\item Pokud jsou oba operandy validní a je volná ALU/FPU, tak se zadá provedení operace a položka se odstraní z Reservation Station (RRN výsledku se zapamatuje, aby ho ALU/FPU mohla poslat na Common Data Bus)
+\item Contains two operands, if the V1/2 flag is set then the operand value is valid. If the V1/2 flag is not set, then the operand contains an RRN whose value is being waited for and received from the CDB
+\item The RRN number indicates which register to write the result to.
+\item If both operands are valid and the ALU/FPU is free, the operation is entered and the item is removed from the Reservation Station (the RRN of the result is remembered so that the ALU/FPU can send it to the Common Data Bus)
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Datové hazardy při čtení z paměti}
+\frametitle{Memory read data hazards}
 
 \begin{itemize}
-\item Pokud instrukce lw a sw využívají jiné adresy, tak je můžeme prohazovat.
-\item Pokud lw následuje po sw ze stejné adresy, lze implementovat přeposlání dat, data forwarding.
-\item V praxi ale může jedna instrukce předběhnout druhou tak, že ještě není vypočteno, kam se data uloží, tedy zda dojde k hazardu.
+\item If the lw and sw instructions use different addresses, we can swap them.
+\item If lw follows sw from the same address, data forwarding can be implemented.
+\item In practice, however, one instruction may overtake the other, so that it is not yet calculated where the data will be stored, i.e. whether a hash will occur.
 \begin{itemize}
-\item Řešení - spekulativní vykonání instrukce lw, tedy vykonání, i když není jasné, zda data budou správná
-\item Při dokončování instrukce sw se zkontrolují všechny spekulativně prováděné lw 
-\item Při nalezení konfliktu se zruší spekulativní provádění instrukce lw
+\item Solution - speculative execution of the lw instruction, i.e. execution even though it is not clear whether the data will be correct
+\item When the sw instruction completes, all speculative executions of lw are checked
+\item When a conflict is found, speculative execution of the lw instruction is cancelled
 \end{itemize}
-\item Provedení se tváří, jako by bylo zachováno pořadí.
-\item Velký problém v multiprocesorových systémech -- konzistence paměti při paralelních výpočtech na různých jádrech procesoru.¨
+\item Execution is treated as if the order is preserved.
+\item A big problem in multiprocessor systems -- memory consistency when parallel computations are performed on different processor cores.
 \end{itemize}
 
 \end{frame}
@@ -309,7 +309,7 @@ Reservation Station:
 
 
 \begin{frame}
-\frametitle{AMD Zen2 - Mikroarchitektura}
+\frametitle{AMD Zen2 - Microarchitecture}
 
 \begin{columns}[T]
 \begin{column}{0.34\textwidth}
@@ -319,7 +319,7 @@ Reservation Station:
 \scriptsize
 \begin{itemize}
 \item 7 nm process (from 12 nm), I/O die utilizes 12 nm
-\item Core (8 cores on CPU chiplet),  6/8/4 µOPs in parallel
+\item Core (8 cores on CPU chiplet), 6/8/4 µOPs in parallel
 \begin{itemize}
 \scriptsize
 \item Frontend, µOP cache (4096 entries)
@@ -330,8 +330,8 @@ Reservation Station:
 \item Memory subsystem
 \begin{itemize}
 \scriptsize
-\item L1 i-cache and d-cache, 32 KiB each,  8-way associative
-\item L2 512 KiB per core, 8-way, 
+\item L1 i-cache and d-cache, 32 KiB each, 8-way associative
+\item L2 512 KiB per core, 8-way,
 \item L2 DTLB 2048-entry
 \item 48 entry store queue
 \end{itemize}
@@ -345,39 +345,39 @@ Source: \url{https://en.wikichip.org/wiki/amd/microarchitectures/zen_2}
 
 
 \begin{frame}
-\frametitle{Opakování - kvíz}
+\frametitle{Recap - quiz}
 
-Co je to řídicí hazard (control hazard)?
+What is a control hazard?
 
 \bigskip
 \begin{itemize}
- \item[A] hazard, který se musí řešit pomocí data forwarding
- \item[B] hazard, který se musí řešit pomocí stall
- \item[C] situace, kdy je nutné zahodit rozpracované instrukce
- \item[D] problém nestabilních výsledků logických operací
+ \item[A] hazard that must be addressed by data forwarding
+ \item[B] hazard that must be handled by stall
+ \item[C] a situation in which the currently processed instruction must be discarded
+ \item[D] the problem of unstable results of logical operations
 \end{itemize}
 \end{frame}
 
-\section{Prediktory skoku}
+\section{Jump predictors}
 
 
 \begin{frame}
-\frametitle{Řídicí hazardy v superskalární architektuře}
+\frametitle{Control hazards in Superscalar Architecture}
 
 \begin{itemize}
-\item Skoky v programu mění, které instrukce se vykonají.
-\item Při podmíněných skocích není jasné, které instrukce se budou vykonávat.
-\item Výpočet podmínky pro skok může trvat dlouho, je rozpracováno mnoho instrukcí.
+\item Jumps in the program change which instructions are executed.
+\item With conditional jumps, it is not clear which instructions will be executed.
+\item Calculating the condition for a jump can take a long time, there are many instructions in progress.
 \begin{itemize}
-\item Řešení - spekulativní nahrání dalších instrukcí
-\item Po dokončení všech výpočtů nutných pro rozhodnutí skoku se ověří, zda se mělo skákat nebo ne.
-\item Při chybné predikci se musí zahodit mnoho rozpracovaných, nebo i spekulativně vykonaných instrukcí.
+\item Solution - speculative loading of additional instructions
+\item After all the calculations necessary for the jump decision have been completed, it is checked whether or not to jump.
+\item If the prediction is wrong, many instructions in progress or even speculatively executed must be discarded.
 \end{itemize}
-\item I nepodmíněné skoky mají problém, vypočítat kam se skočí. Cíl skoku může záviset na výpočtu předchozích instrukcí, a proto nejde jednoduše určit při načítání instrukcí.
+\item Even unconditional jumps have trouble calculating where to jump. The destination of a jump may depend on the computation of previous instructions, and therefore cannot be easily determined when fetching instructions.
 \begin{itemize}
-\item Řešení - spekulativně odhadneme, na jakou adresu se asi bude skákat, podle historie minulých skoků.
-\item Po dokončení všech výpočtů se zkontroluje, zda se odhadla správná adresa.
-\item Důležité zvláště pro návrat z funkce.
+\item Solution - speculatively guess what address to jump to, based on the history of past jumps.
+\item After all calculations are done, check if the correct address has been guessed.
+\item Especially important for returning from a function.
 \end{itemize}
 \end{itemize}
 
@@ -385,22 +385,22 @@ Co je to řídicí hazard (control hazard)?
 
 
 \begin{frame}
-\frametitle{Řídicí hazardy v superskalární architektuře}
+\frametitle{Superscalar Architecture Control hazards}
 
 \begin{itemize}
-\item Skok je v programu statisticky každá 4 až 7 instrukce
-\item 20\% skoků je nepodmíněných -- skočí se vždy, není potřeba rozhodovat
-\item 80\% skoků je podmíněných
+\item A jump is statistically every 4 to 7 instructions in the program
+\item 20\% of jumps are unconditional -- they always jump, no need to decide
+\item 80\% of jumps are conditional
   \begin{itemize}
-  \item asi 66\% je skoků na vyšší adresu, neboli dopředu 
+  \item about 66\% are jumps to a higher address, or forward
     \begin{itemize}
-    \item tyto skoky odpovídají větvení typu \texttt{if} 
-    \item z nich statisticky asi 60\% se neskočí -- budeme značit \textbf{NT} (Not Taken)
+    \item these jumps correspond to branching type \texttt{if}
+    \item of these, statistically about 60\% are not jumped -- we will denote \textbf{NT} (Not Taken)
     \end{itemize}
-  \item zbytek asi 34\% je skoků na nižší adresu, neboli dozadu 
+  \item the rest about 34\% are jumps to a lower address, or backwards
     \begin{itemize}
-    \item tyto skoky odpovídají větvení typu \texttt{for}, \texttt{while} a \texttt{do ... while}
-    \item z nich statisticky 99\% (téměř všechny) se skočí -- budeme značit \textbf{T} (Taken)
+    \item these jump correspond to jumps of the type \texttt{for}, \texttt{while} and \texttt{do ... while}
+    \item of these, statistically 99\% (almost all) will jump -- we will denote \textbf{T} (Taken)
     \end{itemize}
   \end{itemize}
 \end{itemize}
@@ -409,28 +409,28 @@ Co je to řídicí hazard (control hazard)?
 
 
 \begin{frame}
-\frametitle{Statické prediktory}
+\frametitle{Static predictors}
 
-Statické prediktory mají pro danou skokovou instrukci vždy stejný výsledek:
+Static predictors always have the same result for a given jump instruction:
 \begin{itemize}
-\item Prediktor, který by vždy odhadoval, že se vždy skočí 
+\item A predictor that would always estimate that it always jumps
 \begin{itemize}
-\item Podle statistiky z minulé stránky by měl úspěšnost: $p_{taken} = (0.66*0.4+0.34*0.99) = 0.60$
-\item Statisticky se ukazuje, že hodnota $p_{taken}$ je pro většinu programů v rozmezí 60 -- 70\%.
+\item According to the statistics on the previous page, it would have a success rate of $p_{taken} = (0.66*0.4+0.34*0.99) = 0.60$
+\item Statistically, it turns out that $p_{taken}$ is in the range of 60 -- 70\% for most programs.
 \end{itemize}
-\item Prediktor BTFNT -- Backwards Taken / Forwards Not Taken  
+\item BTFNT predictor -- Backwards Taken / Forwards Not Taken
 \begin{itemize}
-\item Podle znaménka relativního skoku - skok zpět se skočí, skok dopředu se neskočí
-\item Podle statistiky z minulého stránky by měl úspěšnost: $p_{taken} = (0.66*0.6+0.34*0.99) = 0.73$
+\item According to the sign of the relative jump - backward jump is jumped, forward jump is not jumped
+\item According to the stats on the previous page, it would have a success rate of $p_{taken} = (0.66*0.6+0.34*0.99) = 0.73$
 \end{itemize}
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Statický prediktor BTFNT}
+\frametitle{Static predictor BTFNT}
 
-Příklad překladu \texttt{for} cyklu:
+Example of translating a \texttt{for} cycle:
 
 \begin{columns}[T]
 \begin{column}{0.4\textwidth}
@@ -447,15 +447,15 @@ for (i=0; i<N; i++) {
 \end{column}
 \end{columns}
 \bigskip
-Pro podmíněný skok platí, že se $N-1$ krát skočí a $1$ neskočí.\\
-Skáče se vzad a pravděpodobnost správné předpovědi je tedy $\frac{N-1}{N}$
+For a conditional jump, $N-1$ times jumps and $1$ does not jump.\\
+It jumps backwards and the probability of a correct prediction is $\frac{N-1}{N}$
 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Statický prediktor BTFNT}
+\frametitle{Static predictor BTFNT}
 
-Příklad překladu \texttt{if else} konstrukce:
+Example of translating the \texttt{if else} construct:
 
 \begin{columns}[T]
 \begin{column}{0.4\textwidth}
@@ -476,22 +476,22 @@ if (a<b) {
 \end{column}
 \end{columns}
 \bigskip
-Nepodmíněný skok závisí na hodnotách a, b, nelze tedy o něm obecně nic prohlásit, jedině skáče se vždy dopředu.\\
-Statistické chování záleží na typu programu, ale pro směs různých programů se ukazuje, že pravděpodobnost skoku je $0.4$.
+The unconditional jump depends on the values of a, b, so nothing can be said about it in general, except that it always jumps forward.\\
+The statistical behavior depends on the type of program, but for a mixture of different programs it turns out that the probability of a jump is $0.4$.
 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Dynamické prediktory}
+\frametitle{Dynamic predictors}
 
 \small
-Dynamické prediktory se snaží odhadnout, zda se skočí na základě minulého chování dané instrukce skoku:
+Dynamic predictors try to estimate whether a jump will occur based on the past behavior of a given jump instruction:
 \begin{itemize}
-\item Bylo by ideální, aby každá instrukce skoku měla svůj prediktor
+\item It would be ideal if each jump instruction had its own predictor
 \begin{itemize}
 \small
-\item To ale není možné, skoková instrukce může být na kterémkoliv místě paměti 4GiB
+\item But this is not possible, a jump instruction can be at any location in 4GiB memory
 \end{itemize}
 \end{itemize}
 
@@ -499,10 +499,10 @@ Dynamické prediktory se snaží odhadnout, zda se skočí na základě minuléh
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \small
-Řešení: budeme mít $2^k$ prediktorů a podle $k$ nejnižších bitů adresy instrukce skoku vybereme prediktor
+Solution: we will have $2^k$ predictors and select a predictor according to the $k$ lowest bits of the jump instruction address
 \begin{itemize}
-\item Některé instrukce skoku na rozdílných adresách, ale se stejnými nejnižšími $k$ bity adresy se budou ovlivňovat -- \textbf{interferovat}.
-\item Interference mohou velmi nepříznivě ovlivnit úspěšnost predikce.
+\item Some jump instructions at different addresses but with the same lowest $k$ bits of the address will interfere -- \textbf{interfere}.
+\item Interference can very adversely affect prediction success.
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -514,14 +514,14 @@ Dynamické prediktory se snaží odhadnout, zda se skočí na základě minuléh
 
 
 \begin{frame}
-\frametitle{1-bitový Smithův prediktor}
+\frametitle{1-bit Smith predictor}
 
-Nejjednodušší prediktor je 1-bitový Smithův prediktor
+The simplest predictor is the 1-bit Smith predictor
 \begin{itemize}
-\item Má pouze dva stavy, přepíná se podle minulého chování
-\item Předpovídá, že to dopadne, jak to dopadlo minule.
+\item Has only two states, switches according to past behavior
+\item Predicts that it will turn out the way it did last time.
 \begin{itemize}
-\item velmi jednoduchá implementace, vyhodnocení i úprava podle skutečnosti
+\item very simple to implement, evaluate and adjust to reality
 \end{itemize}
 \end{itemize}
 
@@ -532,9 +532,9 @@ Nejjednodušší prediktor je 1-bitový Smithův prediktor
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{1-bitový Smithův prediktor}
+\frametitle{1-bit Smith predictor}
 
-Predikce pro for cyklus:
+Prediction of the for loop:
 
 \begin{columns}[T]
 \begin{column}{0.35\textwidth}
@@ -550,36 +550,36 @@ for (i=0; i<5; i++) {
       addi t0, x0, 0
       addi t1, x0, 5
       j podm
-telo: ...
+body: ...
       addi t0, t0, 1
-podm: slt  t2, t0, t1
-      bne  t2, x0, telo
+cond: slt t2, t0, t1
+      bne t2, x0, body
 \end{minted}
 \end{column}
 \end{columns}
 \bigskip
-Pokud prediktor neinterferuje s jinými skoky, pak začíná ve stavu 0 -- NT (Not taken).
+If the predictor does not interfere with other jumps, then it starts in state 0 -- NT (Not taken).
 
 \begin{tabular}{|l|c|c|c|c|c|c|}\hline
-Skutečné chování & T & T & T & T & T & NT\\ \hline
-Predikce         & {\color{red}NT} & T & T & T & T & {\color{red}T}\\ \hline
+Real behaviour & T & T & T & T & T & NT\\\hline
+Prediction & {\color{red}NT} & T & T & T & T & {\color{red}T}\\\hline
 \end{tabular}
 
-Vidíte, že prediktor není úspěšný na počátku for cyklu a na jeho konci.
+You can see that the predictor is not successful at the beginning of the for loop and at the end.
 
-Úspěšnost 1-bitového Smithova prediktoru pro cyklus s $r$ iteracemi je $\frac{r-2}{r}$.
+The success rate of the 1-bit Smith predictor for a loop with $r$ iterations is $\frac{r-2}{r}$.
 \end{frame}
 
 
 \begin{frame}
-\frametitle{2-bitový Smithův prediktor}
+\frametitle{2-bit Smith predictor}
 
-2-bitový Smithův prediktor patří stále k těm nejjednodušším
+The 2-bit Smith predictor is still one of the simplest
 \begin{itemize}
-\item Má již 4 stavy, reprezentované dvěma bity.
-\item 2 stavy předpovídají skok, 2 stavy předpovídají neskočení
-\item Předpověď závisí na minulém chování, ale toleruje jednu odchylku od pravidelnosti
-\item Velmi jednoduchá implementace, vyhodnocení i úprava podle skutečnosti
+\item It already has 4 states, represented by 2 bits.
+\item 2 states predict a jump, 2 states predict a non-jump
+\item Prediction depends on past behaviour, but tolerates one deviation from regularity
+\item Very simple to implement, evaluate and adjust to reality
 \end{itemize}
 
 \begin{center}
@@ -588,9 +588,9 @@ Vidíte, že prediktor není úspěšný na počátku for cyklu a na jeho konci.
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{2-bitový Smithův prediktor}
+\frametitle{2-bit Smith predictor}
 
-Predikce pro for cyklus:
+Prediction for for loop:
 
 \begin{columns}[T]
 \begin{column}{0.35\textwidth}
@@ -605,36 +605,36 @@ for (i=0; i<5; i++) {
 \begin{minted}{gas}
       addi t0, x0, 0
       addi t1, x0, 5
-      j podm
-telo: ...
+      j cond
+body: ...
       addi t0, t0, 1
-podm: slt  t2, t0, t1
-      bne  t2, x0, telo
+cond: slt t2, t0, t1
+      bne t2, x0, body
 \end{minted}
 \end{column}
 \end{columns}
 \bigskip
 \small
-Pokud prediktor neinterferuje s jinými skoky, pak začíná ve stavu 10 -- WT (Weakly taken).
+If the predictor does not interfere with other jumps, then it starts in state 10 -- WT (Weakly taken).
 
 \begin{tabular}{|l|c|c|c|c|c|c|c|}\hline
-Skutečné chování & T & T & T & T & T & NT &\\ \hline
-Stav & WT & ST & ST & ST & ST & ST & WT\\ \hline
-Predikce         & T & T & T & T & T & {\color{red}T} &\\ \hline
+Real behaviour & T & T & T & T & T & NT & \\ \hline
+State & WT & ST & ST & ST & ST & ST & WT\\ \hline
+Prediction & T & T & T & T & T & {\color{red}T} &\\\hline
 \end{tabular}
 
-Vidíte, že prediktor není úspěšný pouze na konci for cyklu.
+You can see that the predictor is not successful only at the end of the for loop.
 
-Úspěšnost 2-bitového Smithova prediktoru pro cyklus s $r$ iteracemi je $\frac{r-1}{r}$.
+The success rate of the 2-bit Smith predictor for a loop with $r$ iterations is $\frac{r-1}{r}$.
 \end{frame}
 
 
 \begin{frame}
-\frametitle{2-bitový Smithův prediktor s hysterezí}
+\frametitle{2-bit Smith predictor with hysteresis}
 
-Obdoba 2-bitového Smithova prediktoru
+Analogue of the 2-bit Smith predictor
 \begin{itemize}
-\item Při dvou změnách po sobě se přejde rovnou do stavu Strongly a musí přijít další dvě opačné chování po sobě aby se prediktor překlopil do nového stavu.
+\item When two changes occur in succession, it goes straight to the Strongly state and two more opposite behaviors must occur in succession for the predictor to flip to the new state.
 \end{itemize}
 
 \begin{center}
@@ -644,69 +644,69 @@ Obdoba 2-bitového Smithova prediktoru
 
 
 \begin{frame}
-\frametitle{Hodnocení prediktorů}
+\frametitle{Predictor evaluation}
 
 \begin{itemize}
-\item Je nemožné rozhodnout obecně, kdy je který prediktor lepší. Vždy lze najít protipříklady, kdy je každý z uvedených prediktorů chová nejlépe
-\item Jediná možnost je statistická analýza různých programů:
+\item It's impossible to decide in general when a predictor is better. It is always possible to find counterexamples where each of the predictors behaves best
+\item The only possibility is a statistical analysis of different programs:
 \end{itemize}
 \begin{center}
 \begin{tabular}{|l|c|} \hline
-Statický prediktor - vždy se skočí & 59.25 \\\hline
-1-bitový Smithův prediktor         & 68.75 \\\hline
-2-bitový Smithův prediktor s hysterezí & 81.75 \\\hline
+Static predictor - always jumps & 59.25 \\\hline
+1-bit Smith predictor & 68.75 \\\hline
+2-bit Smith predictor with hysteresis & 81.75 \\\hline
 \end{tabular}
 \end{center}
 
-Zdroj: \url{https://ieeexplore.ieee.org/document/6918861}\\
+Source: \url{https://ieeexplore.ieee.org/document/6918861}\\
 H. Arora, S. Kotecha and R. Samyal, "Dynamic Branch Prediction Modeller for RISC Architecture," 2013 International Conference on Machine Intelligence and Research Advancement, Katra, 2013, pp. 397-401.
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Závislost předpovědi}
+\frametitle{Prediction dependence}
 
-V praxi se ukazuje, že predikce závisí na předchozím chování program.
+In practice, it turns out that the prediction depends on the previous behavior of the program.
 
 \begin{minted}{c}
-if (x==2) {  // skok s1
+if (x==2) { // jump s1
 }
-if (y==2) { // skok s2
+if (y==2) { // jump s2
 }
-if (x!=y) { // skok s3
+if (x!=y) { // jump s3
 }
 \end{minted}
 
-Pokud se proměnné \texttt{x}, \texttt{y} nemění v tělech podmínek \texttt{s1} a \texttt{s2}, pak tady máme silnou závislost skoku \texttt{s3}:
+If the variables \texttt{x}, \texttt{y} do not change in the bodies of the conditions \texttt{s1} and \texttt{s2}, then we have a strong dependency of the jump \texttt{s3}:
 
 \bigskip
 
-\begin{tabular}{|l|l|l|l|}\hline
-s1 & s2 & $\implies$ s3 & vysvětlení \\\hline
-neskočí & skočí   & neskočí & x==2 a y!=2 tedy platí x!=y \\\hline
-skočí   & neskočí & neskočí & x!=2 a y==2 tedy platí x!=y \\\hline
-neskočí & neskočí & skočí   & x==2 a y==2 tedy neplatí x!=y\\\hline 
-skočí   & skočí   & nevíme  & x!=2 a y!=2 nevíme zda platí x!=y \\\hline
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+s1 & s2 & $\implies$ s3 & explanation \\\hline
+doesn't jump & jumps & doesn't jump & x==2 & y!=2 therefore x!=y \\\hline
+jumps & doesn't jump & doesn't jump & x!=2 & y==2 therefore x!=y \\\hline
+does not jump & does not jump & jumps & x==2 and y==2 therefore x!=y\\\hline does not apply
+jumps & jumps & we don't know & x!=2 and y!=2 we don't know if x!=y \\\hline
 \end{tabular}
 \end{frame}
 
 
 
 \begin{frame}
-\frametitle{Historie skoků -- korelované prediktory}
+\frametitle{Jump history -- correlated predictors}
 
-Registr BHR (Branch Histrory Register) obsahuje informaci, zda posledních $m$ skoků provedlo skok:
+The Branch Histrory Register (BHR) contains information about whether the last $m$ jumps made a jump:
 \begin{itemize}
-\item Pokud se skočilo pak obsahuje 1, pokud se neskočilo pak obsahuje 0
-\item Nová informace se vloží na nejnižší bit, nejstarší informace se vyhodí z nejvyšší pozice, ostatní informace se posune.
+\item If jumped then contains 1, if not jumped then contains 0
+\item The new information is inserted at the lowest bit, the oldest information is discarded from the highest position, the other information is shifted.
 \end{itemize}
 
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \small
-Pro zjištení indexu prediktoru se vezme $k-m$ nejnižších bitů adresy instrukce skoku a tato informace se spojí s bity z BHR
+To find the predictor index, the $k-m$ lowest bits of the jump instruction address are taken and this information is concatenated with the bits from the BHR
 \begin{itemize}
-\item Výhoda -- podle předchozích skoků se vybere jiný prediktor.
-\item Nevýhoda -- některé kombinace se v BHR nevyskytnou, a proto se tyto prediktory nepoužijí.
+\item Advantage -- a different predictor is selected based on the previous jumps.
+\item Disadvantage -- some combinations do not occur in the BHR and therefore these predictors are not used.
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -717,22 +717,22 @@ Pro zjištení indexu prediktoru se vezme $k-m$ nejnižších bitů adresy instr
 \end{frame}
 
 \begin{frame}
-\frametitle{GShare prediktory}
+\frametitle{GShare predictors}
 
-GShare přístup je podobný předchozímu:
+The GShare approach is similar to the previous one:
 \begin{itemize}
-\item Také využívá BHR registr, který v této implementaci má přímo $k$ bitů
+\item It also uses the BHR register, which in this implementation has directly $k$ bits
 \end{itemize}
 
 \begin{columns}[T]
 \begin{column}{0.5\textwidth}
 \small
-Pro zjištení indexu prediktoru se vezme $k$ nejnižších bitů adresy instrukce skoku a provede se xor s bity z BHR.
+To find the predictor index, the $k$ lowest bits of the jump instruction address are taken and xor is performed with the bits from the BHR.
 
-Výhody:
+Benefits:
 \begin{itemize}
-\item lépe statisticky pokryje všechny prediktory.
-\item umožňuje použít delší BHR registr.
+\item better statistically covers all predictors.
+\item allows to use a longer BHR register.
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -743,36 +743,36 @@ Výhody:
 
 
 \begin{frame}
-\frametitle{Turnajové prediktory}
+\frametitle{Tournament predictors}
 
-Základem turnajového prediktoru je soutěž dvou jiných, jednodušších prediktorů. Pro výběr, který prediktor je lepší a tedy, který prediktor bude na výstupu, lze použít 1-bitový, nebo 2-bitový prediktor. 
+The basis of a tournament predictor is a competition between two other, simpler predictors. To choose which predictor is better, and therefore which predictor will be output, a 1-bit or 2-bit predictor can be used.
 
 \bigskip
-Jak funguje 1-bitový turnajový prediktor
+How the 1-bit tournament predictor works
 \begin{itemize}
-\item Vypočti predikci prediktory P1 a P2.
-\item Pokud se predikce shodují je výsledkem tato predikce.
-\item Pokud se predikce neshodují:
+\item Calculate the prediction with predictors P1 and P2.
+\item If the predictions match, this prediction is the result.
+\item If the predictions do not match:
 \begin{itemize}
-\item Výsledná predikce je podle toho, který prediktor byl v minulosti úspěšný. Tato informace je uložena v 1-bitovém stavovém automatu. 
-\item Podle skutečnosti vyber prediktor P1, nebo P2 pro příští predikci.
+\item The resulting prediction is whichever predictor has been successful in the past. This information is stored in a 1-bit state machine.
+\item Select predictor P1 or P2 for the next prediction, depending on the fact.
 \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Turnajové prediktory}
+\frametitle{Tournament predictors}
 
 \begin{center}
 \includegraphics[width=0.75\textwidth]{fig/tournament.png}\\
-\small Velikost prediktorů v KiB
+\small Size of predictors in KiB
 \end{center}
 \end{frame}
 
 \begin{frame}
-\frametitle{Opakování - kvíz}
+\frametitle{Recap - quiz}
 
-Který prediktor nejlépe zvládne predikovat následující skutečnost skoků pokud začíná ve stavu Taken, nebo Weakly Taken:
+Which predictor can best predict the following fact of jumps if it starts in Taken or Weakly Taken state:
 
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|}\hline
 T & T & T & NT & NT & NT& T & T & T \\ \hline
@@ -780,10 +780,10 @@ T & T & T & NT & NT & NT& T & T & T \\ \hline
 
 \bigskip
 \begin{itemize}
- \item[A] 1-bitový Smithův prediktor
- \item[B] 2-bitový Smithův prediktor
- \item[C] 2-bitový Smithův prediktor s hysterezí
- \item[D] všechny udělají stejný počet chyb
+ \item[A] 1-bit Smith predictor
+ \item[B] 2-bit Smith predictor
+ \item[C] 2-bit Smith predictor with hysteresis
+ \item[D] all make the same number of errors
 \end{itemize}
 \end{frame}
 
@@ -795,117 +795,117 @@ T & T & T & NT & NT & NT& T & T & T \\ \hline
 \includegraphics[width=0.6\textwidth]{neuron.pdf}
 \end{center}
 
-Pro výpočet hodnoty se použije vzoreček $\xi = \sum_{i=0}^{n} x_i \cdot w_i$. Závěrečné vyhodnocení je pomocí přenosové funkce, v našem případě skokové funkce, která má tvar:
-$f(\xi) = \begin{cases}1& \text{pro } \xi \ge 0\\0& \text{pro }\xi <0\end{cases}$ 
+The formula $\xi = \sum_{i=0}^{n} x_i \cdot w_i$ is used to calculate the value. The final evaluation is by means of a transfer function, in our case a jump function, which has the form:
+$f(\xi) = \begin{cases}1& \text{for }\xi \ge 0\\0& \text{for }\xi <0\end{cases}$
 \end{frame}
 
 
 \begin{frame}
-\frametitle{AMD Zen2 prediktor}
+\frametitle{AMD Zen2 predictor}
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{prediction_amd.pdf}
 \end{center}
 
-Podle adresy skoku se vybere jeden perceptron z tabulky. 
+According to the jump address, one perceptron is selected from the table.
 
-Perceptron je definován vahami $w_i$. 
+The perceptron is defined by the weights $w_i$.
 
-Výsledek predikce je znaménko váženého součtu $\xi = \sum_{i=0}^{n} x_i \cdot w_i$, kde $x_i$ jsou bity z registru historie skoků BHR.
+The prediction result is the sign of the weighted sum $\xi = \sum_{i=0}^{n} x_i \cdot w_i$, where $x_i$ are bits from the BHR jump history register.
 
-Výhoda -- lepší výsledky než gshare, lze použít i pro dlouhé registry historie BHR, nevýhoda -- složitý výpočet, nelze získat výsledek v jednom taktu procesoru.
+Advantage -- better results than gshare, can be used for long BHR history registers, disadvantage -- complex calculation, cannot get the result in one CPU clock.
 \end{frame}
 
 \begin{frame}
-\frametitle{AMD Zen2 -- Predikce skok}
+\frametitle{AMD Zen2 -- Jump prediction}
 
 \begin{itemize}
-\item Výpočet výstupu perceptronu je relativně pomalý, normální perceptrony používají reálná čísla s plovoucí desetinnou čárkou. Je možné urychlit 16-ti bitovými reálnými čísly, nebo použitím pevné desetinné čárky.
-\item Skutečná implementace prediktorů skoků má tři úrovně
+\item Calculating the perceptron output is relatively slow, normal perceptrons use real floating point numbers. It is possible to speed up with 16-bit real numbers, or by using a fixed decimal point.
+\item The actual implementation of jump predictors has three levels
 \begin{itemize}
-\item úroveň 1 -- 16 velmi rychlých prediktorů, rozhodnou ještě v tom samém hodinovém cyklu, které další instrukce načítat
-\item úroveň 2 -- 512 prediktorů, které v dalším hodinovém cyklu upřesní předpověď, buď se zahodí načítané instrukce, nebo se potvrdí
-\item úroveň 3 -- 7168 prediktorů, za 4 hodinové cykly zpřesní předpověď. Opět se dosavadní načtené instrukce buď uchovají, nebo zahodí.
+\item level 1 -- 16 very fast predictors, deciding in the same clock cycle which other instructions to fetch
+\item level 2 -- 512 predictors, which will refine the prediction in the next clock cycle, either discarding the loaded instructions or confirming them
+\item level 3 -- 7168 predictors, in 4 hourly cycles refine the prediction. Again, the existing fetched instructions are either kept or discarded.
 \end{itemize}
-\item Průměrná časová prodleva při špatné konečné predikci je přibližně 18 hodinových cyklů.
-\item Při rychlosti 4GHz a pokud je každá desátá instrukce skok, tak 1\% chybné predikce vede ke snížení výkonu o téměř 2\%.
+\item The average time delay for a bad final prediction is approximately 18 clock cycles.
+\item At 4GHz and if every tenth instruction is a jump, a 1\% misprediction results in a performance degradation of almost 2\%.
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{AMD Zen2 prediktor}
+\frametitle{AMD Zen2 predictor}
 
 \begin{center}
 \includegraphics[width=0.8\textwidth]{fig/amd_cinebench.png}
 \end{center}
 
-Zdroj: Analyzing Zen 2’s Cinebench R15 Lead
+Source: Analyzing Zen 2's Cinebench R15 Lead
 By clamchowder from \url{https://chipsandcheese.com}
 \end{frame}
 
-\section{Predikce cíle skoku}
+\section{Target Prediction}
 
 \begin{frame}
-\frametitle{Predikce cíle skoku}
+\frametitle{Jump target prediction}
 
-Skoky mají jak v RISC-V tak v ostatních procesorech různý formát cílové adresy skoku:
+Jumps have different jump target address formats in both RISC-V and other processors:
 \begin{itemize}
-\item skok na pevnou adresu -- cíl skoku je adresa přímo uvedená v instrukci skoku (není v RISC-V, protože má pevnou délku instrukce a 32-bitová adresa se do kódu instrukce nevejde)
-\item skok relativně vůči adrese skokové instrukce -- cíl skoku se vypočte jako součet PC v okamžiku načtení skokové instrukce a zadaná konkrétní hodnota v instrukci.
-\item skok na pozici uvedenou v registru, nebo v paměti -- RISC-V má instrukci \texttt{jalr}, tedy skok na adresu uvedenou v registru, x86 obsahuje instrukce \texttt{ret} -- návrat z podprogramu podle adresy uvedené v paměti na zásobníku a instrukci \texttt{jump indirect}, kdy adresa ukazuje do paměti, kde je uvedena cílová adresa skoku (tuto instrukci lze použít při skoku podle tabulky např. při překladu \texttt{switch} konstrukce, nebo při volání funkcí dynamických knihoven). 
+\item jump to a fixed address -- the jump target is the address directly specified in the jump instruction (not in RISC-V because it has a fixed instruction length and a 32-bit address does not fit in the instruction code)
+\item jump relative to the address of the jump instruction -- the jump target is calculated as the sum of the PC at the time the jump instruction is fetched and the specific value specified in the instruction.
+\item jump to the position specified in the register or in memory -- RISC-V has the \texttt{jalr} instruction, i.e. jump to the address specified in the register, x86 contains the \texttt{ret} instruction -- return from the subroutine according to the address specified in memory on the stack and the \texttt{jump indirect} instruction, where the address points to the memory where the jump target address is specified (this instruction can be used when jumping according to a table, e.g. This can be used when compiling a \texttt{switch} construct, or when calling dynamic library functions).
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Predikce cíle skoku}
+\frametitle{Jump target prediction}
 
 \begin{itemize}
-\item Cíl skoku je potřeba zjistit již ve fázi načítání instrukcí.
-\item Lze mít speciálně dedikované sčítačky na cílové adresy skoku, ale i tam součet nějakou dobu trvá.
-\item Proto je důležité odhadnout cíl skoku:
+\item The jump target needs to be determined at the instruction fetch stage.
+\item It is possible to have special dedicated adders for jump target addresses, but even there the summation takes some time.
+\item Therefore it is important to estimate the jump target:
 \begin{itemize}
-\item BTB (Branch Target Buffer) je buď plně asociativní paměť nebo částečně
-asociativní s daným stupněm asociativity
-\item Řádky jsou dvojice: 
+\item BTB (Branch Target Buffer) is either a fully associative memory or a partially
+associative with a given degree of associativity.
+\item Lines are pairs:
 \begin{itemize}
-\item klíč -- BIA (Branch Instruction Address) -- tedy hodnota PC v okamžiku skoku
-\item BTA (Branch Target Address) -- cílová adresa skoku
+\item key -- BIA (Branch Instruction Address) -- i.e. the PC value at the time of the jump
+\item BTA (Branch Target Address) -- the target address of the jump
 \end{itemize}
 \end{itemize}
-\item Pokud se PC shoduje s hodnotou BIA v BTB a současně prediktor předpoví, že se skočí, změní se PC spekulativně na hodnotu příslušné BTA
+\item If the PC matches the value of the BIA in the BTB and the predictor simultaneously predicts a jump, the PC is speculatively changed to the value of the corresponding BTA
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Predikce návratu z funkce}
+\frametitle{Function return prediction}
 
-Nejčastější skok podle adresy v paměti je návrat z funkce:
+The most common jump by memory address is a return from function:
 \begin{itemize}
-\item Pro rychlou predikci adresy návratu z funkce obsahují moderní CPU -- Return Address Stack (RAS)
+\item For fast prediction of the return address of a function, modern CPUs contain a -- Return Address Stack (RAS)
 \begin{itemize}
-\item Jedná se o rychlou paměť typu zásobník -- pamatující si omezené množství (až 32) návratových adres
-\item Hodnota se do RAS uloží při volání funkce, při načtení instrukce ret pak vrchol RAS slouží jako prediktor cíle skoku
+\item This is a fast stack memory -- remembering a limited number (up to 32) of return addresses
+\item The value is stored in the RAS when the function is called, then when the ret instruction is fetched, the top of the RAS serves as a predictor of the jump target
 \end{itemize}
-\item Funguje spolehlivě pro úrovně vnoření funkcí podle velikosti RAS
+\item Works reliably for function nesting levels depending on RAS size
 \end{itemize}
 \end{frame}
 
-\section{Odstranění skoků z programu}
+\section{Removing jumps from program}
 
 \begin{frame}[fragile]
-\frametitle{Ukázka, jak odstranit skok v programu}
+\frametitle{Example of how to remove a jump in a program}
 
-Na internetu můžete najít mnoho triků, jak odstranit podmínku a tedy podmíněný skok ve Vašich programech.
+You can find many tricks on the Internet to remove condition and therefore conditional jumps in your programs.
 
-Zde si ukážeme odstranění if z výpočtu absolutní hodnoty celého čísla:
+Here we will demonstrate removing the if from the calculation of the absolute value of an integer:
 
 \begin{columns}[T]
 \begin{column}{0.01\textwidth}
 \phantom{x}
 \end{column}
 \begin{column}{0.25\textwidth}
-program v C
+program in C
 \begin{minted}[fontsize=\small]{c}
 if (x<0) {
   x = -x;
@@ -914,7 +914,7 @@ if (x<0) {
 \end{column}
 
 \begin{column}{0.28\textwidth}
-program v RISC-V
+program in RISC-V
 \begin{minted}[fontsize=\small]{gas}
  slt t0, s0, x0
  beq t0, x0, skip
@@ -923,57 +923,57 @@ skip:
 \end{minted}
 \end{column}
 \begin{column}{0.45\textwidth}
-\phantom{x}komentář\\
+\phantom{x}comment\
 \small
-porovná, zda x<0\\
-podle výsledku skočí, nebo ne\\
-vypočte -x
+compares whether x<0
+will jump or not according to the result.
+calculate -x
 \end{column}
 \end{columns}
 \bigskip
 
-Odstranit podmíněný skok, který by se velmi špatně odhadoval lze následující konstrukcí, využívající nejvyšší znaménkový bit:
+To remove the conditional jump, which would be very hard to estimate, the following construction can be used, using the highest sign bit:
 \begin{columns}[T]
 \begin{column}{0.01\textwidth}
 \phantom{x}
 \end{column}
 \begin{column}{0.25\textwidth}
-program v C
+program in C
 \begin{minted}[fontsize=\small]{c}
 int tmp = x>>31;
-x ^= tmp;
+x^= tmp;
 x -= tmp;
 \end{minted}
 \end{column}
 
 \begin{column}{0.28\textwidth}
-program v RISC-V
+program in RISC-V
 \begin{minted}[fontsize=\small]{gas}
 srai t0, s0, 31
-xor  s0, s0, t0
-sub  s0, s0, t0
+xor s0, s0, t0
+sub s0, s0, t0
 \end{minted}
 \end{column}
 \begin{column}{0.45\textwidth}
-\phantom{x}komentář\\
+\phantom{x}comment\\
 \small
-tmp bude buď 0, nebo 0xFFFFFFFF\\
-nedělá nic, nebo bitovou inverzi\\
-pro tmp==0 nedělá nic, jinak odečte -1, tedy přičte 1
+tmp will be either 0 or 0xFFFFFFFFFF\\
+does nothing, or bitwise inversion
+for tmp==0 it does nothing, otherwise it subtracts -1, so it adds 1
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Ukázka, jak odstranit skok v programu}
+\frametitle{Example of how to remove a jump in a program}
 
-Pokud je hodnota b rovna 0, nebo 1, pak lze následující C program:
+If the value of b is 0 or 1, then the following C program can be executed:
 
 \begin{minted}[fontsize=\small]{c}
 a = ( (b!=0) ? c : d);
 \end{minted}
 
-změnit na program:
+change to program:
 
 \begin{minted}[fontsize=\small]{c}
 static const int lookup_table[] = {d,c};
@@ -981,24 +981,24 @@ a = lookup_table[b];
 \end{minted}
 
 \bigskip
-Odstranit lze i více skoků najednou, pokud opět b1, b2, b3 budou nabývat pouze hodnot 0, nebo 1:
+Multiple jumps can also be removed at once, as long as again b1, b2, b3 only take values 0 or 1:
 
 \begin{minted}[fontsize=\small]{c}
 a = ( b1 ? c : ( b2 ? d : (b3 ? e : f)));
 \end{minted}
 
-lze změnit na program:
+can be changed to a program:
 
 \begin{minted}[fontsize=\small]{c}
-static const int lookup_table[] = { f, e, d, d, c, c, c, c };
+static const int lookup_table[] = { f, e, d, d, c, c, c };
 a = lookup_table[b1 * 4 + b2 * 2 + b3];
 \end{minted}
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Ukázka, jak odstranit skok v programu}
+\frametitle{Example of how to remove a jump in a program}
 
-Obdobně převod čísla od 0 do 15 na hex znak lze buď
+Similarly, converting a number from 0 to 15 to a hex character can either
 \begin{minted}[fontsize=\small]{c}
 if (a<10) {
   ch = '0'+a;
@@ -1007,7 +1007,7 @@ if (a<10) {
 }
 \end{minted}
 
-lze změnit na program:
+can be changed to a program:
 
 \begin{minted}[fontsize=\small]{c}
 static const int hex_c[] = {'0','1','2','3','4','5','6','7',
