@@ -36,8 +36,8 @@ In which case do the instructions cause a data hazard?
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 addi t0, s1, 4
-add t1, s1, s0
-add s1, s2, x0
+add  t1, s1, s0
+add  s1, s2, x0
 \end{minted}
 \end{column}
 \begin{column}{0.40\textwidth}
@@ -45,8 +45,8 @@ add s1, s2, x0
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 addi t0, s1, 4
-add t1, s2, s3
-add t2, t0, t1
+add  t1, s2, s3
+add  t2, t0, t1
 \end{minted}
 \end{column}
 \end{columns}
@@ -66,7 +66,7 @@ add t2, t0, t1
 How can the following data hazard be solved?
 
 \begin{minted}[fontsize=\footnotesize]{gas}
-lw s2, 10(s0)
+lw   s2, 10(s0)
 addi s1, s2, -1
 \end{minted}
 \bigskip
@@ -204,7 +204,7 @@ For register-only instructions:
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 1: slli t1, s1, 4
-2: add t0, t1, s2
+2: add  t0, t1, s2
 3: addi s2, t0, 8
 4: mult t1, s0, s0
 5: addi t3, t1, 100
@@ -215,14 +215,14 @@ This program can be parallelized using a hidden set of registers for renaming:
 \begin{columns}[T]
 \begin{column}{0.40\textwidth}
 \begin{minted}[fontsize=\footnotesize]{gas}
-1: slli RN0, s1, 4
-2: add RN1, RN0, s2
+1: slli RN0, s1,  4
+2: add  RN1, RN0, s2
 3: addi RN2, RN1, 8
 \end{minted}
 \end{column}
 \begin{column}{0.40\textwidth}
 \begin{minted}[fontsize=\footnotesize]{gas}
-4: mult RN3, s0, s0
+4: mult RN3, s0,  s0
 5: addi RN4, RN3, 100
 \end{minted}
 \end{column}
@@ -549,11 +549,11 @@ for (i=0; i<5; i++) {
 \begin{minted}{gas}
       addi t0, x0, 0
       addi t1, x0, 5
-      j podm
+      j cond
 body: ...
       addi t0, t0, 1
-cond: slt t2, t0, t1
-      bne t2, x0, body
+cond: slt  t2, t0, t1
+      bne  t2, x0, body
 \end{minted}
 \end{column}
 \end{columns}
@@ -608,8 +608,8 @@ for (i=0; i<5; i++) {
       j cond
 body: ...
       addi t0, t0, 1
-cond: slt t2, t0, t1
-      bne t2, x0, body
+cond: slt  t2, t0, t1
+      bne  t2, x0, body
 \end{minted}
 \end{column}
 \end{columns}
@@ -950,8 +950,8 @@ x -= tmp;
 program in RISC-V
 \begin{minted}[fontsize=\small]{gas}
 srai t0, s0, 31
-xor s0, s0, t0
-sub s0, s0, t0
+xor  s0, s0, t0
+sub  s0, s0, t0
 \end{minted}
 \end{column}
 \begin{column}{0.45\textwidth}
