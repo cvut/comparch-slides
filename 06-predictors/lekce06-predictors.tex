@@ -990,7 +990,7 @@ a = ( b1 ? c : ( b2 ? d : (b3 ? e : f)));
 can be changed to a program:
 
 \begin{minted}[fontsize=\small]{c}
-static const int lookup_table[] = { f, e, d, d, c, c, c };
+static const int lookup_table[] = { f, e, d, d, c, c, c, c };
 a = lookup_table[b1 * 4 + b2 * 2 + b3];
 \end{minted}
 \end{frame}
