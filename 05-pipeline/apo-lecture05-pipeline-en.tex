@@ -6,21 +6,23 @@
 \usepackage{listings}
 \usepackage{array,multirow}
 
-\subtitle{Lecture 05. Pipelined execution}
-\author{Pavel Píša \phantom{xxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
+\subtitle{Lecture 05. Pipelined Instruction Execution}
+\author{Pavel Píša \phantom{xxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz} \phantom{x} \small\texttt{stepan@fel.cvut.cz} \\
+\phantom{xxxxxxxxx} \\
+License: CC-BY-SA}
 \begin{document}
 
 \maketitle
 
-\section{Pipelined execution}
+\section{Pipelined Execution}
 
 \begin{frame}
-\frametitle{The aim of today's lecture}
+\frametitle{The Goal of Today's Lecture}
 
 \begin{itemize}
- \item Suggest modifications to the processor from lecture 3 to use pipelining to make it faster
- \item Still consider the following instructions: \texttt{add}, \texttt{sub}, \texttt{and}, \texttt{or}, \texttt{slt}, \texttt{addi}, \texttt{lw}, \texttt{sw}, and \texttt{beq}
- \item Instruction coding also remains
+ \item Convert/extend CPU presented in the lecture 3 to the pipelined CPU design to make it faster
+ \item The following instructions are considered for our CPU design: \texttt{add}, \texttt{sub}, \texttt{and}, \texttt{or}, \texttt{slt}, \texttt{addi}, \texttt{lw}, \texttt{sw}, and \texttt{beq}
+ \item Instruction coding stays the same as well
 \end{itemize}
 
 \begin{table}
@@ -39,26 +41,26 @@ J & imm [20] & \multicolumn{2}{c|}{ imm[10:1] } & imm [11] & \multicolumn{2}{c|}
 \end{frame}
 
 \begin{frame}
-\frametitle{Single-cycle processor with memory (from lecture 3)}
+\frametitle{Single Cycle CPU with Memories (from Lecture 3)}
 \includegraphics[width=0.95\textwidth]{single_cpu.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{The throughput of a single-cycle processor is limited}
+\frametitle{The Throughput of a Single-cycle Processor Is Limited}
 
 \begin{itemize}
  \item Maximum instructions per second $IPS = IC / T = IPC_{avk} \cdot f_{clk}$
- \item Limited by the longest signal transit time from the remembered value to the input of the register (critical path)
- \item In our design, the constraints from the critical path of the \texttt{lw} instruction
+ \item Limited by the longest signal path time from the previous registered value to the input of the register (critical path)
+ \item In our design, the limitation is \texttt{lw} instruction execution
 \end{itemize}
 
 \includegraphics[width=0.92\textwidth]{cpu-time.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Critical path limiting throughput}
+\frametitle{Critical Path Limiting Throughput}
 
-$f_{clk} = 1 / T_{C}$ where $T_{C}$ is the period of hours/time to process one cycle
+$f_{clk} = 1 / T_{C}$ where $T_{C}$ is the period of clock to process one cycle
 
 \vskip 2 mm
 
@@ -66,7 +68,7 @@ $T_{C} = t_{PC} + t_{Mem} + t_{RFread} + t_{ALU} + t_{Mem} + t_{Mux} + t_{RFsetu
 
 \vskip 2 mm
 
-We consider the following delays and time requirements
+We consider the following times required for signal propagation
 
 \vskip 2 mm
 
@@ -94,10 +96,10 @@ $IPS = 1 \cdots 980e3 = 980\,000$ instructions per second
 \end{frame}
 
 \begin{frame}
-\frametitle{Split of instruction fetch and execution}
+\frametitle{Separate Instruction Fetch and Execution}
 
 \begin{itemize}
- \item Fetching an instruction and reading it from memory ($2 \times t_{Mem}$) usually accounts for a significant part of the total cycle time
+ \item Fetching an instruction and execution of data load from memory ($2 \times t_{Mem}$) usually accounts for a significant part of the total cycle time
  \item It helps to reduce the cycle time if an instruction is already loaded in a previous cycle
 \end{itemize}
 
@@ -112,13 +114,13 @@ $IPS = 1 \cdots 980e3 = 980\,000$ instructions per second
 
 \begin{enumerate}
  \item Instruction fetch and instruction counter increment $PC = PC + 4$
- \item Actual execution of the instruction only in the next loop
+ \item The actual execution of the instruction in the following cycle
 \end{enumerate}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Processor modification for instruction prefetching}
+\frametitle{Non-Pielined Execution with Instructions Prefetching}
 \includegraphics[width=0.95\textwidth]{cpu_clock.pdf}
 \begin{itemize}
  \item $\downarrow$ in the figure represents the clock input active on the rising edge of the clock signal
@@ -127,7 +129,7 @@ $IPS = 1 \cdots 980e3 = 980\,000$ instructions per second
 \end{frame}
 
 \begin{frame}
-\frametitle{Critical path in case of prefetching}
+\frametitle{Critical Path in Case of Prefetching}
 
 For the previously considered parameters
 
@@ -142,11 +144,11 @@ $t_{Mux}$ & = & $20$ ns  & & $t_{RFsetup}$ & = & $20$ ns \\
 \vskip 2 mm
 
 \begin{itemize}
- \item We consider $T_{C_{fetch}} = t_{PC} + t_{Mem}$ running in parallel with the execution of the instruction
+ \item We consider $T_{C_{fetch}} = t_{PC} + t_{Mem}$ running in parallel with the execution of the preceding instruction
  \item $T_{C_{exec}} = t_{RFread} + t_{ALU} + t_{Mem} + t_{Mux} + t_{RFsetup}$
 \end{itemize}
 
-after setting
+after substituting the values into the expressions
 
 \begin{itemize}
  \item Consider $T_{C_{fetch}} = 30 + 300 = 330$\,ns
@@ -159,10 +161,10 @@ Without modifications, the delay of the jump instructions (\texttt{beq}) will oc
 
 \end{frame}
 
-\section{Five-stage pipeline}
+\section{Five-Stage Pipeline}
 
 \begin{frame}
-\frametitle{Pipelined instruction execution}
+\frametitle{Pipelined Instruction Execution}
 
 We will consider splitting instruction execution into five stages.
 
@@ -174,22 +176,22 @@ We will consider splitting instruction execution into five stages.
 }
 
 \begin{enumerate}
- \item \textbf{IF} instruction fetch \textbf{Instruction Fetch} -- bringing \textbf{PC} to the memory address input, fetching the instruction and preparing $PC = PC + 4$ in parallel
- \item \textbf{ID} instruction decode \textbf{Instruction Decode} -- decode opcode, immediate operand and fetch registers according to \texttt{rs1} and \texttt{rs2} fields
- \item \textbf{EX} instruction execution \textbf{EXecution} -- execution of the requested function, passing register values and ALU constants
- \item \textbf{MEM} memory accesses \textbf{MEMory} -- if requested, memory writes (\textbf{sw}) or reads (\textbf{lw}) are performed at this stage
- \item \textbf{WB} register update \textbf{WriteBack} -- write the result to the register array for intermediate register instructions and memory
+ \item \textbf{IF} -- \textbf{Instruction Fetch} -- setup \textbf{PC} value to the memory address input, fetch the instruction and prepare $PC = PC + 4$ in parallel
+ \item \textbf{ID} -- \textbf{Instruction Decode} -- decode opcode, immediate operand and fetch registers according to \texttt{rs1} and \texttt{rs2} fields
+ \item \textbf{EX} -- \textbf{Instruction EXecution} -- execute the requested operation, pass register values and immediate operands to ALU
+ \item \textbf{MEM} -- \textbf{MEMory Accesses} -- if requested, write data to memory (\textbf{sw}) or read (\textbf{lw}) them
+ \item \textbf{WB} -- \textbf{WriteBack} -- write the result to the register file for instructions of register-register and register-immediate class or instruction load (result source is ALU or memory)
 \end{enumerate}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Overlapping sequential execution of instructions}
-\includegraphics[width=0.9\textwidth]{cpu_pipe_inst_flow.pdf}
+\frametitle{Overlapping/Pipelined Sequential Execution of Instructions}
+\includegraphics[width=0.9\textwidth]{cpu_pipe_inst_flow-en.pdf}
 
 $\tau = max{\left\lbrace \tau_i \right\rbrace}^k_{i=1}$, where $\tau_i$ is the delay in each stage
 
-It takes $n$ instructions to execute $k$ stages of chained processing
+The time to execute $n$ instructions in the $k$-stage pipeline
 $$T_{k,n} = k \cdot \tau + (n - 1) \tau$$
 Speedup
 \hskip 7mm
@@ -200,46 +202,46 @@ $\lim_{n \rightarrow \infty} S_k = k$
 \end{frame}
 
 \begin{frame}
-\frametitle{Single cycle processor (from lecture 3) -- datapath}
+\frametitle{Single Cycle Processor (from Lecture 3) -- Datapath}
 \includegraphics[width=0.95\textwidth]{cpu_nopipe.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Stringed five-step design -- datapath}
+\frametitle{Pipelined Five-Stage Design -- Datapath}
 \includegraphics[width=0.95\textwidth]{cpu_pipe.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Stringed five-stage design including controller}
+\frametitle{Pipelined Five-Stage Design Including Control Unit}
 \includegraphics[width=0.95\textwidth]{cpu_ctrl_pipe.pdf}
 \end{frame}
 
-\section{Hazard emergence and resolution}
+\section{Hazard Causes and Theirs Resolution}
 
 \begin{frame}
-\frametitle{Data and control hazards and their treatment}
-\includegraphics[width=0.95\textwidth]{hazard_kinds.pdf}
+\frametitle{Semantics Violations -- Data and Control Hazards}
+\includegraphics[width=0.95\textwidth]{hazard_kinds-en.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Source of data hazards}
-\includegraphics[width=0.95\textwidth]{hazard_data.pdf}
+\frametitle{Cause of Data Hazards}
+\includegraphics[width=0.95\textwidth]{hazard_data-en.pdf}
 
 \vskip 2 mm
 
 \begin{itemize}
  \item The register file is accessed from two stages (Decode, WriteBack) --
-       writing is done in the first half of the loop, reading in the second half $\Rightarrow$ in the sub instruction to enter \textbf{s0} hazard is not created
+       writing is done in the first half of the cycle, reading in the second half $\Rightarrow$ there is no hazard for sub \textbf{s0} input operand
  \item Read-After-Write (RAW) hazard occurs in instructions
-       \textbf{and} and \textbf{or} when reading \textbf{s0} in steps 3 and 4
- \item How to avoid such hazard without degrading pipeline throughput?
+       \textbf{and} and \textbf{or} when reading \textbf{s0} in cycle 3 and 4
+ \item How can such hazard be prevented without pipeline throughput degradation?
 \end{itemize}
 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Data hazard in the "and" instruction tracked in the simulator}
+\frametitle{Data Hazard in the "and" Instruction in the QtRVSim}
 \includegraphics[width=0.95\textwidth]{hazard_qtrvsim.pdf}
 
 {\tiny
@@ -253,7 +255,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{Solving data hazard by stalling}
+\frametitle{QtRVSim -- Resolve Data Hazard by Stall}
 \includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim.pdf}
 
 {\tiny
@@ -268,36 +270,36 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 
 \begin{frame}
-\frametitle{Data hazard resolution by forwarding}
-\includegraphics[width=0.85\textwidth]{forward_data.pdf}
+\frametitle{Data Hazard Resolution by Forwarding}
+\includegraphics[width=0.85\textwidth]{forward_data-en.pdf}
 
 \begin{itemize}
- \item If the result is available (calculated) before the next instruction(s), which requires the result, is executed, the data hazard can be resolved by forwarding the value
- \item Data hazard occurs in the considered design if a source register
+ \item If a result is available (computed) before subsequent instruction(s) requires the value then data hazard can be avoided by forwarding
+ \item Data hazard occurs in the considered pipeline design if a source register
        (\textbf{rs1}, \textbf{rs2}) in the \textbf{EX} stage corresponds to the target register
        in \textbf{MEM} or \textbf{WB} (except X0/zero)
- \item The register numbers from the given stages are mapped to the Hazard Unit (HU)
+ \item The register numbers are fed to the Hazard Unit (HU)
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Recap of previous design and preparation for forwarding}
+\frametitle{Recap of Previous Design and Prepare It for Forwarding}
 \includegraphics[width=0.95\textwidth]{noforward_data.pdf}
 
 You need to know the previous \textbf{A1} (\textbf{rs1}) and \textbf{A2} (\textbf{rs2}) in \textbf{EX}.
-The \textbf{RegWrite} signals from \textbf{MEM} and \textbf{WB} must also be monitored to confirm,
+The \textbf{RegWrite} signals from \textbf{MEM} and \textbf{WB} has to be monitored as well to check
 that the register specified by \textbf{WriteReg} in \textbf{MEM} and \textbf{WB} is indeed being written.
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Processor design with MEM and WB to EX forwarding}
+\frametitle{Processor Design with MEM and WB to EX Forwarding}
 \includegraphics[width=0.95\textwidth]{forward_hazard.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- data hazards resolved by forwarding}
+\frametitle{QtRvSim -- Data Hazards Resolved by Forwarding}
 \includegraphics[width=0.95\textwidth]{hazard_forwarding.pdf}
 
 {\tiny
@@ -311,7 +313,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- forwarding the "and" instruction input from MEM}
+\frametitle{Forwarding the "and" Instruction rs1 Input from MEM}
 \includegraphics[width=0.95\textwidth]{hazard_forwarding2.pdf}
 
 {\tiny
@@ -325,7 +327,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- forwarding the input of the "or" instruction from WB}
+\frametitle{Forwarding the "or" Instruction rs2 Input from WB}
 \includegraphics[width=0.95\textwidth]{hazard_forwarding3.pdf}
 
 {\tiny
@@ -339,43 +341,37 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{Persisting problem in the "lw" instruction -- solved by stalling}
-\includegraphics[width=0.85\textwidth]{pipeline_stall.pdf}
+\frametitle{Persisting Problem in the "lw" Case -- Solved by Stalling}
+\includegraphics[width=0.85\textwidth]{pipeline_stall-en.pdf}
 
 \begin{itemize}
- \item If the following instruction requires data before it is available in the processor, it is necessary to
-       suspend the pipeline (\textbf{stall}) and stall/\textbf{nop} is inserted into the continuation pipeline
-       states
- \item Stalling solves hazards but degrades throughput
- \item Stages preceding the stage affected by the hazard are suspended until all others are
-       results required by other instructions are available -- the results are then forwarded to all locations where
-       the required
+ \item If subsequent instructions require result before it is available in CPU then the pipeline has to be stalled (\textbf{stall} and \textbf{nop} inserted/interstage flush)
+ \item Stalling resolves hazards but degrades throughput
+ \item Stages preceding the stage affected by the hazard are suspended until all results required by subsequent instructions are available then results are forwarded to all locations which required their values
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Data hazard resolution by stalling}
-\includegraphics[width=0.85\textwidth]{pipeline_stall2.pdf}
+\frametitle{Data Hazard Resolution by Stalling}
+\includegraphics[width=0.85\textwidth]{pipeline_stall2-en.pdf}
 
 \begin{itemize}
- \item Stalling is implemented by holding the contents of the interstage registers
-       (by gating their clock or recording signals)
- \item Results from stages with missing data are not used, signals
-       for writing to memory and registers and other control signals  are reset
- \item Both are achieved by adding control signals for delay or
-       zeroing of intermediate registers
+ \item Stalling is realized by holding the contents of the interstage registers
+       (by gating their clock or blocking their latch enable signals)
+ \item Results from stage(s) with missing data/dependencies are discarded, coresponding instruction(s) memory and register write enable as well as other signals are reset (held inactive)
+ \item Both is achieved by introduction of control signals to hold and/or reset inter-stages registers
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Solve remaining data hazards by stalling}
+\frametitle{Avoid Remaining Data Hazards by Stalling -- CPU Diagram}
 \includegraphics[width=0.95\textwidth]{cpu_fwd_stall.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- data hazard in "lw" solved by stalling}
+\frametitle{QtRvSim -- Data Hazard in "lw" Avoided by Stalling}
 \includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim2.pdf}
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
@@ -388,7 +384,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- data hazard in "lw" solved by stalling}
+\frametitle{QtRvSim -- Data Hazard in "lw" Avoided by Stalling}
 \includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim3.pdf}
 
 {\tiny
@@ -402,7 +398,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{QtRvSim -- data hazard in "lw" solved by stalling}
+\frametitle{QtRvSim -- Data Hazard in "lw" Avoided by Stalling}
 \includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim4.pdf}
 
 {\tiny
@@ -415,11 +411,11 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \end{frame}
 
-\section{Control hazards}
+\section{Control Hazards}
 
 \begin{frame}
-\frametitle{Control hazards (branch and jump instructions)}
-\includegraphics[width=0.85\textwidth]{hazard_ctrl.pdf}
+\frametitle{Control Hazards (Branch and Jump Instructions)}
+\includegraphics[width=0.85\textwidth]{hazard_ctrl-en.pdf}
 
 \begin{itemize}
  \item The result is not known until the fourth cycle, then it is loaded to the PC
@@ -430,81 +426,81 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 \end{frame}
 
 \begin{frame}
-\frametitle{Alternative, move jump decision making earlier}
-\includegraphics[width=0.85\textwidth]{hazard_ctrl2.pdf}
+\frametitle{Alternative, Move Branch Decision Earlier}
+\includegraphics[width=0.85\textwidth]{hazard_ctrl2-en.pdf}
 
 \begin{itemize}
- \item A structural hazard is created, \textbf{ALU} is needed in both \textbf{EX} and \textbf{ID}.
- \item Structural hazards can be solved by duplicating elements. A complete adder, subtractor or comparison
-       takes a long time, a solution may be to restrict the jump conditions to match/mismatch only (just xor
-       between operands and nor over bits)
+ \item This causes structural hazard, \textbf{ALU} is needed in both \textbf{EX} and \textbf{ID}.
+ \item Structural hazards can be solved by duplicating given component (ALU in the respective case). A complete adder, subtractor or comparison
+       takes a long time, a solution may be to restrict the branch conditions to equality/non-equality only (just xor
+       between operands led to bitwise nor)
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Jump execution to ID -- MIPS architecture}
+\frametitle{MIPS Resolve Control Hazards by Early Evaluate and Flush}
 \includegraphics[width=0.90\textwidth]{hazard_ctrl_mips2.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Hazard resolution on comparator inputs -- MIPS}
+\frametitle{Resolution of Hazards on Comparator Inputs -- MIPS}
 \includegraphics[width=0.90\textwidth]{hazard_ctrl_mips2.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Jump prediction and speculative instruction execution (next time)}
+\frametitle{Branch Prediction and Speculative Execution (Next Lect.)}
 \includegraphics[width=0.90\textwidth]{cpu_branch_pred.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Result of pipelined processor design -- RISC-V}
+\frametitle{Result of Pipelined RISC-V Processor Design}
 \includegraphics[width=0.95\textwidth]{cpu_final_design.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Bandwidth of the proposed pipelined processor}
+\frametitle{Performance of the Designed Pipelined Processor}
 
 \begin{itemize}
  \item What will be the maximum achievable frequency of the processor?
- \item Which stage is the slowest?
- \item The minimum allowable cycle period is given by the slowest stage
+ \item Which stage is the slowest one?
+ \item The minimum feasible cycle time is given by the slowest stage
  \item In our case, we are dealing with memory \\
        $T_C = 300$\,ns $\rightarrow$ $f_{clk\,max} = 3\,333$\,kHz \\
        if we don't consider extra cycles to fill the pipeline (no pauses
-       and emptying during jumps, for example) then for an ideal $IPC = 1$ \\
+       and emptying during branches, for example) then for an ideal $IPC = 1$ \\
        $IPS = 1 \cdot 3\,333e3 = 3\,333\,000$ instructions per second
- \item The introduction of five-stage chained processing has led to an increase in
+ \item The introduction of five-stage pipelined processing has led to an increase in
        throughput of $3\,333\,000 / 980\,000 = 3.4 \times$ assuming $IPC = 1$
 \end{itemize}
 
 \end{frame}
 
-\section{Processor with memory}
+\section{Processor with External Memory}
 
 \begin{frame}
-\frametitle{How does the design correspond to a real processor with memory attached (for simplicity we don't consider the pipeline)}
+\frametitle{Design Correspondence to a Real Processor with External Memory (for simplicity we don't consider the pipeline)}
 \includegraphics[width=0.95\textwidth]{cpu_design.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Memory will no longer be considered on chip}
+\frametitle{Memory Is no Longer Placed Inside the Processor}
 \includegraphics[width=0.95\textwidth]{cpu_design2.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{We're going back to the original CPU, memory split}
+\frametitle{getting Back to the Original Separated CPU and Memory}
 \includegraphics[width=0.85\textwidth]{cpu_design3.pdf}
 \end{frame}
 
 \begin{frame}
-\frametitle{Which instruction fails on a link break}
+\frametitle{Quiz -- Which Instruction Misbehaves When Signal is Cut}
 \includegraphics[width=0.95\textwidth]{cpu_final_design_bonus.pdf}
 
 \textbf{A)} add \hfill \textbf{B)} addi \hfill \textbf{C)} beq \hfill \textbf{D)} or \hfill ?
 \end{frame}
 
-\section{Real design considerations and constraints (for A grade adepts)}
+\section{Real Design Considerations and Constraints (for A Grade Adepts)}
 
 \begin{frame}
 \frametitle{Requirements for Pipeline Timing}
