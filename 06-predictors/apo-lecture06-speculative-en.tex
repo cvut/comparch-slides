@@ -6,8 +6,10 @@
 \usepackage{listings}
 \usepackage{array,multirow}
 
-\subtitle{Lecture 06. Superscalar architecture\\a\\jump predictors}
-\author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
+\subtitle{Lecture 06. Branch and Speculative Execution}
+\author{Pavel Píša \phantom{xxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz} \phantom{xx} \small\texttt{stepan@fel.cvut.cz} \\
+\phantom{xxxxxxxxx} \\
+License: CC-BY-SA}
 \begin{document}
 
 \maketitle
@@ -443,7 +445,7 @@ for (i=0; i<N; i++) {
 \end{minted}
 \end{column}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=\textwidth]{for_cyklus.pdf}
+\includegraphics[width=\textwidth]{for_cykle-en.pdf}
 \end{column}
 \end{columns}
 \bigskip
@@ -472,7 +474,7 @@ if (a<b) {
 \end{minted}
 \end{column}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=\textwidth]{if_preklad.pdf}
+\includegraphics[width=\textwidth]{if_translation-en.pdf}
 \end{column}
 \end{columns}
 \bigskip
@@ -506,7 +508,7 @@ Solution: we will have $2^k$ predictors and select a predictor according to the 
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{prediction_table.pdf}
+\includegraphics[width=\textwidth]{prediction_table-en.pdf}
 \end{column}
 \end{columns}
 
@@ -526,7 +528,7 @@ The simplest predictor is the 1-bit Smith predictor
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.45\textwidth]{smith_1bit.pdf}
+\includegraphics[width=0.45\textwidth]{smith_1bit-en.pdf}
 \end{center}
 
 \end{frame}
@@ -583,7 +585,7 @@ The 2-bit Smith predictor is still one of the simplest
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.95\textwidth]{smith_2bit.pdf}
+\includegraphics[width=0.95\textwidth]{smith_2bit-en.pdf}
 \end{center}
 \end{frame}
 
@@ -638,7 +640,7 @@ Analogue of the 2-bit Smith predictor
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.95\textwidth]{smith_2bit_hist.pdf}
+\includegraphics[width=0.95\textwidth]{smith_2bit_hist-en.pdf}
 \end{center}
 \end{frame}
 
@@ -710,7 +712,7 @@ To find the predictor index, the $k-m$ lowest bits of the jump instruction addre
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{prediction_BHR.pdf}
+\includegraphics[width=\textwidth]{prediction_BHR-en.pdf}
 \end{column}
 \end{columns}
 
@@ -736,7 +738,7 @@ Benefits:
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{prediction_GShare.pdf}
+\includegraphics[width=\textwidth]{prediction_GShare-en.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -792,7 +794,7 @@ T & T & T & NT & NT & NT& T & T & T \\ \hline
 \frametitle{Perceptron}
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{neuron.pdf}
+\includegraphics[width=0.6\textwidth]{neuron-en.pdf}
 \end{center}
 
 The formula $\xi = \sum_{i=0}^{n} x_i \cdot w_i$ is used to calculate the value. The final evaluation is by means of a transfer function, in our case a jump function, which has the form:
@@ -804,7 +806,7 @@ $f(\xi) = \begin{cases}1& \text{for }\xi \ge 0\\0& \text{for }\xi <0\end{cases}$
 \frametitle{AMD Zen2 predictor}
 
 \begin{center}
-\includegraphics[width=0.7\textwidth]{prediction_amd.pdf}
+\includegraphics[width=0.7\textwidth]{prediction_amd-en.pdf}
 \end{center}
 
 According to the jump address, one perceptron is selected from the table.
