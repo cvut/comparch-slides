@@ -93,14 +93,14 @@ Jak může Hazard Unit rozhodnout o datovém hazardu, když to dělá problémy 
 \footnotesize
 \begin{itemize}
 \item Pokud je RegWriteM==1, MemToRegM==0 a WriteRegM==RsE1 nebo RsE2 pak nastav ForwardAE na 2 nebo ForwardBE na 2
-\item Pokud je RegWriteW==1, MemToRegW==0 a WriteRegW==RsE1 nebo RsE2 pak nastav ForwardAE na 1 nebo ForwardBE na 1
+\item Pokud je RegWriteW==1 a WriteRegW==RsE1 nebo RsE2 pak nastav ForwardAE na 1 nebo ForwardBE na 1
 \end{itemize}
 \end{column}
 \end{columns}
 \bigskip
 \footnotesize
 \begin{itemize}
-\item Pokud MemToRegM==1 a WriteRegW==Rs1E nebo Rs2E pak nastav pozastavení - STALL
+\item Pokud MemToRegM==1, RegWriteM==1 a WriteRegM==Rs1E nebo Rs2E pak nastav pozastavení - STALL
 \end{itemize}
 \end{frame}
 

@@ -74,14 +74,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="91.405718"
-     inkscape:cy="255.69084"
+     inkscape:cx="-46.451425"
+     inkscape:cy="252.8337"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1848"
-     inkscape:window-height="1136"
-     inkscape:window-x="72"
+     inkscape:window-width="1920"
+     inkscape:window-height="948"
+     inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -102,7 +102,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -365,7 +365,7 @@
          x="96.691742"
          y="145.62679"
          style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         id="tspan17590">Branch Histroy</tspan><tspan
+         id="tspan17590">Branch History</tspan><tspan
          sodipodi:role="line"
          x="96.691742"
          y="150.91844"
