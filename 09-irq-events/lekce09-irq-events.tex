@@ -763,10 +763,14 @@ Zdroj: bootlin: Kernel, drivers and embedded Linux development \url{https://boot
  \item Přístup bez zneplatnění nebo obnovení povede k porušen podmínek paměťové koherence
  \item O tu se pro většinu víceprocesorových/jádrových systémů minimálně mezi vlákny
        stará hardware procesoru
- \item Koherence s přenosy z periferií je na různých architekturách a jejich implementacích
-       řešena různě, obecně platí, že operační systém má volat pro oblasti určené pro
-       pro příjem a vyslání dat před předáním periferii funkce, které se o synchronizaci
-       nebo zneplatnění oblasti ve skrytých pamětech, pokud je to potřeba postarají
+ \item Koherence při přenosech z/na periferie je na různých architekturách a jejich implementacích
+       řešena různě. Pro oblasti určené pro příjem a vyslání dat by měl operační systém
+       před odstartováním přenosu na periferii zavolat funkce, které se zaručí synchronizaci
+       nebo zneplatnění oblasti ve skrytých pamětech tak, jak je na dané architektuře potřeba.
+       Například na architektuře x86 jsou většinou tyto funkce prázdné nebo obsahují
+       jen bariéru pro synchronizaci jádra procesoru. Na ARM je například nutné vyslat
+       instrukce pro synchronizaci s krokem délky řádky vyrovnávací paměti.
+
 \end{itemize}
 \end{frame}
 
