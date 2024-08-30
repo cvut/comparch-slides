@@ -394,7 +394,7 @@ Princip se využívá jak v algoritmech (lokální proměnné), kompilátorech (
 \item V cestě je cache, která může blok, do kterého je zapisováno, obsahovat.
 \item Minimálně z pohledu daného procesoru je nutné zajistit koherenci dat pro daný procesor (často i pro více procesorů -- vlákna) pro přístupy ke každé jednotlivé adrese i pokud existuje více cest přístupu 
 \item \textbf{Write through} (zápis, propsání zkrz) cache -- pokud se již data v cache nahází jsou modifikovaná, ve variantě s automatickou alokací jsou i při výpadku nahraná a pak modifikovaná. Data jsou zároveň odeslaná do hlavní paměti, buď přímo nebo přes zápisovou frontu (write buffer)
-\item \textbf{Write back} -- data jsou zapsaná do příslušného bloku cache, pokud není v cache, je blok nejdříve načtený. Blok je označený \textbf{dirty bit}em. Zápis do další úrovně až pokud je potřeba danou položku cache umolnit pro jiná data (replacement) nebo je vyžádaná sychronizace procesorem, systémem (cache flush).
+\item \textbf{Write back} -- data jsou zapsaná do příslušného bloku cache, pokud není v cache, je blok nejdříve načtený. Blok je označený \textbf{dirty bit}em. Zápis do další úrovně až pokud je potřeba danou položku cache uvolnit pro jiná data (replacement) nebo je vyžádaná sychronizace procesorem, systémem (cache flush).
 \end{itemize}
 
 \end{frame}
