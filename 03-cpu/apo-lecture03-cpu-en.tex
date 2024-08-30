@@ -740,7 +740,7 @@ Description & Add together values in two registers (rs1 + rs2) \\
             & and stores the result in register rd \\ \hline
 Operation& \texttt{[rd]} $\leftarrow$ \texttt{[rs1] + [rs2]} \\ \hline
 Syntax & add rd, rs1, rs2 \\ \hline
-Encoding & \texttt{0000 000t tttt ssss s010 dddd d011 0011} \\
+Encoding & \texttt{0000 000t tttt ssss s000 dddd d011 0011} \\
  & t -- rs2; s -- rs1; d -- rd \\ \hline
 \end{tabular}
 
@@ -814,7 +814,7 @@ Encoding & \texttt{iiii iiii iiii ssss s000 dddd d001 0011} \\
 
 \bigskip
 
-Example: Increment register 7 value by 4 (store result into sama register 7 as is source):\\
+Example: Increment register 7 value by 4 (store result into same register 7 as is source):\\
 \textbf{\texttt{addi x7, x7, 4}}
 
 \textbf{\texttt{\color{red}iiii iiii iiii}}\phantom{xx}\textbf{\texttt{\color{blue}ssss s}}\hspace{0.1cm}\textbf{\texttt{000\hspace{0.25cm}{\color{green}dddd d}\hspace{0.05cm}001 0011}}\\
