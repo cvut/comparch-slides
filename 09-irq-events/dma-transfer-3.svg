@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
    id="svg2"
    xml:space="preserve"
@@ -14,10 +7,17 @@
    height="152.51984mm"
    viewBox="0 0 901.72892 576.45293"
    sodipodi:docname="dma-transfer-3.svg"
-   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"><metadata
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"><metadata
      id="metadata8"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
      id="defs6"><clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath18"><path
@@ -86,8 +86,8 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1592"
-     inkscape:window-height="1171"
+     inkscape:window-width="1272"
+     inkscape:window-height="994"
      id="namedview4"
      showgrid="false"
      fit-margin-top="2"
@@ -97,12 +97,16 @@
      fit-margin-right="2"
      fit-margin-bottom="2"
      inkscape:zoom="0.6"
-     inkscape:cx="307.62775"
-     inkscape:cy="559.40978"
-     inkscape:window-x="1920"
+     inkscape:cx="471.66667"
+     inkscape:cy="297.5"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g1984-2" /><g
+     inkscape:current-layer="g2092"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm" /><g
      id="g10"
      inkscape:groupmode="layer"
      inkscape:label="b35apo_lecture09-irq-events"
@@ -2140,10 +2144,10 @@
          transform="matrix(1,0,0,-1,324.51,426.302)"
          style="font-variant:normal;font-weight:normal;font-size:20.013px;font-family:'TeX Gyre Heros';-inkscape-font-specification:TeXGyreHeros-Regular;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
          id="text2096"><tspan
-           x="0 11.187267 15.590127 25.67668 35.763229 41.266808 51.353359 62.540627 73.647842 79.151413 85.755707 96.94297 101.34583 105.82874 117.01601 123.70036 129.20393 140.31114 151.3183 156.82187 161.22473 171.31128 182.49855 192.5851 198.08867 203.59225 214.69946 225.88673 231.3903 245.87971 259.2684 273.75781 279.26141 293.75082 298.23373 303.7373 314.92456 320.42813 331.53537 342.72263"
            y="0"
            sodipodi:role="line"
-           id="tspan2094">disk controller notifes the CPU with an </tspan></text></g><g
+           id="tspan2094"
+           x="0">disk controller notifies the CPU with an </tspan></text></g><g
        id="g2098"><text
          transform="matrix(1,0,0,-1,324.51,402.293)"
          style="font-style:italic;font-variant:normal;font-size:20.013px;font-family:'TeX Gyre Heros';-inkscape-font-specification:TeXGyreHeros-Italic;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
