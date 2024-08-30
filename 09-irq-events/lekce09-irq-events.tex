@@ -765,7 +765,7 @@ Zdroj: bootlin: Kernel, drivers and embedded Linux development \url{https://boot
        stará hardware procesoru
  \item Koherence při přenosech z/na periferie je na různých architekturách a jejich implementacích
        řešena různě. Pro oblasti určené pro příjem a vyslání dat by měl operační systém
-       před odstartováním přenosu na periferii zavolat funkce, které se zaručí synchronizaci
+       před odstartováním přenosu na periferii zavolat funkce, které zaručí synchronizaci
        nebo zneplatnění oblasti ve skrytých pamětech tak, jak je na dané architektuře potřeba.
        Například na architektuře x86 jsou většinou tyto funkce prázdné nebo obsahují
        jen bariéru pro synchronizaci jádra procesoru. Na ARM je například nutné vyslat
