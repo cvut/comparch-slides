@@ -42,33 +42,6 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Návrh CPU z přednášky 5}
-\includegraphics[width=0.95\textwidth]{cpu_design2.pdf}
-\end{frame}
-
-\begin{frame}
-\frametitle{Propojení CPU s pamětí a perifériemi}
-\begin{columns}
-\begin{column}{0.4\textwidth}
-\includegraphics[width=0.9\textwidth]{bus_arch.pdf}
-\end{column}
-\begin{column}{0.6\textwidth}  
-\begin{itemize}
-\item Adresová sběrnice (A0..A31) může být oddělená, nebo multiplexovaná, nebo sdílet stejné signály jako datová část
-\item Datová sběrnice (D0..D31) může být obousměrná, nebo oddělená pro každý směr zvlášť, paralelní nebo sériová
-\begin{itemize}
-\item zde na obrázku je paralelní 32-bitová sběrnice typu half-duplex stejné vodiče pro oba směry
-\end{itemize}
-\item Řídicí signály sběrnice
-\begin{itemize}
-\item řídí komunikaci na sběrnici, co se bude kam přenášet, kdy přenos začne skončí, pozdrží.
-\end{itemize}
-\item BE0 to 3 -- pokud je povoleno čtení bajtů na sběrnici širší než 8 bitů.
-\end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
 
 \begin{frame}
 \frametitle{Klasifikace periférií}
@@ -143,6 +116,90 @@ Příklady senzorů a aktuátorů:
 
 
 
+
+\begin{frame}
+\frametitle{Návrh CPU z přednášky 5}
+\includegraphics[width=0.95\textwidth]{cpu_design2.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{Propojení CPU s pamětí a perifériemi}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=0.9\textwidth]{bus_arch.pdf}
+\end{column}
+\begin{column}{0.6\textwidth}  
+\begin{itemize}
+\item Adresová sběrnice (A0..A31) může být oddělená, nebo multiplexovaná, nebo sdílet stejné signály jako datová část
+\item Datová sběrnice (D0..D31) může být obousměrná, nebo oddělená pro každý směr zvlášť, paralelní nebo sériová
+\begin{itemize}
+\item zde na obrázku je paralelní 32-bitová sběrnice typu half-duplex stejné vodiče pro oba směry
+\end{itemize}
+\item Řídicí signály sběrnice
+\begin{itemize}
+\item řídí komunikaci na sběrnici, co se bude kam přenášet, kdy přenos začne skončí, pozdrží.
+\end{itemize}
+\item BE0 to 3 -- pokud je povoleno čtení bajtů na sběrnici širší než 8 bitů.
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Přístup CPU k periférii}
+
+Prakticky existují dva různé přístupy:
+\begin{itemize}
+\item Speciální instrukce 
+\begin{itemize}
+\item x86 používá instrukce \texttt{in}, \texttt{out}.
+\item Tyto instrukce mají podobný formát jako přístup do paměti, ale data čtou a zapisují na sběrnici kde jsou připojeny periférie.
+\item Implementace těchto instrukcí potřebuje přístup k jiným sběrnicím.
+\item Tyto instrukce se ukázaly neefektivní, nesystematické a moderní periférie je nepoužívají.
+\end{itemize}
+\item Vyhrazení části adresového prostoru
+\begin{itemize}
+\item RISC-V nemá speciální instrukce pro komunikace s perifériemi, a proto využívá metodu, že čtení a zápis do určených oblastí paměti vede k čtení a zápisu z periferií.
+\item Tento přístup je velmi jednoduše konfigurovatelný, periférie při inicializaci získají paměťový rozsah, který slouží k přesunu dat mezi CPU a perifériemi.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Paměťově mapované periférie}
+
+\begin{itemize}
+\item RISC-V nemá speciální instrukce pro komunikace s perifériemi
+\item pro komunikaci s perifériemi se využívá ukládání a čtení z paměti
+\item Address Decoder -- rozhoduje, kam se data přesměrují
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.88\textwidth]{address_decoder.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Typy adresových dekodérů}
+
+Centralizovaný dekodér
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{central.pdf}
+\end{center}
+
+Decentralizovaný -- autonomní dekodér
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{distributed.pdf}
+\end{center}
+\end{frame}
+
+
+
 \begin{frame}
 \frametitle{Způsoby komunikace s periférií}
 Data pouze na dotaz:
@@ -211,71 +268,119 @@ Systémová volání:
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Přístup CPU k periférii}
 
-Prakticky existují dva různé přístupy:
+
+
+
+\begin{frame}
+\frametitle{Kvíz čtení dat}
+
+Funkce scanf čte standardní vstup metodou, že pokud aktuálně nejsou data k dispozici tak se:
 \begin{itemize}
-\item Speciální instrukce 
-\begin{itemize}
-\item x86 používá instrukce \texttt{in}, \texttt{out}.
-\item Tyto instrukce mají podobný formát jako přístup do paměti, ale data čtou a zapisují na sběrnici kde jsou připojeny periférie.
-\item Implementace těchto instrukcí potřebuje přístup k jiným sběrnicím.
-\item Tyto instrukce se ukázaly neefektivní, nesystematické a moderní periférie je nepoužívají.
-\end{itemize}
-\item Vyhrazení části adresového prostoru
-\begin{itemize}
-\item RISC-V nemá speciální instrukce pro komunikace s perifériemi, a proto využívá metodu, že čtení a zápis do určených oblastí paměti vede k čtení a zápisu z periferií.
-\item Tento přístup je velmi jednoduše konfigurovatelný, periférie při inicializaci získají paměťový rozsah, který slouží k přesunu dat mezi CPU a perifériemi.
-\end{itemize}
+\item[A] v cyklu neustále dotazuje, zda jsou data připravena 
+\item[B] proces uspí a je nutné ho restartovat
+\item[C] proces uspí a operační systém ho probudí, když data přijdou
+\item[D] funkce vrátí s hodnotou -1
 \end{itemize}
 \end{frame}
 
 
+
+\section{Periférie v QtRvSim}
+
 \begin{frame}
-\frametitle{Paměťově mapované periférie}
+\frametitle{QtRvSim -- otočné voliče, RGB led}
 
 \begin{itemize}
-\item RISC-V nemá speciální instrukce pro komunikace s perifériemi
-\item pro komunikaci s perifériemi se využívá ukládání a čtení z paměti
-\item Address Decoder -- rozhoduje, kam se data přesměrují
+\item stejný formát dat pro RGB led i načtení tří otočných voličů 
+\begin{itemize}
+\item bity 24 -- 31 nejsou pro RGB led použity
 \end{itemize}
-\begin{center}
-\includegraphics[width=0.88\textwidth]{address_decoder.pdf}
-\end{center}
+\end{itemize}
+
+\begin{table}
+\scriptsize
+\begin{tabular}{|m{1.0cm}|m{1.1cm}|m{0.5cm}|m{0.5cm}|m{0.5cm}|m{1.1cm}|m{1.1cm}|m{1.1cm}|}\hline
+Bity & 31 ... 27 & 26 & 25 & 24 & 23 ... 16 & 15 ... 8 & 7 ... 0 \\ \hline
+Význam & nepoužito & stisk červené & stisk zelené & stisk mod- ré & hodnota červené & hodnota zelené & hodnota modré \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{itemize}
+\item každá jednotlivá RGB led má svoji adresu pro zápis, všechny tři voliče mají svojí adresu pro čtení
+\item zápisem pro adresu RGB led se "okamžitě" rozsvítí zadanými hodnotami
+\item čtením z adresy otočných voličů se čte jejich stav v aktuálním okamžiku
+\end{itemize}
+
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Typy adresových dekodérů}
+\begin{frame}[fragile]
+\frametitle{QtRvSim -- otočné voliče, RGB led}
 
-Centralizovaný dekodér
+\begin{columns}
+\begin{column}{0.6\textwidth}  
+\begin{minted}[fontsize=\footnotesize]{gas}
+#base of SPILED port region
+.equ SPILED_REG_BASE,       0xffffc100
 
-\begin{center}
-\includegraphics[width=0.8\textwidth]{central.pdf}
-\end{center}
+#RGB LED 1 barevne slozky – 8 bitu kazda
+.equ SPILED_REG_LED_RGB1,   0xffffc110
+.equ SPILED_REG_LED_RGB1_o,   0x0010
 
-Decentralizovaný -- autonomní dekodér
+#RGB LED 2 barevne slozky – 8 bitu kazda
+.equ SPILED_REG_LED_RGB2,   0xffffc114
+.equ SPILED_REG_LED_RGB2_o,   0x0014
 
-\begin{center}
-\includegraphics[width=0.8\textwidth]{distributed.pdf}
-\end{center}
+#Tri 8 bitove otocne volice
+#nejvyssi bajt informace o stitsknuti
+.equ SPILED_REG_KNOBS_8BIT, 0xffffc124 
+.equ SPILED_REG_KNOBS_8BIT_o, 0x0024
+
+#32 LEDek kazdy bit jedna LED dioda
+.equ SPILED_REG_LED_LINE,   0xffffc104
+.equ SPILED_REG_LED_LINE_o,   0x0004
+\end{minted}
+\end{column}
+\begin{column}{0.4\textwidth}
+\includegraphics[width=\textwidth]{fig/knobs.png}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Příklad použití informace od otočných voličů}
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+    li   a0, SPILED_REG_BASE # a0 ukazuje na zacatek pameti pro I/O
+    ori  t2, t2, -1
+loop:
+    lw   t0, SPILED_REG_KNOBS_8BIT_o(a0)   # nacti data od otocnych volicu
+    sw   t0, SPILED_REG_LED_RGB1_o(a0)
+    xor  t1, t0, t2
+    sw   t1, SPILED_REG_LED_RGB2_o(a0)
+    srli t0, t0, 24
+    andi t0, t0, 4
+    beq  t0, zero, loop    # pokud nebyl zmacknut cerveny volic
+
+    ebreak                    # ukonci program
+\end{minted}
 \end{frame}
 
 \begin{frame}
 \frametitle{Kvíz otočné voliče}
 
-RISC-V přistupuje k perifériím
+Pokud máme v proměnné \texttt{unsigned int v;} načtené slovo z adresy \texttt{SPILED\_REG\_BASE+SPILED\_REG\_KNOBS\_8BIT\_o} pak informace o stavu zeleného voliče získáme jako:
 \begin{itemize}
-\item[A] speciální instrukcí \texttt{in}, \texttt{out}
-\item[B] provedením dvojice instrukcí \texttt{sw}, \texttt{lw} hned po sobě
-\item[C] normálním provedením instrukce \texttt{lw}, \texttt{sw} na speciální adresy
-\item[D] zápisem mimo adresový prostor 32-bitového prostoru
+\item[A] \texttt{((v<<24) \& 0x00ff00)}
+\item[B] \texttt{((v>>8) \& 0xff)}
+\item[C] \texttt{(v \& 0x30303030)}
+\item[D] \texttt{((v>>24) \& 0xf0)}
 \end{itemize}
 \end{frame}
 
-
-\section{Periférie v QtRvSim}
 
 
 \begin{frame}
@@ -510,70 +615,6 @@ Zřetězený procesor -- pipelined verze
 \end{frame}
 
 
-\begin{frame}[fragile]
-\frametitle{QtRvSim -- otočné voliče, led}
-
-\begin{columns}
-\begin{column}{0.6\textwidth}  
-\begin{minted}[fontsize=\footnotesize]{gas}
-#base of SPILED port region
-.equ SPILED_REG_BASE,       0xffffc100
-
-#RGB LED 1 barevne slozky – 8 bitu kazda
-.equ SPILED_REG_LED_RGB1,   0xffffc110
-.equ SPILED_REG_LED_RGB1_o,   0x0010
-
-#RGB LED 2 barevne slozky – 8 bitu kazda
-.equ SPILED_REG_LED_RGB2,   0xffffc114
-.equ SPILED_REG_LED_RGB2_o,   0x0014
-
-#Tri 8 bitove otocne volice
-#nejvyssi bajt informace o stitsknuti
-.equ SPILED_REG_KNOBS_8BIT, 0xffffc124 
-.equ SPILED_REG_KNOBS_8BIT_o, 0x0024
-
-#32 LEDek kazdy bit jedna LED dioda
-.equ SPILED_REG_LED_LINE,   0xffffc104
-.equ SPILED_REG_LED_LINE_o,   0x0004
-\end{minted}
-\end{column}
-\begin{column}{0.4\textwidth}
-\includegraphics[width=\textwidth]{fig/knobs.png}
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Příklad použití informace od otočných voličů}
-
-\begin{minted}[fontsize=\footnotesize]{gas}
-    li   a0, SPILED_REG_BASE # a0 ukazuje na zacatek pameti pro I/O
-    ori  t2, t2, -1
-loop:
-    lw   t0, SPILED_REG_KNOBS_8BIT_o(a0)   # nacti data od otocnych volicu
-    sw   t0, SPILED_REG_LED_RGB1_o(a0)
-    xor  t1, t0, t2
-    sw   t1, SPILED_REG_LED_RGB2_o(a0)
-    srli t0, t0, 24
-    andi t0, t0, 4
-    beq  t0, zero, loop    # pokud nebyl zmacknut cerveny volic
-
-    ebreak                    # ukonci program
-\end{minted}
-\end{frame}
-
-\begin{frame}
-\frametitle{Kvíz otočné voliče}
-
-Pokud máme v proměnné \texttt{unsigned int v;} načtené slovo z adresy \texttt{SPILED\_REG\_BASE+SPILED\_REG\_KNOBS\_8BIT\_o} pak informace o stavu zeleného voliče získáme jako:
-\begin{itemize}
-\item[A] \texttt{((v<<24) \& 0x00ff00)}
-\item[B] \texttt{((v>>8) \& 0xff)}
-\item[C] \texttt{(v \& 0x30300030)}
-\item[D] \texttt{((v>>24) \& 0xf0)}
-\end{itemize}
-\end{frame}
 
 \section{Sběrnice}
 
