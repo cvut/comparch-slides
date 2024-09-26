@@ -563,7 +563,7 @@ Přetečení při sčítání čísel se znaménkem je složitější. Co je dob
 \begin{itemize}
 \item Přetečení při sčítání čísel se znaménkem nastane právě tehdy, když dojde k přenosu na posledních cifrách a zároveň nedojde k přenosu na předposledních cifrách:
 \begin{itemize}
-\item overflow = $c_n$ xor $c_{n-1}$; $c_n$ je nejvyšší carry, $c_n$ je druhé nejvyšší carry
+\item overflow = $c_n$ xor $c_{n-1}$; $c_n$ je nejvyšší carry, $c_{n-1}$ je druhé nejvyšší carry
 \end{itemize}
 \item Druhá možnost je sledovat, zda při součtu dvou kladných čísel máme záporná výsledek, nebo při součtu dvou záporných čísel je kladný výsledek:
 \begin{itemize}
