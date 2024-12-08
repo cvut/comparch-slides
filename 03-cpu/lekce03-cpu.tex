@@ -442,7 +442,7 @@ Nejdříve se podíváme, co se děje při E=1:
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{center}
-\includegraphics[width=\textwidth]{d_latch_e1.pdf}
+\includegraphics[width=\textwidth]{d_latch_e1-cz.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}  
@@ -465,7 +465,7 @@ Pokud je E=0:
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{center}
-\includegraphics[width=\textwidth]{d_latch_e0.pdf}
+\includegraphics[width=\textwidth]{d_latch_e0-cz.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}  
@@ -506,7 +506,7 @@ Aktivace náběžnou hranou:
 \frametitle{Hardwarová realizace základního cyklu CPU}
 
 \begin{center}
-\includegraphics[width=0.45\textwidth]{cpu_step.pdf}
+\includegraphics[width=0.45\textwidth]{cpu_step-cz.pdf}
 \end{center}
 
 Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodnota PC+4. Tím se automaticky rozběhne nové čtení z paměti a následné zpracování instrukce, které si ukážeme později.
@@ -520,7 +520,7 @@ Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodn
 \begin{tabular}{m{1.6cm} m{9.5cm}}
 \hfill \includegraphics[width=0.6cm]{registr.pdf} & jeden registr, zápis řízen hodinovým signálem CLK \\ 
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.6cm]{registry.pdf} & soubor 32 registrů, podle vstupu A1, A2 vybere hodnoty těchto dvou registrů na výstup RD1 a RD2; pokud přijde hodinový signál a je nastaven vstup WE3 (write enable) tak se hodnota WD3 zapíše do registru číslo A3 \\
+\hfill \includegraphics[width=1.6cm]{registry-cz.pdf} & soubor 32 registrů, podle vstupu A1, A2 vybere hodnoty těchto dvou registrů na výstup RD1 a RD2; pokud přijde hodinový signál a je nastaven vstup WE3 (write enable) tak se hodnota WD3 zapíše do registru číslo A3 \\
 \phantom{X} & \phantom{X} \\
 \hfill \includegraphics[width=0.8cm]{multiplexor.pdf} & na základě hodnoty řídicího signálu Select přenáší hodnotu jednoho ze vstupů na výstup \\ 
 \phantom{X} & \phantom{X} \\
@@ -539,10 +539,10 @@ Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodn
 \begin{table}
 \footnotesize
 \begin{tabular}{m{1.7cm} m{9.4cm}}
-\hfill \includegraphics[width=1.7cm]{inst_mem.pdf} & Instrukční paměť dá na výstup data RD uložená v paměti na adrese A. Data jsou k dispozici po uplynutí "dostatečně dlouhé" doby pro nalezení dat a jejich vystavení na výstup RD.\\
+\hfill \includegraphics[width=1.7cm]{inst_mem-cz.pdf} & Instrukční paměť dá na výstup data RD uložená v paměti na adrese A. Data jsou k dispozici po uplynutí "dostatečně dlouhé" doby pro nalezení dat a jejich vystavení na výstup RD.\\
 \phantom{X} & \phantom{X} \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.7cm]{memory.pdf} & Datová paměť. Slouží buď ke čtení dat z adresy A. Protože se jedná o stejnou pamět jako je instrukčí, tak po "dostatečně dlouhé" době jsou data na výstupu RD. Pokud je nastaven příznak WE (write enable), tak s náběžnou hranou hodinového signálu CLK dojde k zápisu dat WD na adresu A.\\ 
+\hfill \includegraphics[width=1.7cm]{memory-cz.pdf} & Datová paměť. Slouží buď ke čtení dat z adresy A. Protože se jedná o stejnou pamět jako je instrukčí, tak po "dostatečně dlouhé" době jsou data na výstupu RD. Pokud je nastaven příznak WE (write enable), tak s náběžnou hranou hodinového signálu CLK dojde k zápisu dat WD na adresu A.\\ 
 \end{tabular}
 \end{table}
 

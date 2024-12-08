@@ -185,7 +185,7 @@ Budeme uvažovat rodělení vykonávání instrukcí do pěti stupní (stages).
 
 \begin{frame}
 \frametitle{Překrývající se zřetězené vykonávání instrukcí}
-\includegraphics[width=0.9\textwidth]{cpu_pipe_inst_flow.pdf}
+\includegraphics[width=0.9\textwidth]{cpu_pipe_inst_flow-cz.pdf}
 
 $\tau = max{\left\lbrace \tau_i \right\rbrace}^k_{i=1}$,  kde $\tau_i$ je zpožení v jednotlivých stupních
 
@@ -218,12 +218,12 @@ $\lim_{n \rightarrow \infty} S_k = k$
 
 \begin{frame}
 \frametitle{Datové a řídící hazardy a jejich řešení}
-\includegraphics[width=0.95\textwidth]{hazard_kinds.pdf}
+\includegraphics[width=0.95\textwidth]{hazard_kinds-cz.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Zdroj datových hazardů}
-\includegraphics[width=0.95\textwidth]{hazard_data.pdf}
+\includegraphics[width=0.95\textwidth]{hazard_data-cz.pdf}
 
 \vskip 2 mm
 
@@ -269,7 +269,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Rešení datových hazardů přeposíláním (forwarding)}
-\includegraphics[width=0.85\textwidth]{forward_data.pdf}
+\includegraphics[width=0.85\textwidth]{forward_data-cz.pdf}
 
 \begin{itemize}
  \item pokud je výsledek k dispozici (vypočítaný) před vykonáním následující instrukce/í,
@@ -341,7 +341,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Přetrvávající problém v instrukci "lw" -- řešení pozastavení}
-\includegraphics[width=0.85\textwidth]{pipeline_stall.pdf}
+\includegraphics[width=0.85\textwidth]{pipeline_stall-cz.pdf}
 
 \begin{itemize}
  \item Pokud následující instrukce vyžaduje data dříve, než jsou k dispozici v procesoru, tak je nutné
@@ -357,7 +357,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Řešení datových hazardů pozastavením (pipeline stall)}
-\includegraphics[width=0.85\textwidth]{pipeline_stall2.pdf}
+\includegraphics[width=0.85\textwidth]{pipeline_stall2-cz.pdf}
 
 \begin{itemize}
  \item Pozastavení je realizované podržením obsahu mezistavových (interstage) registrů
@@ -420,7 +420,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Řídicí (control) hazardy (instrukce branch a jump)}
-\includegraphics[width=0.85\textwidth]{hazard_ctrl.pdf}
+\includegraphics[width=0.85\textwidth]{hazard_ctrl-cz.pdf}
 
 \begin{itemize}
  \item Výsledek není známý dříve než ve čtvrtém cyklu, poté se nahraje do PC
@@ -432,7 +432,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Alternativa, přesunout rozhodování skoků dříve}
-\includegraphics[width=0.85\textwidth]{hazard_ctrl2.pdf}
+\includegraphics[width=0.85\textwidth]{hazard_ctrl2-cz.pdf}
 
 \begin{itemize}
  \item Vzniká strukturální hazard, \textbf{ALU} je potřeba ve stupni \textbf{EX} i \textbf{ID}.
