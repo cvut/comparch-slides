@@ -3,7 +3,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=2
 kileversion=2.0
-lastDocument=lekce13-vmlev-virt.tex
+lastDocument=apo-lecture13-vmlev-virt-cz.tex
 masterDocument=
 name=lekce13-vmlev-virt
 pkg_extIsRegExp=false
@@ -15,7 +15,7 @@ src_extensions=.tex .ltx .latex .dtx .ins
 MakeIndex=
 QuickBuild=
 
-[item:lekce13-vmlev-virt.kilepr]
+[item:apo-lecture13-vmlev-virt-cz.kilepr]
 archive=true
 column=0
 encoding=
@@ -24,7 +24,7 @@ line=0
 open=false
 order=-1
 
-[item:lekce13-vmlev-virt.tex]
+[item:apo-lecture13-vmlev-virt-cz.tex]
 archive=true
 column=97
 encoding=UTF-8
