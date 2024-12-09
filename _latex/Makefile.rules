@@ -4,6 +4,8 @@ ifeq ($(DOC),)
 $(error DOC variable should be the base name of the LaTeX file to compile)
 endif
 
+DOC_LANG ?= cz
+
 SVGS = $(wildcard *.svg)
 ANIM = $(patsubst %,anim/%/overlay.tex,$(basename $(SVGS)))
 export TEXINPUTS=.:../_latex:
@@ -17,7 +19,7 @@ gitignore_target = grep -q '/$@' .gitignore || echo '/$@' >> .gitignore
 all: $(DOC).pdf $(NUM:%=apo%_2021.pdf)
 
 $(DOC).pdf: export TEXINPUTS=.:$(MAKEFILE_RULES_DIR):
-$(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture-cz.sty $(FIGS)
+$(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture-$(DOC_LANG).sty $(FIGS)
 	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
 	$(gitignore_target)
 
