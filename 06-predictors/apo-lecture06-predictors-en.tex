@@ -1,0 +1,1023 @@
+\documentclass{beamer}
+%[aspectratio=169] \usepackage[czech]{babel}
+\usepackage{apo-lecture-en}
+\usepackage{pdfpages}
+\usepackage{pdfcomment}
+\usepackage{listings}
+\usepackage{array,multirow}
+
+\subtitle{Lecture 06. Branches and Speculative Execution}
+\author{Pavel Píša \phantom{xxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz} \phantom{xx} \small\texttt{stepan@fel.cvut.cz} \\
+\phantom{xxxxxxxxx} \\
+License: CC-BY-SA}
+\begin{document}
+
+\maketitle
+
+\section{Superscalar Architecture}
+
+\begin{frame}
+\frametitle{Today's Lecture Objective}
+
+\begin{itemize}
+ \item Familiarize with another possible processor speedup techniques that builds on pipelining -- the superscalar architecture
+ \item Branch prediction and speculative execution which are very important concepts of superscalar processors
+ \item All of these techniques are used in RISC-V processors as well as in all current high performance processors
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Recap - Quiz}
+
+Which of following instruction sequences executed on classic five-stage pipeline processor experience data hazards?
+
+\begin{columns}[T]
+\begin{column}{0.40\textwidth}
+\phantom{xxxxx}a)
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+addi t0, s1, 4
+add  t1, s1, s0
+add  s1, s2, x0
+\end{minted}
+\end{column}
+\begin{column}{0.40\textwidth}
+\phantom{xxxxx}b)
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+addi t0, s1, 4
+add  t1, s2, s3
+add  t2, t0, t1
+\end{minted}
+\end{column}
+\end{columns}
+\bigskip
+\begin{itemize}
+ \item[A] in neither of sequences
+ \item[B] hazard is only in case a)
+ \item[C] hazard is only in case b)
+ \item[D] hazard is in case a) and b)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Recap - Quiz}
+
+How can be the following data hazard solved for the processor built during the last lecture?
+\medskip
+\begin{minted}[fontsize=\footnotesize]{gas}
+lw   s2, 10(s0)
+addi s1, s2, -1
+\end{minted}
+\bigskip
+\begin{itemize}
+ \item[A] this hazard cannot be solved, it must be solved by the compiler or programmer
+ \item[B] can be solved by data forwarding
+ \item[C] must only be resolved using stall
+ \item[D] can be solved by a combination of stall and data forwarding
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Processor with Pipeline (from Lecture 5)}
+
+How does the Hazard Unit make a decision about data hazard and their resolution?
+\begin{columns}
+\begin{column}{0.67\textwidth}
+\includegraphics[width=\textwidth]{cpu_final_design.pdf}
+\end{column}
+\begin{column}{0.33\textwidth}
+\footnotesize
+\begin{itemize}
+\item If RegWriteM==1, MemToRegM==0, WriteRegM!=0 and WriteRegM==RsE1 or RsE2 then set ForwardAE to 2 or ForwardBE to 2
+\item If RegWriteW==1, WriteRegM!=0 and WriteRegW==RsE1 or RsE2 then set ForwardAE to 1 or ForwardBE to 1
+\end{itemize}
+\end{column}
+\end{columns}
+\bigskip
+\footnotesize
+\begin{itemize}
+\item If MemToRegE==1, RegWriteE==1 WriteRegE!=0 and WriteRegE==Rs1D or Rs2D then do not advance instruction from ID - STALL previous and flush (nop) pass to execute stage.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instruction-level Parallelism}
+
+Instruction Level Parallelism (ILP)
+\begin{itemize}
+ \item Pipelining -- different phases of different instructions are processed in parallel
+ \item Superpipelining -- superpipelining refers to pipelining with more than 10 steps. Slower pipelining phases are split into multiple parts, allowing the processor to increase its frequency and thus its performance.
+ \item Superscalar processor -- the same stages of different instructions are processed in parallel
+\begin{itemize}
+\item multiple ALUs can execute in parallel EX phases of multiple different instructions
+\item the fetch phase can fetch multiple sucessive instructions in parallel, i.e. instructions from PC, PC+4, PC+8 and PC+12 addresses
+\item the instruction decode buffers allows fetching another instruction group even if previous ones cannot be passed into decode stages
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Instruction-level Parallelism}
+
+Pipelined processor
+\includegraphics[width=0.85\textwidth]{pipeline.pdf}
+
+Superscalar processor
+\includegraphics[width=0.85\textwidth]{superscalar.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Superscalar Processors}
+
+\begin{itemize}
+\item Superscalar processors have an IPC (Instruction Per Clock) greater than 1.
+  \begin{itemize}
+  \item Normal and pipelined processors have upper limit of IPC=1
+  \end{itemize}
+\item The number of instructions which can be processed in parallel and finished in the single clock cycle is called the instruction pipeline width.
+\item There are two basic variants:
+  \begin{itemize}
+  \item \textbf{Static} superscalar architecture -- only consecutive instructions in a program can run in parallel.
+    \begin{itemize}
+    \item If instructions depend on any other in the group, this leads to a processor stall.
+    \end{itemize}
+  \item \textbf{Dynamic} superscalar architecture -- any instructions that are ready to execute can run in parallel up to number of available functional units and their local pipelines limits.
+    \begin{itemize}
+    \item Allows instructions to be executed out-of-order (in other than original program sequence).
+    \item Leads to better use of the processor's HW resources.
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Superscalar Processors}
+
+\begin{itemize}
+\item Individual parallel pipelines can be \textbf{unified} -- that is, all pipelines are the same and can perform all types of operations
+  \begin{itemize}
+  \item In practice, this would be an unnecessarily complex processor -- it is not used
+  \end{itemize}
+\item The individual parallel pipelines are \textbf{diversified} (specialized) -- each pipeline can only process certain subset of instructions:
+  \begin{itemize}
+  \item register-only instructions -- calculations, comparisons
+  \item instructions to access the memory -- loading/storing data from/to memory
+  \item branch instructions -- PC changing instructions
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\section{Out of Order Instruction Execution}
+
+\begin{frame}
+\frametitle{Superscalar Architecture}
+\begin{itemize}
+\item The basis of the architecture is usually the ReOrder Buffer (ROB), which allows to achieve same final effect as when program is executed sequentially. Register renaming allows to overcome limitations caused by WAW (write-after-write) and WAR (write-after-read) hazards which are results of out of order execution.
+\end{itemize}
+\begin{columns}
+\begin{column}{0.50\textwidth}
+\includegraphics[width=\textwidth]{superscalar-architecture.pdf}
+\end{column}
+\begin{column}{0.50\textwidth}
+\begin{itemize}
+\item Reservation Stations allows to assign operations to functional units even when some of input operand values are not knows at dispatch time.
+\item Common Data Bus ensures that calculated values are written to the actual registers even for renamed registers and propagated to instructions waiting for them.
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Data Hazards in Superscalar Architecture}
+
+For register-only instructions:
+\begin{itemize}
+\item is clear that it is not possible to execute all instructions in parallel
+\item is possible to increase parallelization by using a larger renamed register file.
+\end{itemize}
+
+\begin{minted}[fontsize=\footnotesize]{gas}
+1: slli t1, s1, 4
+2: add  t0, t1, s2
+3: addi s2, t0, 8
+4: mult t1, s0, s0
+5: addi t3, t1, 100
+\end{minted}
+
+This program can be parallelized using renamed registers for intermediate results:
+
+\begin{columns}[T]
+\begin{column}{0.40\textwidth}
+\begin{minted}[fontsize=\footnotesize]{gas}
+1: slli RN0, s1,  4
+2: add  RN1, RN0, s2
+3: addi RN2, RN1, 8
+\end{minted}
+\end{column}
+\begin{column}{0.40\textwidth}
+\begin{minted}[fontsize=\footnotesize]{gas}
+4: mult RN3, s0,  s0
+5: addi RN4, RN3, 100
+\end{minted}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Tomasulo Algorithm}
+
+Robert Tomasulo from IBM invented an algorithm for out-of-order data processing on FPUs in 1967.
+Today, a modification of it is the basis of the architecture of all modern processors.
+The basic stages used today are:
+\begin{itemize}
+\item Loading an instruction into the ROB and renaming the result register of the operation - getting the register number from the renamed register file.
+\item Dispatch the instruction into the Reservation Station and wait for the required results of previous instructions
+\item Performing the calculation and writing the result to the renamed register via the Common Data Bus
+\item Completing the oldest instruction (circular queue -- FIFO) from the ROB and updating the architectural register.
+\end{itemize}
+Instructions may be computed out-of-order, but instruction completion is in program order.
+\end{frame}
+
+\begin{frame}[shrink=1]
+\frametitle{Superscalar Architecture}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{superscalar-architecture2.pdf}
+\end{center}
+
+\scriptsize
+Rename Register File:
+\begin{itemize}
+\item A set of hardware registers, often many times more than architectural register file size.
+\item The Busy flag indicates that the register is being used, the Valid flag indicates that the value is calculated and is valid. When the instruction completes, the architectural register is set to Rename Register Number (RRN) value.
+\end{itemize}
+
+ReOrder Buffer:
+\begin{itemize}
+\item The cyclic queue contains instructions inserted in program order
+\item The queue ensures that instructions are completed in program order
+\item Binding between Reservation Station via Rename Register Number (RRN), which will contain the result of the operation
+\item Via the Common Data Bus is informed that the RRN register has been calculated and the instruction gets the Finished flag
+\item Complete instruction - instruction is removed from the ROB only when it and all preceding instructions are finished.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Superscalar Architecture}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{superscalar-architecture2.pdf}
+\end{center}
+
+\scriptsize
+Reservation Station:
+\begin{itemize}
+\item Contains two operands, if the V1 or V2 (valid) flag is set then the operand represent value. If the V1 or V2 flag is not set, then the operand contains an RRN whose value is being waited for to be received from the CDB
+\item The RRN number indicates which register to write the result to.
+\item If both operands are valid and the functional unit is free, the operation is entered and the entry is removed from the Reservation Station. The RRN is passed with operation and data through the functional unit which can send it with result to the Common Data Bus and propagate results to waiting reservation stations.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Memory Read Data Hazards}
+
+\begin{itemize}
+\item If the lw and sw instructions use different addresses, they can be reordered.
+\item If lw follows sw to the same address, data forwarding can be implemented.
+\item In practice, however, one instruction may overtake the other, so that it is not yet calculated where the data will be stored, i.e. whether a match will occur.
+\begin{itemize}
+\item Solution - speculative execution of the lw instruction, i.e. execution even though it is not clear whether the data will be correct
+\item When the sw instruction completes, all speculative executions of lw are checked
+\item When a conflict is found, speculative execution of the lw instruction is cancelled
+\end{itemize}
+\item Execution is treated as if the order is preserved.
+\item A big problem in multiprocessor systems -- memory consistency when parallel computations are performed on different processor cores.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{AMD Zen2 - Microarchitecture}
+
+\begin{columns}[T]
+\begin{column}{0.34\textwidth}
+\includegraphics[width=\textwidth]{fig/amd_zen2.png}
+\end{column}
+\begin{column}{0.66\textwidth}
+\scriptsize
+\begin{itemize}
+\item 7 nm process (from 12 nm), I/O die utilizes 12 nm
+\item Core (8 cores on CPU chiplet), 6/8/4 µOPs in parallel
+\begin{itemize}
+\scriptsize
+\item Frontend, µOP cache (4096 entries)
+\item FPU, 256-bit Eus (256-bit FMAs) and LSU (2x256-bit L/S), 3 cycles DP vector mult latency
+\item Integer, 180 registers, 3x AGU, scheduler (4x16 ALU + 1x28 AGU)
+\item Reorder Buffer 224 entries
+\end{itemize}
+\item Memory subsystem
+\begin{itemize}
+\scriptsize
+\item L1 i-cache and d-cache, 32 KiB each, 8-way associative
+\item L2 512 KiB per core, 8-way,
+\item L2 DTLB 2048-entry
+\item 48 entry store queue
+\end{itemize}
+\end{itemize}
+Autor: QuietRub\\
+Source: \url{https://en.wikichip.org/wiki/amd/microarchitectures/zen_2}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Recap - Quiz}
+
+What is a control hazard?
+
+\bigskip
+\begin{itemize}
+ \item[A] hazard that must be addressed by data forwarding
+ \item[B] hazard that must be handled by stall
+ \item[C] a situation in which the currently processed instruction must be discarded
+ \item[D] the problem of unstable results of logical operations
+\end{itemize}
+\end{frame}
+
+\section{Branch Predictors}
+
+
+\begin{frame}
+\frametitle{Control Hazards in Superscalar Architecture}
+
+\begin{itemize}
+\item With conditional branches, it is not clear which instructions will be executed.
+\item Calculating the condition for a branch can take a long time, there are many instructions in progress.
+\begin{itemize}
+\item Solution - speculative fetching of additional instructions
+\item After all the calculations necessary for the branch decision are completed, it is checked whether branch should be really taken or not.
+\item If the prediction is wrong, speculatively executed instructions must be discarded/flushed.
+\end{itemize}
+\item Even unconditional branches/jumps have trouble to know branch target. The branch targed may depend on the computation of previous instructions for jump to register, and therefore cannot be easily determined when fetching instructions.
+\begin{itemize}
+\item Solution - speculatively guess branch target address, based on the history of past branches.
+\item After all calculations are done, check if the correct address has been predicted.
+\item Especially important for returning from a function.
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Superscalar Architecture Control hazards}
+
+\begin{itemize}
+\item A branch is statistically every 4 to 7 instructions in the program
+\item 20\% of branches are unconditional -- they always taken, no need to decide
+\item 80\% of branches are conditional
+  \begin{itemize}
+  \item about 66\% are branches to a higher address, or forward
+    \begin{itemize}
+    \item these branches correspond to branching type \texttt{if}
+    \item of these, statistically about 60\% are  -- we will denote \textbf{NT} (Not Taken)
+    \end{itemize}
+  \item the rest about 34\% are branches to a lower address, or backwards
+    \begin{itemize}
+    \item these branches correspond to branches of the type \texttt{for}, \texttt{while} and \texttt{do ... while}
+    \item of these, statistically 99\% (almost all) will be taken -- we will denote \textbf{T} (Taken)
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Static Predictors}
+
+Static predictors always have the same result for a given branch instruction:
+\begin{itemize}
+\item A predictor that would always estimate that it always taken
+\begin{itemize}
+\item According to the statistics on the previous page, it would have a success rate of $p_{taken} = (0.66*0.4+0.34*0.99) = 0.60$
+\item Statistically, it turns out that $p_{taken}$ is in the range of 60 -- 70\% for most programs.
+\end{itemize}
+\item BTFNT predictor -- Backwards Taken / Forwards Not Taken
+\begin{itemize}
+\item According to the sign of the relative branches - backward branch is predicted taken, forward branches is predicted 
+\item According to the stats on the previous page, it would have a success rate of $p_{taken} = (0.66*0.6+0.34*0.99) = 0.73$
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Static Predictor BTFNT}
+
+Example of translating a \texttt{for} cycle:
+
+\begin{columns}[T]
+\begin{column}{0.4\textwidth}
+\begin{minted}{c}
+for (i=0; i<N; i++) {
+
+  ...
+  
+}
+\end{minted}
+\end{column}
+\begin{column}{0.6\textwidth}
+\includegraphics[width=\textwidth]{for_loop-en.pdf}
+\end{column}
+\end{columns}
+\bigskip
+For a conditional branch, $N-1$ times taken and $1$ is not taken.\\
+It branch backwards and the probability of a correct prediction is $\frac{N-1}{N}$
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Static Predictor BTFNT}
+
+Example of translating the \texttt{if else} construct:
+
+\begin{columns}[T]
+\begin{column}{0.4\textwidth}
+\begin{minted}{c}
+if (a<b) {
+  
+  ...
+
+} else {
+
+  ...
+
+}
+\end{minted}
+\end{column}
+\begin{column}{0.6\textwidth}
+\includegraphics[width=\textwidth]{if_translation-en.pdf}
+\end{column}
+\end{columns}
+\bigskip
+The unconditional branch depends on the values of a, b, so nothing can be said about it in general, except that it always jumps forward.\\
+The statistical behavior depends on the type of program, but for a mixture of different programs it turns out that the probability of a taken branch is $0.4$.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Dynamic Branch Predictors}
+
+\small
+Dynamic predictors try to estimate whether a branch will occur based on the past behavior of a given branch instruction:
+\begin{itemize}
+\item It would be ideal if each branch instruction had its own predictor
+\begin{itemize}
+\small
+\item But this is not possible, a branch instruction can be at any location in 4GiB memory
+\end{itemize}
+\end{itemize}
+
+
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\small
+Solution: we will have $2^k$ predictors and select a predictor according to the $k$ lowest bits of the branch instruction address
+\begin{itemize}
+\item Some branch instructions at different addresses but with the same lowest $k$ bits of the address will interfere -- \textbf{interfere}.
+\item Interference can very adversely affect prediction success.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{prediction_table-en.pdf}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{1-bit Smith Predictor}
+
+The simplest predictor is the 1-bit Smith predictor
+\begin{itemize}
+\item Has only two states, switches according to past behavior
+\item Predicts that it will turn out the same way it did last time.
+\begin{itemize}
+\item very simple to implement, evaluate and adjust to reality
+\end{itemize}
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{smith_1bit-en.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile,shrink=1]
+\frametitle{1-bit Smith Predictor}
+
+Prediction of the for loop:
+
+\begin{columns}[T]
+\begin{column}{0.35\textwidth}
+\begin{minted}{c}
+for (i=0; i<5; i++) {
+  ...
+}
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+\begin{minted}{gas}
+      addi t0, x0, 0
+      addi t1, x0, 5
+      j cond
+body: ...
+      addi t0, t0, 1
+cond: slt  t2, t0, t1
+      bne  t2, x0, body
+\end{minted}
+\end{column}
+\end{columns}
+\bigskip
+If the predictor does not interfere with other branches, then it starts in state 0 -- NT (Not Taken).
+
+\begin{tabular}{|l|c|c|c|c|c|c|}\hline
+Real behaviour & T & T & T & T & T & NT\\\hline
+Prediction & {\color{red}NT} & T & T & T & T & {\color{red}T}\\\hline
+\end{tabular}
+
+You can see that the predictor is not successful at the beginning of the for loop and at the end.
+
+The success rate of the 1-bit Smith predictor for a loop with $r$ iterations is $\frac{r-2}{r}$.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{2-bit Smith Predictor}
+
+The 2-bit Smith predictor is still one of the simplest used ones
+\begin{itemize}
+\item It already has 4 states, represented by 2 bits.
+\item 2 states predict a taken, 2 states predict a non-taken
+\item Prediction depends on past behaviour, but tolerates one deviation from regularity
+\item Very simple to implement, evaluate and adjust to reality
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{smith_2bit-en.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{2-bit Smith predictor}
+
+Prediction for for loop:
+
+\begin{columns}[T]
+\begin{column}{0.35\textwidth}
+\begin{minted}{c}
+for (i=0; i<5; i++) {
+  ...
+}
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+\begin{minted}{gas}
+      addi t0, x0, 0
+      addi t1, x0, 5
+      j cond
+body: ...
+      addi t0, t0, 1
+cond: slt  t2, t0, t1
+      bne  t2, x0, body
+\end{minted}
+\end{column}
+\end{columns}
+\bigskip
+\small
+If the predictor does not interfere with other branches, then it starts in state 10 -- WT (Weakly taken).
+
+\begin{tabular}{|l|c|c|c|c|c|c|c|}\hline
+Real behaviour & T & T & T & T & T & NT & \\ \hline
+State & WT & ST & ST & ST & ST & ST & WT\\ \hline
+Prediction & T & T & T & T & T & {\color{red}T} &\\\hline
+\end{tabular}
+
+You can see that the predictor is not successful only at the end of the for loop.
+
+The success rate of the 2-bit Smith predictor for a loop with $r$ iterations is $\frac{r-1}{r}$.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{2-bit Smith Predictor with Hysteresis}
+
+Analogue of the 2-bit Smith predictor
+\begin{itemize}
+\item When two changes occur in succession, it goes straight to the Strongly state and two more opposite behaviors must occur in succession for the predictor to flip to the new state.
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{smith_2bit_hist-en.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Predictor Evaluation}
+
+\begin{itemize}
+\item It's impossible to decide in general which of predictors is better. It is always possible to find counterexamples where each of the predictors behaves counterproductive
+\item The only possibility is a statistical analysis of different programs:
+\end{itemize}
+\begin{center}
+\begin{tabular}{|l|c|} \hline
+Static predictor - always taken & 59.25 \\\hline
+1-bit Smith predictor & 68.75 \\\hline
+2-bit Smith predictor with hysteresis & 81.75 \\\hline
+\end{tabular}
+\end{center}
+
+Source: \url{https://ieeexplore.ieee.org/document/6918861}\\
+H. Arora, S. Kotecha and R. Samyal, "Dynamic Branch Prediction Modeller for RISC Architecture," 2013 International Conference on Machine Intelligence and Research Advancement, Katra, 2013, pp. 397-401.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Prediction Interdependence/Correlation}
+
+In practice, it turns out that the prediction depends on the previous behavior of the program.
+
+\begin{minted}{c}
+if (x==2) { // jump s1
+}
+if (y==2) { // jump s2
+}
+if (x!=y) { // jump s3
+}
+\end{minted}
+
+If the variables \texttt{x}, \texttt{y} do not change in the bodies of the conditions \texttt{s1} and \texttt{s2}, then we have a strong dependency of the branches \texttt{s3}:
+
+\bigskip
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+s1 & s2 & $\implies$ s3 & explanation \\\hline
+not taken & taken & not taken & x==2 and y!=2 therefore x!=y \\\hline
+taken & not taken & not taken & x!=2 and y==2 therefore x!=y \\\hline
+not taken & not taken & taken & x==2 and y==2, $\rightarrow$ x!=y is wrong\\\hline
+taken & taken & don't know & x!=2 and y!=2, don't know if x!=y \\\hline
+\end{tabular}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Branch History -- Correlated Predictors}
+
+The Branch Histrory Register (BHR) contains information about whether the last $m$ braches has been taken or not:
+\begin{itemize}
+\item If taken then contains 1, if not taken then contains 0
+\item The new information is inserted at the lowest bit, the oldest information is discarded from the highest position, the other information is shifted.
+\end{itemize}
+
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\small
+To find the predictor index, the $k-m$ lowest bits of the branch instruction address are used and this information is concatenated with the bits from the BHR
+\begin{itemize}
+\item Advantage -- a different predictor is selected based on the previous branch outcome.
+\item Disadvantage -- some combinations do not occur in the BHR and therefore these predictors are not used.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{prediction_BHR-en.pdf}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{GShare Predictors}
+
+The GShare approach is similar to the previous one:
+\begin{itemize}
+\item It also uses the BHR register, which in this implementation has directly $k$ bits
+\end{itemize}
+
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\small
+To find the predictor index, the $k$ lowest bits of the branch instruction address are taken and xor is performed with the bits from the BHR.
+
+Benefits:
+\begin{itemize}
+\item better statistically distributes to all predictors.
+\item allows to use a longer BHR register.
+\end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=\textwidth]{prediction_GShare-en.pdf}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Tournament Predictors}
+
+The basis of a tournament predictor is a competition between two other, simpler predictors. To choose which predictor is better, and therefore which predictor will be output, a 1-bit or 2-bit predictor can be used.
+
+\bigskip
+How the 1-bit tournament predictor works
+\begin{itemize}
+\item Calculate the prediction with predictors P1 and P2.
+\item If the results are the same, the prediction is used.
+\item If the predictions is incorrect:
+\begin{itemize}
+\item The resulting prediction is whichever predictor has been successful in the past. This information is stored in a 1-bit state machine.
+\item Select predictor P1 or P2 for the next prediction, depending on the outcome.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Tournament Predictors}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{fig/tournament.png}\\
+\small Size of predictors in KiB
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Recap - Quiz}
+
+Which predictor can best predict the following fact of jumps if it starts in Taken or Weakly Taken state:
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}\hline
+T & T & T & NT & NT & NT& T & T & T \\ \hline
+\end{tabular}
+
+\bigskip
+\begin{itemize}
+ \item[A] 1-bit Smith predictor
+ \item[B] 2-bit Smith predictor
+ \item[C] 2-bit Smith predictor with hysteresis
+ \item[D] all make the same number of wrong predictions
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Perceptron}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{neuron-en.pdf}
+\end{center}
+
+The formula $\xi = \sum_{i=0}^{n} x_i \cdot w_i$ is used to calculate the value. The final evaluation is by means of a transfer function, in our case threshold function, which has the form:
+$f(\xi) = \begin{cases}1& \text{for }\xi \ge 0\\0& \text{for }\xi <0\end{cases}$
+\end{frame}
+
+
+\begin{frame}
+\frametitle{AMD Zen2 Branch Predictor}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{prediction_amd-en.pdf}
+\end{center}
+
+According to the branch address, one perceptron is selected from the table.
+
+The perceptron is defined by the weights $w_i$.
+
+The prediction result is the sign of the weighted sum $\xi = \sum_{i=0}^{n} x_i \cdot w_i$, where $x_i$ are bits from the BHR branch history register.
+
+Advantage -- better results than gshare, can be used for long BHR history registers, disadvantage -- complex calculation, cannot get the result in one CPU clock.
+\end{frame}
+
+\begin{frame}
+\frametitle{AMD Zen2 Branch Predictor}
+
+\begin{itemize}
+\item Calculating the perceptron output is relatively slow, normal perceptrons use real floating point numbers. It is possible to speed up with 16-bit real numbers, or by using a fixed decimal point.
+\item The actual implementation of branch predictors has three levels
+\begin{itemize}
+\item level 1 -- 16 very fast predictors, deciding in the same clock cycle which next instructions to fetch
+\item level 2 -- 512 predictors, which will refine the prediction in the next clock cycle, either discarding the loaded instructions or confirming them
+\item level 3 -- 7168 predictors, in 4 clock cycles refine the prediction. Again, the existing fetched instructions are either kept or discarded.
+\end{itemize}
+\item The average time delay for a bad final prediction is approximately 18 clock cycles.
+\item At 4GHz and if every tenth instruction is a jump, a 1\% misprediction results in a performance degradation of almost 2\%.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{AMD Zen2 Predictor}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{fig/amd_cinebench.png}
+\end{center}
+
+Source: Analyzing Zen 2's Cinebench R15 Lead
+By clamchowder from \url{https://chipsandcheese.com}
+\end{frame}
+
+\section{Branch Target Prediction}
+
+\begin{frame}[shrink=1]
+\frametitle{Branch Target Prediction}
+
+Branches have different branch target address formats in both RISC-V and other processors:
+\begin{itemize}
+\item branch/jump to a fixed address -- the branch target is the address directly specified in the branch instruction (not in RISC-V because it has a fixed instruction length and a 32-bit address does not fit in the instruction code)
+\item branch relative to the address of the jump instruction -- the branch target is calculated as the sum of the PC at the time the branch instruction is fetched and the specific value specified in the instruction.
+\item branch to the position specified in the register or in memory -- RISC-V has the \texttt{jalr} instruction, i.e. jump to the address specified in the register, x86 contains the \texttt{ret} instruction -- return from the subroutine according to the address specified in memory on the stack and the \texttt{jump indirect} instruction, where the address points to the memory where the jump target address is specified. The indirect jump instruction can be used when branching according to a table, which can be used when compiling a \texttt{switch} construct, or when calling dynamic library functions or virtual methods of the object.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Branch Target Prediction}
+
+\begin{itemize}
+\item The branch target needs to be determined at the instruction fetch stage.
+\item It is possible to have special dedicated adders for jump target addresses, but even there the summation takes some time.
+\item Therefore it is important to estimate the branch target:
+\begin{itemize}
+\item BTB (Branch Target Buffer) is either a fully associative memory or a partially
+associative with a given degree of associativity.
+\item Lines are pairs:
+\begin{itemize}
+\item key -- BIA (Branch Instruction Address) -- i.e. the PC value at the time of the branch
+\item BTA (Branch Target Address) -- the target address of the branch
+\end{itemize}
+\end{itemize}
+\item If the PC matches the value of the BIA in the BTB and the predictor simultaneously predicts a branch, the PC is speculatively changed to the value of the corresponding BTA
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Function Return Prediction}
+
+The most common branch accoring address in register or memory is a return from function:
+\begin{itemize}
+\item For fast prediction of the return address of a function, modern CPUs contain a -- Return Address Stack (RAS)
+\begin{itemize}
+\item This is a fast stack memory -- remembering a limited number (up to 32) of return addresses
+\item The value is stored in the RAS when the function is called, then when the ret instruction is fetched, the top of the RAS serves as a predictor of the branch target
+\end{itemize}
+\item Works reliably for function nesting levels depending on RAS size
+\end{itemize}
+\end{frame}
+
+\section{Elimination of Hard to Predict Branches}
+
+\begin{frame}[fragile]
+\frametitle{Example of how to remove a jump in a program}
+
+You can find many tricks on the Internet to remove condition and therefore conditional jumps in your programs.
+
+Here we will demonstrate removing the if from the calculation of the absolute value of an integer:
+
+\begin{columns}[T]
+\begin{column}{0.01\textwidth}
+\phantom{x}
+\end{column}
+\begin{column}{0.25\textwidth}
+program in C
+\begin{minted}[fontsize=\small]{c}
+if (x<0) {
+  x = -x;
+}
+\end{minted}
+\end{column}
+
+\begin{column}{0.28\textwidth}
+program in RISC-V
+\begin{minted}[fontsize=\small]{gas}
+ slt t0, s0, x0
+ beq t0, x0, skip
+ sub s0, x0, s0
+skip:
+\end{minted}
+\end{column}
+\begin{column}{0.45\textwidth}
+\phantom{x}comment\
+\small
+compares whether x<0
+will jump or not according to the result.
+calculate -x
+\end{column}
+\end{columns}
+\bigskip
+
+To remove the conditional jump, which would be very hard to estimate, the following construction can be used, using the highest sign bit:
+\begin{columns}[T]
+\begin{column}{0.01\textwidth}
+\phantom{x}
+\end{column}
+\begin{column}{0.25\textwidth}
+program in C
+\begin{minted}[fontsize=\small]{c}
+int tmp = x>>31;
+x^= tmp;
+x -= tmp;
+\end{minted}
+\end{column}
+
+\begin{column}{0.28\textwidth}
+program in RISC-V
+\begin{minted}[fontsize=\small]{gas}
+srai t0, s0, 31
+xor  s0, s0, t0
+sub  s0, s0, t0
+\end{minted}
+\end{column}
+\begin{column}{0.45\textwidth}
+\phantom{x}comment\\
+\small
+tmp will be either 0 or 0xFFFFFFFFFF\\
+does nothing, or bitwise inversion
+for tmp==0 it does nothing, otherwise it subtracts -1, so it adds 1
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example of How to Remove a Branch in a Program}
+
+If the value of b is 0 or 1, then the following C program can be executed:
+
+\begin{minted}[fontsize=\small]{c}
+a = ( (b!=0) ? c : d);
+\end{minted}
+
+change to program:
+
+\begin{minted}[fontsize=\small]{c}
+static const int lookup_table[] = {d,c};
+a = lookup_table[b];
+\end{minted}
+
+\bigskip
+Multiple branches can also be eliminated at once, as long as again b1, b2, b3 only take values 0 or 1:
+
+\begin{minted}[fontsize=\small]{c}
+a = ( b1 ? c : ( b2 ? d : (b3 ? e : f)));
+\end{minted}
+
+can be changed to a program:
+
+\begin{minted}[fontsize=\small]{c}
+static const int lookup_table[] = { f, e, d, d, c, c, c, c };
+a = lookup_table[b1 * 4 + b2 * 2 + b3];
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example of how to remove a branch in a program}
+
+Similarly, converting a number from 0 to 15 to a hex character can either
+\begin{minted}[fontsize=\small]{c}
+if (a<10) {
+  ch = '0'+a;
+} else {
+  ch = 'A'+(a-10);
+}
+\end{minted}
+
+can be changed to a program:
+
+\begin{minted}[fontsize=\small]{c}
+static const int hex_c[] = {'0','1','2','3','4','5','6','7',
+                            '8','9','A','B','C','D','E','F'};
+ch = hex_c[a];
+\end{minted}
+\end{frame}
+
+\end{document}
+
