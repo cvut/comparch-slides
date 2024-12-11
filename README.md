@@ -35,13 +35,13 @@ The GitHub copy of the slides sources is provided on GitHub to allow public reus
 
   - https://github.com/cvut/comparch-slides
 
-# The Slides Build Process
+## The Slides Build Process
 
 The slides are based on the LaTeX [Beamer](https://ctan.org/pkg/beamer) style. The diagrams and figures sources are developed in SVG format and converted to PDF format by [Inkscape](https://inkscape.org/). The actual version supports Czech and English language. The language is selected by `DOC_LANG`  variable. Use the following command in the individual slide/lecture topics directory
 
   - make DOC_LANG=en
 
-# Slides Project Progress Tracking
+## Slides Project Progress Tracking
 
 The Czech slides for lectures 01 to 11 and 13 are completed.
 
@@ -57,7 +57,7 @@ The older LibreOffice-based slides for Czech and English lecture variants are co
 
 Please reference above article, if you use QtRvSim in education or research related materials and publications.
 
-# LICENSE
+## LICENSE
 
 The slides source and generated files are provided under following license
 
