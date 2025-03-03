@@ -590,7 +590,7 @@ The overflow in operations with signed numbers is more complex. Examples what re
 \end{itemize}
 \item The second option i to check that addition result of the two positive numbers is positive and for two negative numbers stay negative:
 \begin{itemize}
-\item overflow = ($a_n$ and  $b_n$ and (not $s_n$)) or ((not $a_n$) and  (not $b_n$) and $s_n$); $a_n$, $b_n$ are the most significant bits of addends; $s_n$ is MSB of result
+\item overflow = ($a_{n-1}$ and  $b_{n-1}$ and (not $s_{n-1}$)) or ((not $a_{n-1}$) and  (not $b_{n-1}$) and $s_{n-1}$); $a_{n-1}$, $b_{n-1}$ are the most significant bits of addends; $s_{n-1}$ is MSB of result
 \end{itemize}
 \end{itemize}
 \end{frame}

@@ -567,7 +567,7 @@ Přetečení při sčítání čísel se znaménkem je složitější. Co je dob
 \end{itemize}
 \item Druhá možnost je sledovat, zda při součtu dvou kladných čísel máme záporná výsledek, nebo při součtu dvou záporných čísel je kladný výsledek:
 \begin{itemize}
-\item overflow = ($a_n$ and  $b_n$ and (not $s_n$)) or ((not $a_n$) and  (not $b_n$) and $s_n$); $a_n$, $b_n$ jsou nejvyšší bity sčítanců; $s_n$ je největší bit výsledku
+\item overflow = ($a_{n-1}$ and  $b_{n-1}$ and (not $s_{n-1}$)) or ((not $a_{n-1}$) and  (not $b_{n-1}$) and $s_{n-1}$); $a_{n-1}$, $b_{n-1}$ jsou nejvyšší bity sčítanců; $s_{n-1}$ je největší bit výsledku
 \end{itemize}
 \end{itemize}
 \end{frame}
