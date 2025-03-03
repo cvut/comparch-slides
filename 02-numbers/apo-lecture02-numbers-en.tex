@@ -400,7 +400,7 @@ The sign has to be encoded into numeral representation:
 \item The idea how to compute inverse (often \texttt{neg} instruction) \texttt{-B} from \texttt{B} comes from
 \begin{itemize}
 \item two's complement negative values are encoded as $X = 2^k-|X|$
-\item if we negate (complement) each bit individually we get $(2^{k-1}-1)-X$, because $2^{k-1}-1$ is represented by $k$ ones, no borrow from more significant bits are required
+\item if we negate (complement) each bit individually we get $(2^{k}-1)-X$, because $2^{k}-1$ is represented by $k$ ones, no borrow from more significant bits are required
 \end{itemize}
 \item Final algorithm is:
 \begin{enumerate}
