@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="176.21292mm"
+   height="39.029598mm"
+   viewBox="0 0 176.21291 39.029598"
+   version="1.1"
+   id="svg17171"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="distributed-en.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs17165">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5312"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5310"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5306"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5304"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4995"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5257"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5255"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4998"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5257-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5255-7"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5257-9"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5255-2"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5257-8"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5255-9"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="222.85714"
+     inkscape:cy="36.071429"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1592"
+     inkscape:window-height="1170"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid21648"
+       originx="59.663748"
+       originy="-132.15915" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata17168">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(59.663754,-125.81124)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.06500006;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 74.083332,143.54167 V 154.125"
+       id="path4886-61"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <rect
+       style="opacity:1;fill:#93ff85;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3"
+       width="23.812502"
+       height="15.875006"
+       x="-59.531254"
+       y="132.95833"
+       ry="3.968756" />
+    <rect
+       style="opacity:1;fill:#85fff4;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5"
+       width="26.458344"
+       height="15.875005"
+       x="-29.104164"
+       y="132.95833"
+       ry="3.968756" />
+    <rect
+       style="opacity:1;fill:#8f85ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9"
+       width="26.458334"
+       height="10.583336"
+       x="2.6458297"
+       y="132.95833"
+       ry="3.9687526" />
+    <rect
+       style="opacity:1;fill:#8f85ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9-1"
+       width="26.458334"
+       height="10.583336"
+       x="31.749998"
+       y="132.95833"
+       ry="3.9687526" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-23.017506"
+       y="141.38312"
+       id="text21796"><tspan
+         sodipodi:role="line"
+         id="tspan451"
+         x="-23.017506"
+         y="141.38312">RAM</tspan><tspan
+         sodipodi:role="line"
+         id="tspan453"
+         x="-23.017506"
+         y="146.67477">memory</tspan><tspan
+         sodipodi:role="line"
+         id="tspan455"
+         x="-23.017506"
+         y="151.96645"></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-51.460117"
+       y="141.99142"
+       id="text21802"><tspan
+         sodipodi:role="line"
+         id="tspan21800"
+         x="-51.460117"
+         y="141.99142"
+         style="stroke-width:0.264583">CPU</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="4.6491981"
+       y="141.28192"
+       id="text21806"><tspan
+         sodipodi:role="line"
+         id="tspan21804"
+         x="4.6491981"
+         y="141.28192"
+         style="stroke-width:0.264583">I/O dev 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="33.903214"
+       y="140.95119"
+       id="text21806-9"><tspan
+         sodipodi:role="line"
+         id="tspan21804-3"
+         x="33.903214"
+         y="140.95119"
+         style="stroke-width:0.264583">I/O dev 2</tspan></text>
+    <rect
+       style="opacity:1;fill:#8f85ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9-1-3"
+       width="26.458334"
+       height="13.229163"
+       x="60.854164"
+       y="132.95833"
+       ry="3.9687526" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="66.125679"
+       y="140.76219"
+       id="text21806-9-6"><tspan
+         sodipodi:role="line"
+         id="tspan21804-3-7"
+         x="66.125679"
+         y="140.76219"
+         style="stroke-width:0.264583">Bridge</tspan></text>
+    <rect
+       style="opacity:1;fill:#8f85ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9-5"
+       width="26.458334"
+       height="10.583337"
+       x="60.854164"
+       y="154.125"
+       ry="3.9687526" />
+    <rect
+       style="opacity:1;fill:#8f85ff;fill-opacity:1;stroke:#020202;stroke-width:0.26499999;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect21650-3-5-9-1-35"
+       width="26.458334"
+       height="10.583337"
+       x="89.958328"
+       y="154.125"
+       ry="3.9687526" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="62.952026"
+       y="162.2596"
+       id="text21806-6"><tspan
+         sodipodi:role="line"
+         id="tspan21804-2"
+         x="62.952026"
+         y="162.2596"
+         style="stroke-width:0.264583">I/O dev 3</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="91.922554"
+       y="162.3541"
+       id="text21806-9-9"><tspan
+         sodipodi:role="line"
+         id="tspan21804-3-1"
+         x="91.922554"
+         y="162.3541"
+         style="stroke-width:0.264583">I/O dev 4</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.06500006;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -15.875001,126.34375 v 6.61458"
+       id="path4886"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.06500006;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 15.874998,126.34374 v 6.61458"
+       id="path4886-0"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.06500006;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 44.979166,126.34375 v 6.61458"
+       id="path4886-6"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.06500006;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -47.625002,132.95832 c 0,-1.32291 0,-6.61458 0,-6.61458 h 121.70833 v 6.61458"
+       id="path5354"
+       inkscape:connector-curvature="0" />
+    <rect
+       style="opacity:1;fill:#ffe285;fill-opacity:1;stroke:#000000;stroke-width:0.16500001;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5361-3"
+       width="15.875"
+       height="3.96875"
+       x="-23.8125"
+       y="132.95833" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.14988px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.201551"
+       x="-30.673258"
+       y="103.6227"
+       id="text5365-6"
+       transform="scale(0.7617671,1.3127372)"><tspan
+         sodipodi:role="line"
+         id="tspan5363-1"
+         x="-30.673258"
+         y="103.6227"
+         style="stroke-width:0.201551">Address decoder</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffe285;fill-opacity:1;stroke:#000000;stroke-width:0.16500001;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5361-2"
+       width="15.875"
+       height="3.96875"
+       x="7.9374971"
+       y="132.95833" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.14988px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.201551"
+       x="11.006144"
+       y="103.6227"
+       id="text5365-9"
+       transform="scale(0.7617671,1.3127372)"><tspan
+         sodipodi:role="line"
+         id="tspan5363-3"
+         x="11.006144"
+         y="103.6227"
+         style="stroke-width:0.201551">Address decoder</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffe285;fill-opacity:1;stroke:#000000;stroke-width:0.16500001;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5361-1"
+       width="15.875"
+       height="3.96875"
+       x="37.041668"
+       y="132.95833" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.14988px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.201551"
+       x="49.212269"
+       y="103.6227"
+       id="text5365-94"
+       transform="scale(0.7617671,1.3127372)"><tspan
+         sodipodi:role="line"
+         id="tspan5363-7"
+         x="49.212269"
+         y="103.6227"
+         style="stroke-width:0.201551">Address decoder</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffe285;fill-opacity:1;stroke:#000000;stroke-width:0.16500001;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5361-8"
+       width="15.875"
+       height="3.96875"
+       x="66.145836"
+       y="132.95833" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.14988px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.201551"
+       x="87.418396"
+       y="103.6227"
+       id="text5365-4"
+       transform="scale(0.7617671,1.3127372)"><tspan
+         sodipodi:role="line"
+         id="tspan5363-5"
+         x="87.418396"
+         y="103.6227"
+         style="stroke-width:0.201551">Address decoder</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffe285;fill-opacity:1;stroke:#000000;stroke-width:0.16500001;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5361-10"
+       width="15.875"
+       height="3.96875"
+       x="66.145828"
+       y="154.12498" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.14988px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.201551"
+       x="87.418388"
+       y="119.74677"
+       id="text5365-63"
+       transform="scale(0.7617671,1.3127372)"><tspan
+         sodipodi:role="line"
+         id="tspan5363-2"
+         x="87.418388"
+         y="119.74677"
+         style="stroke-width:0.201551">Address decoder</tspan></text>
+    <rect
+       style="opacity:1;fill:#ffe285;fill-opacity:1;stroke:#000000;stroke-width:0.16500001;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect5361-06"
+       width="15.875"
+       height="3.96875"
+       x="95.25"
+       y="154.12498" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.14988px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.201551"
+       x="125.62451"
+       y="119.74677"
+       id="text5365-1"
+       transform="scale(0.7617671,1.3127372)"><tspan
+         sodipodi:role="line"
+         id="tspan5363-55"
+         x="125.62451"
+         y="119.74677"
+         style="stroke-width:0.201551">Address decoder</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.06500006;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 74.083328,150.15624 h 29.104162 v 3.96875"
+       id="path5459"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>
