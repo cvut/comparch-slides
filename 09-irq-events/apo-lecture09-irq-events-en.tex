@@ -250,8 +250,7 @@ further regular execution) requiring special processing
  \item Main causes:
  \begin{itemize}
   \item Undefined instruction (RISC V -- unknown opcode)
-  \item Arithmetic exception (divide by zero, overflow - not on RISC V)
-aritmetická výjimka (dělení nulou, přetečení -- on RISC-V does not exist for integer unit, for floating point yes)
+  \item Arithmetic exception (divide by zero, overflow -- on RISC-V does not exist for integer unit, for floating point yes)
   \item System call (activated by system call instruction -- syscall)
   \item Data unavailable or read/write fault or bus error
   \item Bad address or page marked as not-presnet, invalid, protected, etc.
@@ -418,7 +417,7 @@ MPP & 12:11 & Priority before trapping into machine mode \\\hline
 \begin{frame}
 \frametitle{RISC-V -- Exception/Interrupt Cause Register}
 
-Machine Cause Register (mcause) -- \textbf{mstatus}
+Machine Cause Register -- \textbf{mcause}
 
 \begin{center}
   \includegraphics[width=0.95\textwidth]{riscv-mcause.pdf}
@@ -508,11 +507,11 @@ the state which could be inadvertently modified
 
 The processor state is obtained and controlled via control and status registers -- CSR
 
-\begin{tabular}{l r l}
+\begin{tabular}{l c l}
 \multicolumn{2}{l}{\texttt{csrrw rd, csr, rs1}} & \texttt{csrrwi rd, csr, uimm5} \\
-\multicolumn{2}{l}{\texttt{csrr(s/c)(i) rd, csr, rs1}}  & \texttt{csrr(s/c)(i) rd, csr, uimm5} \\
-\texttt{csrr rd, csr} &  is alias for  & \texttt{csrrs rd, csr, x0} \\
-\texttt{csrw csr, rs} &  is alias for & \texttt{csrrw x0, csr, rs1} \\
+\multicolumn{2}{l}{\texttt{csrr(s/c) rd, csr, rs1}}  & \texttt{csrr(s/c)i rd, csr, uimm5} \\
+\texttt{csrr rd, csr} &  $=$ & \texttt{csrrs rd, csr, x0} \\
+\texttt{csrw csr, rs1} & $=$ & \texttt{csrrw x0, csr, rs1} \\
 \end{tabular}
 \end{frame}
 

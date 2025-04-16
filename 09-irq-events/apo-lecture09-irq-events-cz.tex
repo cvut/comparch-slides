@@ -410,7 +410,7 @@ MPP & 12:11 & Priority before trapping into machine mode \\\hline
 \begin{frame}
 \frametitle{RISC-V -- registr příčiny výjimky/přerušení}
 
-Machine Cause Register (mcause) -- \textbf{mstatus}
+Machine Cause Register -- \textbf{mcause}
 
 \begin{center}
   \includegraphics[width=0.95\textwidth]{riscv-mcause.pdf}
@@ -509,11 +509,11 @@ Počátek, prolog, obslužné rutiny je zodpovědný za zjištění příčiny \
 
 Stav procesoru je sledovaný a řízený přes kontrolní a stavové registry (control an status registers -- CSR)
 
-\begin{tabular}{l r l}
+\begin{tabular}{l c l}
 \multicolumn{2}{l}{\texttt{csrrw rd, csr, rs1}} & \texttt{csrrwi rd, csr, uimm5} \\
-\multicolumn{2}{l}{\texttt{csrr(s/c)(i) rd, csr, rs1}}  & \texttt{csrr(s/c)(i) rd, csr, uimm5} \\
-\texttt{csrr rd, csr} &  odpovídá  & \texttt{csrrs rd, csr, x0} \\
-\texttt{csrw csr, rs} &  odpovídá  & \texttt{csrrw x0, csr, rs1} \\
+\multicolumn{2}{l}{\texttt{csrr(s/c) rd, csr, rs1}}  & \texttt{csrr(s/c)i rd, csr, uimm5} \\
+\texttt{csrr rd, csr} &  $=$  & \texttt{csrrs rd, csr, x0} \\
+\texttt{csrw csr, rs1} &  $=$  & \texttt{csrrw x0, csr, rs1} \\
 \end{tabular}
 \end{frame}
 
