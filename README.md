@@ -45,7 +45,7 @@ The slides are based on the LaTeX [Beamer](https://ctan.org/pkg/beamer) style. T
 
 The Czech slides for lectures 01 to 11 and 13 are completed.
 
-The English variant offers slides for lectures 01 to 09.
+The English variant offers slides for lectures 01 to 10.
 
 The older LibreOffice-based slides for Czech and English lecture variants are complete for the whole course; see the subject pages for PDF outputs and ODP files. 
 
