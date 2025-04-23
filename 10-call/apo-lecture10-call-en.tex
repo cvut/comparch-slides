@@ -756,19 +756,19 @@ int virus() {
   return 0;
 }
 
-int addnumbers(int a, int b, int c, 
-  int d, int e, int f, int g, 
+int addnum(int a, int b, int c,
+  int d, int e, int f, int g,
   int h, int i, int j) {
   
   volatile int ii,jj=i+j;
-  volatile int pole[2];
+  volatile int array[2];
   
   // some computations
   // function calling
   
-  pole[11] = (int)&virus;
+  array[11] = (int)&virus;
   
-  return pole[0]+pole[1];
+  return array[0]+array[1];
 }
 \end{minted}
 \end{column}   
@@ -786,7 +786,7 @@ sw   s3,28(sp)
 
 
 \begin{minted}[fontsize=\footnotesize]{gas}
-# pole[11]=(int)&virus;
+# array[11]=(int)&virus;
 lui  a5,0x10
 addi a5,a5,84 # <virus>
 sw   a5,44(sp)
