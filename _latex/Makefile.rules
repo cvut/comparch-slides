@@ -20,7 +20,11 @@ all: $(DOC).pdf $(NUM:%=apo%_2021.pdf)
 
 $(DOC).pdf: export TEXINPUTS=.:$(MAKEFILE_RULES_DIR):
 $(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture-$(DOC_LANG).sty $(FIGS)
+	if [ -e $(DOC).toc ] ; then cp $(DOC).toc $(DOC).toc.bak ; else touch $(DOC).toc.bak ; fi
 	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
+	cmp $(DOC).toc $(DOC).toc.bak || \
+	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
+	rm -f $(DOC).toc.bak
 	$(gitignore_target)
 
 ifneq ($(NUM),)
