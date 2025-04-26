@@ -353,6 +353,7 @@ Which registers can be freely modified (clobbered) by callee and which registers
 \begin{tabular}{|c|c|p{4cm}|c|}\hline
 Mnemonic & Register & Role in function & Calee \\
    name  &          &       &   can clobber \\ \hline
+zero & x0 & fixed zero/discard &  -- --\\\hline
 a0 - a7 & x10 - x17 & function input arguments & yes \\\hline
 a0, a1 & x10, x11 & return value/result & yes \\\hline
 ra & x1 & return address & no \\\hline
