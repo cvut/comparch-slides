@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:ooo="http://xml.openoffice.org/svg/export"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.2"
    viewBox="0 0 2503.8 1471.7"
    preserveAspectRatio="xMidYMid"
@@ -18,10 +9,19 @@
    width="2503.8"
    height="1471.7"
    style="fill-rule:evenodd;stroke-width:28.22200012;stroke-linejoin:round"
-   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"><metadata
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:ooo="http://xml.openoffice.org/svg/export"><metadata
    id="metadata3000"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><sodipodi:namedview
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
    pagecolor="#ffffff"
    bordercolor="#666666"
    borderopacity="1"
@@ -30,8 +30,8 @@
    guidetolerance="10"
    inkscape:pageopacity="0"
    inkscape:pageshadow="2"
-   inkscape:window-width="1848"
-   inkscape:window-height="1016"
+   inkscape:window-width="1592"
+   inkscape:window-height="1170"
    id="namedview2998"
    showgrid="false"
    fit-margin-top="0"
@@ -40,13 +40,16 @@
    fit-margin-bottom="0"
    inkscape:snap-grids="false"
    inkscape:snap-to-guides="false"
-   inkscape:zoom="0.79314285"
-   inkscape:cx="1782.3933"
-   inkscape:cy="704.84917"
-   inkscape:window-x="72"
-   inkscape:window-y="27"
+   inkscape:zoom="1.1216734"
+   inkscape:cx="1511.1351"
+   inkscape:cy="655.71672"
+   inkscape:window-x="1920"
+   inkscape:window-y="0"
    inkscape:window-maximized="1"
-   inkscape:current-layer="g2484" />
+   inkscape:current-layer="id236"
+   inkscape:showpageshadow="2"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1" />
  <defs
    class="ClipPathGroup"
    id="defs8">
@@ -7583,7 +7586,7 @@
    style="visibility:hidden"
    id="g2868"
    class="com.sun.star.drawing.CustomShape"
-   transform="matrix(0.1,0,0,0.1,-17.471207,-15.403425)">
+   transform="matrix(0.1,0,0,0.1,-55.471207,-13.403425)">
        <g
    id="id236">
         <rect
@@ -7594,7 +7597,15 @@
    y="4585"
    x="15657"
    class="BoundingBox" />
-        <text
+        
+
+       <rect
+   style="fill:#ffffff;fill-rule:evenodd;stroke-width:23.3333;paint-order:markers fill stroke;stop-color:#000000"
+   id="rect3754"
+   width="666.1582"
+   height="442.73901"
+   x="16849.197"
+   y="4489.3374" /><text
    id="text2865"
    class="TextShape"><tspan
      style="font-weight:700;font-size:388px;font-family:'Arial Narrow', sans-serif"
@@ -7607,9 +7618,7 @@
        x="15670"
        class="TextPosition"><tspan
          style="fill:#dc2300;stroke:none"
-         id="tspan2859">JALR</tspan></tspan></tspan></text>
-
-       </g>
+         id="tspan2859">JAL / AUIPC</tspan></tspan></tspan></text></g>
       </g><g
    style="visibility:hidden"
    id="g2877"
@@ -24015,25 +24024,25 @@ return ( nCurTime - this.nStartTime );
    class="com.sun.star.drawing.CustomShape"
    transform="matrix(0.1,0,0,0.1,395.52879,-24.103425)"><g
      id="id142-7"><rect
-       style="fill:none;stroke:none"
-       id="rect1781-4"
-       height="771"
-       width="1242"
-       y="13531"
-       x="20390"
-       class="BoundingBox" /><text
-       id="text1793-1"
-       class="TextShape"
-       x="-592.57922"
-       y="-12.608069"><tspan
-         style="font-weight:700;font-size:388px;font-family:'Arial Narrow', sans-serif"
-         id="tspan1791-8"
-         font-weight="700"
-         font-size="388px"
-         class="TextParagraph"><tspan
-           id="tspan1785-5"
-           y="13799.392"
-           x="19810.42"
-           class="TextPosition"
-           style="fill:#000000;stroke:none">RegWriteW</tspan></tspan></text>
+   style="fill:none;stroke:none"
+   id="rect1781-4"
+   height="771"
+   width="1242"
+   y="13531"
+   x="20390"
+   class="BoundingBox" /><text
+   id="text1793-1"
+   class="TextShape"
+   x="-592.57922"
+   y="-12.608069"><tspan
+     style="font-weight:700;font-size:388px;font-family:'Arial Narrow', sans-serif"
+     id="tspan1791-8"
+     font-weight="700"
+     font-size="388px"
+     class="TextParagraph"><tspan
+       id="tspan1785-5"
+       y="13799.392"
+       x="19810.42"
+       class="TextPosition"
+       style="fill:#000000;stroke:none">RegWriteW</tspan></tspan></text>
 </g></g></svg>
