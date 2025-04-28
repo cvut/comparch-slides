@@ -137,11 +137,11 @@ Volající (caller) a volaný (callee) se musí dohodnout na těchto otázkách,
 \frametitle{Konvence volání funkce pro RISC-V}
 
 \begin{itemize}
- \item Parametry funkce uloží volající do registrů a0, ... , a7
+ \item Parametry funkce uloží volající do registrů \texttt{a0}, ... , \texttt{a7}
 \begin{itemize}
  \item Co když bude parametrů více? Probereme v této přednášce později.
 \end{itemize}
- \item Výsledek funkce bude v registrech a0 a a1.
+ \item Výsledek funkce bude v registrech \texttt{a0} a \texttt{a1}.
 \begin{itemize}
  \item Co když se výsledek nevejde do těchto dvou registrů?
  \item Volající musí připravit místo, kam se výsledek uloží.
@@ -208,7 +208,7 @@ nebo jinam
  \item funkce soucet může být volána z mnoha různých míst programu
  \item nelze vygenerovat adresu skoku návrat z funkce v době překladu
  \item návratová adresa musí být nastavena volajícím
- \item konvence volání funkce -- návratová adresa je uložena v registru ra (return address) -- registr x1
+ \item konvence volání funkce -- návratová adresa je uložena v registru \texttt{ra} (return address) -- registr \texttt{x1}
  \item potřebujeme instrukci, která skočí na adresu uloženou v registru
  \item hodila by se i instrukce, která uloží do registru ra adresu následující instrukce
 \end{itemize}
@@ -221,18 +221,18 @@ nebo jinam
 \begin{frame}
 \frametitle{Instrukce jal, jalr (ret, jr)}
 
-Instrukce jal "rd," address
+Instrukce \texttt{jal \textit{[rd,]} address}
 \begin{itemize}
  \item skoč na adresu address (21 bitů, nejnižší bit defaultně 0) a do registru rd ulož hodnotu PC+4
  \item pokud neuvedete registr rd, tak se standardně doplní x1
- \item pokud chceme jen skok (instrukce j), tak se PC+4 uloží do registru x0
+ \item pokud chceme jen skok (instrukce \texttt{j}), tak se \texttt{PC}+4 uloží do registru \texttt{x0}
 \end{itemize}
 
-Instrukce jalr rd, rs1, imm12
+Instrukce \texttt{jalr \textit{rd}, \textit{rs1}, imm12}
 \begin{itemize}
- \item skoč na adresu rs1 + imm12 a do registru rd ulož hodnotu PC+4
- \item pokud neuvedete registr rd, tak se standardně doplní x1
- \item pokud chceme jen návrat z funkce, lze použít pro rd registr x0
+ \item skoč na adresu rs1 + imm12 a do registru rd ulož hodnotu \texttt{PC}+4
+ \item pokud neuvedete registr rd, tak se standardně doplní \texttt{x1}
+ \item pokud chceme jen návrat z funkce, lze použít pro rd registr \texttt{x0}
 \end{itemize}
 \end{frame}
 
@@ -275,7 +275,7 @@ Kvíz: Kolik různých čar byste uměli vysvětlit
 \begin{frame}
 \frametitle{Co když funkce ve svém těle volá jinou funkci?}
 
-Volající připraví argumenty do registrů a0 až a7 a do registru ra návratovou adresu.
+Volající připraví argumenty do registrů \texttt{a0} až \texttt{a7} a do registru ra návratovou adresu.
 
 \bigskip
 
@@ -283,7 +283,7 @@ Jak ale vyřešit, když funkce ve svém těle volá jinou funkci?
 
 \bigskip
 
-Je nutné někam uložit registr ra, registry a0-a7, ale kam?
+Je nutné někam uložit registr \texttt{ra}, registry \texttt{a0}--\texttt{a7}, ale kam?
 
 
 \begin{itemize}
@@ -304,7 +304,7 @@ Zásobník je datová struktura LIFO (Last In First Out) -- neboli poslední vlo
  \item pop -- vyber data ze zásobníku
 \end{itemize}
 
-Implemetace zásobníku registrem sp (x2):
+Implemetace zásobníku registrem \texttt{sp} (\texttt{x2}):
 \begin{itemize}
  \item push 
  
@@ -336,10 +336,10 @@ Activation frame obsahuje:
 \begin{itemize}
  \item Parametry funkce a návratová adresa, pokud se v těle funkce volá jiná funkce.
  \item Lokální proměnné funkce, které existují jen v průběhu vykonávání funkce.
- \item Podle konvence překladu funkce se nesmí po návratu z funkce změnit hodnota registrů s0-s11
+ \item Podle konvence překladu funkce se nesmí po návratu z funkce změnit hodnota registrů \texttt{s0}--\texttt{s11}
 \begin{itemize}
- \item Registr s0 se někdy používá jako ukazatel na Activation frame a nazývá se fp -- frame pointer
- \item Registr fp se využívá jako pevný ukazatel na předem dané místo rámce a tím ho lze použít k odkazu na lokální proměnné funkce a parametry funkcí.
+ \item Registr \texttt{s0} se někdy používá jako ukazatel na Activation frame a nazývá se \texttt{fp} -- frame pointer
+ \item Registr \texttt{fp} se využívá jako pevný ukazatel na předem dané místo rámce a tím ho lze použít k odkazu na lokální proměnné funkce a parametry funkcí.
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -348,33 +348,36 @@ Activation frame obsahuje:
 \begin{frame}
 \frametitle{Konvence volání funkce}
 
-Každý registr buď nastavuje a je za něj zodpovědný volající (caller), nebo volaný (callee).
+Tabulka popisuje jak registry nastavuje volající (caller), volaný (callee)
+a pro které je zaručené, že zůstanou pro volajícího nezměněné.
 
-\begin{tabular}{|c|c|p{4cm}|c|}\hline
-Symbolické & Registr & Popis & Ukládá \\
-   jméno   &         &       &        \\ \hline
-zero & x0 & fixní nula/ignorovaný &  -- --\\\hline
-a0 - a7 & x10 - x17 & vstupní parametry funkce & volající \\\hline
-a0, a1 & x10, x11 & výstupní hodnota funkce & volaný \\\hline
-ra & x1 & návratová adresa & volající \\\hline
-t0 - t6 & x5-7, x28-x31 & dočasné registry & volající\\\hline
-s0 - s11 & x8-9, x18-x27 & ukládané registry & volaný\\\hline
-sp & x2 & ukazatel zásobníku & volaný\\\hline
-gp & x3 & globální ukazatel & -- --\\\hline
-tp & x4 & ukazatel na vlákno (thread) & -- --\\\hline
+\begin{tabular}{|c|c|p{4cm}|c|c|}\hline
+Symbol. & Registr & Popis & Ukládá & Zacho- \\
+   jméno   &         &       &        & vaný \\ \hline
+zero & x0 & fixní nula/ignorovaný &  -- -- & --\\\hline
+a0 - a7 & x10 - x17 & vstupní parametry funkce / dočasné & volající & ne\\\hline
+a0, a1 & x10, x11 & výstupní hodnota funkce & volaný & ne\\\hline
+ra & x1 & návratová adresa & volající & ano\\\hline
+t0 - t6 & x5-7, x28-x31 & dočasné registry & volající & ne\\\hline
+s0 - s11 & x8-9, x18-x27 & ukládané registry & volaný & ano\\\hline
+sp & x2 & ukazatel zásobníku & volaný & ano\\\hline
+gp & x3 & globální ukazatel & -- -- & ano\\\hline
+tp & x4 & ukazatel na vlákno (thread) & -- -- & ano\\\hline
 \end{tabular}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Konvence volání funkce 32 bitového systému}
+\frametitle{Konvence volání funkce na 32 bitovém RISC-V systému}
 
 \begin{itemize}
+ \item Standard: 32-bit RISC-V Calling Convention
  \item char, short, int, long, float, pointer -- každý parametr jeden registr
  \item long long int, double -- každý parametr dva registry (první registr má sudé číslo)
  \item struct předávaná hodnotou se kopíruje do tolika registrů, kolik je potřeba
- \item pokud je překládáno pro RISC-V s rozšířením pro práci s reálnými čísly, pak se pro předávání float, double i struktur využijí registry f10 -- f17 označovaných také fa0 -- fa7
- \item pokud se parametry nevejdou do registrů a0-a7, tak se přebývající parametry umístí na zásobník do rámce nově volané funkce
+ \item pokud je překládáno pro RISC-V s rozšířením pro práci s reálnými čísly, pak se pro předávání float, double i struktur využijí registry \texttt{f10}--\texttt{f17} označovaných také \texttt{fa0}--\texttt{fa7}
+ \item pokud se parametry nevejdou do registrů \texttt{a0}--\texttt{a7}, tak se přebývající parametry umístí na zásobník do rámce nově volané funkce
+  \item zásaobník musí v době, kdy je funkce volaná (instrukce \texttt{jal}/\texttt{jalr} vykonaná), být zarovnaný na násobek 16 bytů 
 \end{itemize}
 \end{frame}
 
@@ -500,7 +503,7 @@ Příklad s 10 parametry, volání funkce uvnitř funkce, se dvěma lokálními 
 
 \begin{columns}
 \begin{column}{0.35\textwidth}
-Začátek funkce:
+Začátek funkce (prolog):
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 addi  sp,sp,-48
@@ -518,16 +521,16 @@ lw  t0,8(sp)
 lbu t1,15(sp)
 \end{minted}
 
-\texttt{int i;} na adrese 8(sp)
+\texttt{int i;} na adrese 8(\texttt{sp})
 
-\texttt{char c;} na adrese 15(sp)
+\texttt{char c;} na adrese 15(\texttt{sp})
 
-0(sp) -- 7(sp) nevyužito
+0(\texttt{sp}) -- 7(\texttt{sp}) nevyužito nebo rezervované pro volání uvnitř funkce
 
 
-\end{column}   
+\end{column}
 \begin{column}{0.29\textwidth}
-Ukončení funkce:
+Ukončení funkce (epilog):
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 lw   ra,44(sp)
@@ -539,6 +542,7 @@ lw   s4,24(sp)
 addi sp,sp,48
 ret
 \end{minted}
+Poznámka: alokace zásobníku je zarovnaná na 16 bytů.
 
 \end{column}
 \begin{column}{0.35\textwidth}  
@@ -553,8 +557,8 @@ ret
 
 \begin{itemize}
  \item Ukazatel na rámec funkce obsahuje v RISC-V hodnotu sp při vstupu do funkce
- \item Pro fp (frame pointer) je využit registr s0, je to tedy registr, který musí volaný uložit a při návratu z funkce obnovit
- \item Výhody použití fp
+ \item Pro \texttt{fp} (frame pointer) je využit registr \texttt{s0}, je to tedy registr, který musí volaný uložit a při návratu z funkce obnovit
+ \item Výhody použití \texttt{fp}
 \begin{itemize}
  \item Pevně nastavené ukazatele na argumenty a lokální proměnné funkce, pokud se sp v těle mění (např. argumenty pro volné funkce), pak se mění i posunutí vzhledem k sp pro přístup k argumentům a lokálním funkcím.
  \item Přehlednější zásobník pro debugery a při tzv. odvinutí zásobníku.
@@ -563,7 +567,7 @@ ret
  \item Pro zpracování výjimky je nutné nastavit zásobník do stavu, ve které nadřazená funkce volala funkci, ve které výjimka nastala.
 \end{itemize}
 \end{itemize}
- \item Nevýhody použití fp:
+ \item Nevýhody použití \texttt{fp}:
 \begin{itemize}
  \item Zpomaluje program, jedná se sice jen o několik instrukcí při vstupu a ukončení funkce, ale pokud se funkce volá často a její tělo je krátké, může to být i značné zpomalení.
  \item Fp obsadí registr s0, který by se dal využít pro uchování hodnoty. Pokud by došly volné registry, pak se hodnota musí uložit na zásobník do paměti RAM (přes cache), což je pomalejší než využití registru.
@@ -575,10 +579,10 @@ ret
 \begin{frame}[fragile,shrink=5]
 \frametitle{Překlad funkce s ukazatelem na rámec funkce}
 
-Pro překlad gcc pro RISC-V je nutné využít přepínač \texttt{-fno-omit-frame-pointer}
+Pro překlad s vynuceným používáním \texttt{fp} pro RISC-V je nutné využít GCC přepínač \texttt{-fno-omit-frame-pointer}
 \begin{columns}
 \begin{column}{0.25\textwidth}
-Začátek funkce:
+Začátek funkce v~případě RISC-V:
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 addi sp,sp,-48
@@ -629,13 +633,13 @@ ret
 \begin{frame}[fragile,shrink=5]
 \frametitle{Řešení domácího úkolu 4}
 
-Analyzovat funkci subrutine\_fnc:
+Analyzovat funkci \texttt{subroutine\_fnc}:
 \begin{itemize}
-\item zjistit, jaké registry a0 -- a7 se ve funkci používají a jaké se před volání funkce naplní
+\item zjistit, jaké registry \texttt{a0} -- \texttt{a7} se ve funkci používají a jaké se před volání funkce naplní
  \begin{itemize}
- \item POZOR překladač využívá registry aX také pro pomocné výpočty stejně jako registry t0 -- t6, protože jejich hodnoty může měnit
+ \item POZOR překladač využívá registry \texttt{a\textit{X}} také pro pomocné výpočty stejně jako registry \texttt{t0} -- \texttt{t6}, protože jejich hodnoty může měnit
  \end{itemize}
-\item zjistit, co je v registru a0 před zavoláním instrukce \texttt{ret} (\texttt{jalr 0(x1)})
+\item zjistit, co je v registru \texttt{a0} před zavoláním instrukce \texttt{ret} (\texttt{jalr 0(x1)})
 \item prozkoumat začátek funkce:
  \begin{itemize}
  \item pokud funkce začíná sekvencí instrukcí podobné:
@@ -650,12 +654,12 @@ sw  s4,24(sp)
 \end{minted}
 \begin{itemize}
  \item pak funkce využívá zásobník pro uložení návratové adresy a lokálních dat
- \item adresy od 0(sp) do 23(sp) jsou využity pro lokální proměnné funkce
- \item registry s0 -- s4 (v tomto případě) jsou využity pro uchování dočasných hodnot, pravděpodobně argumentů funkce
+ \item adresy od 0(\texttt{sp}) do 23(\texttt{sp}) jsou využity pro lokální proměnné funkce
+ \item registry \texttt{s0} -- \texttt{s4} (v tomto případě) jsou využity pro uchování dočasných hodnot, pravděpodobně argumentů funkce
  \end{itemize}
  \item pokud funkce neobsahuje instrukci \texttt{addi sp,sp,-X} pak se jedná o "jednoduchoou" funkci, která nepoužívá zásobník
 \begin{itemize}
- \item všechny lokální proměnné a mezivýpočty jsou uloženy v nepoužitých registrech a0 -- a7 a registrech t0 -- t6
+ \item všechny lokální proměnné a mezivýpočty jsou uloženy v nepoužitých registrech \texttt{a0} -- \texttt{a7} a registrech \texttt{t0} -- \texttt{t6}
  \end{itemize}
  \end{itemize}
  \end{itemize}
@@ -671,11 +675,11 @@ Každý proces má pro sebe 4GiB virtuálního prostoru:
 \small
 \begin{itemize}
 \item Nejvyšší 1GiB má pro sebe operační systém
-\item Následuje zásobník (pokud má proces více vláken, pak jsou zásobníky vláken řazeny za sebou)
+\item Následuje zásobník (pokud má proces více vláken, pak jsou zásobníky dalších vláken většinou alokované z~haldy)
 \item Níže jsou dynamické knihovny
-\item Od globálních dat roste dynamicky alokovaná paměť -- heap (malloc,new/free,delete)
-\item Globální data (inicializovaná i neinicializovaná)
-\item Program (.text)
+\item Od globálních dat (\texttt{.data}+\texttt{.bss}) roste dynamicky alokovaná paměť -- heap (malloc,new/free,delete)
+\item Globální data (inicializovaná \texttt{.data} i neinicializovaná \texttt{.bss})
+\item Program (\texttt{.text})
 \item Adresy od 0 se nechávají neobsazené kvůli odchytávání chyby dereference NULL ukazatele.
 \end{itemize}
 \end{column}   
@@ -694,7 +698,7 @@ Využití globálních proměnných:
 \item globální inicializované proměnné jsou umístěné v sekci .data, neinicializované proměnné v sekci .bss
 \item Jak zjistit, zda v mém programu jsou globální proměnné?
  \begin{itemize}
- \item podívejte se na konec výpisu riscv assembleru a najděte sekci my\_data. 
+ \item podívejte se na konec výpisu riscv assembleru a najděte sekci \texttt{my\_data}.
  
  Tato sekce může vypadat takto:
 \begin{minted}[fontsize=\footnotesize]{gas}
@@ -704,11 +708,11 @@ Contents of section my_data:
 \begin{itemize}
  \item 11008 je adresa dat ve virtuálním prostoru procesu
  \item 00000000 je hexadecimální výpis uložených dat
- \item .... je textový výpis uložených dat, pokud znak nelze zobrazit je místo něj použita tečka
+ \item .... je textový (ASCII) výpis uložených dat, pokud znak nelze zobrazit je místo něj použita tečka
  \item využití dat v programu vypadá takto:
 \begin{minted}[fontsize=\footnotesize]{gas}
 lui  a5, 0x11
-addi a5, a5, 8 # 11008 <nazev_promenne>
+addi a5, a5, 8 # 11008
 lw   a4, 0(a5)
 \end{minted}
  \end{itemize}
@@ -812,7 +816,7 @@ ret
 \begin{frame}[fragile]
 \frametitle{Proměnný počet parametrů va\_list}
 
-Definice funkce s proměnným počtem parametrů:
+Definice funkce s proměnným počtem parametrů (variadic function):
 
 \begin{columns}
 \begin{column}{0.4\textwidth}
@@ -919,17 +923,18 @@ ret
 \item Vlastní zavolání funkce je vyvolání přerušení nebo výjimky specializovanou instrukcí:
 \begin{itemize}
 \item x86 -- používá přímo int 0x80 -- vyvolej přerušení číslo 0x80.
-\item x86 -- nověji specializované instrukce sysenter/syscall -- podobný mechanizmus, ale nevyužívá uživatelský zásobník a méně přistupuje k paměti $\rightarrow$ je rychlejší.
-\item RISC-V -- specializovaná instrukce ecall -- obdobné chování jako při přerušení.
+\item x86 -- nověji specializované instrukce sysenter/syscall -- podobný mechanizmus, ale nevyužívá systémový zásobník, složitý mechanizmus bran a přistupuje k méně paměti $\rightarrow$ je rychlejší.
+\item RISC-V -- specializovaná instrukce ecall -- obdobně jako při přerušení.
 \end{itemize}
-\item Při přerušení/výjimce se volá program z adresy, která je nastavená OS, uživatel ji nemůže měnit.
+\item Při přerušení/výjimce se volá obslužná rutina v privilegovaném řežimu (typicky systémovém) z adresy, která je nastavená OS (na RISC-V registry \texttt{mtvec}/\texttt{stvec}), uživatel ji nemůže měnit.
+
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Ochrana OS}
 
-Uživatelský program nastaví parametry volání do registrů vyvolá speciální přerušení.
+Uživatelský program nastaví parametry volání do registrů vyvolá speciální přerušení/výjimku (na RISC-V \texttt{ecall}).
 
 OS podle čísla systémového volání zavolá odpovídající funkci.
 
@@ -937,7 +942,8 @@ OS podle čísla systémového volání zavolá odpovídající funkci.
   \includegraphics[width=0.95\textwidth]{irq-and-os-cz.pdf}
 \end{center}
 
-Návrat ze systémového volání odpovídá návratu z přerušení.
+Návrat ze systémového volání odpovídá návratu z přerušení/výjimky (na RISC-V většinou \texttt{sret}).
+
 \end{frame}
 
 \begin{frame}[shrink=5]
@@ -953,10 +959,10 @@ Návrat ze systémového volání odpovídá návratu z přerušení.
 \item ABI -- application binary interface -- popis jaké registry a jaké instrukce použít
 \item ABI pro systémová volání na architektuře RISC-V
 \begin{itemize}
-\item a7 -- obsahuje číslo systémového volání (přehled např. \url{https://jborza.com/post/2021-05-11-riscv-linux-syscalls/} nebo \url{https://marcin.juszkiewicz.com.pl/download/tables/syscalls.html})
-\item a0 až a5 -- parametry systémového volání (Linuxové systémové volání má maximálně 6 parametrů)
+\item \texttt{a7} -- obsahuje číslo systémového volání (přehled např. \url{https://jborza.com/post/2021-05-11-riscv-linux-syscalls/} nebo \url{https://marcin.juszkiewicz.com.pl/download/tables/syscalls.html})
+\item \texttt{a0} až \texttt{a5} -- parametry systémového volání (Linuxové systémové volání má maximálně 6 parametrů)
 \item systémové volání se provede instrukcí \texttt{ecall}
-\item a0 obsahuje návratovou hodnotu systémového volání
+\item \texttt{a0} obsahuje návratovou hodnotu systémového volání
 \begin{itemize}
 \item pokud by mělo vracet více dat (např. čtení ze souboru) musí uživatel zadat ukazetel na buffer a velikost bufferu, kam OS zapíše data.
 \end{itemize}
@@ -999,15 +1005,15 @@ text_1: .ascii "Hello world!\n"
 Co dělat se systémovým voláním?
 \begin{itemize}
 \item najděte instrukci \texttt{ecall}.
-\item podle hodnotu registru a7, z ní zjistěte o jaké systémové volání se jedná.
-\item zjistěte hodnoty registrů a0, a1, a2 (případně a3 pokud je použit).
+\item podle hodnotu registru \texttt{a7}, z ní zjistěte o jaké systémové volání se jedná.
+\item zjistěte hodnoty registrů \texttt{a0}, \texttt{a1}, \texttt{a2} (případně \texttt{a3} pokud je použit).
 \item do C programu zařaďte volání funkce z API, která provede dané systémové volání.
-\item Příklad: zjistíte, že registr a7 má hodnotu 63 -- read, vygenerujete volání funkce read
+\item Příklad: zjistíte, že registr \texttt{a7} má hodnotu 63 -- \texttt{read}, vygenerujete volání funkce read
 \begin{minted}[fontsize=\footnotesize]{c}
 read(a0, a1, a2);
 \end{minted}
 \begin{itemize}
- \item jediný problém je s funkcí open/openat, jejíž parametry mají jiné hodnoty pro systém x86 a pro riscv
+ \item jediný problém je s funkcí \texttt{open}/\texttt{openat}, jejíž parametry mají jiné hodnoty příznaků \texttt{O\_\textit{XXXX}} pro systém x86 a pro riscv
  \item protože programy kontroluje Brute na systému x86, je lepší ověřit hodnoty parametrů ve výpisu program-x86.list
  \end{itemize}
 \end{itemize}
