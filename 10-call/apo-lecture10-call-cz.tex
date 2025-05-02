@@ -657,7 +657,7 @@ sw  s4,24(sp)
  \item adresy od 0(\texttt{sp}) do 23(\texttt{sp}) jsou využity pro lokální proměnné funkce
  \item registry \texttt{s0} -- \texttt{s4} (v tomto případě) jsou využity pro uchování dočasných hodnot, pravděpodobně argumentů funkce
  \end{itemize}
- \item pokud funkce neobsahuje instrukci \texttt{addi sp,sp,-X} pak se jedná o "jednoduchoou" funkci, která nepoužívá zásobník
+ \item pokud funkce neobsahuje instrukci \texttt{addi sp,sp,-X} pak se jedná o "jednoduchou" funkci, která nepoužívá zásobník
 \begin{itemize}
  \item všechny lokální proměnné a mezivýpočty jsou uloženy v nepoužitých registrech \texttt{a0} -- \texttt{a7} a registrech \texttt{t0} -- \texttt{t6}
  \end{itemize}
