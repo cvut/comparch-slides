@@ -5,7 +5,6 @@
 \usepackage{pdfcomment}
 \usepackage{listings}
 
-\subtitle{Lekce 11. Architektura x86}
 \subtitle{Lecture 11. x86 Architecture}
 \author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
 \begin{document}
@@ -22,7 +21,7 @@ Basic features:
   \begin{itemize}
     \item data and address bus width
     \item number and size of internal registers
-    \item control signal rate – frequency
+    \item control signal rate -- frequency
     \item instruction set
   \end{itemize}
 \end{column}
@@ -71,16 +70,16 @@ User/General Purpose Registers
 \item All registers are 64/32/16/8 bit for backward compatibility
 \item integer registers for storing program values ​​\texttt{eax}, \texttt{ebx}, \texttt{ecx}, \texttt{edx}
 \item specialized registers as memory pointers \texttt{esi}, \texttt{edi}, \texttt{ebp}
-\item \texttt{esp} – stack pointer - more details below
-\item AMD64/EM64T adds 8 additional registers \texttt{r8}-\texttt{r15}, in the form of \texttt{r8b} lowest byte, \texttt{r8w} lowest word (16 bits), \texttt{r8d} – lower 32 bits, \texttt{r8} – 64 bit register
+\item \texttt{esp} -- stack pointer - more details below
+\item AMD64/EM64T adds 8 additional registers \texttt{r8}-\texttt{r15}, in the form of \texttt{r8b} lowest byte, \texttt{r8w} lowest word (16 bits), \texttt{r8d} -- lower 32 bits, \texttt{r8} -- 64 bit register
 \end{itemize}
 \begin{center}
 \includegraphics[width=0.5\textwidth]{registers.pdf}
 \end{center}
 Control and Status Registers
 \begin{itemize}
-\item \texttt{IP/EIP/RIP} – instruction pointer – points to the current executed instruction
-\item \texttt{FLAGS/EFLAGS/RFLAGS} – program status word/flags registers
+\item \texttt{IP/EIP/RIP} -- instruction pointer -- points to the current executed instruction
+\item \texttt{FLAGS/EFLAGS/RFLAGS} -- program status word/flags registers
 \end{itemize}
 
 \end{frame}
@@ -141,8 +140,8 @@ FLAGS registr
   \begin{itemize}
     \item The old 16 real mode after system reset, start at address 0xffff:0000
     \item Complex sequence to switch into 64-bit mode at CPL0 (system)
-    \item Switch to user (CPL3) mode – Flags registers change (popf or reti)
-    \item Switch to system (CPL0) mode – only by interrupt, including synchronous by int instruction
+    \item Switch to user (CPL3) mode -- Flags registers change (popf or reti)
+    \item Switch to system (CPL0) mode -- only by interrupt, including synchronous by int instruction
   \end{itemize}
 \end{itemize}
 \end{frame}
@@ -313,9 +312,9 @@ next jump/branch instructions can be used then
 \texttt{jmp \textit{taget}} & unconditional jump, equivalent to \texttt{\%eip=taget}\\
 \texttt{je  \textit{taget}} & jmp equal -- jump when equal (Z=1)\\
 \texttt{jne \textit{taget}} & jmp not equal -- jump when not equal (Z=0)\\
-\texttt{jg/ja \textit{taget}} & jmp greater/above – jump when a1 > a2 (sign/unsig)\\
+\texttt{jg/ja \textit{taget}} & jmp greater/above -- jump when a1 > a2 (sign/unsig)\\
 \texttt{jge/jae \textit{taget}} & jump if a1 >= a2 (sign/unsig)\\
-\texttt{jl/jb \textit{taget}} & jmp less/below – jump when a1 < a2 (sign/unsig)\\
+\texttt{jl/jb \textit{taget}} & jmp less/below -- jump when a1 < a2 (sign/unsig)\\
 \texttt{jle/jbe \textit{taget}} & jump if a1 <= a2 (sign/unsig)\\
 \texttt{jz/jnz \textit{taget}} & jump if Z=1/0\\
 \texttt{jo/jno \textit{taget}}& jump when O (overflow) = 1/0\\
@@ -646,7 +645,7 @@ Where is allocated space for \texttt{i} local variable?
 \begin{itemize}
 \item[A] On stack for both RISC-V and x86.
 \item[B] Allocated from heap on RISC-V and on the stack for x86.
-\item[C] In the \texttt{.data} section for both RISC-V and x86.
+\item[C] In the \texttt{.data} or \texttt{.bss} section for both RISC-V and x86.
 \item[D] In the register for both RISC-V and x86.
 \end{itemize}
 \end{frame}
@@ -687,7 +686,7 @@ Location for \texttt{y} variable when compiled without optimization?
 \begin{itemize}
 \item[A] On the stack or in the register for both RISC-V and x86.
 \item[B] Dynamically allocates on heap for both RISC-V and x86
-\item[C] In the \texttt{.data} section for both RISC-V and x86.
+\item[C] In the \texttt{.data} or \texttt{.bss} section for both RISC-V and x86.
 \item[D] cannot be determined for RISC-V neither x86.
 \end{itemize}
 \end{frame}
@@ -764,7 +763,7 @@ int main() {
 \end{column}
 \end{columns}
 
-Where is stored retur address for return from the \texttt{factorial} function?
+Where is stored return address for return from the \texttt{factorial} function?
 \begin{itemize}
 \item[A] RISC-V and x86: on stack
 \item[B] RISC-V: in register; x86: on stack
@@ -788,7 +787,7 @@ The complexity of the assembler
 \item Different methods work at different speeds and are of different lengths and are different in clarity
 \begin{itemize}
 \item \texttt{xor \%ebx, \%ebx} is the same as \texttt{ mov \$0, \%ebx}
-\item \texttt{lea} address, register – load effective address – sets the value of computed effective address to the specified register
+\item \texttt{lea} address, register -- load effective address -- sets the value of computed effective address to the specified register
 \item \texttt{lea -12(\%esp), \%esp } is the same as \texttt{ sub \$12, \%esp}
 \item \texttt{lea} has more advances when used, it does not block the ALU unit usually (however, for example, Atom has address computation slower than the ALU).
 \end{itemize}
@@ -799,7 +798,7 @@ The complexity of the assembler
 
 
 \begin{frame}
-\frametitle{FPU Coprocessor -– x87}
+\frametitle{FPU Coprocessor -- x87}
 Special part of the processor for computation with real numbers
 \begin{itemize}
 \item Supports single-32, double-64, extended-80 and exotic BCD formats
@@ -891,9 +890,9 @@ fstp   dst_addr ; Store result in memory
 \begin{frame}
 \frametitle{Floating-Point Unit FPU -- RISC-V}
 \begin{itemize}
-\item Two extensions RV64F – float, RV64D – double
+\item Two extensions RV64F -- float, RV64D -- double
 \item 32 internal registers, either 32 bit wide for float only or 64 bits for float and double support
-\item New load and store instructions – flw, fsw (fld, fsd)
+\item New load and store instructions -- flw, fsw (fld, fsd)
 \item New instructions for operations:
 \begin{itemize}
 \item fadd.s, fsub.s, fmul.s, fdiv.s ( *.d for double)
@@ -989,7 +988,7 @@ fstp   dst_addr ; Store result in memory
 
 \begin{columns}[t,onlytextwidth]
   \begin{column}{0.5\textwidth}
-Maskování obrazu v obraze:
+Combine masked image with background:
 \begin{lstlisting}[language={C},columns=flexible]
 unsigned char mask[size],
  img1[size], img2[size];
