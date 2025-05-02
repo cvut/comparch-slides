@@ -377,7 +377,7 @@ tp & x4 & ukazatel na vlákno (thread) & -- -- & ano\\\hline
  \item struct předávaná hodnotou se kopíruje do tolika registrů, kolik je potřeba
  \item pokud je překládáno pro RISC-V s rozšířením pro práci s reálnými čísly, pak se pro předávání float, double i struktur využijí registry \texttt{f10}--\texttt{f17} označovaných také \texttt{fa0}--\texttt{fa7}
  \item pokud se parametry nevejdou do registrů \texttt{a0}--\texttt{a7}, tak se přebývající parametry umístí na zásobník do rámce nově volané funkce
-  \item zásaobník musí v době, kdy je funkce volaná (instrukce \texttt{jal}/\texttt{jalr} vykonaná), být zarovnaný na násobek 16 bytů 
+  \item zásobník musí v době, kdy je funkce volaná (instrukce \texttt{jal}/\texttt{jalr} vykonaná), být zarovnaný na násobek 16 bytů 
 \end{itemize}
 \end{frame}
 
