@@ -160,7 +160,7 @@ Main semiconductor memory parameters:
 Division of memories according to write operation mehanism:
 
 \begin{itemize}
-\item \textbf{ROM} (Read-Only Memory) memories that can only be read from (content defined ta production), include EEPROM (Electrically Erasable Programmable Read-Only Memory) requiring high voltage for erase and then allow write new data, write is not normal operation.
+\item \textbf{ROM} (Read-Only Memory) memories that can only be read from (content defined at production), include EEPROM (Electrically Erasable Programmable Read-Only Memory) requiring high voltage for erase and then allow write new data, write is not normal operation.
 \item \textbf{RAM} (Random Access Memory) also RWM (Read-Write Memory) classic memories designed for reading and writing any cell in any order -- Random Access.
 \end{itemize}
 
@@ -360,7 +360,7 @@ The principle considered on all levels, in algorithms (local variables), compile
 \item the purpose of hidden memory is to speed up access to frequently used data on "slow" media by copying it to fast media.
 \item it mostly works automatically and adapts to the current needs of the program.
 \item however, it is necessary to know about its existence and often needs servicing at the level of the operating system and, in some cases, even programs.
-\item if you choose data structures, access paterns and algorithms unwisely, its effect is lost.
+\item if you choose data structures, access patterns and algorithms unwisely, its effect is lost.
 \end{itemize}
 
 \end{frame}
@@ -620,7 +620,7 @@ the operating system fills page tables and sets up the \textbf{Page Directory Ba
 (PDBR) for given process.
 
 On the other hand, page faults are resolved by the operating system code.
-If there is access to a virtual memory area mapped into the processes and actual page is not presnet then the system reads data from the disk, network, swap partition.
+If there is access to a virtual memory area mapped into the processes and actual page is not present then the system reads data from the disk, network, swap partition.
 
 As with the cache, it is necessary and challenging to find space for newly needed pages (a principle similar to LRU).
 
@@ -661,13 +661,13 @@ system and for 4\,kB pages, it is necessary to allocate 4\,MB (translation of 20
 
 }
 
-Page Directory for each process, but the second level of table with page etries is allocated only when respective virtual space area is used.
+Page Directory for each process, but the second level of table with page entries is allocated only when respective virtual space area is used.
 
 \smallskip
 
 When translated address is divided in 10-bit groups, the array of entries
 of both the directory and the table occupies to 4\,kB, same as page size. Higher-order allocations
-(multiple consecutive pages) are not needed and memory management is not compicated by fragmentation.
+(multiple consecutive pages) are not needed and memory management is not complicated by fragmentation.
 
 \end{frame}
 
@@ -684,7 +684,7 @@ of both the directory and the table occupies to 4\,kB, same as page size. Higher
 \vskip 2mm
 
 \begin{itemize}
-\item bit 0: Present bit -- the next level or page is presnet in physical memory (1). If it is not (0) then data are stored on disk or area is not mapped. The bit is sometimes denoted as V -- valid bit.
+\item bit 0: Present bit -- the next level or page is present in physical memory (1). If it is not (0) then data are stored on disk or area is not mapped. The bit is sometimes denoted as V -- valid bit.
 \item bit 1: Read/Write: 1 -- R/W -- write is permitted; 0 -- read only (RO)
 \item bit 2: User/Supervisor: 1 -- user program access permitted; 0 -- only accessible by operating system
 \item bit 3: Write-through/Write-back -- which method is used for writes

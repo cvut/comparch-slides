@@ -732,7 +732,7 @@ Fixed point numbers:
  Special case for fractional numbers:
 \begin{itemize}
 \item if numbers from range $\langle 0,1)$ should be represented (usually control systems)
-\item ten $s=k$ and we can directly use unsigned integer numbers representation
+\item then $s=k$ and we can directly use unsigned integer numbers representation
 \item the better precision can be achieved than for the same bit size \texttt{float}, or \texttt{double} representation
 \end{itemize}
 
@@ -856,7 +856,7 @@ Exponent & Significand &  Value \\ \hline
 \end{tabular}
 \bigskip
 
-The \textbf{smallest normalized number not equal to zero} is:
+The \textbf{smallest denormalized number not equal to zero} is:
 \begin{itemize}
 \item \small exponent = 0 (-126), significand=000...0001, value = $2^{-23+(-126)} \approx 1.4\text{E}-45$
 \end{itemize}

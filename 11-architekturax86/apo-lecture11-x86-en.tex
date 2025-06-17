@@ -345,7 +345,7 @@ rep movs        - l1:  lw   t3, 0(t1)
                        addi t1, t1, 4
                        addi t2, t2, 4
                        addi t4, t4, -1
-                       jne  t4, zero, l1 
+                       bne  t4, zero, l1 
 \end{minted}
 On the other hand, larger number of GPR registers and return address storage in the register instead on the stack leads to lower number of accesses to memory which is advantage even if memory is cached.
 \end{frame}

@@ -356,7 +356,7 @@
       <g class="com.sun.star.drawing.CustomShape">
        <g id="id26">
         <rect class="BoundingBox" stroke="none" fill="none" x="11370" y="5548" width="1633" height="430"/>
-        <text class="TextShape"><tspan class="TextParagraph" font-family="Arial Narrow, sans-serif" font-size="564px" font-weight="400"><tspan class="TextPosition" x="11388" y="5942"><tspan fill="rgb(0,0,0)" stroke="none">ALUScr</tspan></tspan></tspan></text>
+        <text class="TextShape"><tspan class="TextParagraph" font-family="Arial Narrow, sans-serif" font-size="564px" font-weight="400"><tspan class="TextPosition" x="11388" y="5942"><tspan fill="rgb(0,0,0)" stroke="none">ALUSrc</tspan></tspan></tspan></text>
        </g>
       </g>
       <g class="com.sun.star.drawing.CustomShape">

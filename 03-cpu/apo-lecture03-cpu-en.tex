@@ -248,7 +248,7 @@ Analysis what fits in given instruction length?
 \item The immediate values are required as well, add one to register, set register to specific value
 \begin{itemize}
 \item but addresses to whole memory are required for global variables for example, if extended instruction words are undesirable, only small offsets (12 or 16 bits) fit
-\item the larger ones has to be stored into memory and reverenced by smaller offset which fits into instruction
+\item the larger ones has to be stored into memory and referenced by smaller offset which fits into instruction
 \item PC relative addressing or addressing against global pointer \textbf{gp}
 \item RISC (RISC-V, MIPS, SPARC, POWER, etc.) --  typical fixed length encoding is 32 bits, 12 or 16-bit immediate
 \item CISC (x86, m68k) -- instruction variable length encoding, immediate and even registers for extended addressing in followup bytes, words
@@ -537,7 +537,7 @@ The PC register is updated to PC+4 (advanced by instruction length) at clock (CL
 \begin{tabular}{m{1.6cm} m{9.5cm}}
 \hfill \includegraphics[width=0.6cm]{registr.pdf} & single 32-bit wide register, the input store at CLK rising edge \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.6cm]{registers-en.pdf} & 32 registers in register file, A1, A2 inputs select which register values are connected to RD1 and RD2 outputs; if WE3 (write enable) insputs is active then WD3 input state is written to register designated by A3 at CLK signal rising edge \\
+\hfill \includegraphics[width=1.6cm]{registers-en.pdf} & 32 registers in register file, A1, A2 inputs select which register values are connected to RD1 and RD2 outputs; if WE3 (write enable) inputs is active then WD3 input state is written to register designated by A3 at CLK signal rising edge \\
 \phantom{X} & \phantom{X} \\
 \hfill \includegraphics[width=0.8cm]{multiplexor.pdf} & multiplexer copies one of its input signals to the output according to Select input value \\
 \phantom{X} & \phantom{X} \\
