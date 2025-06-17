@@ -117,11 +117,11 @@ System Flags:
 
 \begin{frame}
 \frametitle{x86/AMD64 -- Operating Modes}
-FLAGS registr 
+FLAGS register 
 \begin{itemize}
   \item Only two protection rings/modes used -- the base of the hardware protections
   \begin{itemize}
-    \item CPL0\footnote{Current privilege level} = priviledget (system) mode
+    \item CPL0\footnote{Current privilege level} =  privileged (system) mode
     \begin{itemize}
       \item processor can access hardware (I/O ports), manipulate paging state etc. 
     \end{itemize}
@@ -130,13 +130,13 @@ FLAGS registr
       \item privileged operations are not permitted
     \end{itemize}
   \end{itemize}
-  \item Priviledged operations
+  \item Privileged operations
   \begin{itemize}
     \item manipulation with system/core state (halt, reset, Interrupt Enable/Disable, whole Flags modifications, MMU registers changes and control instructions) 
     \item I/O port access instructions (in, out)
   \end{itemize}
 
-  \item Switching between modes and priviledges
+  \item Switching between modes and privileges
   \begin{itemize}
     \item The old 16 real mode after system reset, start at address 0xffff:0000
     \item Complex sequence to switch into 64-bit mode at CPL0 (system)
