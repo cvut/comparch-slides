@@ -224,9 +224,10 @@ or even somewhere else
 
 \texttt{jal \textit{rd}, address}
 \begin{itemize}
- \item jump to address (21-bit signed extended offset to \texttt{PC}, LSB is 0) and store \texttt{PC}+4 into register \texttt{\textit{rd}} 
+ \item jump to \texttt{address} and store \texttt{PC}+4 into register \texttt{\textit{rd}} 
  \item if \texttt{\textit{rd}} is not specified, then \texttt{x1} is substituted
  \item if only one directional jump is requested (instruction \texttt{j}), then \texttt{PC}+4 is discarded, \texttt{x0} is encoded as \texttt{\textit{rd}} with \texttt{jal} opcode
+ \item the target \texttt{address} is encoded into instruction  as 21-bit signed extended offset to \texttt{PC}/the \texttt{jal} instruction location, LSB is 0, the limit of the target range is $\pm$1\,MB
 \end{itemize}
 
 \texttt{jalr \textit{rd}, \textit{rs1}, imm12}

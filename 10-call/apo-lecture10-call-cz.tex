@@ -223,15 +223,16 @@ nebo jinam
 
 Instrukce \texttt{jal \textit{[rd,]} address}
 \begin{itemize}
- \item skoč na adresu address (21 bitů, nejnižší bit defaultně 0) a do registru rd ulož hodnotu PC+4
- \item pokud neuvedete registr rd, tak se standardně doplní x1
+ \item skoč na adresu \texttt{address} a do registru \texttt{rd} ulož hodnotu \texttt{PC}+4
+ \item pokud neuvedete registr \textit{rd}, tak se standardně doplní \texttt{x1}
  \item pokud chceme jen skok (instrukce \texttt{j}), tak se \texttt{PC}+4 uloží do registru \texttt{x0}
+ \item cíl je kódovaný relativně, 21 bitů znaménkově rozšířený posun se přičte k \texttt{PC}/adrese instrukce \texttt{jal}, nejnižší bit fixně 0, maximální vzdálenost $\pm$1\,MB
 \end{itemize}
 
 Instrukce \texttt{jalr \textit{rd}, \textit{rs1}, imm12}
 \begin{itemize}
- \item skoč na adresu rs1 + imm12 a do registru rd ulož hodnotu \texttt{PC}+4
- \item pokud neuvedete registr rd, tak se standardně doplní \texttt{x1}
+ \item skoč na adresu \textit{rs1} + imm12 a do registru rd ulož hodnotu \texttt{PC}+4
+ \item pokud neuvedete registr \textit{rd}, tak se standardně doplní \texttt{x1}
  \item pokud chceme jen návrat z funkce, lze použít pro rd registr \texttt{x0}
 \end{itemize}
 \end{frame}
