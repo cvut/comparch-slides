@@ -39,7 +39,6 @@ INKSCAPE_0.X = $(eval INKSCAPE_0.X := $(shell inkscape --version|grep '^Inkscape
 %.pdf: %.svg
 	$(if $(INKSCAPE_0.X),inkscape --export-area-drawing --export-background-opacity=1.0 --export-pdf="$@" "$<",\
 			     inkscape --export-area-drawing --export-background-opacity=1.0 --export-type=pdf --export-filename="-" "$<" > "$@")
-	$(gitignore_target)
 
 # Generate last modification date from commit dates of all files under the current directory
 moddate.tex: FORCE_MAKE
