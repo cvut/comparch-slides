@@ -10,7 +10,7 @@ DOC_LANG ?= cz
 ANIM = $(patsubst %,anim/%/overlay.tex,$(basename $(SVGS)))
 export TEXINPUTS=.:../_latex:
 
-FIGS = $(shell grep -E "svggraphics" apo-lecture01-intro-cz.tex | grep -o \{.*\} | cut -c 2-| rev | cut -c 2- | rev)
+FIGS = $(shell sed -n -e 's/^.*{\([^{]*\/generated\/[^{]*\)}.*$$/\1/pg' $(DOC).tex)
 
 .PHONY: all FORCE_MAKE
 
@@ -36,7 +36,8 @@ anim/%/overlay.tex: %.svg $(MAKEFILE_RULES_DIR)/export_overlays
 # do it when first necessary.
 INKSCAPE_0.X = $(eval INKSCAPE_0.X := $(shell inkscape --version|grep '^Inkscape 0'))$(INKSCAPE_0.X)
 
-%.pdf: %.svg
+../generated/%.pdf: ../common/%.svg
+	mkdir -p $(dir $@)
 	$(if $(INKSCAPE_0.X),inkscape --export-area-drawing --export-background-opacity=1.0 --export-pdf="$@" "$<",\
 			     inkscape --export-area-drawing --export-background-opacity=1.0 --export-type=pdf --export-filename="-" "$<" > "$@")
 
