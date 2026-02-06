@@ -10,7 +10,7 @@ DOC_LANG ?= cz
 ANIM = $(patsubst %,anim/%/overlay.tex,$(basename $(SVGS)))
 export TEXINPUTS=.:../_latex:
 
-FIGS = $(shell sed -n -e 's/^.*{\([^{]*\/generated\/[^{]*\)}.*$$/\1/pg' $(DOC).tex)
+FIGS = $(shell sed -n -e 's/^.*{\([^{]*generated\/[^{]*\)}.*$$/..\/\1/pg' $(DOC).tex)
 
 .PHONY: all FORCE_MAKE
 
