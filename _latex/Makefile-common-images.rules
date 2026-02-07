@@ -1,5 +1,7 @@
 MAKEFILE_RULES_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
+ifndef TOPDIR
 TOPDIR := $(patsubst %/,%,$(dir $(MAKEFILE_RULES_DIR)))
+endif
 
 export MAKEFILE_RULES_DIR TOPDIR
 
@@ -13,7 +15,7 @@ DOC_LANG ?= cz
 ANIM = $(patsubst %,anim/%/overlay.tex,$(basename $(SVGS)))
 export TEXINPUTS=.:$(TOPDIR)/_latex:$(TOPDIR)
 
-FIGS = $(shell sed -n -e 's/^.*{[^{}]*\(generated\/[^{}]*\)}.*$$/$(TOPDIR)\/\1/pg' $(DOC).tex)
+FIGS = $(shell sed -n -e 's#^.*{[^{}]*\(generated/[^{}]*\)}.*$$#$(TOPDIR)/\1#pg' $(DOC).tex)
 
 .PHONY: all FORCE_MAKE
 
