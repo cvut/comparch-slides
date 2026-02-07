@@ -90,7 +90,30 @@
 \fi
 
 \date{\input{moddate.tex}}
-\graphicspath{{../}, {../../}, {../../../} ,{../../../../}, {../../../../../}}
+
+% Access to the shell variables
+\usepackage{xparse}
+
+\ExplSyntaxOn
+
+\NewDocumentCommand{\getenv}{om}
+ {
+  \sys_get_shell:nnN { kpsewhich ~ --var-value ~ #2 } { } \l_tmpa_tl
+  \tl_trim_spaces:N \l_tmpa_tl
+  \IfNoValueTF { #1 }
+   {
+    \tl_use:N \l_tmpa_tl
+   }
+   {
+    \tl_set_eq:NN #1 \l_tmpa_tl
+   }
+ }
+
+\ExplSyntaxOff
+
+\getenv[\TOPDIR]{TOPDIR}
+
+\graphicspath{{.}, {\TOPDIR}}
 
 \newcommand\includeanim[2][]{{\def\gfxattrs{#1}\input{anim/#2/overlay}}}
 

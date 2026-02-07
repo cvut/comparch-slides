@@ -1,4 +1,7 @@
 MAKEFILE_RULES_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
+TOPDIR := $(patsubst %/,%,$(dir $(MAKEFILE_RULES_DIR)))
+
+export MAKEFILE_RULES_DIR TOPDIR
 
 ifeq ($(DOC),)
 $(error DOC variable should be the base name of the LaTeX file to compile)
@@ -8,9 +11,9 @@ DOC_LANG ?= cz
 
 #SVGS = $(shell  *.svg)
 ANIM = $(patsubst %,anim/%/overlay.tex,$(basename $(SVGS)))
-export TEXINPUTS=.:../_latex:
+export TEXINPUTS=.:$(TOPDIR)/_latex:$(TOPDIR)
 
-FIGS = $(shell sed -n -e 's/^.*{\([^{]*generated\/[^{]*\)}.*$$/..\/\1/pg' $(DOC).tex)
+FIGS = $(shell sed -n -e 's/^.*{[^{}]*\(generated\/[^{}]*\)}.*$$/$(TOPDIR)\/\1/pg' $(DOC).tex)
 
 .PHONY: all FORCE_MAKE
 
@@ -40,7 +43,7 @@ anim/%/overlay.tex: %.svg $(MAKEFILE_RULES_DIR)/export_overlays
 # do it when first necessary.
 INKSCAPE_0.X = $(eval INKSCAPE_0.X := $(shell inkscape --version|grep '^Inkscape 0'))$(INKSCAPE_0.X)
 
-../generated/%.pdf: ../common/%.svg
+$(TOPDIR)/generated/%.pdf: $(TOPDIR)/common/%.svg
 	mkdir -p $(dir $@)
 	$(if $(INKSCAPE_0.X),inkscape --export-area-drawing --export-background-opacity=1.0 --export-pdf="$@" "$<",\
 			     inkscape --export-area-drawing --export-background-opacity=1.0 --export-type=pdf --export-filename="-" "$<" > "$@")
