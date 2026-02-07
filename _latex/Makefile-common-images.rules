@@ -24,10 +24,12 @@ all: $(DOC).pdf $(NUM:%=apo%_2021.pdf)
 $(DOC).pdf: export TEXINPUTS=.:$(MAKEFILE_RULES_DIR):
 $(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture-$(DOC_LANG).sty $(FIGS) $(ANIM)
 	if [ -e $(DOC).toc ] ; then cp $(DOC).toc $(DOC).toc.bak ; else touch $(DOC).toc.bak ; fi
-	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
+	xelatex -recorder --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
 	cmp $(DOC).toc $(DOC).toc.bak || \
-	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
+	xelatex -recorder --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
 	rm -f $(DOC).toc.bak
+	sed -n -e 's/^INPUT \(.*\)$$/\1/p' $(DOC).fls | grep -v '$<' | \
+	    sed -e 's/^\(.*\)$$/$@:\$$(wildcard \1)/p' >$(DOC).dep
 	$(gitignore_target)
 
 ifneq ($(NUM),)
@@ -53,3 +55,5 @@ moddate.tex: FORCE_MAKE
 	( git ls-files -z | xargs -0 -n1 -- git log -1 --date=format:"%s" --format="%cd"; echo 0 ) \
 	| python3 -c "from locale import *; setlocale(LC_TIME, 'cs_CZ.UTF-8'); import sys; from datetime import *; print(date.fromtimestamp(max([int(v) for v in sys.stdin.readlines()])).strftime('%e. %B, %Y'))" > $@.tmp
 	@cmp -s $@.tmp $@ && ( echo "Keeping $@ unchanged"; rm -f $@.tmp ) || ( echo "Updating $@"; mv $@.tmp $@ )
+
+-include $(DOC).dep
