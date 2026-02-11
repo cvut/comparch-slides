@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    id="svg5678"
    version="1.1"
    viewBox="0 0 130.17573 98.836044"
    height="98.836044mm"
-   width="130.17572mm">
+   width="130.17572mm"
+   sodipodi:docname="lookahead_tree.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview6313"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="1.7869159"
+     inkscape:cx="170.68514"
+     inkscape:cy="292.96286"
+     inkscape:window-width="1586"
+     inkscape:window-height="961"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5678">
+    <inkscape:grid
+       type="xygrid"
+       id="grid7324" />
+  </sodipodi:namedview>
   <defs
      id="defs5672">
     <marker
@@ -534,7 +562,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1183,4 +1211,25 @@
    id="tspan9887-2-5"
    style="font-size:2.57312202px;baseline-shift:sub;stroke-width:0.24741559">1</tspan></tspan></text>
   </g>
+  <rect
+     style="fill:none;stroke:#00ffff;stroke-width:0.223;stroke-linejoin:round"
+     id="rect7326"
+     width="44.979168"
+     height="31.749998"
+     x="10.583333"
+     y="29.104166" />
+  <rect
+     style="fill:none;stroke:#00ffff;stroke-width:0.223;stroke-linejoin:round"
+     id="rect7326-5"
+     width="44.979168"
+     height="31.749998"
+     x="74.083336"
+     y="29.104166" />
+  <rect
+     style="fill:none;stroke:#00ffff;stroke-width:0.223;stroke-linejoin:round"
+     id="rect7326-3"
+     width="44.979168"
+     height="31.749998"
+     x="42.333332"
+     y="63.5" />
 </svg>

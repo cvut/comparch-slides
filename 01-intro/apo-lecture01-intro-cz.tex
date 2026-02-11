@@ -97,7 +97,7 @@ Motivace proč navštěvovat přednášky:
 \item Něco se naučíte a budete to mít lehčí při přípravě na zkoušku
 \item Kdo správně zodpoví kvízovou otázku v závěru přednášky, dostane bod aktivity
   \begin{itemize}
-  \item Né každá přednáška, první bodovaný kvíz příští týden 
+  \item Kvízy aktivity na přednáškách budou náhodně, první bodovaný kvíz příští týden
   \item Celkem 8 bodů za aktivitu na přednáškách
   \end{itemize}
 \end{itemize}
@@ -212,7 +212,7 @@ Rozebraný telefon:
 
 
 \begin{frame}  
-\frametitle{von Neumann}
+\frametitle{von Neumannova architektura}
 
 Společný koncept navržený maďarským fyzikem Johnem von Neumannem (1903-1957) obsahuje:
 \begin{itemize}
@@ -221,14 +221,16 @@ Společný koncept navržený maďarským fyzikem Johnem von Neumannem (1903-195
 \item Vstup/Výstup - Input/Output
 \end{itemize}
 \begin{center}
-   \includegraphics[width=0.7\textwidth]{generated/computer/cpu-vonNeumann.pdf}  %svggraphics
+   \includegraphics[width=0.7\textwidth]{generated/computer/cpu-vonNeumann.pdf}
 \end{center}
+
+Základem je jdna paměť použitá jak pro program, tak pro data.
 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{CPU}
+\frametitle{Procesor - CPU}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -240,7 +242,7 @@ Společný koncept navržený maďarským fyzikem Johnem von Neumannem (1903-195
 \end{column}
 \begin{column}{0.5\textwidth}  
 \begin{center}
-   \includegraphics[width=0.95\textwidth]{generated/computer/cpu-cz.pdf} %svggraphics
+   \includegraphics[width=0.95\textwidth]{generated/computer/cpu-cz.pdf}
 \end{center}
 \end{column}
 \end{columns}
@@ -248,30 +250,49 @@ Společný koncept navržený maďarským fyzikem Johnem von Neumannem (1903-195
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Paměť}
 
 Paměť si pamatuje data - bajty, slova.
 
 Pokud už znáte nějaký programovací jazyk, tak si ji můžete představit jako pole, např. v jazyce C jako:\\
-\texttt{unsigned char RAM[16 * 1024 * 1024 *1024]; // 16GiB RAM}
+\begin{minted}{c}
+unsigned char RAM[16 * 1024 * 1024 *1024]; // 16GiB RAM}
+\end{minted}
 
+Z paměti lze číst, například zde do 32-bitového registru R10:\\
+\begin{minted}{c}
+registr R10 = RAM[adresa] | (RAM[adresa+1]<<8)
+           | (RAM[adresa+2]<<16) | (RAM[adresa+3]<<24);
+\end{minted}
 \bigskip
-Z paměti lze číst:\\
-\texttt{registr R10 = RAM[adresa] | (RAM[adresa+1]<<8) | (RAM[adresa+2]<<16) | (RAM[adresa+3]<<24);}\\
-nebo zapisovat:\\
-\texttt{RAM[adresa] = R10 & 0xFF; RAM[adresa+1] = (R10>>8) & 0xFF; RAM[adresa+2] = (R10>>16) & 0xFF; RAM[adresa+3] = (R10>>24) & 0xFF;}
+
+nebo zapsat registr R10 do paměti:\\
+\begin{minted}{c}
+RAM[adresa] = R10 & 0xFF; RAM[adresa+1] = (R10>>8) & 0xFF;
+RAM[adresa+2] = (R10>>16) & 0xFF;
+RAM[adresa+3] = (R10>>24) & 0xFF;
+\end{minted}
 
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Paměť}
 
-Big endian čtení a zápis do paměti probíhá následujícím způsobem:\\
-\texttt{registr R10 = RAM[adresa+3] | (RAM[adresa+2]<<8) | (RAM[adresa+1]<<16) | (RAM[adresa]<<24);}\\
-nebo zapisovat:\\
-\texttt{RAM[adresa+3] = R10 & 0xFF; RAM[adresa+2] = (R10>>8) & 0xFF; RAM[adresa+1] = (R10>>16) & 0xFF; RAM[adresa] = (R10>>24) & 0xFF;}
+Big endian čtení z paměti probíhá následujícím způsobem:\\
+\begin{minted}{c}
+registr R10 = RAM[adresa+3] | (RAM[adresa+2]<<8)
+           | (RAM[adresa+1]<<16) | (RAM[adresa]<<24);
+\end{minted}
+\bigskip
+
+nebo zápis do paměti takto:\\
+\begin{minted}{c}
+RAM[adresa+3] = R10 & 0xFF; RAM[adresa+2] = (R10>>8) & 0xFF;
+RAM[adresa+1] = (R10>>16) & 0xFF;
+RAM[adresa] = (R10>>24) & 0xFF;
+\end{minted}
 
 Některé starší procesory umožňovali pouze čtení ze zarovnané adresy, tedy z adresy adresa=4*x.
 
@@ -291,7 +312,7 @@ Pokud se bude číst z adresy, která není násobkem 4 pak se přečtou dvě sl
 \item načíst data z paměti do registru
 \item provést matematickou operaci s registry a výsledek uložit do registru
 \item uložit data z registru do paměti
-\item porovnat dvě čísla
+\item porovnat hodnotu dvou registrů
 \item podle výsledku porovnání provádět jiné instrukce (změnit PC na jinou hodnotu než je následující instrukce = provést skok v programu)
 \end{itemize}
 \item veškeré programy, ať už vytvořené v jazyku C, Python, programy provádějící i velmi komplexní výpočty jsou složené pouze z těchto jednoduchých instrukcí procesoru
@@ -310,7 +331,7 @@ Instruction Set Architecture (ISA) Architektura souboru instrukcí
 \begin{itemize}
 \item množinu strojových instrukcí procesoru
 \item podporované datové typy (celá čísla, celá čísla se znaménkem, reálná čísla)
-\item množina registrů
+\item množinu registrů
 \item adresní módy
 \item organizace paměti
 \end{itemize}
@@ -359,7 +380,7 @@ Complex Instruction Set Computer
 Jak je možné, že jste o strojových instrukcích ještě neslyšeli?
 
 \begin{center}
-   \includegraphics[width=0.65\textwidth]{generated/overview/preklad.pdf}  %svggraphics
+   \includegraphics[width=0.65\textwidth]{generated/overview/preklad.pdf}
 \end{center}
 
 \begin{itemize}
@@ -392,375 +413,145 @@ K čemu potřebujeme tranzistory v procesoru (CPU)?
 
 
 
-\section{Boolova algebra}
+\section{Logické obvody - Opakování PSY}
 
+\begin{frame}
+\frametitle{Binární komparátor}
+
+Jak udělat komparátor na rovnost?
+\begin{itemize}
+\item Máme dvě 64-bitová čísla X a Y která potřebujeme porovnat
+\item Porovnání dvou bitů provede operace xnor, která má hodnotu 1 pokud dva bity mají stejnou hodnotu.
+\begin{itemize}
+\item Nyní potřebujeme udělat and 64 logických hodnot.
+\end{itemize}
+\item Jak to můžeme udělat?
+\end{itemize}
+\end{frame}
 
 
 \begin{frame}
-\frametitle{Booleova algebra}
+\frametitle{Lineární řešení}
 
-Booleova algebra je matematická struktura:
+Řešení může být lineární:
+\begin{center}
+   \includegraphics[width=0.65\textwidth]{generated/logic/lin-comparator.pdf}
+\end{center}
+
+Jaké je to řešení?
 \begin{itemize}
-\item Používá pouze dvě hodnoty 0,1
+\item Počet and hradel se dvěma vstupy - 63 hradel
+\item Rychlost výpočtu?
 \begin{itemize}
-\item 0/1, nebo False/True, nebo nesvítí/svítí, nebo 0V/5V
-\end{itemize}
-\item Operace plus (nebo, ||, or, $\lor$)
-\begin{itemize}
-\item 0+0=0 \phantom{XXXX}  0+1=1
-\item 1+0=1 \phantom{XXXX}  1+1=1
-\end{itemize}
-\item Operace krát (a, \&\&, and, $\land$)
-\begin{itemize}
-\item 0*0=0 \phantom{XXXX}  0*1=0
-\item 1*0=0 \phantom{XXXX}  1*1=1
-\end{itemize}
-\item Operace inverzní prvek - (negace, !, not, $\neg$)
-\begin{itemize}
-\item -0 = 1
-\item -1 = 0
+\item Rychlost výpočtu hradla 4ps, protože na sebe výpočty navazují potřebujeme 63 výpočtů
+\item Rychlost výpočtu komparátoru bude 252 ps, což odpovídá frekvenci 4GHz  to je velmi polmalé
 \end{itemize}
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Boolova algebra}
-
-Booleova algebra se dá dobře implementovat pomocí napětí a tranzistorů (nebude u zkoušky)
+\frametitle{Logaritmické řešení}
 
 \begin{columns}
-\begin{column}{0.45\textwidth}
-Napětí jednoho vodiče vůči zemi definuje logickou hodnotu.
-\end{column}
-\begin{column}{0.55\textwidth}  
+\begin{column}{0.48\textwidth}
+Rychlejší řešení využívá paralelního výpočtu všech dvojic a následné spojování do výsledku:
 \begin{center}
-   \includegraphics[width=0.9\textwidth]{generated/overview/ttl_log01-cz.pdf}  %svggraphics
+   \includegraphics[width=0.95\textwidth]{generated/logic/log-comparator.pdf}
 \end{center}
 \end{column}
-\end{columns}
+\begin{column}{0.52\textwidth}
 
-\begin{columns}
-\begin{column}{0.45\textwidth}
-Příklad: Logická operace not, jeden vstupní vodiče X, jeden výstupní vodič Y.
-\end{column}
-\begin{column}{0.55\textwidth}  
-\begin{center}
-   \includegraphics[width=0.8\textwidth]{generated/overview/cmos_neg.pdf}  %svggraphics
-\end{center}
-\end{column}
-\end{columns}
-
-
-%inkscape ctrl shift Y logic symbols
-\end{frame}
-
-\begin{frame}
-\frametitle{Booleova algebra}
-
-Rozšířené operace \texttt{nand}, \texttt{nor}, \texttt{xor} a libovolné logické funkce se skládají ze základních operací (\texttt{and}, \texttt{or}, \texttt{not}):
-
-\begin{tabular}{ll}
-\texttt{X nand Y} & \texttt{= not(X and Y)}\\
-\texttt{X nor Y} & \texttt{= not(X or Y)}\\
-\texttt{X xor Y} & \texttt{= (X or Y) and (not(X and Y))}\\
-& \texttt{= (X or Y) and (X nand Y)}\\
-\end{tabular}
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Booleova algebra}
-
-Přehled hradel a jejich symbolů
-\begin{center}
-   \includegraphics[width=0.8\textwidth]{generated/logic/log_symbols.pdf}  %svggraphics
-\end{center}
-
-Souhrná tabulka základních logických hradel:
-\begin{tabular}{|c|c|c|c|c|c|c|c|}\hline
-X & Y & X and Y & X or Y & X xor Y & X nand Y & X nor Y & X xnor Y \\\hline
-0 & 0 &    0    &   0    &    0    &     1    &    1    &    1     \\\hline
-0 & 1 &    0    &   1    &    1    &     1    &    0    &    0     \\\hline
-1 & 0 &    0    &   1    &    1    &     1    &    0    &    0     \\\hline
-1 & 1 &    1    &   1    &    0    &     0    &    0    &    1     \\\hline
-\end{tabular}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Booleova algebra - kvíz}
-
-Vodiče se mohou i větvit. Co dělá následující obvod:
-\begin{center}
-   \includegraphics[width=0.4\textwidth]{generated/logic/not_jako_nand.pdf}  %svggraphics
-\end{center}
-
-\begin{tabular}{ll}
-A) takto to nelze zapojit \phantom{XXXX} & B) výsledkem je X and Y\\
-C) výsledkem je X and not Y              & D) výsledkem je not X
-\end{tabular}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Logické obvody}
-
-Některé funkce lze převést do hradel i efektivněji než přes základní logické funkce and, or, not.
-
-Hradlo nand je základním hradlem a lze z něj postavit všechny ostatní hradla.
-
-\begin{center}
-   \includegraphics[width=0.5\textwidth]{generated/logic/or_by_nand.pdf}  %svggraphics
-\end{center}
-
-Kvíz: Co je toto za funkci:
+Jaké je to řešení?
 \begin{itemize}
-\item[A] X and Y
-\item[B] X or Y
-\item[C] X xor Y
-\item[D] X nor Y
+\item Počet and hradel se dvěma vstupy - 63 hradel
+\begin{itemize}
+\item 32 + 16 + 8 + 4 + 2 + 1 = 63
 \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Logické obvody}
-
-\begin{columns}
-\begin{column}{0.55\textwidth}
-Logické obvody jsou složitější obvody složené ze základních logických členů - hradel. Signály se mohou větvit, spojují se vždy nějakou logickou operací.
-Výsledkem logického obvodu jsou vždy jen logické hodnoty 0 nebo 1.
-
-\bigskip
-
-Kvíz: Co dělá tento obvod:
+\item Rychlost výpočtu?
 \begin{itemize}
-\item[A] Nic rozumného, je to jen spleť vodičů
-\item[B] Je to multiplexor, hodnota Z je jeden ze signálů X podle hodnoty Y
-\item[C] Je to dělička, hodnota Z je X/Y
-\item[D] Hodnota Z je 1 pokud je X > Y 
-\end{itemize}
-\end{column}
-\begin{column}{0.45\textwidth}  
-\begin{center}
-   \includegraphics[width=0.95\textwidth]{generated/logic/multiplex.pdf}  %svggraphics
-\end{center}
-\end{column}
-\end{columns}
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Binární soustava - kvíz}
-
-Kvíz: Jeden vodič reprezentuje jednu hodnotu, buď 0 nebo 1. Jak reprezentovat více hodnot, třeba všechna celá čísla od 0 do 255 (tedy jeden bajt):
-\begin{itemize}
-\item[A] Jeden vodič má 8 rozdílných úrovní napětí
-\item[B] Jeden vodič reprezentuje postupně v čase 8 různých hodnot 0/1
-\item[C] Osm vodičů, každý reprezentuje v jeden čas jednu z hodnot 0/1
-\item[D] 256 vodičů, pouze jeden má hodnotu 1, ostatní mají hodnotu 0
-\end{itemize}
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Binární soustava}
-
-Více bitová čísla - binární soustava
-\begin{itemize}
-\item více jednobitových paralelních vodičů
-\begin{itemize}
-\item zpravidla 8,16,32,64 (mocniny 2)
-\item občas potřebujeme i jen části čísel, třeba 5-bitové
-\end{itemize}
-\item pořadí vodičů je důležité
-\begin{itemize}
-\item každý vodič reprezentuje jednu mocninu 2
-\item vodič $a_{i}$, celková hodnota $s = \sum_{i=0}^{63} a_{i}*2^{i}$
+\item Výpočty v jedné řadě jsou nezávislé a probíhají ve stejnou dobu
+\item Kolik řad máme? První řada obsahuje 32 hradel and, druhá 16 and, třetí 8 and, čtvrtá 4 and, pátá 2 and, šestá 1 and
+\item Rychlost výpočtu komparátoru bude 6*4 = 24 ps, což je 10 krát rychlejší
 \end{itemize}
 \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Sčítání}
-
-Součet dvou jednobitových čísel:
-\begin{tabular}{|r|r|c|}\hline
-X & Y & X+Y\\ \hline
-0 & 0 & 00\\ \hline
-0 & 1 & 01\\ \hline
-1 & 0 & 01\\ \hline
-1 & 1 & 10\\ \hline
-\end{tabular}
-
-\bigskip
-
-\begin{columns}
-\begin{column}{0.55\textwidth}
-Výsledek součtu může být dvoubitové číslo $C$ - přenos, $S$ - součet.
-\bigskip
-
-\texttt{$S$ = $X$ xor $Y$}\\
-\texttt{$C$ = $X$ and $Y$}
-
-\bigskip
-
-Tomuto logickému obvodu se říká poloviční sčítačka (Half adder)
-\end{column}
-\begin{column}{0.45\textwidth}  
-\begin{center}
-   \includegraphics[width=0.75\textwidth]{generated/logic/half_adder.pdf}  %svggraphics
-\end{center}
 \end{column}
 \end{columns}
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Sčítání}
 
-Pokud sčítáme vícebitová čísla potřebujeme později sečíst tři bitové vstupy.
-
+\begin{frame}[fragile]
+\frametitle{Rychlé mocnění}
+Výpočet mocnin - opakování z PSY:
 \begin{columns}
-\begin{column}{0.6\textwidth}
-Výsledek součtu je opět dvoubitové číslo: $C_{out}$~-~přenos, $S$~-~součet.
-
-\begin{columns}
-\begin{column}{0.55\textwidth}
-
+\begin{column}{0.44\textwidth}
+\small
+\begin{minted}{c}
+double Exp(double a, int k) {
+  if (k == 0) return 1;
+  return a * Exp(a, k - 1);
+}
+\end{minted}
 \bigskip
 
-\begin{tabular}{|r|r|r|c|}\hline
-C & X & Y & C+X+Y\\ \hline
-0 & 0 & 0 & 00\\ \hline
-0 & 0 & 1 & 01\\ \hline
-0 & 1 & 0 & 01\\ \hline
-0 & 1 & 1 & 10\\ \hline
-1 & 0 & 0 & 01\\ \hline
-1 & 0 & 1 & 10\\ \hline
-1 & 1 & 0 & 10\\ \hline
-1 & 1 & 1 & 11\\ \hline
-\end{tabular}
+Lineární mocnění - v kryptografii je potřeba vypočítat i výrazy $X^{1000000}$
+
+K tomu je potřeba provést milión násobení.
 
 \end{column}
-\begin{column}{0.45\textwidth}
-
-\texttt{$S_1$ = ($X$ xor $Y$)}\\
-\texttt{$S$ = ($S_1$ xor $C$)}\\
-\texttt{$C_1$ = ($X$ and $Y$)}\\
-\texttt{$C_2$ = ($S_1$ and $C$)}\\
-\texttt{$C_{out}$ = $C_1$ or $C_2$}
-
+\hfill
+\begin{column}{0.50\textwidth}
+\small
+\begin{minted}{c}
+double FastExp(double a, int k) {
+  if (k == 0) return 1;
+  if (k % 2 == 0) {
+    double i = FastExp(a, k / 2);
+    return i * i;
+  } else {
+    return a * FastExp(a, k - 1);
+  }
+}
+\end{minted}
 \bigskip
 
-Tomuto logickému obvodu se říká úplná sčítačka 
+Logaritmické mocnění - nahradí milión násobení, desítkami násobení.
 
-(Full adder)
-\end{column}
-\end{columns}
-
-\end{column}
-\begin{column}{0.4\textwidth}  
-
-\begin{center}
-   \includegraphics[width=\textwidth]{generated/logic/full_adder.pdf}   %svggraphics
-\end{center}
-
-
-\begin{center}
-   \includegraphics[width=\textwidth]{generated/logic/full_adder2.pdf}  %svggraphics
-\end{center}
+Logaritmické mocnění je 100000 krát rychlejší.
 
 \end{column}
 \end{columns}
-
-
 \end{frame}
 
+
+
+
 \begin{frame}
-\frametitle{Sčítání - Ripple Carry Adder}
+\frametitle{Sčítání - Ripple Carry Adder - opakování}
 
-Nejjednodušší sčítačka vícebitových čísel prostě propojí jednu poloviční sčítačku a plné sčítačky. 
 
-Tato sčítačka se jmenuje Ripple Carry Adder (Řetězová sčítačka).
+Lineární sčítačka se jmenuje Ripple Carry Adder (Řetězová sčítačka).
 
 \begin{center}
-   \includegraphics[width=0.7\textwidth]{generated/logic/ripple_adder.pdf}   %svggraphics
+   \includegraphics[width=0.7\textwidth]{generated/logic/addition/ripple_adder.pdf}
 \end{center}
 
-$a_5a_4a_3a_2a_1a_0 + b_5b_4b_3b_2b_1b_0 = s_6s_5s_4s_3s_2s_1s_0$ platí, že $s_6 = c_6$
+Je obdobně pomalá jako lineární komparátor - vlastně 2-krát tak pomalá než lineární komparátor
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Sčítání - Ripple Carry Adder}
-
-Jak rychlá je Ripple Carry Adder?
-\begin{itemize}
-\item Pokud je zpoždění jednoho hradla N pak zpoždění Ripple Carry Adder pro dvě 64-bitové hodnoty 63*2*N+N
-\item Je to důležité?
-\begin{itemize}
-\item Ano, při taktu CPU 4GHz trvá jeden takt 250 ps (pikosekund)
-\item Omezení je i rychlost světla 0.3 mm/ps, to je maximální rychlost šíření informace
-\item Při zpoždění hradla kolem 10ps, pak Ripple Carray Adder by sečetla 2 čísla za 1270 ps (to je více než 5 taktů procesoru).  
-\end{itemize}
-\item Lze to rychleji?
-\begin{itemize}
-\item Ano, Carry Lookahead adder
-\end{itemize}
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Sčítání - Carry Lookahead adder}
-
-\begin{itemize}
-\item Lze spočítat $C_1$, $C_2$, ... , rovnou ze sčítaných čísel?
-\begin{itemize}
-\item Ano, ale pro hodně bitová čísla to je drahé, potřebujeme hodně hradel.
-\item Ukážeme si to pro 4-bitová čísla
-\item Nadefinujeme si dvě základní hodnoty:
-\begin{itemize}
-\item Generování carry -- pokud $A_i=1$ a $B_i=1$ pak určitě bude $C_{i+1}=1$ tedy carry se vygeneruje $G_i=A_i \land B_i$ 
-\item Propagování carry -- pokud $A_i=1$ nebo $B_i=1$ pak bude $C_{i+1}=C_{i}$ tedy carry se bude propagovat, pokud bylo nižší carry; $P_i=A_i$ xor $B_i$ 
-\end{itemize}
-\item Pro 4-bitové číslo:
-\begin{itemize}
-\item $C_1=G_0$ 
-\item $C_2=G_1 \lor (C_1 \land P_1)= G_1 \lor (G_0 \land P_1)$
-\item $C_3=G_2 \lor (C_2 \land P_2)= G_2 \lor (G_1 \land P_2) \lor (G_0 \land P_1 \land P_2)$ 
-\item $C_4=G_3 \lor (C_3 \land P_3)= G_3 \lor (G_2 \land P_3) \lor (G_1 \land P_2 \land P_3) \lor (G_0 \land P_1 \land P_2 \land P_3)$
-\item takto bychom mohli pokračovat, ale výraz by byl složitější a složitější
-\end{itemize}
-\end{itemize}
-\end{itemize}
-
-\end{frame}
 
 \begin{frame}
 \frametitle{Sčítání - Carry Lookahead Adder}
+Přímý výpočet přenosů -- carry na základě hodnot bitů sčítanců, je nejrychlejší sčítačka pro 4-bitová čísla (opakování PSY).
 
-Takto bude vypadat nejrychlejší sčítačka pro 4-bitová čísla. 
-
-Dvě čísla sečte na 4 zpoždění hradla.
+Dvě čísla sečte na 4 zpoždění hradla - teoreticky konstantní doba vzhledem k počtu bitů čísel.
 \begin{center}
-   \includegraphics[width=0.65\textwidth]{generated/logic/lookahead_direct.pdf}  %svggraphics
+   \includegraphics[width=0.5\textwidth]{generated/logic/addition/lookahead_direct.pdf}
 \end{center}
 
-Pro 64 bitová čísla by potřebovala sčítačka kolem $10^{20}$ hradel, což je moc.
+Pro 64 bitová čísla by potřebovala sčítačka kolem $10^{20}$ tranzistorů, což je moc.
 \end{frame}
 
 
@@ -773,33 +564,30 @@ Co tedy s většími čísly, třeba 64-bitovými?
 \begin{columns}
 \begin{column}{0.45\textwidth}
 \begin{itemize}
-\item Upravíme 4-bitovou sčítačku tak, aby mohla přijmout $C$ z předchozích výpočtů
+\item Upravíme 4-bitovou sčítačku tak, aby mohla přijmout přenos $C$ z předchozích výpočtů.
 \begin{itemize}
-\item POZOR budou se muset přidat hradla
+\item POZOR budou se muset přidat hradla pro zpracování carry od sčítaček nižších řádů.
 \end{itemize}
 \item Takto upravené sčítačky můžeme řetězit.
 \end{itemize}
 \end{column}
 \begin{column}{0.55\textwidth}
 \begin{center}
-   \includegraphics[width=0.95\textwidth]{generated/logic/lookahead_ripple.pdf}  %svggraphics
+   \includegraphics[width=0.95\textwidth]{generated/logic/addition/lookahead_ripple.pdf}
 \end{center}
 \end{column}
 \end{columns}
 
-
 \begin{itemize}
+\item Zrychlení je pouze o konstantu, závislost na počtu bitů sčítanců je pořád lineární.
 \item Rychlost 16-ti bitové sčítačky z obrázku bude 16 zpoždění hradel
-\item Rychlost 64-ti bitové sčítačky bude 64 zpoždění hradel, což je daleko lepší, než 127 zpoždění u jednoduché Ripple carry adder.
+\item Rychlost 64-ti bitové sčítačky bude 64 zpoždění hradel, což je 2 krát lepší, než 127 zpoždění u jednoduché Ripple carry adder.
 \end{itemize}
-
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Sčítání - Carry Select Adder}
-
-
 Jiné řešení?
 
 \begin{itemize}
@@ -808,41 +596,129 @@ Jiné řešení?
 \item Nakonec řetězíme pouze multiplex, zda skutečně Carry bylo 0 nebo 1
 \end{itemize}
 \begin{center}
-   \includegraphics[width=0.75\textwidth]{generated/logic/lookahead_select.pdf}  %svggraphics
+   \includegraphics[width=0.75\textwidth]{generated/logic/addition/lookahead_select.pdf}
 \end{center}
 
 \begin{itemize}
-\item Sčítačka je rychlejší, místo zpoždění 4 hradel bude řetězit pouze zpoždění 2 hradel pro multiplexor
+\item Sčítačka je rychlejší opět o konstantu krát, místo zpoždění 4 hradel bude řetězit pouze zpoždění 2 hradel pro multiplexor
 \item Rychlost 16-ti bitové sčítačky z obrázku bude 10 zpoždění hradel
-\item Rychlost 64-ti bitové sčítačky bude 34 zpoždění hradel, což je o něco lepší, než 64 zpoždění u řetězení CLA.
+\item Rychlost 64-ti bitové sčítačky bude 34 zpoždění hradel, což je 2 krát lepší, než 64 zpoždění u řetězení CLA.
 \end{itemize}
 
 \end{frame}
-
 
 
 
 \begin{frame}
-\frametitle{Sčítání - Carry Lookahead Adder}
+\frametitle{Propagace a generování carry}
 
-Můžeme ještě něco vylepšit?
+V PSY jsme si ukazovali, že pokud se zaměříme na jeden sloupeček výpočtu součtu, mohou nastat pouze 3 rozdílné situace:
+\begin{columns}
+\begin{column}{0.25\textwidth}
+\begin{center}
+   \includegraphics[width=0.45\textwidth]{generated/logic/addition/prop_gen_carry.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.75\textwidth}
+
 \begin{itemize}
-\item Můžeme zavést proměnné generuj a propaguj pro skupinu bitů:
+\item Pokud je $X_i=0$ a $Y_i=0$, pak musí být $C_{i+1}=0$
+\item Pokud je $X_i=1$ a $Y_i=0$, nebo $X_i=0$ a $Y_i=1$, pak musí být $C_{i+1}=C_i$.
 \begin{itemize}
-\item Pokud budou bity $i$ až $j$ generovat přenos (carry), pak $G_{i,j}=1$
-\item Pokud budou bity $i$ až $j$ propagovat přenos (carry), pak $P_{i,j}=1$
+\item Tento ppřípad naveme propagování carry, protože $C_{i+1}$ propaguje hodnotu $C_i$
+\item $P_i = X_i \oplus Y_i$
 \end{itemize}
-\item Nyní si definujeme pravidla, jak $G_{i,k}$ a $P_{i,k}$ spočítat z $G_{i,j}$, $G_{j+1,k}$,$P_{i,j}$, $P_{j+1,k}$
+\item Pokud je $X_i=1$ a $Y_i=1$, pak musí být $C_{i+1}=1$.
 \begin{itemize}
-\item $G_{i,k}=G_{j+1,k} \lor (G_{i,j} \land P_{j+1,k})$
-\item $P_{i,k}=P_{i,j} \land P_{j+1,k}$
+\item Tento ppřípad naveme generování carry, protože $C_{i+1}$ nezávisí na $C_i$ a má vždy hodnotu $1$
+\item $G_i = X_i \land Y_i$
 \end{itemize}
-\item Počáteční hodnoty jsou staré známé $G_i$ a $P_i$. 
-\item Tedy $G_{i,i}=G_i=a_i \land b_i$ a $P_{i,i}=P_i=a_i$ xor $b_i$.
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Propagace a generování carry}
+
+Nyní si zkusíme vypočítat hodnotu propagace a generování carry pro skupinu bitů od j do i:
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{center}
+   \includegraphics[width=\textwidth]{generated/logic/addition/prop_gen_block-cz.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.55\textwidth}
+
+\begin{itemize}
+\item Propagování carry nastane, pokud kombinace hodnot $X_j ... X_i$ a $Y_j ... Y_i$ způsobí, že $C_{i+1}=C_j$.
+\begin{itemize}
+\item Jak toto $P_{j,i}$ spočítat si ukážeme za chvíli
+\end{itemize}
+\item Generování carry nastane, pokud kombinace hodnot $X_j ... X_i$ a $Y_j ... Y_i$ způsobí, že $C_{i+1}=1$.
+\begin{itemize}
+\item Tento případ si označíme $G_{j,i}$
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Propagace a generování carry}
+
+Jak tedy $P_{j,i}$ a $G_{j,i}$ spočítat? Logaritmicky - rozděl a panuj.
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+   \includegraphics[width=0.95\textwidth]{generated/logic/addition/prop_gen_compute.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+
+\begin{itemize}
+\item Hodnoty $G_{i,i}=G_i=X_i \land Y_i$ a $P_{i,i}=P_i=X_i \oplus Y_i$
+\item Nyní si musíme uvědomit, kdy dojde k propagaci carry?
+\begin{itemize}
+\item Pokud dojde k propagaci carry mezi bity j a k a zároveň dojde k propagaci carry mezi bity k+1 a i
+\item $P_{j,i}=P_{j,k} \land P_{k+1,i}$ tedy $P_{j,i}=P_h \land P_l$
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
+
+\begin{itemize}
+\item Kdy dojde ke generování carry?
+\begin{itemize}
+\item Pokud vyšší bity vygenerují carry nebo nižší bity vygenerují carry a vyšší bity ho budou propagovat
+\item $G_{j,i}=G_{k+1,i} \lor (G_{j,k} \land P_{k+1,i})$ tedy $G_{j,i}=G_h \lor (G_l \land P_h)$
+\end{itemize}
 \end{itemize}
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Propagace a generování carry}
+
+Plán výpočtu hodnot propagace a generování carry.
+
+\begin{center}
+   \includegraphics[width=0.45\textwidth]{generated/logic/addition/prop_gen_example.pdf}
+\end{center}
+
+\begin{itemize}
+\item V prvním kroku spočteme základní hodnoty propagace a generování pro dvojice $X_i$, $Y_i$
+\item V dalšm kroku spočteme hodnoty propagace a generování pro čtveřice $X_{2*i},X_{2*i+1}$, $Y_{2*i}, Y_{2*i+1}$
+\item V každém dalším kroku se vždy spojí dva bloky do jednoho
+\end{itemize}
+
+\end{frame}
 
 
 \begin{frame}
@@ -852,7 +728,7 @@ Takto lze realizovat výše uvedený výpočet:
 \begin{columns}
 \begin{column}{0.55\textwidth}
 \begin{center}
-   \includegraphics[width=0.95\textwidth]{generated/logic/lookahead_tree.pdf}  %svggraphics
+   \includegraphics[width=0.95\textwidth]{generated/logic/addition/lookahead_tree.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.45\textwidth}
@@ -872,12 +748,94 @@ Doba výpočtu dvojic $G_{i,k}$ a $P_{i,k}$:
 \end{frame}
 
 
+
+
+\begin{frame}
+\frametitle{Sčítání - Carry Lookahead Adder}
+
+Nyní nám zbývá vypočítat všechny Carry $C_i$, pokud bychom předpokládali řetězení, tak známe $C_0$ jinak by :
+\begin{itemize}
+\item Opět použijeme strom, tentokrát v opačném pořadí než výpočet $P_{i,j}$ a $G_{i,j}$:
+\begin{itemize}
+\item Pokud známe $C_i$, $G_{j,i}$ a $P_{j,i}$
+\item pak $C_{i+1} = G_{j,i} \lor (C_j \land P_{j,i})$
+\end{itemize}
+\item Výpočet pro 4-bitové sčítance bude probíhat v následujícím pořadí:
+\begin{itemize}
+\item $C_4 = G_{0,3} \lor (C_0 \land P_{0,3})$, $C_2 = G_{0,1} \lor (C_0 \land P_{0,1})$
+\item $C_3 = G_{2,2} \lor (C_2 \land P_{2,2})$, $C_1 = G_{0,0} \lor (C_0 \land P_{0,0})$
+\end{itemize}
+\item Opět platí, že pro $2\times$ větší sčítance se doba prodlouží o 2 zpoždění. 
+\item Tedy pro 64 bitový je výpočet všech $C_i$ s 12 zpožděním hradel.
+\item Celý součet pro 64 bitový sčítance trvá 26 zpožděním hradel.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Sčítání - Carry Lookahead Adder}
+
+Když máme spočtené G a P pro zadané rozsahy, pak začneme počítat vlastní carry:
+\begin{columns}
+\begin{column}{0.55\textwidth}
+\begin{center}
+   \includegraphics[width=0.95\textwidth]{generated/logic/addition/prop_gen_final.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.45\textwidth}
+
+Obecně lze napsat:\\
+$C_{i+1} = G_{j,i}$ or ($C_j$ and $P_{j,i}$)
+
+Výpočet C proběhne ve 4 krocích, barevně odlišených:
+\begin{itemize}
+\item Výpočet $C_8$
+\item Výpočet $C_4$
+\item Výpočet $C_6$, $C_2$
+\item Výpočet $C_7$, $C_5$, $C_3$, $C_1$
+\end{itemize}
+
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sčítání - Carry Lookahead Adder}
+
+Výpočet $C_i$ a pak i $S_i$ vypadá následovně:
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+   \includegraphics[width=0.95\textwidth]{generated/logic/addition/lookahead_tree_carry.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}
+
+Doba výpočtu všech carry $C_i$ a $S_i$:
+\begin{itemize}
+\item Rychlost 4-ti bitových sčítanců 5 zpoždění hradel
+\item Rychlost 8-ti bitových sčítanců 7 zpoždění hradel
+\item Rychlost 64-ti bitových sčítanců 13 zpoždění hradel
+\end{itemize}
+
+Celkem doba výpočtu pro 64-bitové sčítance je 24 zpoždění tedy asi 96ps.
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+
 \begin{frame}
 \frametitle{Sčítání - Carry Lookahead Adder - Příklad}
 
 Výpočet generování a propagace carry bloku pomocí:
 \begin{itemize}
-\item $g_h$, $p_h$ - generování a propagace carry ve vyšším podbloku 
+\item $g_h$, $p_h$ - generování a propagace carry ve vyšším podbloku
 \item $g_l$, $p_l$ - generování a propagace carry v nižším podbloku
 \end{itemize}
 \begin{table}
@@ -898,52 +856,6 @@ p = $p_h$ and $p_l$ & \multicolumn{8}{c|} 0   \\ \hline
 
 
 
-\begin{frame}
-\frametitle{Sčítání - Carry Lookahead Adder}
-
-Nyní nám zbývá vypočítat všechny Carry $C_i$, pokud bychom předpokládali řetězení, tak známe $C_0$ jinak by :
-\begin{itemize}
-\item Opět použijeme strom, tentokrát v opačném pořadí než výpočet $P_{i,j}$ a $G_{i,j}$:
-\begin{itemize}
-\item Pokud známe $C_i$, $G_{i,j}$ a $P_{i,j}$
-\item pak $C_{j+1} = G_{i,j} \lor (C_i \land P_{i,j})$ 
-\end{itemize}
-\item Výpočet pro 4-bitové sčítance bude probíhat v následujícím pořadí:
-\begin{itemize}
-\item $C_4 = G_{0,3} \lor (C_0 \land P_{0,3})$, $C_2 = G_{0,1} \lor (C_0 \land P_{0,1})$
-\item $C_3 = G_{2,2} \lor (C_2 \land P_{2,2})$, $C_1 = G_{0,0} \lor (C_0 \land P_{0,0})$
-\end{itemize}
-\item Opět platí, že pro $2\times$ větší sčítance se doba prodlouží o 2 zpoždění. 
-\item Tedy pro 64 bitový je výpočet všech $C_i$ s 12 zpožděním hradel.
-\item Celý součet pro 64 bitový sčítance trvá 26 zpožděním hradel.
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Sčítání - Carry Lookahead Adder}
-
-Výpočet $C_i$ pak vypadá následovně:
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\begin{center}
-   \includegraphics[width=0.95\textwidth]{generated/logic/lookahead_tree_carry.pdf}  %svggraphics
-\end{center}
-\end{column}
-\begin{column}{0.5\textwidth}
-
-Doba výpočtu dvojic $G_{i,k}$ a $P_{i,k}$:
-\begin{itemize}
-\item Rychlost 4-ti bitových sčítanců 5 zpoždění hradel
-\item Rychlost 8-ti bitových sčítanců 7 zpoždění hradel
-\item Rychlost 64-ti bitových sčítanců 13 zpoždění hradel
-\end{itemize}
-
-\end{column}
-\end{columns}
-
-\end{frame}
 
 \begin{frame}{shrink=5}
 \frametitle{Sčítání - Carry Lookahead Adder - Příklad}
@@ -1033,113 +945,175 @@ C  & \multicolumn{8}{l|}{$C_8$ = 0 or ( 0 and $C_0$) = 0}   \\ \hline
 
 
 \begin{frame}
-\frametitle{Multiplexor}
+\frametitle{Odčítání}
 
-Podobný přístup (rozděl a panuj - vytvoř stromovou strukturu) lze využít třeba i při konstrukci multiplexu:
+Nyní jsme si ukázali optimální sčítačku, pracující i pro čísla o velikost 128 bitů.
 \begin{columns}
 \begin{column}{0.5\textwidth}
-\begin{center}
-   \includegraphics[width=0.5\textwidth]{generated/logic/multiplex-tree.pdf}   %svggraphics
-\end{center}
+Odčítání lze řešit:
+\begin{itemize}
+\item speciálním obvodem podobným sčítačce se všemi možnostmi zrychlení jako byly u sčítání
+\item nebo z druhého čísla vytvoříme číslo opačné a to pak jednoduše sečteme s tím prvním
+\end{itemize}
 \end{column}
+\hfill
 \begin{column}{0.5\textwidth}
-\begin{itemize}
-\item Podle tříbitového čísla $x$ se vybere odpovídající vstup $a_x$ na výstup $Y$
-\item Není to nejrychlejší implementace, ale je přehledná
-\item Můžeme využít i 4 vstupový multiplex a snížit počet úrovní stromu.
-\end{itemize}
-
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}[fragile,shrink=5]
-\frametitle{Operace posun -- shift}
-
-Oprace posun -- shift:
-\begin{itemize}
-\item Odpovídá to operaci jazyka C \texttt{>>} a \texttt{<<}
-\begin{itemize}
-\item Operace lze mimo jiné použít pro násobení mocninou 2 -- oprace \texttt{<<}; pro dělení mocninou 2 -- oprace \texttt{>>}
-\end{itemize}
-\item Jak implementovat posun o k-bitů?
-\end{itemize}
-\begin{columns}
-\begin{column}{0.48\textwidth}
-k-krát rotovat o 1 bit\\
-Porovnej algoritmus mocnění:
-\end{column}
-\begin{column}{0.52\textwidth}
-rotovat o 1, 2, 4, 8, 16 bitů\\
-Porovnej algoritmus rychlého mocnění:
-\end{column}
-\end{columns}
-
-\begin{columns}
-\begin{column}{0.48\textwidth}
-\begin{minted}{c}
-double Exp(double a, int k) {
-  if (k == 0) return 1;
-  return a * Exp(a, k - 1);
-}
-\end{minted}
-\end{column}
-\begin{column}{0.52\textwidth}
-\begin{minted}{c}
-double FastExp(double a, int k) {
-  if (k == 0) return 1;
-  if (k % 2 == 0) {
-    double i = FastExp(a, k / 2);
-    return i * i;
-  } else {
-    return a * FastExp(a, k - 1);
-  }
-}
-\end{minted}
-
-\end{column}
-\end{columns}
-
-
-
-\end{frame}
-
-
-
-\begin{frame}
-\frametitle{Barrel shifter}
-
-Rotaci o 0-7bitů lze složit z rotací o 1, 2, 4:
 \begin{center}
-   \includegraphics[width=0.75\textwidth]{generated/logic/barrel-shift.pdf}  %svggraphics
+\includegraphics[width=0.5\textwidth]{generated/logic/addition/substaction-cz.pdf}
 \end{center}
+\end{column}
+\end{columns}
 
-\begin{itemize}
-\item Multiplexory v každé řadě vybírají buď nedělej nic nebo posuň o daný počet bitů.
-\item Bitové vstupy $x_2,x_1,x_0$ reprezentující binární číslo o kolik bitů rotovat
-\item Příklad:
-\begin{itemize}
-\item posunutí o 5 bitů dostaneme složením posunutí o 1 bit a posunutí o 4 bity ($x_2=1$, $x_1=0$, $x_0=1$)
-\item posunutí o 3 bity dostaneme složením posunutí o 1 bit a posunutí o 2 bity ($x_2=0$, $x_1=1$, $x_0=1$)
-\end{itemize}
-\end{itemize}
+V PSY jsme si ukázali obvod pro přičtení 1, jedná se vlastně o výpočet and pro všechny kombinace bitů od nejnižšího bitu.
 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Kvíz}
+\frametitle{Násobení celých čísel}
 
-Kolik vrstev (řádek) Barrel shifter musí mít pro 64 bitové číslo, tedy pro rotace od 0 do 63? (Pro rotaci od 0 do 7 to byly 3 vrstvy)
+Stejný princip násobení, jak jste se ho naučili na základní škole pro desítkovou soustavu:
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\texttt{\phantom{xxx}153}\\
+\texttt{\phantom{xxx}*45}\\
+\vspace{-8pt}
+\rule[0pt]{1.5cm}{0.1pt}\\
+\texttt{\phantom{xxx}765}\\
+\texttt{\phantom{xx}612 }\\
+\vspace{-8pt}
+\rule[0pt]{1.5cm}{0.1pt}\\
+\texttt{\phantom{xx}6885}\\
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\texttt{\phantom{xxxxxx}10011001}\\
+\texttt{\phantom{xxxxxxx}*101101}\\
+\vspace{-8pt}
+\rule[0pt]{3cm}{0.4pt}\\
+\texttt{\phantom{xxxxxx}10011001}\\
+\texttt{\phantom{xxxxx}00000000}\\
+\texttt{\phantom{xxxx}10011001}\\
+\texttt{\phantom{xxx}10011001}\\
+\texttt{\phantom{xx}00000000}\\
+\texttt{\phantom{x}10011001}\\
+\vspace{-8pt}
+\rule[0pt]{3cm}{0.4pt}\\
+\texttt{\phantom{x}1101011100101}\\
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Násobení celých čísel}
+
+Podle uvedeného algoritmu můžeme vytvořit následující násobičku s posuvným registrem:\\
+(A,B 32 bitů, výsledek 64 bitů)
+\begin{center}
+\includegraphics[width=0.45\textwidth]{generated/logic/multiplication/multiplier-seq-cz.pdf}
+\end{center}
 \begin{itemize}
-\item[A] 4
-\item[B] 6
-\item[C] 16
-\item[D] 64
+\item Výsledek je ve dvou registrech AC a B
+\item Pomalé, už sčítání je náročné, nyní 32 sčítání, tedy přibližně 32*20=640 zpoždění, tedy asi 2560ps, tedy 10 taktů procesoru.
+\item Pro násobení 64-bitových čísel přibližně 64*24=1536 zpoždění, tedy asi 25 taktů procesoru.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rychlé násobení - Motivace Wallace tree}
+
+Jak to zrychlit - odložené carry (Carry Save Adder).\\
+Carry Save Adder je vlastně Full Adder s tím, že oddělíme součet a přenos do rozdílných čísel.\\
+Jak nejrychleji spočítat součet čtyř 32-bitových čísel:\\
+\begin{columns}
+\begin{column}{0.35\textwidth}
+\includegraphics[width=1.0\textwidth]{generated/logic/multiplication/wallace-tree.pdf}
+\end{column}
+\hfill
+\begin{column}{0.65\textwidth}
+\begin{itemize}
+\item Sečteme paralelně p=w+x a q=y+z a potom p+q -- trvá dlouho, nejméně doby dvou plných součtů
+\item Odložíme carry (nebudeme carry propagovat, jen v posledním kroku):
+\begin{itemize}
+\item 1. krok použijeme Full adder a sečteme vždy bity $w_i+x_i+y_i = c'_ip_i$
+\item 2. krok použijeme Full adder a sečteme vždy bity $p_i+c'_{i-1}+z_i = c_iq_i$
+\item 3. krok použijeme normální sčítačku 32-bitových čísel ($s_0=q_0$, $c'_{31}$ připojíme ke $q$)
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rychlé násobení - Motivace Wallace tree}
+Jakého zrychlení tedy dosáhneme?
+
+Sčítání šesti čísel:
+\begin{columns}
+\begin{column}{0.3\textwidth}
+\includegraphics[width=0.98\textwidth]{generated/logic/multiplication/wallace-tree6.pdf}
+\end{column}
+\hfill
+\begin{column}{0.7\textwidth}
+\begin{itemize}
+\item Každý krok zredukuje velikost problému na $\lceil \frac{2}{3} \rceil$
+\item Kolik kroků potřebuje na součet 6 čísel:
+\begin{itemize}
+\item 1. krok redukce na součet 4 čísel - 2 zpoždění
+\item 2. krok redukce na součet 3 čísel - 2 zpoždění
+\item 3. krok redukce na součet 2 čísel - 2 zpoždění
+\item 4. krok normální sčítačka 2 čísel - 24 zpoždění
+\end{itemize}
+\item Součet 6 čísel - 30 zpoždění
+\item Rychlost součtu N čísel, počet kroků na redukci součtu dvou čísel $\log_{\frac{3}{2}}(N) = \frac{1}{\log(\frac{3}{2})} \cdot \log(N) = $ $ = 5.678 \cdot \log(N) = O(log(N))$
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rychlé násobení - Wallace tree}
+
+Použijeme předchozí princip na co nejrychlejší součet 32 nebo 64 různých čísel:
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\includegraphics[width=1.0\textwidth]{generated/logic/multiplication/wallace-tree2.pdf}
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\begin{itemize}
+\item Součiny jsou jednoduché: $x_i \cdot y_j=x_i$~\texttt{and}~$y_j$
+\item Nejtěžší je sečíst prostřední sloupec 64 jednobitových čísel
+\item Pustíme na všechny bity, co můžeme, paralelně sčítačky a carry budeme přičítat v dalších krocích
+\item V první fázi to bude 1323 sčítaček
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[shrink=5]
+\frametitle{Rychlé násobení - Wallace tree}
+
+Když se podíváme jen na prostřední nejdelší sloupec:
+\begin{center}
+\includegraphics[width=0.8\textwidth]{generated/logic/multiplication/wallace-tree3.pdf}
+\end{center}
+
+\begin{itemize}
+\item Vidíme, že za 8 kroků sčítaček, tedy 16 zpoždění hradel nám zbývá sečíst dva bity
+\item Vpravo od tohoto sloupce je již něco sečteno a již se i propagovali carry posledních 8 sčítanců
+\item Zbývá sečíst dvě 120-bitová čísla (součty a carry), což se dá stihnout asi za 30 zpoždění hradel
+\item Výsledek - vynásobíme dvě čísla za cenu doby odpovídající přibližně dvěma součtům 64-bitových čísel
+\item V praxi to trvá trochu déle, je použito méně sčítaček CSA.
 \end{itemize}
 
 \end{frame}
+
 
 
 \begin{frame}
