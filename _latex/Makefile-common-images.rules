@@ -11,11 +11,24 @@ endif
 
 DOC_LANG ?= cz
 
+DOC_DATE_LOCALE := $(notdir $(filter $(DOC_LANG)/%,cz/cs_CZ.UTF-8 en/en_US.UTF-8))
+ifeq ($(DOC_DATE_LOCALE),)
+$(warning No date locale for DOC_LANG=$(DOC_LANG))
+DOC_DATE_LOCALE := en_US.UTF-8
+endif
+
+MODDATE_FILE := moddate.tex
+
 #SVGS = $(shell  *.svg)
 ANIM = $(patsubst %,anim/%/overlay.tex,$(basename $(SVGS)))
-export TEXINPUTS=.:$(TOPDIR)/_latex:$(TOPDIR)
+export TEXINPUTS=.:$(TOPDIR)/_latex:$(TOPDIR):$(MAKEFILE_RULES_DIR):
+
+XELATEX := xelatex
+XELATEX_FLAGS := -recorder --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error
 
 FIGS = $(shell sed -n -e 's#^.*{[^{}]*\(generated/[^{}]*\)}.*$$#$(TOPDIR)/\1#pg' $(DOC).tex)
+FIGS_SRC=$(FIGS:$(TOPDIR)/generated/%.pdf=$(TOPDIR)/common/%.svg)
+
 
 .PHONY: all FORCE_MAKE
 
@@ -23,15 +36,24 @@ gitignore_target = grep -q '/$@' .gitignore || echo '/$@' >> .gitignore
 
 all: $(DOC).pdf $(NUM:%=apo%_2021.pdf)
 
-$(DOC).pdf: export TEXINPUTS=.:$(MAKEFILE_RULES_DIR):
-$(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture-$(DOC_LANG).sty $(FIGS) $(ANIM)
+$(DOC).pdf: $(DOC).tex $(MAKEFILE_RULES_DIR)/apo-lecture-$(DOC_LANG).sty $(FIGS) $(ANIM)
 	if [ -e $(DOC).toc ] ; then cp $(DOC).toc $(DOC).toc.bak ; else touch $(DOC).toc.bak ; fi
-	xelatex -recorder --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
-	cmp $(DOC).toc $(DOC).toc.bak || \
-	xelatex -recorder --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
+	if [ ! -e $(MODDATE_FILE) ] ; then LOCALE=$(DOC_DATE_LOCALE) LC_TIME=$(DOC_DATE_LOCALE) \
+	    date --date="@0" +'%e. %B, %Y' >$(MODDATE_FILE) ; \
+	fi
+	$(XELATEX) $(XELATEX_FLAGS) $<
+	DOC_DEPS="$$( sed -n -e 's#^INPUT \([^/ \t].*\|$(TOPDIR).*\)$$#\1#p' $(DOC).fls \
+	    | grep -v $(MODDATE_FILE) )" && \
+	DATE_EPOCH="$$( git log -1 --date=format:"%s" --format="%cd" -- $$DOC_DEPS $$FIGS_SRC )" && \
+	LOCALE=$(DOC_DATE_LOCALE) LC_TIME=$(DOC_DATE_LOCALE) \
+	    date --date="@$$DATE_EPOCH" +'%e. %B, %Y' >$(MODDATE_FILE).tmp
+	( cmp $(DOC).toc $(DOC).toc.bak && cmp $(MODDATE_FILE) $(MODDATE_FILE).tmp ) || \
+	( mv $(MODDATE_FILE).tmp $(MODDATE_FILE) && \
+	    $(XELATEX) $(XELATEX_FLAGS) $< )
 	rm -f $(DOC).toc.bak
 	sed -n -e 's/^INPUT \(.*\)$$/\1/p' $(DOC).fls | grep -v '$<' | \
 	    sed -e 's/^\(.*\)$$/$@:\$$(wildcard \1)/p' >$(DOC).dep
+	rm -f $(MODDATE_FILE).tmp
 	$(gitignore_target)
 
 ifneq ($(NUM),)
@@ -51,11 +73,5 @@ $(TOPDIR)/generated/%.pdf: $(TOPDIR)/common/%.svg
 	mkdir -p $(dir $@)
 	$(if $(INKSCAPE_0.X),inkscape --export-area-drawing --export-background-opacity=1.0 --export-pdf="$@" "$<",\
 			     inkscape --export-area-drawing --export-background-opacity=1.0 --export-type=pdf --export-filename="-" "$<" > "$@")
-
-# Generate last modification date from commit dates of all files under the current directory
-moddate.tex: FORCE_MAKE
-	( git ls-files -z | xargs -0 -n1 -- git log -1 --date=format:"%s" --format="%cd"; echo 0 ) \
-	| python3 -c "from locale import *; setlocale(LC_TIME, 'cs_CZ.UTF-8'); import sys; from datetime import *; print(date.fromtimestamp(max([int(v) for v in sys.stdin.readlines()])).strftime('%e. %B, %Y'))" > $@.tmp
-	@cmp -s $@.tmp $@ && ( echo "Keeping $@ unchanged"; rm -f $@.tmp ) || ( echo "Updating $@"; mv $@.tmp $@ )
 
 -include $(DOC).dep
