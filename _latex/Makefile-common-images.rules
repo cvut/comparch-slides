@@ -26,9 +26,11 @@ export TEXINPUTS=.:$(TOPDIR)/_latex:$(TOPDIR):$(MAKEFILE_RULES_DIR):
 XELATEX := xelatex
 XELATEX_FLAGS := -recorder --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error
 
-FIGS = $(shell sed -n -e 's#^.*{[^{}]*\(generated/[^{}]*\)}.*$$#$(TOPDIR)/\1#pg' $(DOC).tex)
-FIGS_SRC=$(FIGS:$(TOPDIR)/generated/%.pdf=$(TOPDIR)/common/%.svg)
+INPUT_RAW := $(shell sed -n -e 's#^[ \t]*\\input{\([^}]*\)}.*$$#\1#pg' $(DOC).tex)
+INPUT_FILES := $(wildcard $(INPUT_RAW) $(INPUT_RAW:%=$(TOPDIR)/%))
 
+FIGS := $(shell cat $(DOC).tex $(INPUT_FILES) | sed -n -e 's#^.*{[^{}]*\(generated/[^{}]*\)}.*$$#$(TOPDIR)/\1#pg')
+FIGS_SRC := $(FIGS:$(TOPDIR)/generated/%.pdf=$(TOPDIR)/common/%.svg)
 
 .PHONY: all FORCE_MAKE
 
