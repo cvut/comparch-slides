@@ -257,7 +257,7 @@ Paměť si pamatuje data - bajty, slova.
 
 Pokud už znáte nějaký programovací jazyk, tak si ji můžete představit jako pole, např. v jazyce C jako:\\
 \begin{minted}{c}
-unsigned char RAM[16 * 1024 * 1024 *1024]; // 16GiB RAM}
+unsigned char RAM[16 * 1024 * 1024 *1024]; // 16GiB RAM
 \end{minted}
 
 Z paměti lze číst, například zde do 32-bitového registru R10:\\
@@ -296,7 +296,7 @@ RAM[adresa] = (R10>>24) & 0xFF;
 
 Některé starší procesory umožňovali pouze čtení ze zarovnané adresy, tedy z adresy adresa=4*x.
 
-Pokud se bude číst z adresy, která není násobkem 4 pak se přečtou dvě slova a z nich se setaví výsledek.
+Pokud se bude číst z adresy, která není násobkem 4 pak se přečtou dvě slova a z nich se sestaví výsledek.
 
 \end{frame}
 
