@@ -12,172 +12,13 @@
 
 \maketitle
 
-\section{Operace s celými čísly}
-
-\begin{frame}
-\frametitle{Opakování}
-V minulé lekci jsme měli:
-\begin{itemize}
-\item Reprezentace bitu pomocí napětí
-\item Reprezentace bajtů jako více paralelních vodičů, každý s hodnotou jednoho bitu
-\item Sčítání dvou celých kladných čísel
-\item Bitový posun celých čísel (násobení, nebo dělení mocninou 2)
-\end{itemize}
-
-Dnes:
-\begin{itemize}
-\item Rozsahy celých čísel a ukládání do paměti
-\item Násobení a dělení celých kladných čísel 
-\item Reprezentace záporných čísel a operace s nimi
-\item Přetečení sčítání a odčítání
-\item Reálná čísla
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Kvíz}
-Jak rychle lze spočítat součet dvou n-bitových čísel a kolik k tomu potřebujeme tranzistorů?
-\begin{itemize}
-\item[A] v konstantním čase s lineárním počtem tranzistorů -- $O(n)$
-\item[B] v konstantním čase s exponenciálním počtem tranzistorů -- $O(2^n)$
-\item[C] v logaritmickém čase s lineárním počtem tranzistorů -- $O(n)$
-\item[D] v logaritmickém čase s kubickým počtem tranzistorů -- $O(n^3)$
-\item[E] v logaritmickém čase s exponenciálním počtem tranzistorů -- $O(2^n)$
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Kladná čísla}
-Reprezentace celých kladných čísel
-
-V jazyce C jsou typy (podle normy ISO/IEC 9899:TC3):
-\begin{tabular}{|l|r|r|c|}\hline
-typ & min & max & počet bajtů\\ \hline
-unsigned char & 0 & 255 & 1 \\ \hline
-unsigned short & 0 & 65 535 & 2 \\ \hline 
-unsigned long & 0 & 4 294 967 295 & 4 \\ \hline
-unsigned long long & 0 & 18 446 744 073 709 551 615 & 8 \\ \hline
-\end{tabular}
-
-\begin{itemize}
-\item Norma definuje většinou minimální rozsahy, \texttt{unsigned int} nemusí mít jen 2 bajty, ale většinou má 4 bajty (GNU, MS C).
-\item Pokud chcete zjistit skutečnou velikost, použijte např. příkaz \texttt{sizeof(int)}
-\item Doporučujeme používat typy \texttt{uintX\_t} a \texttt{intX\_t} (kde \texttt{X} je 8, 16, 32, nebo 64), např. \texttt{uint8\_t}, \texttt{int64\_t} 
-\item V některých případech je vhodné použít typy \texttt{[u]int\_fastX\_t} a \texttt{[u]int\_leastX\_t}, např. \texttt{uint\_least8\_t}, \texttt{int\_fast64\_t} 
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Kladná čísla}
-V zápis konstant v jazyce C v soustavě:
-\begin{itemize}
-\item desítkové -- nesmí začínat 0 kromě 0
-\item osmičkové -- začíná 0
-\item hexadecimální -- začíná 0x
-\item binární -- začíná 0b (pouze GNU překladač)
-\end{itemize}
-\bigskip
-Příklad: 252 == 0xfc == 0374 == 0b11111100
-\bigskip
-
-Poznámka: Podle hexadecimálního zápisu zjistíte velikost čísla v bajtech, např. 0x123456 se vejde do tří bajtů.
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Kladná čísla - uložení v paměti}
-
-\begin{itemize}
-\item Paměť počítače pracuje s bajty
-\item Historicky vzniklo několik možností uložení čísel do paměti.
-\end{itemize}
-
-Jak lze tedy uložit číslo 0x12345678 do paměti:
-\begin{tabular}{|c|c|c|}\hline
-adresa & Big-endian & Little-endian \\ \hline
-400 & 0x12 & 0x78 \\ \hline
-401 & 0x34 & 0x56 \\ \hline
-402 & 0x56 & 0x34 \\ \hline
-403 & 0x78 & 0x12 \\ \hline
-\end{tabular}
-
-\begin{itemize}
-\item Procesory Intel zavedly little-endian, procesory Motorola zavedly big-endian.
-\item Je to důležité, když získáte například přes internet data po bajtech, musíte definovat, jaká čísla reprezentují
-\item RISC V - little-endian, MIPS - big-endian
-\item Bitcoin - DER signatures big-endian, transaction hash little-endian
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Kladná čísla - kvíz}
-\begin{minted}{c}
-#include <stdio.h>
-int main() {
-  unsigned char p[] = {0,0,0,0};
-  *(int*)p=10;
-  printf("%02x,%02x,%02x,%02x\n", p[0],p[1],p[2],p[3]);
-}
-\end{minted}
-
-Co bude výstupem tohoto programu na procesorech Intel?
-\begin{itemize}
-\item[A] nic, program nelze přeložit
-\item[B] náhodný výstup, p  nelze přetypovat na *int
-\item[C] 0a,00,00,00 
-\item[D] 00,00,00,0a
-\end{itemize}
-\end{frame}
-
-
-
-\begin{frame}
-\frametitle{Násobení celých čísel}
-
-Stejný princip násobení, jak jste se ho naučili na základní škole pro desítkovou soustavu:
-\begin{columns}
-\begin{column}{0.4\textwidth}
-\texttt{\phantom{xxx}153}\\
-\texttt{\phantom{xxx}*45}\\
-\vspace{-8pt}
-\rule[0pt]{1.5cm}{0.1pt}\\
-\texttt{\phantom{xxx}765}\\
-\texttt{\phantom{xx}612 }\\
-\vspace{-8pt}
-\rule[0pt]{1.5cm}{0.1pt}\\
-\texttt{\phantom{xx}6885}\\
-\end{column}
-\hfill
-\begin{column}{0.4\textwidth}
-\texttt{\phantom{xxxxxx}10011001}\\
-\texttt{\phantom{xxxxxxx}*101101}\\
-\vspace{-8pt}
-\rule[0pt]{3cm}{0.4pt}\\
-\texttt{\phantom{xxxxxx}10011001}\\
-\texttt{\phantom{xxxxx}00000000}\\
-\texttt{\phantom{xxxx}10011001}\\
-\texttt{\phantom{xxx}10011001}\\
-\texttt{\phantom{xx}00000000}\\
-\texttt{\phantom{x}10011001}\\
-\vspace{-8pt}
-\rule[0pt]{3cm}{0.4pt}\\
-\texttt{\phantom{x}1101011100101}\\
-\end{column}
-\end{columns}
-
-\end{frame}
-
 \begin{frame}
 \frametitle{Násobení celých čísel}
 
 Podle uvedeného algoritmu můžeme vytvořit následující násobičku s posuvným registrem:\\
 (A,B 32 bitů, výsledek 64 bitů)
 \begin{center}
-\includegraphics[width=0.45\textwidth]{multiplier-seq-cz.pdf}
+\includegraphics[width=0.45\textwidth]{generated/logic/multiplication/multiplier-seq-cz.pdf}
 \end{center}
 \begin{itemize}
 \item Výsledek je ve dvou registrech AC a B 
@@ -186,29 +27,86 @@ Podle uvedeného algoritmu můžeme vytvořit následující násobičku s posuv
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Rychlé násobení - Motivace Wallace tree}
 
-Jak to zrychlit - odložené carry (Carry Save Adder).\\
-Jak nejrychleji spočítat součet čtyř 32-bitových čísel:\\
+\begin{frame}
+\frametitle{Násobení celých čísel}
+
+Práci sekvenční násobičky si ukážeme na příkladu:
 \begin{columns}
-\begin{column}{0.35\textwidth}
-\includegraphics[width=1.0\textwidth]{wallace-tree.pdf}
+\begin{column}{0.3\textwidth}
+\texttt{\phantom{xxxx}10}\\
+\texttt{\phantom{xxx}*13}\\
+\vspace{-8pt}
+\rule[0pt]{1.5cm}{0.1pt}\\
+\texttt{\phantom{xxxx}30}\\
+\texttt{\phantom{xxx}10 }\\
+\vspace{-8pt}
+\rule[0pt]{1.5cm}{0.1pt}\\
+\texttt{\phantom{xxx}130}\\
+\bigskip
+
+\texttt{\phantom{xxxxxx}1010}\\
+\texttt{\phantom{xxxxx}*1101}\\
+\vspace{-8pt}
+\rule[0pt]{3cm}{0.4pt}\\
+\texttt{\phantom{xxxxxx}1010}\\
+\texttt{\phantom{xxxxx}0000}\\
+\texttt{\phantom{xxxx}1010}\\
+\texttt{\phantom{xxx}1010}\\
+\vspace{-8pt}
+\rule[0pt]{3cm}{0.4pt}\\
+\texttt{\phantom{xx}10000010}\\
 \end{column}
 \hfill
-\begin{column}{0.65\textwidth}
+\begin{column}{0.4\textwidth}
+
+\texttt{A=1010}\\
+\texttt{B=1101}\\
+
+\bigskip
+
+\begin{center}
+\includegraphics[width=0.95\textwidth]{generated/logic/multiplication/multiplier-seq-cz.pdf}
+\end{center}
+\end{column}
+\hfill
+\begin{column}{0.3\textwidth}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{generated/logic/multiplication/multiplier-seq-example.pdf}
+\end{center}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rychlé násobení - Motivace Wallace tree}
+Jakého zrychlení tedy dosáhneme?
+
+Sčítání šesti čísel:
+\begin{columns}
+\begin{column}{0.3\textwidth}
+\includegraphics[width=0.98\textwidth]{generated/logic/multiplication/wallace-tree6.pdf}
+\end{column}
+\hfill
+\begin{column}{0.7\textwidth}
 \begin{itemize}
-\item Sečteme paralelně p=w+x a q=y+z a potom p+q -- trvá dlouho, nejméně doby dvou plných součtů
-\item Odložíme carry (nebudeme carry propagovat, jen v posledním kroku):
+\item Každý krok zredukuje velikost problému $N$ na $\lceil \frac{2}{3} \cdot N \rceil$
+\item Kolik kroků potřebuje na součet 6 čísel:
 \begin{itemize}
-\item 1. krok použijeme Full adder a sečteme vždy bity $w_i+x_i+y_i = c'_ip_i$
-\item 2. krok použijeme Full adder a sečteme vždy bity $p_i+c'_{i-1}+z_i = c_iq_i$
-\item 3. krok použijeme normální sčítačku 32-bitových čísel ($s_0=q_0$, $c'_32$ připojíme ke $q$)
+\item 1. krok redukce na součet 4 čísel - 2 zpoždění
+\item 2. krok redukce na součet 3 čísel - 2 zpoždění
+\item 3. krok redukce na součet 2 čísel - 2 zpoždění
+\item 4. krok normální sčítačka 2 čísel - 24 zpoždění
 \end{itemize}
+\item Součet 6 čísel - 30 zpoždění
+\item Rychlost součtu N čísel, počet kroků na redukci součtu dvou čísel $\log_{\frac{3}{2}}(N) = \frac{1}{\log(\frac{3}{2})} \cdot \log(N) = $ $ = 5.678 \cdot \log(N) = O(log(N))$
 \end{itemize}
 \end{column}
 \end{columns}
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Rychlé násobení - Wallace tree}
@@ -216,7 +114,7 @@ Jak nejrychleji spočítat součet čtyř 32-bitových čísel:\\
 Použijeme předchozí princip na co nejrychlejší součet 32 nebo 64 různých čísel:
 \begin{columns}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=1.0\textwidth]{wallace-tree2.pdf}
+\includegraphics[width=1.0\textwidth]{generated/logic/multiplication/wallace-tree2.pdf}
 \end{column}
 \hfill
 \begin{column}{0.4\textwidth}
@@ -236,7 +134,7 @@ Použijeme předchozí princip na co nejrychlejší součet 32 nebo 64 různých
 
 Když se podíváme jen na prostřední nejdelší sloupec:
 \begin{center}
-\includegraphics[width=0.8\textwidth]{wallace-tree3.pdf}
+\includegraphics[width=0.8\textwidth]{generated/logic/multiplication/wallace-tree3.pdf}
 \end{center}
 
 \begin{itemize}
@@ -244,10 +142,11 @@ Když se podíváme jen na prostřední nejdelší sloupec:
 \item Vpravo od tohoto sloupce je již něco sečteno a již se i propagovali carry posledních 8 sčítanců
 \item Zbývá sečíst dvě 120-bitová čísla (součty a carry), což se dá stihnout asi za 30 zpoždění hradel
 \item Výsledek - vynásobíme dvě čísla za cenu doby odpovídající přibližně dvěma součtům 64-bitových čísel
-\item V praxi to trvá trochu déle, je použito méně sčítaček CSA. 
+\item V praxi to trvá trochu déle, je použito méně sčítaček CSA.
 \end{itemize}
 
 \end{frame}
+
 
 
 \begin{frame}
@@ -257,39 +156,33 @@ Dělení lze zkonstruovat podobně, jako jste se učili na základní škole:
 \bigskip
 \begin{columns}
 \begin{column}{0.4\textwidth}
-\texttt{\phantom{-}240:11=21}\\
-\texttt{-22}\\
+\texttt{\phantom{-}120:11=10}\\
+\texttt{-11}\\
 \vspace{-8pt}
 \rule[0pt]{1cm}{0.1pt}\\
-\texttt{\phantom{xx}20}\\
-\texttt{\phantom{x}-11}\\
-\vspace{-8pt}
-\rule[0pt]{1cm}{0.1pt}\\
-\texttt{\phantom{xxx}9}\\
+\texttt{\phantom{xx}10}\\
 \end{column}
 \hfill
 \begin{column}{0.4\textwidth}
-\texttt{\phantom{x}11110000:1011=10101}\\
-\texttt{-1011}\\
+\texttt{\phantom{x}01111000:1011=1010}\\
+\texttt{\phantom{x}01111}\\
+\texttt{\phantom{x}-1011}\\
 \vspace{-8pt}
 \rule[0pt]{1cm}{0.4pt}\\
-\texttt{\phantom{xx}1000}\\
-\texttt{\phantom{xx}10000}\\
-\texttt{\phantom{xx}-1011}\\
+\texttt{\phantom{xxx}1000}\\
+\texttt{\phantom{xxx}10000}\\
+\texttt{\phantom{xxx}-1011}\\
 \vspace{-8pt}
 \rule[0pt]{1.4cm}{0.4pt}\\
-\texttt{\phantom{xxxx}1010}\\
-\texttt{\phantom{xxxx}10100}\\
-\texttt{\phantom{xxxx}-1011}\\
-\vspace{-8pt}
-\rule[0pt]{1.8cm}{0.4pt}\\
-\texttt{\phantom{xxxxx}1001}\\
+\texttt{\phantom{xxxxx}101}\\
+\texttt{\phantom{xxxxx}1010}\\
 \end{column}
 \end{columns}
 \bigskip
-Oba výpočty počítají, že 240 děleno 11 je 21 a zbytek neboli \texttt{240\%11=9}.
+Oba výpočty počítají, že 120 děleno 11 je 10 a zbytek neboli \texttt{120\%11=10} binárně \texttt{1010}.
 
 \end{frame}
+
 
 
 \begin{frame}
@@ -299,136 +192,94 @@ Dělička počítající \texttt{A/B}, A má 64 bitů, B 32 bitů:\\
 \begin{columns}
 \begin{column}{0.4\textwidth}
 číslo A je uloženo ve dvou registrech AC,A\\
-\includegraphics[width=1\textwidth]{divider-seq-cz.pdf}
+\includegraphics[width=1\textwidth]{generated/logic/division/divider-seq-cz.pdf}
 \end{column}
 \hfill
 \begin{column}{0.6\textwidth}
 \begin{itemize}
 \item Výsledek: v registru A je podíl, v registru AC je zbytek -- modulo
-\item v posledním kroku je nutné posunout pouze registr A, AC se již neposouvá -- promyslete proč
 \item Dělička -- existuje rychlejší algoritmus High Radix Division (je velmi složitý, přesahuje rozsah tohoto předmětu)
 \begin{itemize}
 \item Odhaduje několik bitů najednou a pak upřesňuje iteracemi
-\item 1994 -- Pentium FDIV bug -- chyba při implementaci algoritmu Sweeney, Robertson, and Tocher (SRT) - odhaduje dva bity
+\item 1994 -- Pentium FDIV bug -- chyba při implementaci algoritmu Sweeney, Robertson, and Tocher (SRT) - odhaduje dva bity¨
 \end{itemize}
 \end{itemize}
 \end{column}
 \end{columns}
 
-
-\end{frame}
-
-
-\section{Záporná čísla}
-
-\begin{frame}
-\frametitle{Záporná čísla}
-
-Potřebujeme zakódovat znaménko do reprezentace čísla:
-\begin{itemize}
-\item naivně - vrchní bit bude znaménko
-\begin{itemize}
-\item Máme 0 a -0, přitom je to stejné číslo
-\item Potřebujeme jiný algoritmus na sčítání  
-\end{itemize}
-\item dvojkový doplněk -- two complement
-\begin{itemize}
-\item reprezentace $X$ k-bitovým číslem je vlastně $X$ \texttt{mod} $2^k$
-\begin{itemize}
-\item pro $X\ge0$ je reprezentace $X$
-\item pro $X<0$ je reprezentace $2^k-|X|$
-\end{itemize}
-\item výhoda: sčítání funguje tak, jak jsme si ho navrhli pro všechna čísla, kladná i záporná.
-\end{itemize}
-\begin{itemize}
-\item 8-bitová -1 je \texttt{11111111}
-\item 5+(-1) je \texttt{101+11111111=\textcolor{red}{1}00000100}, devátý bit se do reprezentace čísla nevejde, tedy výsledek je \texttt{101+11111111=100}
-\end{itemize}
-\end{itemize}
-
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Dvojkový doplněk}
-\begin{itemize}
-\item rozsah čísel reprezentovaných k-bity je $<-2^{k-1}, 2^{k-1}-1>$
-\item pro číslo X budeme značit A(X) jeho reprezentaci v dvojkovém doplňku:
-\end{itemize}
-\vspace{-0.3cm}
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\includegraphics[width=0.9\textwidth]{doplnek-graf.pdf}
-\end{column}
-\hfill
-\begin{column}{0.5\textwidth}
-\begin{tabular}{|c|c|}\hline
-{\small Binární hodnota}  & {\small Dvojkový doplněk} \\\hline
-\textbf{0}0000000 & $0_{(10)}$ \\ \hline
-\textbf{0}0000001 & $1_{(10)}$ \\ \hline
-... & ... \\\hline
-\textbf{0}1111110 & $126_{(10)}$ \\ \hline
-\textbf{0}1111111 & $127_{(10)}$ \\ \hline
-\textbf{1}0000000 & $-128_{(10)}$ \\ \hline
-\textbf{1}0000001 & $-127_{(10)}$ \\ \hline
-\textbf{1}0000010 & $-126_{(10)}$ \\ \hline
-... & ... \\\hline
-\textbf{1}1111101 & $-3_{(10)}$ \\ \hline
-\textbf{1}1111110 & $-2_{(10)}$ \\ \hline
-\textbf{1}1111111 & $-1_{(10)}$ \\ \hline
-\end{tabular}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}
-\frametitle{Opačné číslo}
-\begin{itemize}
-\item Protože sčítání funguje s dvojkovým doplňkem, tak nemusíme navrhovat obvod pro odčítání, jednoduše \texttt{A-B} vypočteme jako \texttt{A+(-B)}
-\item potřebujeme vymyslet jak získat z \texttt{B} hodnotu \texttt{-B}
-\begin{itemize}
-\item víme, že záporné $X = 2^k-|X|$
-\item pokud znegujeme každý bit, tak je to vlastně $(2^{k}-1)-X$, protože $2^{k}-1$ je číslo složené z $k$ jedniček
-\end{itemize}
-\item Výsledný postup je tedy:
-\begin{enumerate}
-\item znegujte všechny bity čísla $X$
-\item k výslednému číslu přičti 1
-\end{enumerate}
-\end{itemize}
-
-Příklad:\\
-\texttt{53=0b00110101} znegováním cifer dostaneme \texttt{-54=0b11001010} po přičtení 1 pak  \texttt{-53=0b11001011}
-
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Odčítání}
-
+\frametitle{Dělení celých čísel - příklad}
 
 \begin{columns}
-\begin{column}{0.5\textwidth}
-Odčítání lze řešit:
-\begin{itemize}
-\item speciálním obvodem podobným sčítačce se všemi možnostmi zrychlení jako byly u sčítání
-\item nebo z druhého čísla vytvoříme číslo opačné a to pak jednoduše sečteme s tím prvním
-\end{itemize}
+\begin{column}{0.35\textwidth}
+\texttt{\phantom{x}01111000:1011=1010}\\
+\texttt{\phantom{x}01111}\\
+\texttt{\phantom{x}-1011}\\
+\vspace{-8pt}
+\rule[0pt]{1cm}{0.4pt}\\
+\texttt{\phantom{xxx}1000}\\
+\texttt{\phantom{xxx}10000}\\
+\texttt{\phantom{xxx}-1011}\\
+\vspace{-8pt}
+\rule[0pt]{1.4cm}{0.4pt}\\
+\texttt{\phantom{xxxxx}101}\\
+\texttt{\phantom{xxxxx}1010}\\
 \end{column}
 \hfill
-\begin{column}{0.5\textwidth}
+\begin{column}{0.4\textwidth}
+číslo \texttt{A=01111000} je uloženo ve dvou registrech AC,A\\
+číslo \texttt{B=1011}
+\bigskip
+
+\includegraphics[width=1\textwidth]{generated/logic/division/divider-seq-cz.pdf}
+\bigskip
+
+výsledek \texttt{A/B=\textcolor{cyan}{1010}} je uložen v registru A\\
+výsledek \texttt{A\%B=1010} je uložen v registru AC
+
+\end{column}
+\hfill
+\begin{column}{0.3\textwidth}
 \begin{center}
-\includegraphics[width=0.5\textwidth]{substaction-cz.pdf}
+\includegraphics[width=0.65\textwidth]{generated/logic/division/division-seq-example.pdf}
 \end{center}
 \end{column}
 \end{columns}
 
-
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Násobení a dělení}
+\frametitle{Rychlosti počítání}
+
+Latence instrukcí - kolik cyklů procesoru trvá spočítat výsledek:
+
+\begin{tabular}{l|l|l|l|l}
+\textbf{Instrukce} & \textbf{Pentium M} & \textbf{IceLake} & \textbf{Zen1} & \textbf{Zen5}\\
+\hline
+ADD r64 & 1 (r32) & 1 & 1 & 1 & 1\\ \hline
+MUL r64 & 5 (r32)& 3 &  3 & 3\\ \hline
+DIV r64 & 15-39 (r32) & 15 & 14-46 & 11-19\\ 
+\end{tabular}
+
+\url{https://www.agner.org/optimize/instruction_tables.pdf}
+
+
+Délka dělení závisí na číslech, která se dělí, odhaduje se podíl několika bitů a pak se upřesňuje, což může trvat déle.
+
+Důležitá je i propustnost, kolik oparací zvládně jedno jádro paralelně. 
+
+Moderní CPU umožňují provést 2-5 sčítání paralelně, násobení 1-2, dělení je možno provést paralelně pouze částečně.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Násobení a dělení čísel se znaménkem}
 
 \begin{itemize}
 \item pro násobení lze odvodit, že pokud bychom ignorovali znaménko a spočítali $M\cdot N$, pak pro $M$,$N$ obě k-bitová čísla musíme výsledek upravit takto:
@@ -442,7 +293,7 @@ $A(M\cdot N) = A(M) \cdot A(N)$\\
 \end{itemize}
 %\end{itemize}
 \begin{itemize}
-\item moderní násobení a dělení počítá s absolutními hodnotami a nakonec určíme znaménko výsledku podle znaménka operandů.
+\item moderní násobení a dělení počítá s absolutními hodnotami a nakonec určí znaménko výsledku podle znaménka operandů.
 \begin{itemize}
 \item nejvyšší bit značí znaménko
 \item výpočet opačného čísla je rychlý a levný
@@ -452,131 +303,10 @@ $A(M\cdot N) = A(M) \cdot A(N)$\\
 
 
 \begin{frame}
-\frametitle{Čísla se znaménkem}
-Reprezentace celých čísel
-
-V jazyce C jsou typy:
-\begin{tabular}{|l|r|r|c|}\hline
-typ & min & max & počet\\
- &  & &  bajtů\\ \hline
-char & -128 & 127 & 1 \\ \hline
-short & -32 768 & 32 767 & 2 \\ \hline 
-long & -2 147 483 648 & 2 147 483 647 & 4 \\ \hline
-long long & -9 223 372 036 & 9 223 372 036  & 8 \\ 
- & \phantom{xx} 854 775 808 & \phantom{xx}854 775 807 &  \\ \hline
-\end{tabular}
-
-\begin{itemize}
-\item Norma C má ve skutečnosti min o 1 větší , kvůli procesorům s jedničkovým doplňkem -- ten se dnes již prakticky nepoužívá
-\item Stejně tak \texttt{int} musíte otestovat, zda je 2 bajtový nebo 4 bajtový
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}[fragile, shrink=5]
-\frametitle{Kvíz}
-
-Uvažujte tento program:
-\begin{minted}{c}
-#include <stdio.h>
-int main() {
-  unsigned char a=150u, b=120u, c;
-  char sa=-100, sb=-80, sc;
-  
-  c=a+b;
-  sc=sa+sb;
-  printf("c=%u sc=%d\n", c, sc);
-}
-\end{minted}
-
-Co program vytiskne:
-\begin{itemize}
-\item[A] c=270 sc=-180
-\item[B] c=14 sc=-76
-\item[C] c=14 sc=76
-\item[D] c=-14 sc=-76
-\item[E] Numeric error
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Přetečení při sčítání čísel bez znaménka}
-
-
-Pokud se podíváme co se stalo, unsigned char je 8-bitová reprezentace čísel:\\
-\texttt{\phantom{x}150 = \phantom{x}1001 0110}\\
-\texttt{+120 = \phantom{x}0111 1000}\vspace{-6pt}\\
-\rule[0pt]{3.6cm}{0.4pt}\\
-\texttt{\phantom{xx}14 = \phantom{x}0000 1110}\\
-\texttt{\phantom{x}270 =1 0000 1110}
-
-Protože se výsledek nevejde do 8-bitů, nejvyšší jednička se ztratí a výsledek je pouze 14.
-
-Pokud přetečení chcete detekovat, máte následující možnosti:
-\begin{itemize}
-\item C23 bool ckd\_add(type1 *result, type2 a, type3 b) -- součet dvou čísel s detekcí přetečení
-\item GNU GCC 5+, Clang 3.8+ \_\_builtin\_add\_overflow(a, b, result) -- obě verze i pro sub a mul
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Přetečení při sčítání čísel se znaménkem}
-
-Přetečení při sčítání čísel se znaménkem je složitější. Co je dobře a co je špatně:
-\bigskip
-\begin{columns}
-\begin{column}{0.3\textwidth}
-\texttt{-112 = 10010000}\\
-\texttt{+\phantom{x}45 = 00101101}\\
-\vspace{-8pt}
-\rule[0pt]{3cm}{0.1pt}\\
-\texttt{\phantom{x}-67 = 10111101}\\
-\begin{center}
-\large DOBŘE
-\end{center}
-\end{column}
-\hfill
-\begin{column}{0.3\textwidth}
-\texttt{\phantom{xx}-12 = 11110100}\\
-\texttt{+ -20 = 11101100}\\
-\vspace{-8pt}
-\rule[0pt]{3cm}{0.1pt}\\
-\texttt{\phantom{xx}-32 =\textcolor{red}{1}11100000}\\
-\begin{center}
-\large DOBŘE
-\end{center}
-\end{column}
-\hfill
-\begin{column}{0.3\textwidth}
-\texttt{\phantom{xx}-90 = 10100110}\\
-\texttt{+ -42 = 11010110}\\
-\vspace{-8pt}
-\rule[0pt]{3cm}{0.1pt}\\
-\texttt{\phantom{xx}124 =\textcolor{red}{1}01111100}\\
-\begin{center}
-\large ŠPATNĚ
-\end{center}
-\end{column}
-\end{columns}
-\bigskip
-\begin{itemize}
-\item Přetečení při sčítání čísel se znaménkem nastane právě tehdy, když dojde k přenosu na posledních cifrách a zároveň nedojde k přenosu na předposledních cifrách:
-\begin{itemize}
-\item overflow = $c_n$ xor $c_{n-1}$; $c_n$ je nejvyšší carry, $c_{n-1}$ je druhé nejvyšší carry
-\end{itemize}
-\item Druhá možnost je sledovat, zda při součtu dvou kladných čísel máme záporná výsledek, nebo při součtu dvou záporných čísel je kladný výsledek:
-\begin{itemize}
-\item overflow = ($a_{n-1}$ and  $b_{n-1}$ and (not $s_{n-1}$)) or ((not $a_{n-1}$) and  (not $b_{n-1}$) and $s_{n-1}$); $a_{n-1}$, $b_{n-1}$ jsou nejvyšší bity sčítanců; $s_{n-1}$ je největší bit výsledku
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
 \frametitle{Kvíz}
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{overflow.pdf}
+\includegraphics[width=0.6\textwidth]{generated/logic/addition/overflow.pdf}
 \end{center}
 
 Při sčítání dvou čísel s odlišnými znaménky:
@@ -589,423 +319,834 @@ Při sčítání dvou čísel s odlišnými znaménky:
 \end{frame}
 
 
+\section{Procesor}
 
-\begin{frame}
-\frametitle{Jiné reprezentace záporných čísel}
-
-Čísla s posunutou nulou:
-
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\begin{itemize}
-\item pro k-bitovou reprezentaci zvolíme číslo S (většinou $S=2^{k-1}$ nebo $S=2^{k-1}-1$)
-\item reprezentace -- kód čísla X je $A(X) = X+S$
-\item rozkódování je funkcí $D(A) = A-S$
-\item rozsah čísel reprezentovaných je $<-S, 2^{k}-S-1>$
-\end{itemize}
-\end{column}
-\hfill
-\begin{column}{0.5\textwidth}
-Pro k=8 a S=127
-\bigskip
-\begin{tabular}{|c|c|}\hline
-{\small Binární hodnota}  & {\small Hodnota} \\\hline
-00000000 & $-127_{(10)}$ \\ \hline
-00000001 & $-126_{(10)}$ \\ \hline
-... & ... \\\hline
-01111110 & $-1_{(10)}$ \\ \hline
-01111111 & $0_{(10)}$ \\ \hline
-10000000 & $1_{(10)}$ \\ \hline
-10000001 & $2_{(10)}$ \\ \hline
-... & ... \\\hline
-11111110 & $127_{(10)}$ \\ \hline
-11111111 & $128_{(10)}$ \\ \hline
-\end{tabular}
-\end{column}
-\end{columns}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Počítání s posunutou nulou}
-
-\begin{itemize}
-\item sčítání a odčítání čísel s posunutou nulou je složitější:
-\item $A ( X + Y )=( X + Y )+S =( X + S )+(Y + S ) - S = A ( X )+ A (Y ) -S$
-\item $A ( X - Y )=( X - Y )+ S =( X + S ) - (Y +S )+S = A ( X ) - A (Y )+S$
-\item násobení je ještě složitější:
-\item $A ( X \cdot Y )=( X \cdot Y )+S =( X + S )\cdot(Y + S )-( X + S +Y +S )\cdot S + S^2+ S
-= A ( X )\cdot A (Y ) - ( A ( x)+ A ( y ))\cdot S + S^2 +S$
-\end{itemize}
-\bigskip
-\begin{itemize}
-\item Přetečení:
-\begin{itemize}
-\item při sčítání jsou znaménka sčítanců stejná a výsledek má jiné znaménko
-\item při odčítání čísel s různými znaménky má výsledek jiné znaménko než menšenec
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Jiné reprezentace záporných čísel}
-
-Doplněk jedné:
-\begin{itemize}
-\item záporné číslo je negací bitů opačného čísla 
-\begin{itemize}
-\item pro $X\ge0$ je reprezentace $A(X) = X$
-\item pro $X<0$ je reprezentace $A(X) = 2^k-1-|X|$
-\end{itemize}
-\item nevýhody: dvě reprezentace 0, složitější sčítání čísel se znaménky
-\end{itemize}
-\bigskip
-BCD formát
-\begin{itemize}
-\item jiná reprezentace celých čísel, každá cifra jeden nibble 
-\begin{itemize}
-\item číslo \texttt{1234} je uloženo v hexadecimálním tvaru jako \texttt{0x1234}
-\end{itemize}
-\item výhody: snadný převod na desítkovou soustavu
-\item nevýhody: neefektivní reprezentace, složitější počítání
-\end{itemize}
-\end{frame}
-
-
-\section{Reálná čísla}
-
-
-\begin{frame}
-\frametitle{Reálná čísla}
-
-\begin{itemize}
-\item Celé číslo $X$ v binární soustavě je součet $k$ bitů $b_i$ vynásobených mocninami 2, tedy $ X = \sum_{i=0}^{k-1} b_i 2^{i} $
-\item Reálné číslo $X$ v binární soustavě je obdobný součet $k+j$ bitů $b_i$ vynásobených mocninami 2, ale začneme již v záporných mocninách: $X = \sum_{i=-j}^{k} b_i 2^{i}$
-\item jistě si všichni pamatujete ze střední školy, že $2^{-j} = \frac{1}{2^j}$
-\end{itemize}
-
-
+\begin{frame}[shrink=10]
+\frametitle{John von Neumann}
 \begin{center}
-\includegraphics[width=0.65\textwidth]{float_bin.pdf}
+\includegraphics[width=0.5\textwidth]{generated/computer/cpu-vonNeumann.pdf}
+\phantom{XXXXXXX}
+\includegraphics[width=0.15\textwidth]{common/computer/vonNeumann.png}
 \end{center}
+\begin{itemize}
+\item 5 základních jednotek – řídicí jednotka, aritmeticko-logická jednotka, paměť, vstup (vstupní zařízení), výstup (výstupní zařízení)
+\item Architektura počítače by neměla být závislá na řešené úloze, měla by umět provádět program uložený v paměti. Program řídí, co počítač vykonává za instrukce a tím jaké dostane výsledky.
+\item Program a data jsou uložena ve stejné paměti, složené z buněk (jednotek) stejné velikosti. Oproti tomu Harvardská architektura měla jeden typ paměti pro program a jiný typ paměti pro data.
+\item Další instrukce, která se bude vykonávat je uložena v následující buňce paměti (mimo skoků v programu)
+\item Instrukce provádějí aritmetické a logické operace, přesuny dat z/do paměti, skoky a větvení programu a speciální řídicí instrukce.
+\end{itemize}
+\end{frame}
 
+\begin{frame}
+\frametitle{Počítač založený na von Neumannově konceptu}
+
+Procesor / mikroprocesor:
+\begin{itemize}
+\item Řídicí jednota (control unit)
+\item Aritmeticko-logická jednotka -- ALU
+\end{itemize}
+
+Paměť: 
+\begin{itemize}
+\item von Neumann architektura má společnou paměť pro program i data
+\item paměť se skládá z buněk - jednotek, v současné době z bajtů
+\end{itemize}
+
+Vstupně výstupní podsystém:
+\begin{itemize}
+\item Vstupy -- klávesnice, myši, děrné štítky, magnetopáskové jednotky, síťové karty, ...
+\item Výstupy -- monitory (grafické karty), tiskárny, plotry, síťové karty, ...
+\end{itemize}
+
+Řídicí jednotka řídí práci a sekvenci této práce. Skládá se z:
+\begin{itemize}
+\item registrů – udržují mezivýpočty a stavy výpočtů
+\item řídicích hradel -- dekódují instrukce a provádí operace
+\end{itemize}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Reálná čísla s pevnou desetinnou čárkou}
-
-Čísla s pevnou desetinnou čárkou (fixed point numbers):
-
+\frametitle{Nejdůležitější registry procesoru}
 \begin{itemize}
-\item obdoba čísel s posunutou 0
-\item reálné číslo je reprezentované k-bitovým celým číslem se znaménkem, dále zvolíme pevný počet desetinných míst s bitů, kdy $0 \le s \le k$
-\item reprezentace -- kód čísla X je $A(X) = \lceil X \cdot 2^s \rceil$
-\item rozkódování je funkcí $D(A) = \frac{A}{2^s}$
-\item rozsah čísel reprezentovaných je $<-\frac{2^{k-1}}{2^s}, \frac{2^{k-1}-1}{2^s}>$
-\item přesnost reprezentace čísel je $\pm \frac{1}{2^s}$.
-\end{itemize}
-
-Speciální případ:
+\item PC (Program Counter) -- adresa právě prováděné (nebo následující) instrukce
+\item IR (Instruction Register) -- obsahje kód prováděné instrukce načtený z paměti
+\item Další obvykle přítomné registry
 \begin{itemize}
-\item pokud chcete reprezentovat reálná čísla z intervalu $<0,1)$
-\item pak můžete nastavit $s=k$ a použít bezznaménkovou reprezentaci celých čísel
-\item dosáhnete lepší přesnosti než odpovídající \texttt{float}, nebo \texttt{double}
+\item GPRs (General purpose registers) -- obecné uživatelské registry, mohou se dělit na data a adresy do paměti, nebo být univerzální
+\item SP (Stack Pointer) -- ukazuje na vrchol zásobníku, slouží k organizaci lokálních dat funkcí
+\item PSW (Program Status Word) -- definuje v jakém stavu je procesor
+\item IM (Interrupt Mask) -- kontrola přerušení
+\item FPRs (Floating point registers) -- rozšíření procesoru pro práci s reálnými čísly, případně i vektorové/multimediální registry
 \end{itemize}
+\end{itemize}
+\end{frame}
 
-Některé SIMD instrukce používají pevnou desetinnou čárku.
+\section{Kódování instrukcí}
 
+\begin{frame}
+\frametitle{Kódování instrukcí}
+
+Co musíme uvažovat při návrhu zakódování instrukcí?
+\begin{itemize}
+\item 8 bitů pro jednu instrukci
+\begin{itemize}
+\item Pokud by velikost instrukce byla jeden bajt, tedy 8 bitů, tak můžeme mít maximálně 256 různých instrukcí
+\item Je to dost?
+\item Co vlastně musí být zakódováno uvnitř instrukce? Nutně tam musí být registry, se kterými bude instrukce pracovat
+\begin{itemize}
+\item pokud bychom měli v procesoru 8 registrů, pak 3 bity kódují, který registr chceme použít
+\item pro operaci potřebujeme 3 registry \texttt{cíl = zdroj1 + zdroj2} nebo jen 2 registry \texttt{cíl += zdroj}
+\item pro práci s pamětí stačí 2 registry \texttt{cíl = MEM[zdroj]}
+\end{itemize}
+\item nelze zakódovat 3 operandy, i pro 2 operandy máme jen 2 bity (8-2*3) na zakódování typu instrukce, což je maximálně 4 druhy instrukcí
+\item řešení by bylo jedině mít méně registrů a uvažovat zásobníkové operace (push, pop, sečti dvě čísla z vrcholu zásobníku, apod.)
+\end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Reálná čísla s pevnou desetinnou čárkou}
-
-Počítání s čísly s pevnou desetinnou čárkou:
+\frametitle{Kódování instrukcí}
 
 \begin{itemize}
-\item součet a rozdíl je součtem a rozdílem celočíselné reprezentace čísel
-\item násobení je složitější:
+\item 16 bitů na jednu instrukci -- 65536 různých instrukcí
 \begin{itemize}
-\item $A(X \cdot Y) = (X \cdot Y ) \cdot 2^s = \frac{(X \cdot 2^s)\cdot( Y\cdot 2^s) }{2^s} = \frac{A(X) \cdot A(Y)}{2^s}$
+\item lze 16 registrů, 256 instrukcí s dvě operandy, nebo 16 druhů instrukcí se třemi operandy (4 + 3 * 4 = 16 bitů)
 \end{itemize}
-\item dělení je obdobné:
+\item 32 bitů -- přes 4 miliardy různých instrukcí 
 \begin{itemize}
-\item $A(\frac{X}{Y}) = (\frac{X}{Y}) \cdot 2^s = \frac{(X \cdot 2^s)\cdot2^s }{( Y\cdot 2^s)} = \frac{A(X) \cdot 2^s}{A(Y)}$
+\item často 32 registrů, až 128 tisíc druhů instrukcí se třemi operandy (17~+~3~*~5~=~32~bitů)
 \end{itemize}
-\item Nejedná se o výrazné zesložitění, protože násobení číslem $2^s$ je posun o s bitů doleva a dělení číslem $2^s$ je posun o s bitů doprava.
-\end{itemize}
-
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Plovoucí desetinná čárka}
-
-Plovoucí desetinná čárka (floating point numbers)
-
-\bigskip
-
-Obdoba vědeckého zápisu reálných čísel:
-$-123 000 000 000 000.0 = -1.23 \cdot 10^{14} = -1.23\text{E} 14$\\
-$-0.000 000 000 000 123 = -1.23 \cdot 10^{-13} = -1.23\text{E}-13$\\
-
-\bigskip
-
-Binární reprezentace používá obdobně mocninu 2:\\
-$110 1100 0000 0000.0 = 1.1011 \cdot 2^{14} = 1.1011\text{E} 14 = 29696_{10}$\\
-$-0.0000 0000 0000 0001 1101 = -1.1101 \cdot 2^{-16} = -1.1101\text{E}-16 \approx$\\
-\phantom{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}$\approx0.00002765_{10}$\\
-
-\bigskip
-
-Všimněte si, že každé reálné číslo (kromě 0) začíná v binárním vědeckém zápisu jedničkou.
-
-
-\end{frame}
-
-\begin{frame}
-\frametitle{IEEE-754}
-
-Standard IEEE-754 definuje, jakým způsobem zakódovat reálné číslo do 32, 64 bitů.
-
-Reálné 32-bitové číslo obsahuje:
+\item Další problém jsou konstanty, třeba chci přičíst 1 k registru, nebo uložit do registru konkrétní hodnotu 125. 
 \begin{itemize}
-\item 1 bit znaménko (pozn. existuje 0 i -0)
-\item 8 bitů hodnota exponentu s posunutou nulou o 127
-\item 23 bitů hodnota mantisy, tedy cifer reprezentujících hodnotu
-\end{itemize}
-\bigskip
-Reálné 64-bitové číslo obsahuje:
+\item překladač vygeneruje do paměti všechny konstanty a registry na ně budou ukazovat
+\item nebo malá čísla budou součástí instrukce
 \begin{itemize}
-\item 1 bit znaménko (pozn. existuje 0 i -0)
-\item 11 bitů hodnota exponentu s posunutou nulou o 1023
-\item 52 bitů hodnota mantisy, tedy cifer reprezentujících hodnotu
+\item toto je nejpoužívanější řešení
+\item RISC má instrukce pevné délky a součástí 32-bitové instrukce může být 20-bitová nebo 12-bitová konstanta
+\item CISC má instrukce proměnné délky a třeba i 64-bitové číslo je součástí kódu instrukce
 \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{IEEE-754}
-
-Příklad:
-Reálné číslo $0.828125_{(10)} = 0.5+0.25+0.0625+0.015625=2^{-1}+2^{-2}+2^{-4}+2^{-6} = 0.110101_{(2)}$.\\
-Číslo převedeme do vědecké notace: $0.110101 = 1.10101\text{E}-1$.\\
-Exponent $e=-1$, reprezentace s posunutou nulou o 127 je $A(-1)=-1+127 = 126$.\\
-Abychom neplýtvali zbytečně bity, pro normalizovaná čísla se první 1 mantisy neukládá do binární reprezentace čísla:
-
-\begin{center}
-\includegraphics[width=0.4\textwidth]{float_example-cz.pdf}
-\end{center}
-
-Zkuste si \url{https://www.h-schmidt.net/FloatConverter/IEEE754.html}
-\end{frame}
-
-\begin{frame}
-\frametitle{IEEE-754}
-
-Normalizované číslo, je každé číslo, které lze zapsat jako \texttt{1.XXXXX E exp}, kde exp je číslo od -126 do 127, tedy jehož reprezentace je od 1 do 254.
-
-\bigskip
-Denormalizovaná čísla jsou čísla, která lze zapsat jako \texttt{0.XXXXX E -126}, tedy například 0.0, nebo všechna čísla v intervalu $(-1.17549\text{E}-38,1.17549\text{E}-38)$, tedy od $(-2^{-126},2^{-126})$.
-
-\bigskip
-Pokud je reprezentace exponentu nastavena na samé 1, tedy 255, tzn. hodnota exponentu je 128, pak se jedná o speciální čísla. 
-\begin{itemize}
-\item pokud je mantisa 0, pak se jedná o nekonečno, podle znaménka \textit{-inf}, nebo \textit{inf}.
-\item pokud je mantisa nenulová, pak se jedná o speciální výraz \textit{NaN} -- Not a Number, tedy chybná hodnota čísla, například po výpočtu odmocniny záporného čísla 
+\end{itemize}
 \end{itemize}
 \end{frame}
+
 
 \begin{frame}[shrink=5]
-\frametitle{IEEE-754}
+\frametitle{RISC-V -- Délka instrukce}
 
-Přehled reálných čísel:
-\begin{tabular}{|c|c|l|}\hline
-Exponent & Mantisa &  Hodnota \\ \hline
-00000000 & 0 &  0.0 -- čistá nula \\ \hline
-00000000 & nenulová &  Denormalizovaná čísla blízká 0 \\ \hline
-00000001 & 0 &  nejmenší normalizované číslo se skrytou 1 v mantise \\ \hline
-\small 1 až 254 & cokoliv &  normalizovaná čísla, skrytá 1 v mantise \\ \hline
-11111111 & 0 &  nekonečno \\ \hline
-11111111 & nenulová &  NaN chybná hodnota \\ \hline
+\begin{tabular}{r l}
+  \begin{tabular}{|c|}\hline
+  \texttt{xxxxxxxxxxxxxxaa}\\ \hline
+  \end{tabular} & 16-bit ($aa \neq 11$)\\
+   &  \\
+   \begin{tabular}{|c|c|}\hline
+  \texttt{xxxxxxxxxxxxxxxx} & \texttt{xxxxxxxxxxxbbb11}\\ \hline
+  \end{tabular} & 32-bit ($bbb \neq 111$)\\
+ &  \\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{xxxxxxxxxx011111}\\ \hline
+  \end{tabular} & 48-bit\\
+ &  \\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{xxxxxxxxx0111111}\\ \hline
+  \end{tabular} & 64-bit\\
+ &  \\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{xnnnxxxxx0111111}\\ \hline
+  \end{tabular} & ($80+16\cdot nnn$)-bit\\
+  & ($nnn \neq 111$)\\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{x111xxxxx0111111}\\ \hline
+  \end{tabular} & rezervováno pro\\
+  & $\ge 192$-bit\\
+Address: \phantom{\texttt{yyyyyxxxxxxxxxxxxxxxx    xxxxxxxxx0111111}}&  \\
+base+4 \phantom{\texttt{xxxxxxx}} base+2 \phantom{\texttt{xxxxxxxxxxx}} base \phantom{\texttt{xxxxxxx}} &  \\
 \end{tabular}
-\bigskip
-
-Denormalizované číslo s nejmenší absolutní hodnotou různé od 0 je:
-\begin{itemize}
-\item \small exponent = 0 (-126), mantisa=000...0001, hodnota = $2^{-23+(-126)} \approx 1.4\text{E}-45$
-\end{itemize}
-Normalizované číslo s nejmenší absolutní hodnotou:
-\begin{itemize}
-\item \small exponent = 1 (-126), mantisa=000...0000, hodnota = $2^{-126} \approx 1.17\text{E}-38$
-\end{itemize}
-Normalizované číslo s největší absolutní hodnotou:
-\begin{itemize}
-\item \small exponent = 255 (127), mantisa=111...1111, hodnota = $(2-2^{-23})2^{127} \approx 3.4\text{E}38$
-\end{itemize}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{IEEE-754 revize 2008 }
-
-Standard IEEE-754 navíc definuje reálné číslo s 16 bity (half precision) a s 128 bity (quad precision).
-
-Reálné 16-bitové číslo obsahuje:
-\begin{itemize}
-\item 1 bit znaménko 
-\item 5 bitů hodnota exponentu s posunutou nulou o 15
-\item 10 bitů hodnota mantisy, (plus 11tý bit skrytý neukládaný)
-\end{itemize}
-\bigskip
-Reálné 128-bitové číslo obsahuje:
-\begin{itemize}
-\item 1 bit znaménko 
-\item 15 bitů hodnota exponentu s posunutou nulou o 16383
-\item 112 bitů hodnota mantisy, (plus 113 bit skrytý)
-\end{itemize}
 
 \end{frame}
 
 
-\begin{frame}
-\frametitle{IEEE-754 }
-
-Porovnání reálných čísel na velikost:
-\begin{itemize}
-\item Kladná čísla jsou vždy větší než záporná
-\item Po odstranění znamének, lze absolutní hodnoty čísel porovnat tak, jak jsou uložené v paměti jako celé číslo bez znaménka
-\begin{itemize}
-\item To je možné díky zvolené reprezentaci exponentu jako čísla s posunutou nulou
-\item Větší exponent větší číslo, při rovnosti exponentů větší mantisa znamená větší číslo
-\end{itemize}
-\end{itemize}
+\begin{frame}[shrink=12]
+\frametitle{RISC-V -- Registry}
+\begin{tabular}{|l|l|l|l|}\hline
+Register & ABI Name & Popis & Uchování \\ \hline
+x0 & zero & má vždy hodnotu 0 &  \\\hline
+x1 & ra & Návratová adresa (Return address) & Volající \\\hline
+x2 & sp & Ukazatel na zásobník (Stack pointer) &  Volaný\\\hline
+x3 & gp & Ukazatel na globální data &  \\
+   &    & (Global pointer) &  \\\hline
+x4 & tp & Ukazatel na vlákno (Thread pointer) &  \\\hline
+x5-7 & t0--2 & Dočasné proměnné (Temporaries) &  \\\hline
+x8 & s0/fp & Uchovávaný registr (Saved register)/ & Volaný \\
+   &       & Ukazatel na rámec (Frame pointer) &  \\\hline
+x9 & s1 & Uchovávaný registr (Saved register) &  Volaný \\\hline
+x10--11 & a0--1 & Argumenty funkce (Function arguments)/ &  Volající \\
+ &  & Návratové hodnoty (Return values) &  Volaný \\\hline
+x12--17 & a2--7 & Argumenty funkce (Function arguments) & Volající \\\hline
+x18--27 & s2--11 & Uchovávané registry (Saved registers) & Volaný \\\hline
+x28--31 & t3--6 & Dočasné proměnné (Temporaries) &  \\\hline
+pc & pc & Ukazatel na instrukci (Program Counter) &  \\\hline
+f0-31 &  & Reálná čísla (Floating point) &  \\\hline
+\end{tabular}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{IEEE-754}
+\frametitle{Cíl přednášky}
 
-Sčítání nebo odčítání dvou reálných čísel ve vědecké notaci
-\begin{enumerate}
-\item Převést mantisy čísel na společný exponent, který má hodnotu největšího exponentu (porušíme notaci)
-\item Provést součet, nebo rozdíl mantis i se skrytými jedničkami
-\item Výsledné číslo normalizovat
+Porozumět implementaci jednoduchého počítače, který se skládá z procesoru a oddělené paměti pro instrukce a data.
+
+Naším cílem je implementovat následující instrukce:
+
 \begin{itemize}
-\item při sčítání se může exponent zvětšit
-\item při odčítání se exponent může zmenšit
+\item Číst a zapisovat hodnotu z/do datové paměti.
+\begin{itemize}
+\item \textbf{\texttt{lw}} - načtení slova, \textbf{\texttt{sw}} - uložení slova
 \end{itemize}
-\end{enumerate}
+\item aritmetické a logické instrukce: \textbf{\texttt{add}}, \textbf{\texttt{sub}}, \textbf{\texttt{and}}, \textbf{\texttt{or}}, \textbf{\texttt{slt}}
+\begin{itemize}
+\item Immediátové varianty: \textbf{\texttt{addi}}, \textbf{\texttt{ori}}, horní bity načítají \textbf{\texttt{olui}},\textbf{\texttt{auipc}}
+\end{itemize}
+\item Instrukce pro změnu toku programu/skok \textbf{\texttt{beq}}
+\item Volání podprogramu \textbf{\texttt{jal}}, \textbf{\texttt{jalr}} (zajišťuje i návrat z podprogramu \textbf{\texttt{jr~ra}})
+\item CPU se bude skládat z řídicí jednotky a ALU.
+\item Poznámky:
+\begin{itemize}
+\item Implementace bude minimální (jednocyklový procesor - všechny operace budou probíhat v jednom cyklu, tzn. zpracovány v jednom kroku/hodině)
+\item Přednáška 5 je zaměřena na efektivnější realističtější implementaci zřetězenného (pipelined) CPU.
+\end{itemize}
+\end{itemize}
 
 \end{frame}
 
 
 \begin{frame}
-\frametitle{IEEE-754}
+\frametitle{Kódování instrukcí procesoru MIPS}
 
-Příklad: Sčítání dvou reálných čísel 31.5+0.75
+Starší typ procesoru, má tři typy instrukcí:
 
-$31.5_{(10)} = 11111.1_{(2)} = 1.11111\text{E}4$ \phantom{xxx} $0.75_{(10)} = 0.11_{(2)} = 1.1\text{E}-1$
+\begin{tabular}{|c|l|l|l|l|l|l|}\hline
+Typ & 31 ... 26 & 25 ... 21 & 20 ... 16 & 15 ... 11 & 10 ... 6 & 5 ... 0 \\ \hline
+R & opcode(6) & rs(5) & rt(5) & rd(5) & shamt(5) & funct(6) \\ \hline
+I & opcode(6) & rs(5) & rt(5) & \multicolumn{3}{c|}{ immediate(16)} \\ \hline
+J & opcode(6) & \multicolumn{5}{c|}{ address(26)} \\ \hline
+\end{tabular}
 
-\bigskip
-Obě čísla převedeme na stejný exponent 4 a sečteme:\\
-\texttt{\phantom{xx}1.11111}\\
-\texttt{\phantom{xx}0.000011}\vspace{-6pt}\\
-\rule[0pt]{2cm}{0.4pt}\\
-\texttt{\phantom{x}10.000001}\\
-
-Výsledné číslo musíme znormalizovat zvýšením exponentu na 5 a tím posunutím desetinné čárky vlevo:\\
-$10.000001\text{E}4 = 1.0000001\text{E}5$\\
-
-Toto číslo je reprezentací čísla 32.25.
-
-\end{frame}
-
-\begin{frame}
-\frametitle{IEEE-754 -- Násobení}
-
-Násobení dvou reálných čísel:
-\begin{enumerate}
-\item Exponent výsledku je součet exponentů čísel
-\item Mantisa výsledku je součin mantis čísel (i se skrytými jedničkami)
-\item Výsledné číslo normalizovat
 \begin{itemize}
-\item podle výsledku násobení mantis je někdy nutné zvýšit exponent o 1 a vyrotovat mantisu doprava
+\item typ instrukce (R,I,J) je určen 6-bity opcode
+\item rs -- register zdroje -- source; rd -- register cíle -- destination; rt -- někdy zdroj, někdy cíl
+\item immediate, address -- konstanty použité pro operaci, immediate pro počítání, address pro skoky 
+\item shamt -- konstanta využitá pouze pro posuny (shift, operace \texttt{<<}, \texttt{>>})
+\item funct -- specifikace prováděné operace, např. sčítání, odčítání, posuny, atd.
 \end{itemize}
-\end{enumerate}
+
 \end{frame}
 
 \begin{frame}
-\frametitle{IEEE-754 -- Násobení}
+\frametitle{Kódování instrukcí procesoru RISC-V}
 
-Příklad: Vynásobíme čísla $0.375 \cdot 1.5$
+Má šest typů instrukcí:
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+R & \multicolumn{2}{c|}{ fnct7 } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+S & \multicolumn{2}{c|}{ imm[11:5] } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\multicolumn{2}{c|}{ imm[4:0] } & opcode\\ \hline
+B & imm [12] & imm [10:5]  & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 & imm[4:1]& imm [11] & opcode\\ \hline
+U & \multicolumn{6}{c|}{ imm[31:12] }  & \multicolumn{2}{c|}{ rd } & opcode\\ \hline
+J & imm [20] & \multicolumn{2}{c|}{ imm[10:1] } & imm [11] & \multicolumn{2}{c|}{ imm[19:12] } & \multicolumn{2}{c|}{ rd } & opcode\\ \hline
+\end{tabular}
+\end{table}
 
-$0.375_{(10)} = 0.011_{(2)} = 1.1\text{E}-2$ \phantom{xxx} $1.5_{(10)} = 1.1_{(2)} = 1.1\text{E}0$
+\begin{itemize}
+\item délka a typ instrukce (R,I,S,B,U,J) je určen 7-bity opcode
+\item rs1,2 -- registery zdroje -- source; rd -- register cíle -- destination
+\begin{itemize}
+\item registry jsou vždy na pevné pozici v instrukci
+\end{itemize}
+\item immediate -- konstanty použité pro operaci nebo skoky
+\item fnct3, fnct7 -- specifikace prováděné operace, např. sčítání, odčítání, posuny, atd.
+\end{itemize}
 
-Součin mantis je:\\
+\end{frame}
+
+\begin{frame}
+\frametitle{Kódování instrukcí procesoru RISC-V}
+
+Význam hodnot opcode:
+\begin{table}
+\footnotesize
+\begin{tabular}{|c|l|l|}\hline
+Opcode & Skupina operací & Skutečná operace \\ \hline
+0110011 & Typ R podle fnct & add, sub, slt, or, and \\ \hline
+0010011 & Typ I podle fnct & addi, slt, or, and \\ \hline
+0000011 & Čtení z paměti & lw \\ \hline
+0100011 & Zápis do paměti & sw \\ \hline
+1100011 & Větvení -- branch & beq \\ \hline
+1101111 & Podprogramy & jal \\ \hline
+1100111 & Návrat z podprogramu & jalr \\ \hline
+0000111 & Načtení horní části konstanty & lui \\ \hline
+\end{tabular}
+\end{table}
+
+Pro typ R jsou následující hodnoty \texttt{fnct3} a \texttt{fnct7}:
+\begin{table}
+\footnotesize
+\begin{tabular}{|l|l|l|}\hline
+fnct7 & fnct3 & Skutečná operace \\ \hline
+0000000 & 000  & add \\ \hline
+0100000 & 000  & sub \\ \hline
+0000000 & 010  & slt \\ \hline
+0000000 & 110  & bitový or \\ \hline
+0000000 & 111  & bitový and \\ \hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bonusový bod}
+
+Jak lze v RISC-V načíst do registru konstantu o velikost 32-bitů?
+\begin{itemize}
+\item[A] pomocí jedné instrukce
+\item[B] pomocí dvou instrukcí, první načte horních 20 bitů, druhá spodních 12-bitů
+\item[C] pomocí tří instrukcí, první načte 16 bitů, druhá provede bitový posun, třetí načte spodních 16 bitů
+\item[D] pomocí pěti instrukcí, první načte 12 bitů, druhá provede bitový posun, třetí načte dalších 12 bitů, čtvrtá provede bitový posun a pátá načte nejnižších 8 bitů 
+\end{itemize}
+\end{frame}
+
+
+
+\section{Konstrukce procesoru}
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+Základní realizace registru pomocí tzv. obvodu d-latch
+\begin{center}
+\includegraphics[width=0.5\textwidth]{d_latch.pdf}
+\end{center}
+
+Tento obvod je velkou změnou oproti dosavadnímu přístupu, protože se zde objevuje cyklus -- výstup hradla je vstupem stejného hradla, nebo vstupem hradla jehož výstup je vstupem prvního hradla.
+
+Co to tedy dělá?
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+
+Chování obvodu je určeno hodnotou vstupu E.
+
+Nejdříve se podíváme, co se děje při E=1:
 \begin{columns}
-\begin{column}{0.45\textwidth}
-\texttt{\phantom{xxx}11} odpovídá \texttt{1.1}\\
-\texttt{\phantom{xx}*11} odpovídá \texttt{1.1}\vspace{-6pt}\\
-\rule[0pt]{2cm}{0.4pt}\\
-\texttt{\phantom{xxx}11}\\
-\texttt{\phantom{xx}11}\vspace{-6pt}\\
-\rule[0pt]{2cm}{0.4pt}\\
-\texttt{\phantom{x}1001} 
-
-odpovídá \texttt{10.01}, výsledek má 2 desetinná čísla
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth]{d_latch_e1-cz.pdf}
+\end{center}
 \end{column}
-\hfill
-\begin{column}{0.45\textwidth}
-\texttt{\phantom{xx}375} odpovídá \texttt{0.375}\\
-\texttt{\phantom{xx}*15} odpovídá \texttt{1.5}\vspace{-6pt}\\
-\rule[0pt]{2cm}{0.4pt}\\
-\texttt{\phantom{x}1875}\\
-\texttt{\phantom{x}375}\vspace{-6pt}\\
-\rule[0pt]{2cm}{0.4pt}\\
-\texttt{\phantom{x}5625} 
-
-odpovídá \texttt{0.5625}, výsledek má 4 desetinná čísla
+\begin{column}{0.5\textwidth}  
+\begin{itemize}
+\item Vstup D se se zpožděním objeví na výstupu Q
+\begin{itemize}
+\item pro $D=1$ musí být výstup $Q=1$, protože jeden vstup do posledního nand hradla je 0, tedy výstup musí být 1
+\item pro $D=0$ musí být $\overline{Q}=1$, protože opět jeden vstup do nand hradla je 0, když je $\overline{Q}=1$, tak potom je výstup $Q=0$, protože oba dva vstupy jsou 1, výstup nand je 0
+\end{itemize}
+\end{itemize}
 \end{column}
 \end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+
+Pokud je E=0:
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth]{d_latch_e0-cz.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}  
+\begin{itemize}
+\item Hodnota $Q,\overline{Q}$ závisí pouze na staré hodnotě dvojice $Q,\overline{Q}$
+\item Dvojice nabývá pouze hodnot, která mohla vzniknout při zápisu, tedy buď $Q=1,\overline{Q}=0$ nebo $Q=0,\overline{Q}=1$
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+
+Aktivace náběžnou hranou:
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{edge.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.55\textwidth}  
+\begin{itemize}
+\item Může být výstup tohoto obvodu vůbec někdy v 1?
+\item matematicky je vždy $(C$~and~$\overline{C})=0$ 
+\item ve skutečnosti je ale hradlo not zpožděno oproti normálnímu signálu a na tuto dobu zpoždění je výstup \texttt{E'} v 1
+\item pokud by tato hodnota byla moc krátká na to, aby se obvod d-latch nastavil, tak je možné přidat negací více za sebou (zelená křivka)
+\item tomuto obvodu se říká d flip-flop
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Hardwarová realizace základního cyklu CPU}
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{cpu_step-cz.pdf}
+\end{center}
+
+Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodnota PC+4. Tím se automaticky rozběhne nové čtení z paměti a následné zpracování instrukce, které si ukážeme později.
+\end{frame}
+
+\begin{frame}
+\frametitle{Stavební bloky procesoru}
+
+\begin{table}
+\footnotesize
+\begin{tabular}{m{1.6cm} m{9.5cm}}
+\hfill \includegraphics[width=0.6cm]{registr.pdf} & jeden registr, zápis řízen hodinovým signálem CLK \\ 
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=1.6cm]{registers-cz.pdf} & soubor 32 registrů, podle vstupu A1, A2 vybere hodnoty těchto dvou registrů na výstup RD1 a RD2; pokud přijde hodinový signál a je nastaven vstup WE3 (write enable) tak se hodnota WD3 zapíše do registru číslo A3 \\
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=0.8cm]{multiplexor.pdf} & na základě hodnoty řídicího signálu Select přenáší hodnotu jednoho ze vstupů na výstup \\ 
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=1.2cm]{alu.pdf} & na základě ALUControl provede vybranou operaci na vstupu SrcA a SrcB. Výsledek je ALUout a výsledkem jsou i příznaky jak vyšel výsledek, například zero \\ 
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=1.6cm]{imm_decode.pdf} & provede sestavení bitů konstanty z bitů instrukce a provede znaménkové rozšíření na 32 bitů plnohodnotného čísla se znaménkem \\ 
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Stavební bloky procesoru}
+
+\begin{table}
+\footnotesize
+\begin{tabular}{m{1.7cm} m{9.4cm}}
+\hfill \includegraphics[width=1.7cm]{inst_mem-cz.pdf} & Instrukční paměť dá na výstup data RD uložená v paměti na adrese A. Data jsou k dispozici po uplynutí "dostatečně dlouhé" doby pro nalezení dat a jejich vystavení na výstup RD.\\
+\phantom{X} & \phantom{X} \\
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=1.7cm]{memory-cz.pdf} & Datová paměť. Slouží buď ke čtení dat z adresy A. Protože se jedná o stejnou pamět jako je instrukčí, tak po "dostatečně dlouhé" době jsou data na výstupu RD. Pokud je nastaven příznak WE (write enable), tak s náběžnou hranou hodinového signálu CLK dojde k zápisu dat WD na adresu A.\\ 
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Instrukce lw -- load word}
+
+\textbf{\texttt{lw -- load word}} načti slovo z paměti do registru
+
+\begin{tabular}{|l|l|}\hline
+Popis & Načte slovo do registru ze zadané adresy z paměti \\ \hline
+Operace & \texttt{[rd]} $\leftarrow$ \texttt{Mem[[rs1]+imm12]} \\ \hline
+Syntax & lw rd, imm12(rs1) \\ \hline
+Kódování & \texttt{iiii iiii iiii ssss s010 dddd d000 0011} \\ \hline
+ & s -- rs1; d -- rd; i -- konstanta \\ \hline
+\end{tabular}
+
 \bigskip
 
-Exponent vychází $-2+0=-2$, ale výsledek součinu mantis potřebujeme normalizovat, neboli zvětšit exponent o 1 na $-1$.
+Příklad: Načtěte 32-bitové slovo z paměti z adresy 0x400 do registru 2:\\
+\textbf{\texttt{lw x2, 0x400(x0)}}
 
-Tím dostáváme výsledek $10.01\text{E}-2 = 1.001\text{E}-1$ což je správný výsledek $0.5625_{(10)}$
+\textbf{\texttt{\color{red}iiii iiii iiii}}\phantom{xx}\textbf{\texttt{\color{blue}ssss s}}\hspace{0.1cm}\textbf{\texttt{010\hspace{0.25cm}{\color{green}dddd d}\hspace{0.05cm}000 0011}}\\
+$\underbrace{\textbf{\texttt{\color{red}0100 0000 0000}}}_{0x400}\texttt{ }\underbrace{\textbf{\texttt{\color{blue}0000 0}}}_{0}\underbrace{\textbf{\texttt{010}}}_{func3}\phantom{i}\underbrace{\textbf{\texttt{\color{green}0001 0}}}_{2}\underbrace{\textbf{\texttt{000 0011}}}_{opcode}$\\
+
+\textbf{\texttt{0x 40 00 21 03}} -- kód pro instrukci \textbf{\texttt{lw x2, 0x400(x0)}}
+
+Poznámka: Registr x0 má natvrdo hodnotu 0, kterou nelze změnit
 
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{IEEE-754}
+\begin{frame}[shrink=15]
+\frametitle{Implementace instrukce lw}
 
-Reálná čísla shrnutí:
-\begin{itemize}
-\item reálná čísla s plovoucí čárkou umí reprezentovat čísla ve velmi velkém rozsahu:
-\begin{itemize}
-\item float -- absolutní hodnota čísel od $1.175494351\text{E}-38$ do $3.402823466\text{E} + 38$
-\item double -- absolutní hodnota čísel od $2.2250738585072014\text{E} - 308$ do $1.7976931348623158\text{E} + 308$
-\end{itemize}
-\item přesnost čísla se udává na počet validních cifer:
-\begin{itemize}
-\item float -- v desítkové soustavě 6-7 platných cifer
-\item double -- v desítkové soustavě 15-16 platných cifer
-\end{itemize}
-\end{itemize}
+\textbf{\texttt{lw}}: \texttt{rs1} -- základní adresa, \texttt{imm12} -- posunutí adresy, \texttt{rd} -- registr, kam se uloží data z paměti
 
-POZOR: Následující \texttt{while} cyklus neskončí:
-\begin{minted}{c}
-  float a=1.0, step=5e-8;
-  while (a*a<1.01) {
-    a+=step;
-  }
-\end{minted}
+\bigskip
+
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+
+\begin{center}
+\includegraphics[width=0.85\textwidth]{cpu-load.pdf}
+\end{center}
+
 \end{frame}
 
+\begin{frame}[shrink=15]
+\frametitle{Implementace instrukce lw}
+
+\textbf{\texttt{lw}}: \texttt{rs1} -- základní adresa, \texttt{imm12} -- posunutí adresy, \texttt{rd} -- registr, kam se uloží data z paměti
+
+\bigskip
+
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+\end{tabular}
+\end{table}
+
+Zápis proběhna na rostoucí hranu hodin.
+
+\begin{center}
+\includegraphics[width=0.90\textwidth]{cpu-load-red.pdf}
+\end{center}
+
+
+
+\end{frame}
+
+
+\begin{frame}[shrink=15]
+\frametitle{Implementace instrukce lw}
+
+\textbf{\texttt{lw}}: \texttt{rs1} -- základní adresa, \texttt{imm12} -- posunutí adresy, \texttt{rd} -- registr, kam se uloží data z paměti
+
+\bigskip
+
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+
+\begin{center}
+\includegraphics[width=0.88\textwidth]{cpu-load2.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{QtRvSim - RISC-V Simultaor}
+
+\includegraphics[width=0.9\textwidth]{simulator.pdf}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Instrukce sw -- store word}
+
+\textbf{\texttt{sw -- store word}} ulož slovo z registru do paměti
+
+\bigskip
+
+\begin{tabular}{|l|l|}\hline
+Popis & Uloží slovo z registru rs2 do zadané adresy z paměti \\ \hline
+Operace & \texttt{Mem[[rs1]+imm12]} $\leftarrow$ \texttt{[rs2]} \\ \hline
+Syntax & sw rs2, imm12(rs1) \\ \hline
+Kódování & \texttt{iiii iiit tttt ssss s010 iiii i010 0011} \\ 
+ & t -- rs2; s -- rs1; i -- konstanta \\ \hline
+\end{tabular}
+
+\bigskip
+
+Příklad: Uloží 32-bitové slovo z registru 2 do paměti na adresu 0x404 plus hodnota registru 5:\\
+\textbf{\texttt{sw x2, 0x404(x5)}}
+
+\textbf{\texttt{{\color{green}iiii iii}\hspace{0.08cm}\color{red}t tttt}}\phantom{x}\hspace{0.13cm}\textbf{\texttt{\color{blue}ssss s}}\hspace{0.1cm}\textbf{\texttt{010\hspace{0.25cm}{\color{green}iiii i}\hspace{0.05cm}010 0011}}\\
+$\underbrace{\textbf{\texttt{\color{green}0100 000}}}_{0x40\_}
+\underbrace{\textbf{\texttt{\color{red}0 0010}}}_{2}
+\texttt{ }\underbrace{\textbf{\texttt{\color{blue}0010 1}}}_{5}
+\underbrace{\textbf{\texttt{010}}}_{func3}\phantom{i}\underbrace{\textbf{\texttt{\color{green}0010 0}}}_{0x \_04}
+\underbrace{\textbf{\texttt{010 0011}}}_{opcode}$\\
+
+\textbf{\texttt{0x 40 22 a2 23}} -- kód pro instrukci \textbf{\texttt{sw x2, 0x404(x5)}}
+
+\end{frame}
+
+\begin{frame}[shrink=18]
+\frametitle{Implementace instrukce sw}
+
+\textbf{\texttt{sw}}: \texttt{rs1} -- základní adresa, \texttt{imm12} -- posunutí adresy, \texttt{rs2} -- registr, který se uloží do paměti
+
+\bigskip
+
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+S & \multicolumn{2}{c|}{ imm[11:5] } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\multicolumn{2}{c|}{ imm[4:0] } & opcode\\ \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+
+\includegraphics[width=0.90\textwidth]{cpu-store2.pdf}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Instrukce add -- sečti dva registry}
+
+\textbf{\texttt{add -- addition}} -- sečti hodnoty dvou registrů a součet ulož do registru
+
+\bigskip
+
+\begin{tabular}{|l|l|}\hline
+Popis & Sečti hodnoty z registrů rs1 a rs2 a výsledek ulož do rd \\ \hline
+Operace & \texttt{[rd]} $\leftarrow$ \texttt{[rs1] + [rs2]} \\ \hline
+Syntax & add rd, rs1, rs2 \\ \hline
+Kódování & \texttt{0000 000t tttt ssss s000 dddd d011 0011} \\
+ & t -- rs2; s -- rs1; d -- rd \\ \hline
+\end{tabular}
+
+\bigskip
+
+Příklad: Sečti hodnoty z registru 2 a registru 3, výsledek ulož do registru 4:\\
+\textbf{\texttt{add x4, x2, x3}}
+
+\textbf{\texttt{0000 000\hspace{0.08cm}\color{red}t tttt}}\phantom{x}\hspace{0.13cm}\textbf{\texttt{\color{blue}ssss s}}\hspace{0.1cm}\textbf{\texttt{000\hspace{0.25cm}{\color{green}dddd d}\hspace{0.05cm}011 0011}}\\
+$\underbrace{\textbf{\texttt{0000 000}}}_{funct7}
+\underbrace{\textbf{\texttt{\color{red}0 0011}}}_{3}
+\texttt{ }\underbrace{\textbf{\texttt{\color{blue}0001 0}}}_{2}
+\underbrace{\textbf{\texttt{000}}}_{func3}\phantom{i}
+\underbrace{\textbf{\texttt{\color{green}0010 0}}}_{4}
+\underbrace{\textbf{\texttt{011 0011}}}_{opcode}$\\
+
+\textbf{\texttt{0x 00 31 02 33}} -- kód pro instrukci \textbf{\texttt{add x4, x2, x3}}
+
+
+\end{frame}
+
+\begin{frame}[shrink=25]
+\frametitle{Implementace instrukce add}
+
+\textbf{\texttt{add}}: \texttt{rs1}, \texttt{rs2} -- sčítance, \texttt{rd} -- registr, kam se uloží součet
+
+\bigskip
+
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+R & \multicolumn{2}{c|}{ fnct7 } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-add.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Implementace instrukce sub, and, or, slt}
+
+Jediný rozdíl oproti instrukci sčítání add je v hodnotě ALUControl, který vybírá, jakou operaci jednotka ALU provede. Cesta dat a uložení výsledku je stejná jako u sčítání.
+\bigskip
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-add2.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Instrukce addi -- přičti konstantu k registru}
+
+\textbf{\texttt{addi -- addition immediate}} -- sečti hodnotu registru a konstanty a výsledek ulož do registru
+
+\bigskip
+
+\begin{tabular}{|l|l|}\hline
+Popis & Sečti hodnoty z registru rs1 a imm12 a výsledek ulož do rd \\ \hline
+Operace & \texttt{[rd]} $\leftarrow$ \texttt{[rs1] + imm12} \\ \hline
+Syntax & addi rd, rs1, imm12 \\ \hline
+Kódování & \texttt{iiii iiii iiii ssss s000 dddd d001 0011} \\ 
+ & i -- konstanta; s -- rs1; d -- rd \\ \hline
+\end{tabular}
+
+\bigskip
+
+Příklad: Zvětši hodnotu registru 7 o 4 (výsledek tedy ulož do registru 7):\\
+\textbf{\texttt{addi x7, x7, 4}}
+
+\textbf{\texttt{\color{red}iiii iiii iiii}}\phantom{xx}\textbf{\texttt{\color{blue}ssss s}}\hspace{0.1cm}\textbf{\texttt{000\hspace{0.25cm}{\color{green}dddd d}\hspace{0.05cm}001 0011}}\\
+$\underbrace{\textbf{\texttt{\color{red}0000 0000 0100}}}_{0x004}\texttt{ }\underbrace{\textbf{\texttt{\color{blue}0011 1}}}_{7}\underbrace{\textbf{\texttt{000}}}_{func3}\phantom{i}\underbrace{\textbf{\texttt{\color{green}0011 1}}}_{7}\underbrace{\textbf{\texttt{001 0011}}}_{opcode}$\\
+
+\textbf{\texttt{0x 00 43 83 93}} -- kód pro instrukci \textbf{\texttt{addi x7, x7, 4}}
+
+
+\end{frame}
+
+
+\begin{frame}[shrink=10]
+\frametitle{Implementace instrukcí addi, ori, andi}
+
+\textbf{\texttt{addi -- add immediate}}: \texttt{[rd]} $\leftarrow$ \texttt{[rs1] + imm12} -- přičte k hodnotě registru \texttt{rs1} konkrétní číslo \texttt{imm} a výsledek uloží do registru \texttt{rd}
+
+\bigskip
+
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-addi.pdf}
+
+\end{frame}
+
+
+\begin{frame}[shrink=15]
+\frametitle{Implementace instrukce skoku beq}
+
+\textbf{\texttt{beq -- branch if equal}}: \texttt{[pc]} $\leftarrow$ \texttt{[pc] + SignImm} -- přičte k hodnotě registru \texttt{pc} konkrétní znaménkové číslo rozšířené na 32 bitů \texttt{imm} a výsledek uloží do registru \texttt{pc} pokud nastala rovnost hodnot v registrech rs1 a rs2.
+
+\bigskip
+
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+B & imm [12] & imm [10:5]  & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 & imm[4:1]& imm [11] & opcode\\ \hline
+\end{tabular}
+\end{table}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-beq.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rychlost CPU}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{cpu-time.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Rychlost CPU}
+
+Jaká je maximální možná rychlost navrženého procesoru?
+\begin{itemize}
+\item Musí proběhnout všechny barevně označené fáze procesoru pro všechny instrukce a nejhorší případ je instrukce \texttt{\textbf{lw}}:
+\begin{itemize}
+\item $t_{PC} = 0,3$ ns
+\item $t_{Mem} = 20$ ns
+\item $t_{RFread} = 1,5$ ns
+\item $t_{ALU} = 2$ ns
+\item $t_{Mux} = 0,1$ ns
+\item $t_{RFsetup} = 0,1$ ns
+\end{itemize}
+\item Celkem se dostáváme na čas $T_{CLK} = t_{PC} + t_{Mem} + t_{RFread} + t_{ALU} + t_{Mem} + t_{Mux} + t_{RFsetup} = 44$ ns 
+\item Tomuto času odpovídá frekvence $f_{CLK} = \frac{1}{T_{CLK}} = 22,7$ MHz tedy 22 700 000 instrukcí za sekundu = 22,7 MIPS
+\item Potřebovali bychom tedy procesor zrychlit, téma pro přednášku 5
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Řídicí jednotka -- Řadič procesoru}
+
+Co vlastně dělá řídicí jednotka (někdy také nazývaná řadič procesoru, angl. Control Unit)?
+
+Převádí bity \texttt{\textbf{opcode}} a \texttt{\textbf{fnct3,7}} na řídicí bity ALUControl, RegWrite, MemWrite, ALUSrc, MemToReg, Branch a pár dalších pro další instrukce.
+
+\bigskip
+\begin{center}
+\includegraphics[width=0.75\textwidth]{cpu-control-unit.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Řídicí jednotka -- Řadič procesoru}
+
+Podle Opcode lze nadefinovat výstupy řadiče:
+\begin{tabular}{|lccc|cccccc|}\hline
+Instrukce & Opcode & Fnct3 & Fnct7 & \rotatebox{90}{ALUControl\phantom{x}} & \rotatebox{90}{ALUSrc} & \rotatebox{90}{RegWrite} & \rotatebox{90}{MemWrite} & \rotatebox{90}{MemToReg} & \rotatebox{90}{Branch} \\ \hline
+lw & 0000011 & 010 & --       &           + & 1 & 1 & 0 & 1 & 0\\
+sw & 0100011 & 010 & --       &           + & 1 & 0 & 1 & 0 & 0\\
+add & 0110011 & 000 & 0000000 &           + & 0 & 1 & 0 & 0 & 0\\
+sub & 0110011 & 000 & 0100000 &           - & 0 & 1 & 0 & 0 & 0\\
+slt & 0110011 & 010 & 0000000 &  \texttt{<} & 0 & 1 & 0 & 0 & 0\\
+or & 0110011 & 110 & 0000000  & \texttt{|}  & 0 & 1 & 0 & 0 & 0\\
+and & 0110011 & 111 & 0000000 & \texttt{\&} & 0 & 1 & 0 & 0 & 0\\
+addi & 0010011 & 000 & --     &           + & 1 & 1 & 0 & 0 & 0\\
+beq & 1100011 & 000 & --      & \texttt{==} & 0 & 0 & 0 & * & 1\\ \hline
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Možné realizace řadiče}
+\begin{itemize}
+\item Řadič obvodový:
+\begin{itemize}
+\item Kombinační obvod (to byl náš případ),
+\item Sekvenční obvod – stavový automat, apod.
+\end{itemize}
+\item Řadič mikroprogramovaný (řízený mikroprogramem):
+\begin{itemize}
+\item Mikroprogram je uložen v řídicí paměti řadiče a skládá se z mikroinstrukcí.
+\item Mikroprogram implementuje programátorovi viditelné strojové instrukce (add, sub, lw, xor, jmp,. . . ).
+\item Operační kód instrukce udává adresu první mikroinstrukce v řídicí paměti, od které začíná mikroprogram pro danou instrukci.
+\item Každá z instrukcí ISA je provedena pomocí jedné nebo několika mikroinstrukcí.
+\item Výhodou mikroprogramovaného řadiče je flexibilita: změna mikroprogramu = změna chování procesoru.
+\item Nevýhody: složitější a nevhodný pro zřetězené procesory, kdy každý stupeň vykonává jinou instrukci. Bylo by potřeba zajistit správné provedení všech instrukcí napříč stupni spolu s řešením hazardů
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bonusový bod}
+
+Které bity instrukce rozhodují o tom, jestli se bude ukládat do paměti, nebo počítat s dvěmi registry a výsledek se uloží do třetího registru?
+\begin{itemize}
+\item[A] opcode
+\item[B] fnct3,7
+\item[C] rs1, rs2
+\item[D] rd
+\end{itemize}
+\end{frame}
 
 
 \end{document}
