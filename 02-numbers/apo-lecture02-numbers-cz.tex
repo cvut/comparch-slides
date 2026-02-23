@@ -12,6 +12,8 @@
 
 \maketitle
 
+\section{ALU - dokončení}
+
 \begin{frame}
 \frametitle{Násobení celých čísel}
 
@@ -81,8 +83,30 @@ Práci sekvenční násobičky si ukážeme na příkladu:
 
 
 \begin{frame}
-\frametitle{Rychlé násobení - Motivace Wallace tree}
-Jakého zrychlení tedy dosáhneme?
+\frametitle{Rychlé násobení - Wallace tree}
+
+Použijeme předchozí princip na co nejrychlejší součet 32 nebo 64 různých čísel:
+\begin{columns}
+\begin{column}{0.6\textwidth}
+\includegraphics[width=1.0\textwidth]{generated/logic/multiplication/wallace-tree2.pdf}
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\begin{itemize}
+\item Součiny jsou jednoduché: $x_i \cdot y_j=x_i$~\texttt{and}~$y_j$
+\item Nejtěžší je sečíst prostřední sloupec 64 jednobitových čísel
+\item Pustíme na všechny bity, co můžeme, paralelně sčítačky a carry budeme přičítat v dalších krocích
+\item V první fázi to bude 1323 sčítaček
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Rychlé násobení - Carry Save Adder}
+Jakého zrychlení tedy dosáhneme použitím sčítačky s odloženým carry?
 
 Sčítání šesti čísel:
 \begin{columns}
@@ -108,26 +132,6 @@ Sčítání šesti čísel:
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Rychlé násobení - Wallace tree}
-
-Použijeme předchozí princip na co nejrychlejší součet 32 nebo 64 různých čísel:
-\begin{columns}
-\begin{column}{0.6\textwidth}
-\includegraphics[width=1.0\textwidth]{generated/logic/multiplication/wallace-tree2.pdf}
-\end{column}
-\hfill
-\begin{column}{0.4\textwidth}
-\begin{itemize}
-\item Součiny jsou jednoduché: $x_i \cdot y_j=x_i$~\texttt{and}~$y_j$
-\item Nejtěžší je sečíst prostřední sloupec 64 jednobitových čísel
-\item Pustíme na všechny bity, co můžeme, paralelně sčítačky a carry budeme přičítat v dalších krocích
-\item V první fázi to bude 1323 sčítaček
-\end{itemize}
-\end{column}
-\end{columns}
-
-\end{frame}
 
 \begin{frame}[shrink=5]
 \frametitle{Rychlé násobení - Wallace tree}
@@ -260,7 +264,7 @@ Latence instrukcí - kolik cyklů procesoru trvá spočítat výsledek:
 \begin{tabular}{l|l|l|l|l}
 \textbf{Instrukce} & \textbf{Pentium M} & \textbf{IceLake} & \textbf{Zen1} & \textbf{Zen5}\\
 \hline
-ADD r64 & 1 (r32) & 1 & 1 & 1 & 1\\ \hline
+ADD r64 & 1 (r32) & 1 & 1 & 1 \\ \hline
 MUL r64 & 5 (r32)& 3 &  3 & 3\\ \hline
 DIV r64 & 15-39 (r32) & 15 & 14-46 & 11-19\\ 
 \end{tabular}
@@ -272,7 +276,7 @@ Délka dělení závisí na číslech, která se dělí, odhaduje se podíl něk
 
 Důležitá je i propustnost, kolik oparací zvládně jedno jádro paralelně. 
 
-Moderní CPU umožňují provést 2-5 sčítání paralelně, násobení 1-2, dělení je možno provést paralelně pouze částečně.
+Moderní CPU umožňují provést 2-6 sčítání paralelně, násobení 1-3, dělení je možno provést paralelně pouze částečně.
 
 \end{frame}
 
@@ -303,19 +307,52 @@ $A(M\cdot N) = A(M) \cdot A(N)$\\
 
 
 \begin{frame}
-\frametitle{Kvíz}
+\frametitle{Kvíz - Přetečení - Overflow}
 
 \begin{center}
 \includegraphics[width=0.6\textwidth]{generated/logic/addition/overflow.pdf}
 \end{center}
 
-Při sčítání dvou čísel s odlišnými znaménky:
+Obvod výše podle hodnoty nejvyšších bitů čísel v dvojkovém doplňku zjistí:
 \begin{itemize}
-\item[A] může dojít k přetečení jen v dvojkovém doplňku
-\item[B] může dojít k přetečení pouze při jiné reprezentaci než je dvojkový doplněk
-\item[C] nemůže dojít pouze při reprezentaci v dvojkovém doplňku
-\item[D] nemůže dojít v žádné reprezentaci čísel se znaménkem
+\item[A] pouze pokud jsou oba sčítance kladné, nebo oba záporné, zda nastane přetečení.
+\item[B] vždy zjistí, zda nastane přetečení
+\item[C] pouze pro sčítance s rozdílnými znaménky zjistí, zda nastane přetečení
+\item[D] nefunguje pro čísla v dvojkovém doplňku
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kvíz - Přetečení - Overflow}
+
+Může nastat přetečení v ALU při násobení a dělení čísel, v dvojkovém doplňku i bez znaménka, tak jak bylo popsáné sekvenční násobičkou a děličkou výše?
+
+\begin{itemize}
+\item[A] Může nastat přetečení při násobení i dělení
+\item[B] Může nastat přetečení pouze při násobení, při dělení nemůže
+\item[C] Může nastat přetečení pouze při dělení, při násobení nemůže
+\item[D] Nemůže nastat ani při násobení ani při dělení.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kvíz - Přetečení - Overflow}
+
+Vysvětlení:
+\begin{itemize}
+\item strojová instrukce násobení - násobí dva registry a výsledné číslo uloží do dvou registrů
+\begin{itemize}
+\item z hlediska ALU nedojde nikdy k přetečení, výsledek se do dvou registrů vejde vždy
+\item program, který by uložil součin dvou int čísel do int může dojít k přetečení
+\item program, který by uložil součin dvou int čísel do long long int nemůže dojít k přetečení
+\end{itemize}
+\item strojová instrukce dělení - dělí číslo uložené ve dvou registrech jedním registrem, výsledek uloží do jednoho registru podíl, často do druhého registru zbytek - modulo
+\begin{itemize}
+\item číslo složené z dvou registrů po dělení se nemusí vejít do jednoho registru, proto může dojít k přetečení
+\item program, který dělí int jiným int, nemůže mít přetečení, pokud nedělí 0
+\end{itemize}
+\end{itemize}
+
 \end{frame}
 
 
@@ -343,26 +380,17 @@ Při sčítání dvou čísel s odlišnými znaménky:
 Procesor / mikroprocesor:
 \begin{itemize}
 \item Řídicí jednota (control unit)
+\item Registry
 \item Aritmeticko-logická jednotka -- ALU
 \end{itemize}
 
-Paměť: 
+Registry:
 \begin{itemize}
-\item von Neumann architektura má společnou paměť pro program i data
-\item paměť se skládá z buněk - jednotek, v současné době z bajtů
+\item jsou místa v procesoru, kde se ukládají hodnoty
+\item počet bitů registru určuje typ architektury, od 8-mi bitových až po 64-bitové
+\item jsou nejrychlejší pamětí v počítači, HW jsou kontruované naprosto jinak než RAM
 \end{itemize}
 
-Vstupně výstupní podsystém:
-\begin{itemize}
-\item Vstupy -- klávesnice, myši, děrné štítky, magnetopáskové jednotky, síťové karty, ...
-\item Výstupy -- monitory (grafické karty), tiskárny, plotry, síťové karty, ...
-\end{itemize}
-
-Řídicí jednotka řídí práci a sekvenci této práce. Skládá se z:
-\begin{itemize}
-\item registrů – udržují mezivýpočty a stavy výpočtů
-\item řídicích hradel -- dekódují instrukce a provádí operace
-\end{itemize}
 \end{frame}
 
 
@@ -389,13 +417,14 @@ Vstupně výstupní podsystém:
 
 Co musíme uvažovat při návrhu zakódování instrukcí?
 \begin{itemize}
-\item 8 bitů pro jednu instrukci
+\item počet bitů na zakódování instrukce
+\item pro uložení používáme paměť, tedy instrukce musí být zarovnaná na 8 bitů
 \begin{itemize}
 \item Pokud by velikost instrukce byla jeden bajt, tedy 8 bitů, tak můžeme mít maximálně 256 různých instrukcí
 \item Je to dost?
 \item Co vlastně musí být zakódováno uvnitř instrukce? Nutně tam musí být registry, se kterými bude instrukce pracovat
 \begin{itemize}
-\item pokud bychom měli v procesoru 8 registrů, pak 3 bity kódují, který registr chceme použít
+\item pokud bychom měli v procesoru 8 GPR registrů, pak 3 bity kódují, který registr chceme použít
 \item pro operaci potřebujeme 3 registry \texttt{cíl = zdroj1 + zdroj2} nebo jen 2 registry \texttt{cíl += zdroj}
 \item pro práci s pamětí stačí 2 registry \texttt{cíl = MEM[zdroj]}
 \end{itemize}
@@ -417,9 +446,9 @@ Co musíme uvažovat při návrhu zakódování instrukcí?
 \begin{itemize}
 \item často 32 registrů, až 128 tisíc druhů instrukcí se třemi operandy (17~+~3~*~5~=~32~bitů)
 \end{itemize}
-\item Další problém jsou konstanty, třeba chci přičíst 1 k registru, nebo uložit do registru konkrétní hodnotu 125. 
+\item Další problém jsou konstanty, třeba chci přičíst 1 k registru, nebo uložit do registru konkrétní hodnotu 125, nebo třeba i větší číslo 1234567.
 \begin{itemize}
-\item překladač vygeneruje do paměti všechny konstanty a registry na ně budou ukazovat
+\item překladač vygeneruje do paměti všechny konstanty, ale aby na ně registry mohli ukazovat, potřebujeme zase přičíst konstantu k ukazateli na začátek pole konstant
 \item nebo malá čísla budou součástí instrukce
 \begin{itemize}
 \item toto je nejpoužívanější řešení
@@ -612,8 +641,8 @@ Jak lze v RISC-V načíst do registru konstantu o velikost 32-bitů?
 \begin{itemize}
 \item[A] pomocí jedné instrukce
 \item[B] pomocí dvou instrukcí, první načte horních 20 bitů, druhá spodních 12-bitů
-\item[C] pomocí tří instrukcí, první načte 16 bitů, druhá provede bitový posun, třetí načte spodních 16 bitů
-\item[D] pomocí pěti instrukcí, první načte 12 bitů, druhá provede bitový posun, třetí načte dalších 12 bitů, čtvrtá provede bitový posun a pátá načte nejnižších 8 bitů 
+\item[C] pomocí tří instrukcí, první načte horních 16 bitů, druhá provede bitový posun doleva o 16 bitů a třetí načte spodních 16 bitů
+\item[D] pomocí pěti instrukcí, první načte 12 bitů, druhá provede bitový posun doleva, třetí načte dalších 12 bitů, čtvrtá provede bitový posun doleva a pátá načte nejnižších 8 bitů
 \end{itemize}
 \end{frame}
 
@@ -625,7 +654,7 @@ Jak lze v RISC-V načíst do registru konstantu o velikost 32-bitů?
 \frametitle{Hardwarová realizace registru}
 Základní realizace registru pomocí tzv. obvodu d-latch
 \begin{center}
-\includegraphics[width=0.5\textwidth]{d_latch.pdf}
+\includegraphics[width=0.5\textwidth]{generated/cpu/register/d_latch.pdf}
 \end{center}
 
 Tento obvod je velkou změnou oproti dosavadnímu přístupu, protože se zde objevuje cyklus -- výstup hradla je vstupem stejného hradla, nebo vstupem hradla jehož výstup je vstupem prvního hradla.
@@ -643,7 +672,7 @@ Nejdříve se podíváme, co se děje při E=1:
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{center}
-\includegraphics[width=\textwidth]{d_latch_e1-cz.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/register/d_latch_e1-cz.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}  
@@ -666,7 +695,7 @@ Pokud je E=0:
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{center}
-\includegraphics[width=\textwidth]{d_latch_e0-cz.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/register/d_latch_e0-cz.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}  
@@ -686,7 +715,7 @@ Aktivace náběžnou hranou:
 \begin{columns}
 \begin{column}{0.45\textwidth}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{edge.pdf}
+\includegraphics[width=0.9\textwidth]{generated/cpu/register/edge.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.55\textwidth}  
@@ -707,7 +736,7 @@ Aktivace náběžnou hranou:
 \frametitle{Hardwarová realizace základního cyklu CPU}
 
 \begin{center}
-\includegraphics[width=0.45\textwidth]{cpu_step-cz.pdf}
+\includegraphics[width=0.45\textwidth]{generated/cpu/cpu_step-cz.pdf}
 \end{center}
 
 Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodnota PC+4. Tím se automaticky rozběhne nové čtení z paměti a následné zpracování instrukce, které si ukážeme později.
@@ -719,15 +748,15 @@ Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodn
 \begin{table}
 \footnotesize
 \begin{tabular}{m{1.6cm} m{9.5cm}}
-\hfill \includegraphics[width=0.6cm]{registr.pdf} & jeden registr, zápis řízen hodinovým signálem CLK \\ 
+\hfill \includegraphics[width=0.6cm]{generated/cpu/register/registr.pdf} & jeden registr, zápis řízen hodinovým signálem CLK \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.6cm]{registers-cz.pdf} & soubor 32 registrů, podle vstupu A1, A2 vybere hodnoty těchto dvou registrů na výstup RD1 a RD2; pokud přijde hodinový signál a je nastaven vstup WE3 (write enable) tak se hodnota WD3 zapíše do registru číslo A3 \\
+\hfill \includegraphics[width=1.6cm]{generated/cpu/register/registers-cz.pdf} & soubor 32 registrů, podle vstupu A1, A2 vybere hodnoty těchto dvou registrů na výstup RD1 a RD2; pokud přijde hodinový signál a je nastaven vstup WE3 (write enable) tak se hodnota WD3 zapíše do registru číslo A3 \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=0.8cm]{multiplexor.pdf} & na základě hodnoty řídicího signálu Select přenáší hodnotu jednoho ze vstupů na výstup \\ 
+\hfill \includegraphics[width=0.8cm]{generated/logic/multiplexor.pdf} & na základě hodnoty řídicího signálu Select přenáší hodnotu jednoho ze vstupů na výstup \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.2cm]{alu.pdf} & na základě ALUControl provede vybranou operaci na vstupu SrcA a SrcB. Výsledek je ALUout a výsledkem jsou i příznaky jak vyšel výsledek, například zero \\ 
+\hfill \includegraphics[width=1.2cm]{generated/cpu/alu.pdf} & na základě ALUControl provede vybranou operaci na vstupu SrcA a SrcB. Výsledek je ALUout a výsledkem jsou i příznaky jak vyšel výsledek, například zero \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.6cm]{imm_decode.pdf} & provede sestavení bitů konstanty z bitů instrukce a provede znaménkové rozšíření na 32 bitů plnohodnotného čísla se znaménkem \\ 
+\hfill \includegraphics[width=1.6cm]{generated/cpu/imm_decode.pdf} & provede sestavení bitů konstanty z bitů instrukce a provede znaménkové rozšíření na 32 bitů plnohodnotného čísla se znaménkem \\
 \end{tabular}
 \end{table}
 
@@ -740,10 +769,10 @@ Při náběžné hraně hodin (signál CLK) se do registru PC uloží nová hodn
 \begin{table}
 \footnotesize
 \begin{tabular}{m{1.7cm} m{9.4cm}}
-\hfill \includegraphics[width=1.7cm]{inst_mem-cz.pdf} & Instrukční paměť dá na výstup data RD uložená v paměti na adrese A. Data jsou k dispozici po uplynutí "dostatečně dlouhé" doby pro nalezení dat a jejich vystavení na výstup RD.\\
+\hfill \includegraphics[width=1.7cm]{generated/memory/inst_mem-cz.pdf} & Instrukční paměť dá na výstup data RD uložená v paměti na adrese A. Data jsou k dispozici po uplynutí "dostatečně dlouhé" doby pro nalezení dat a jejich vystavení na výstup RD.\\
 \phantom{X} & \phantom{X} \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.7cm]{memory-cz.pdf} & Datová paměť. Slouží buď ke čtení dat z adresy A. Protože se jedná o stejnou pamět jako je instrukčí, tak po "dostatečně dlouhé" době jsou data na výstupu RD. Pokud je nastaven příznak WE (write enable), tak s náběžnou hranou hodinového signálu CLK dojde k zápisu dat WD na adresu A.\\ 
+\hfill \includegraphics[width=1.7cm]{generated/memory/memory-cz.pdf} & Datová paměť. Slouží buď ke čtení dat z adresy A. Protože se jedná o stejnou pamět jako je instrukčí, tak po "dostatečně dlouhé" době jsou data na výstupu RD. Pokud je nastaven příznak WE (write enable), tak s náběžnou hranou hodinového signálu CLK dojde k zápisu dat WD na adresu A.\\
 \end{tabular}
 \end{table}
 
@@ -795,7 +824,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 \bigskip
 
 \begin{center}
-\includegraphics[width=0.85\textwidth]{cpu-load.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-load.pdf}
 \end{center}
 
 \end{frame}
@@ -818,7 +847,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 Zápis proběhna na rostoucí hranu hodin.
 
 \begin{center}
-\includegraphics[width=0.90\textwidth]{cpu-load-red.pdf}
+\includegraphics[width=0.90\textwidth]{generated/cpu/instruction/cpu-load-red.pdf}
 \end{center}
 
 
@@ -844,7 +873,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 \bigskip
 
 \begin{center}
-\includegraphics[width=0.88\textwidth]{cpu-load2.pdf}
+\includegraphics[width=0.88\textwidth]{generated/cpu/instruction/cpu-load2.pdf}
 \end{center}
 \end{frame}
 
@@ -852,7 +881,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 \begin{frame}
 \frametitle{QtRvSim - RISC-V Simultaor}
 
-\includegraphics[width=0.9\textwidth]{simulator.pdf}
+\includegraphics[width=0.9\textwidth]{generated/simulator/simulator.pdf}
 
 \end{frame}
 
@@ -906,7 +935,7 @@ S & \multicolumn{2}{c|}{ imm[11:5] } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 
 
 \bigskip
 
-\includegraphics[width=0.90\textwidth]{cpu-store2.pdf}
+\includegraphics[width=0.90\textwidth]{generated/cpu/instruction/cpu-store2.pdf}
 
 \end{frame}
 
@@ -963,7 +992,7 @@ R & \multicolumn{2}{c|}{ fnct7 } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\mu
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-add.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-add.pdf}
 
 \end{frame}
 
@@ -976,7 +1005,7 @@ Jediný rozdíl oproti instrukci sčítání add je v hodnotě ALUControl, kter�
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-add2.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-add2.pdf}
 
 \end{frame}
 
@@ -1027,7 +1056,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-addi.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-addi.pdf}
 
 \end{frame}
 
@@ -1049,7 +1078,7 @@ B & imm [12] & imm [10:5]  & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 & imm[4:1]
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-beq.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-beq.pdf}
 
 \end{frame}
 
@@ -1059,7 +1088,7 @@ B & imm [12] & imm [10:5]  & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 & imm[4:1]
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-time.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/cpu-time.pdf}
 
 \end{frame}
 
@@ -1093,7 +1122,7 @@ Převádí bity \texttt{\textbf{opcode}} a \texttt{\textbf{fnct3,7}} na řídic�
 
 \bigskip
 \begin{center}
-\includegraphics[width=0.75\textwidth]{cpu-control-unit.pdf}
+\includegraphics[width=0.75\textwidth]{generated/cpu/cpu-control-unit.pdf}
 \end{center}
 \end{frame}
 
@@ -1133,18 +1162,6 @@ beq & 1100011 & 000 & --      & \texttt{==} & 0 & 0 & 0 & * & 1\\ \hline
 \item Výhodou mikroprogramovaného řadiče je flexibilita: změna mikroprogramu = změna chování procesoru.
 \item Nevýhody: složitější a nevhodný pro zřetězené procesory, kdy každý stupeň vykonává jinou instrukci. Bylo by potřeba zajistit správné provedení všech instrukcí napříč stupni spolu s řešením hazardů
 \end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Bonusový bod}
-
-Které bity instrukce rozhodují o tom, jestli se bude ukládat do paměti, nebo počítat s dvěmi registry a výsledek se uloží do třetího registru?
-\begin{itemize}
-\item[A] opcode
-\item[B] fnct3,7
-\item[C] rs1, rs2
-\item[D] rd
 \end{itemize}
 \end{frame}
 
