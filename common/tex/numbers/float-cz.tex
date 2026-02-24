@@ -1,0 +1,334 @@
+
+\section{Reálná čísla}
+
+
+\begin{frame}
+\frametitle{Reálná čísla}
+
+\begin{itemize}
+\item Celé číslo $X$ v binární soustavě je součet $k$ bitů $b_i$ vynásobených mocninami 2, tedy $ X = \sum_{i=0}^{k-1} b_i 2^{i} $
+\item Reálné číslo $X$ v binární soustavě je obdobný součet $k+j$ bitů $b_i$ vynásobených mocninami 2, ale začneme již v záporných mocninách: $X = \sum_{i=-j}^{k} b_i 2^{i}$
+\item jistě si všichni pamatujete ze střední školy, že $2^{-j} = \frac{1}{2^j}$
+\end{itemize}
+
+
+\begin{center}
+\includegraphics[width=0.65\textwidth]{float_bin.pdf}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Reálná čísla s pevnou desetinnou čárkou}
+
+Čísla s pevnou desetinnou čárkou (fixed point numbers):
+
+\begin{itemize}
+\item obdoba čísel s posunutou 0
+\item reálné číslo je reprezentované k-bitovým celým číslem se znaménkem, dále zvolíme pevný počet desetinných míst s bitů, kdy $0 \le s \le k$
+\item reprezentace -- kód čísla X je $A(X) = \lceil X \cdot 2^s \rceil$
+\item rozkódování je funkcí $D(A) = \frac{A}{2^s}$
+\item rozsah čísel reprezentovaných je $<-\frac{2^{k-1}}{2^s}, \frac{2^{k-1}-1}{2^s}>$
+\item přesnost reprezentace čísel je $\pm \frac{1}{2^s}$.
+\end{itemize}
+
+Speciální případ:
+\begin{itemize}
+\item pokud chcete reprezentovat reálná čísla z intervalu $<0,1)$
+\item pak můžete nastavit $s=k$ a použít bezznaménkovou reprezentaci celých čísel
+\item dosáhnete lepší přesnosti než odpovídající \texttt{float}, nebo \texttt{double}
+\end{itemize}
+
+Některé SIMD instrukce používají pevnou desetinnou čárku.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Reálná čísla s pevnou desetinnou čárkou}
+
+Počítání s čísly s pevnou desetinnou čárkou:
+
+\begin{itemize}
+\item součet a rozdíl je součtem a rozdílem celočíselné reprezentace čísel
+\item násobení je složitější:
+\begin{itemize}
+\item $A(X \cdot Y) = (X \cdot Y ) \cdot 2^s = \frac{(X \cdot 2^s)\cdot( Y\cdot 2^s) }{2^s} = \frac{A(X) \cdot A(Y)}{2^s}$
+\end{itemize}
+\item dělení je obdobné:
+\begin{itemize}
+\item $A(\frac{X}{Y}) = (\frac{X}{Y}) \cdot 2^s = \frac{(X \cdot 2^s)\cdot2^s }{( Y\cdot 2^s)} = \frac{A(X) \cdot 2^s}{A(Y)}$
+\end{itemize}
+\item Nejedná se o výrazné zesložitění, protože násobení číslem $2^s$ je posun o s bitů doleva a dělení číslem $2^s$ je posun o s bitů doprava.
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Plovoucí desetinná čárka}
+
+Plovoucí desetinná čárka (floating point numbers)
+
+\bigskip
+
+Obdoba vědeckého zápisu reálných čísel:
+$-123 000 000 000 000.0 = -1.23 \cdot 10^{14} = -1.23\text{E} 14$\\
+$-0.000 000 000 000 123 = -1.23 \cdot 10^{-13} = -1.23\text{E}-13$\\
+
+\bigskip
+
+Binární reprezentace používá obdobně mocninu 2:\\
+$110 1100 0000 0000.0 = 1.1011 \cdot 2^{14} = 1.1011\text{E} 14 = 29696_{10}$\\
+$-0.0000 0000 0000 0001 1101 = -1.1101 \cdot 2^{-16} = -1.1101\text{E}-16 \approx$\\
+\phantom{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx}$\approx0.00002765_{10}$\\
+
+\bigskip
+
+Všimněte si, že každé reálné číslo (kromě 0) začíná v binárním vědeckém zápisu jedničkou.
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Standard IEEE-754 definuje, jakým způsobem zakódovat reálné číslo do 32, 64 bitů.
+
+Reálné 32-bitové číslo obsahuje:
+\begin{itemize}
+\item 1 bit znaménko (pozn. existuje 0 i -0)
+\item 8 bitů hodnota exponentu s posunutou nulou o 127
+\item 23 bitů hodnota mantisy, tedy cifer reprezentujících hodnotu
+\end{itemize}
+\bigskip
+Reálné 64-bitové číslo obsahuje:
+\begin{itemize}
+\item 1 bit znaménko (pozn. existuje 0 i -0)
+\item 11 bitů hodnota exponentu s posunutou nulou o 1023
+\item 52 bitů hodnota mantisy, tedy cifer reprezentujících hodnotu
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Příklad:
+Reálné číslo $0.828125_{(10)} = 0.5+0.25+0.0625+0.015625=2^{-1}+2^{-2}+2^{-4}+2^{-6} = 0.110101_{(2)}$.\\
+Číslo převedeme do vědecké notace: $0.110101 = 1.10101\text{E}-1$.\\
+Exponent $e=-1$, reprezentace s posunutou nulou o 127 je $A(-1)=-1+127 = 126$.\\
+Abychom neplýtvali zbytečně bity, pro normalizovaná čísla se první 1 mantisy neukládá do binární reprezentace čísla:
+
+\begin{center}
+\includegraphics[width=0.4\textwidth]{float_example-cz.pdf}
+\end{center}
+
+Zkuste si \url{https://www.h-schmidt.net/FloatConverter/IEEE754.html}
+\end{frame}
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Normalizované číslo, je každé číslo, které lze zapsat jako \texttt{1.XXXXX E exp}, kde exp je číslo od -126 do 127, tedy jehož reprezentace je od 1 do 254.
+
+\bigskip
+Denormalizovaná čísla jsou čísla, která lze zapsat jako \texttt{0.XXXXX E -126}, tedy například 0.0, nebo všechna čísla v intervalu $(-1.17549\text{E}-38,1.17549\text{E}-38)$, tedy od $(-2^{-126},2^{-126})$.
+
+\bigskip
+Pokud je reprezentace exponentu nastavena na samé 1, tedy 255, tzn. hodnota exponentu je 128, pak se jedná o speciální čísla. 
+\begin{itemize}
+\item pokud je mantisa 0, pak se jedná o nekonečno, podle znaménka \textit{-inf}, nebo \textit{inf}.
+\item pokud je mantisa nenulová, pak se jedná o speciální výraz \textit{NaN} -- Not a Number, tedy chybná hodnota čísla, například po výpočtu odmocniny záporného čísla 
+\end{itemize}
+\end{frame}
+
+\begin{frame}[shrink=5]
+\frametitle{IEEE-754}
+
+Přehled reálných čísel:
+\begin{tabular}{|c|c|l|}\hline
+Exponent & Mantisa &  Hodnota \\ \hline
+00000000 & 0 &  0.0 -- čistá nula \\ \hline
+00000000 & nenulová &  Denormalizovaná čísla blízká 0 \\ \hline
+00000001 & 0 &  nejmenší normalizované číslo se skrytou 1 v mantise \\ \hline
+\small 1 až 254 & cokoliv &  normalizovaná čísla, skrytá 1 v mantise \\ \hline
+11111111 & 0 &  nekonečno \\ \hline
+11111111 & nenulová &  NaN chybná hodnota \\ \hline
+\end{tabular}
+\bigskip
+
+Denormalizované číslo s nejmenší absolutní hodnotou různé od 0 je:
+\begin{itemize}
+\item \small exponent = 0 (-126), mantisa=000...0001, hodnota = $2^{-23+(-126)} \approx 1.4\text{E}-45$
+\end{itemize}
+Normalizované číslo s nejmenší absolutní hodnotou:
+\begin{itemize}
+\item \small exponent = 1 (-126), mantisa=000...0000, hodnota = $2^{-126} \approx 1.17\text{E}-38$
+\end{itemize}
+Normalizované číslo s největší absolutní hodnotou:
+\begin{itemize}
+\item \small exponent = 255 (127), mantisa=111...1111, hodnota = $(2-2^{-23})2^{127} \approx 3.4\text{E}38$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{IEEE-754 revize 2008 }
+
+Standard IEEE-754 navíc definuje reálné číslo s 16 bity (half precision) a s 128 bity (quad precision).
+
+Reálné 16-bitové číslo obsahuje:
+\begin{itemize}
+\item 1 bit znaménko 
+\item 5 bitů hodnota exponentu s posunutou nulou o 15
+\item 10 bitů hodnota mantisy, (plus 11tý bit skrytý neukládaný)
+\end{itemize}
+\bigskip
+Reálné 128-bitové číslo obsahuje:
+\begin{itemize}
+\item 1 bit znaménko 
+\item 15 bitů hodnota exponentu s posunutou nulou o 16383
+\item 112 bitů hodnota mantisy, (plus 113 bit skrytý)
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{IEEE-754 }
+
+Porovnání reálných čísel na velikost:
+\begin{itemize}
+\item Kladná čísla jsou vždy větší než záporná
+\item Po odstranění znamének, lze absolutní hodnoty čísel porovnat tak, jak jsou uložené v paměti jako celé číslo bez znaménka
+\begin{itemize}
+\item To je možné díky zvolené reprezentaci exponentu jako čísla s posunutou nulou
+\item Větší exponent větší číslo, při rovnosti exponentů větší mantisa znamená větší číslo
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Sčítání nebo odčítání dvou reálných čísel ve vědecké notaci
+\begin{enumerate}
+\item Převést mantisy čísel na společný exponent, který má hodnotu největšího exponentu (porušíme notaci)
+\item Provést součet, nebo rozdíl mantis i se skrytými jedničkami
+\item Výsledné číslo normalizovat
+\begin{itemize}
+\item při sčítání se může exponent zvětšit
+\item při odčítání se exponent může zmenšit
+\end{itemize}
+\end{enumerate}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{IEEE-754}
+
+Příklad: Sčítání dvou reálných čísel 31.5+0.75
+
+$31.5_{(10)} = 11111.1_{(2)} = 1.11111\text{E}4$ \phantom{xxx} $0.75_{(10)} = 0.11_{(2)} = 1.1\text{E}-1$
+
+\bigskip
+Obě čísla převedeme na stejný exponent 4 a sečteme:\\
+\texttt{\phantom{xx}1.11111}\\
+\texttt{\phantom{xx}0.000011}\vspace{-6pt}\\
+\rule[0pt]{2cm}{0.4pt}\\
+\texttt{\phantom{x}10.000001}\\
+
+Výsledné číslo musíme znormalizovat zvýšením exponentu na 5 a tím posunutím desetinné čárky vlevo:\\
+$10.000001\text{E}4 = 1.0000001\text{E}5$\\
+
+Toto číslo je reprezentací čísla 32.25.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{IEEE-754 -- Násobení}
+
+Násobení dvou reálných čísel:
+\begin{enumerate}
+\item Exponent výsledku je součet exponentů čísel
+\item Mantisa výsledku je součin mantis čísel (i se skrytými jedničkami)
+\item Výsledné číslo normalizovat
+\begin{itemize}
+\item podle výsledku násobení mantis je někdy nutné zvýšit exponent o 1 a vyrotovat mantisu doprava
+\end{itemize}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{IEEE-754 -- Násobení}
+
+Příklad: Vynásobíme čísla $0.375 \cdot 1.5$
+
+$0.375_{(10)} = 0.011_{(2)} = 1.1\text{E}-2$ \phantom{xxx} $1.5_{(10)} = 1.1_{(2)} = 1.1\text{E}0$
+
+Součin mantis je:\\
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\texttt{\phantom{xxx}11} odpovídá \texttt{1.1}\\
+\texttt{\phantom{xx}*11} odpovídá \texttt{1.1}\vspace{-6pt}\\
+\rule[0pt]{2cm}{0.4pt}\\
+\texttt{\phantom{xxx}11}\\
+\texttt{\phantom{xx}11}\vspace{-6pt}\\
+\rule[0pt]{2cm}{0.4pt}\\
+\texttt{\phantom{x}1001} 
+
+odpovídá \texttt{10.01}, výsledek má 2 desetinná čísla
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+\texttt{\phantom{xx}375} odpovídá \texttt{0.375}\\
+\texttt{\phantom{xx}*15} odpovídá \texttt{1.5}\vspace{-6pt}\\
+\rule[0pt]{2cm}{0.4pt}\\
+\texttt{\phantom{x}1875}\\
+\texttt{\phantom{x}375}\vspace{-6pt}\\
+\rule[0pt]{2cm}{0.4pt}\\
+\texttt{\phantom{x}5625} 
+
+odpovídá \texttt{0.5625}, výsledek má 4 desetinná čísla
+\end{column}
+\end{columns}
+\bigskip
+
+Exponent vychází $-2+0=-2$, ale výsledek součinu mantis potřebujeme normalizovat, neboli zvětšit exponent o 1 na $-1$.
+
+Tím dostáváme výsledek $10.01\text{E}-2 = 1.001\text{E}-1$ což je správný výsledek $0.5625_{(10)}$
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{IEEE-754}
+
+Reálná čísla shrnutí:
+\begin{itemize}
+\item reálná čísla s plovoucí čárkou umí reprezentovat čísla ve velmi velkém rozsahu:
+\begin{itemize}
+\item float -- absolutní hodnota čísel od $1.175494351\text{E}-38$ do $3.402823466\text{E} + 38$
+\item double -- absolutní hodnota čísel od $2.2250738585072014\text{E} - 308$ do $1.7976931348623158\text{E} + 308$
+\end{itemize}
+\item přesnost čísla se udává na počet validních cifer:
+\begin{itemize}
+\item float -- v desítkové soustavě 6-7 platných cifer
+\item double -- v desítkové soustavě 15-16 platných cifer
+\end{itemize}
+\end{itemize}
+
+POZOR: Následující \texttt{while} cyklus neskončí:
+\begin{minted}{c}
+  float a=1.0, step=5e-8;
+  while (a*a<1.01) {
+    a+=step;
+  }
+\end{minted}
+\end{frame}
+
