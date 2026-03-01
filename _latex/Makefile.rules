@@ -32,7 +32,7 @@ INPUT_FILES := $(wildcard $(INPUT_RAW) $(INPUT_RAW:%=$(TOPDIR)/%))
 FIGS := $(shell cat $(DOC).tex $(INPUT_FILES) | sed -n -e 's#^.*{[^{}]*\(generated/[^{}]*\)}.*$$#$(TOPDIR)/\1#pg')
 FIGS_SRC := $(FIGS:$(TOPDIR)/generated/%.pdf=$(TOPDIR)/common/%.svg)
 
-.PHONY: all FORCE_MAKE
+.PHONY: all clean FORCE_MAKE
 
 gitignore_target = grep -q '/$@' .gitignore || echo '/$@' >> .gitignore
 
@@ -81,5 +81,10 @@ $(TOPDIR)/generated/%.pdf: $(TOPDIR)/common/%.svg
 	mkdir -p $(dir $@)
 	$(if $(INKSCAPE_0.X),inkscape --export-area-drawing --export-background-opacity=1.0 --export-pdf="$@" "$<",\
 			     inkscape --export-area-drawing --export-background-opacity=1.0 --export-type=pdf --export-filename="-" "$<" > "$@")
+
+clean:
+	rm -f $(DOC).pdf $(NUM:%=apo%_2021.pdf) *.aux *.dep *.log \
+	   *.snm *synctex.gz *.nav *.out *.toc *.upa *.vrb *.fls
+
 
 -include $(DOC).dep
