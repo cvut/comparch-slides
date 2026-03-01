@@ -1,0 +1,16 @@
+/*.aux
+/*.log
+/*.snm
+/*.gz
+/*.nav
+/*.out
+/*.toc
+/*.upa
+/*.vrb
+/*.fls
+/*.dep
+/anim
+/_minted*
+/apo-lecture07-io-cz.pdf
+/apo07_2021.pdf
+/apo-lecture07-io-en.pdf
