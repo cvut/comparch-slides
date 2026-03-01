@@ -1,0 +1,51 @@
+\begin{frame}
+\frametitle{Řídicí jednotka -- Řadič procesoru}
+
+Co vlastně dělá řídicí jednotka (někdy také nazývaná řadič procesoru, angl. Control Unit)?
+
+Převádí bity \texttt{\textbf{opcode}} a \texttt{\textbf{fnct3,7}} na řídicí bity ALUControl, RegWrite, MemWrite, ALUSrc, MemToReg, Branch a pár dalších pro další instrukce.
+
+\bigskip
+\begin{center}
+\includegraphics[width=0.75\textwidth]{generated/cpu/cpu-control-unit.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Řídicí jednotka -- Řadič procesoru}
+
+Podle Opcode lze nadefinovat výstupy řadiče:
+\begin{tabular}{|lccc|cccccc|}\hline
+Instrukce & Opcode & Fnct3 & Fnct7 & \rotatebox{90}{ALUControl\phantom{x}} & \rotatebox{90}{ALUSrc} & \rotatebox{90}{RegWrite} & \rotatebox{90}{MemWrite} & \rotatebox{90}{MemToReg} & \rotatebox{90}{Branch} \\ \hline
+lw & 0000011 & 010 & --       &           + & 1 & 1 & 0 & 1 & 0\\
+sw & 0100011 & 010 & --       &           + & 1 & 0 & 1 & 0 & 0\\
+add & 0110011 & 000 & 0000000 &           + & 0 & 1 & 0 & 0 & 0\\
+sub & 0110011 & 000 & 0100000 &           - & 0 & 1 & 0 & 0 & 0\\
+slt & 0110011 & 010 & 0000000 &  \texttt{<} & 0 & 1 & 0 & 0 & 0\\
+or & 0110011 & 110 & 0000000  & \texttt{|}  & 0 & 1 & 0 & 0 & 0\\
+and & 0110011 & 111 & 0000000 & \texttt{\&} & 0 & 1 & 0 & 0 & 0\\
+addi & 0010011 & 000 & --     &           + & 1 & 1 & 0 & 0 & 0\\
+beq & 1100011 & 000 & --      & \texttt{==} & 0 & 0 & 0 & * & 1\\ \hline
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Možné realizace řadiče}
+\begin{itemize}
+\item Řadič obvodový:
+\begin{itemize}
+\item Kombinační obvod (to byl náš případ),
+\item Sekvenční obvod – stavový automat, apod.
+\end{itemize}
+\item Řadič mikroprogramovaný (řízený mikroprogramem):
+\begin{itemize}
+\item Mikroprogram je uložen v řídicí paměti řadiče a skládá se z mikroinstrukcí.
+\item Mikroprogram implementuje programátorovi viditelné strojové instrukce (add, sub, lw, xor, jmp,. . . ).
+\item Operační kód instrukce udává adresu první mikroinstrukce v řídicí paměti, od které začíná mikroprogram pro danou instrukci.
+\item Každá z instrukcí ISA je provedena pomocí jedné nebo několika mikroinstrukcí.
+\item Výhodou mikroprogramovaného řadiče je flexibilita: změna mikroprogramu = změna chování procesoru.
+\item Nevýhody: složitější a nevhodný pro zřetězené procesory, kdy každý stupeň vykonává jinou instrukci. Bylo by potřeba zajistit správné provedení všech instrukcí napříč stupni spolu s řešením hazardů
+\end{itemize}
+\end{itemize}
+\end{frame}

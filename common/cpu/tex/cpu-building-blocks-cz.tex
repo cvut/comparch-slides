@@ -1,0 +1,35 @@
+\begin{frame}
+\frametitle{Stavební bloky procesoru}
+
+\begin{table}
+\footnotesize
+\begin{tabular}{m{1.6cm} m{9.5cm}}
+\hfill \includegraphics[width=0.6cm]{generated/cpu/register/registr.pdf} & jeden registr, zápis řízen hodinovým signálem CLK \\
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=1.6cm]{generated/cpu/register/registers-cz.pdf} & soubor 32 registrů, podle vstupu A1, A2 vybere hodnoty těchto dvou registrů na výstup RD1 a RD2; pokud přijde hodinový signál a je nastaven vstup WE3 (write enable) tak se hodnota WD3 zapíše do registru číslo A3 \\
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=0.8cm]{generated/logic/multiplexor.pdf} & na základě hodnoty řídicího signálu Select přenáší hodnotu jednoho ze vstupů na výstup \\
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=1.2cm]{generated/cpu/alu.pdf} & na základě ALUControl provede vybranou operaci na vstupu SrcA a SrcB. Výsledek je ALUout a výsledkem jsou i příznaky jak vyšel výsledek, například zero \\
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=1.6cm]{generated/cpu/imm_decode.pdf} & provede sestavení bitů konstanty z bitů instrukce a provede znaménkové rozšíření na 32 bitů plnohodnotného čísla se znaménkem \\
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Stavební bloky procesoru}
+
+\begin{table}
+\footnotesize
+\begin{tabular}{m{1.7cm} m{9.4cm}}
+\hfill \includegraphics[width=1.7cm]{generated/memory/inst_mem-cz.pdf} & Instrukční paměť dá na výstup data RD uložená v paměti na adrese A. Data jsou k dispozici po uplynutí "dostatečně dlouhé" doby pro nalezení dat a jejich vystavení na výstup RD.\\
+\phantom{X} & \phantom{X} \\
+\phantom{X} & \phantom{X} \\
+\hfill \includegraphics[width=1.7cm]{generated/memory/memory-cz.pdf} & Datová paměť. Slouží buď ke čtení dat z adresy A. Protože se jedná o stejnou pamět jako je instrukčí, tak po "dostatečně dlouhé" době jsou data na výstupu RD. Pokud je nastaven příznak WE (write enable), tak s náběžnou hranou hodinového signálu CLK dojde k zápisu dat WD na adresu A.\\
+\end{tabular}
+\end{table}
+
+\end{frame}

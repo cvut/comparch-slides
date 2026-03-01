@@ -1,0 +1,27 @@
+\begin{frame}
+\frametitle{Cíl přednášky}
+
+Porozumět implementaci jednoduchého počítače, který se skládá z procesoru a oddělené paměti pro instrukce a data.
+
+Naším cílem je implementovat následující instrukce:
+
+\begin{itemize}
+\item Číst a zapisovat hodnotu z/do datové paměti.
+\begin{itemize}
+\item \textbf{\texttt{lw}} - načtení slova, \textbf{\texttt{sw}} - uložení slova
+\end{itemize}
+\item aritmetické a logické instrukce: \textbf{\texttt{add}}, \textbf{\texttt{sub}}, \textbf{\texttt{and}}, \textbf{\texttt{or}}, \textbf{\texttt{slt}}
+\begin{itemize}
+\item Immediátové varianty: \textbf{\texttt{addi}}, \textbf{\texttt{ori}}, horní bity načítají \textbf{\texttt{olui}},\textbf{\texttt{auipc}}
+\end{itemize}
+\item Instrukce pro změnu toku programu/skok \textbf{\texttt{beq}}
+\item Volání podprogramu \textbf{\texttt{jal}}, \textbf{\texttt{jalr}} (zajišťuje i návrat z podprogramu \textbf{\texttt{jr~ra}})
+\item CPU se bude skládat z řídicí jednotky a ALU.
+\item Poznámky:
+\begin{itemize}
+\item Implementace bude minimální (jednocyklový procesor - všechny operace budou probíhat v jednom cyklu, tzn. zpracovány v jednom kroku/hodině)
+\item Přednáška 5 je zaměřena na efektivnější realističtější implementaci zřetězenného (pipelined) CPU.
+\end{itemize}
+\end{itemize}
+
+\end{frame}

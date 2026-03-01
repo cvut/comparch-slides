@@ -1,0 +1,80 @@
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+Základní realizace registru pomocí tzv. obvodu d-latch
+\begin{center}
+\includegraphics[width=0.5\textwidth]{generated/cpu/register/d_latch.pdf}
+\end{center}
+
+Tento obvod je velkou změnou oproti dosavadnímu přístupu, protože se zde objevuje cyklus -- výstup hradla je vstupem stejného hradla, nebo vstupem hradla jehož výstup je vstupem prvního hradla.
+
+Co to tedy dělá?
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+
+Chování obvodu je určeno hodnotou vstupu E.
+
+Nejdříve se podíváme, co se děje při E=1:
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth]{generated/cpu/register/d_latch_e1-cz.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}  
+\begin{itemize}
+\item Vstup D se se zpožděním objeví na výstupu Q
+\begin{itemize}
+\item pro $D=1$ musí být výstup $Q=1$, protože jeden vstup do posledního nand hradla je 0, tedy výstup musí být 1
+\item pro $D=0$ musí být $\overline{Q}=1$, protože opět jeden vstup do nand hradla je 0, když je $\overline{Q}=1$, tak potom je výstup $Q=0$, protože oba dva vstupy jsou 1, výstup nand je 0
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+
+Pokud je E=0:
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics[width=\textwidth]{generated/cpu/register/d_latch_e0-cz.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.5\textwidth}  
+\begin{itemize}
+\item Hodnota $Q,\overline{Q}$ závisí pouze na staré hodnotě dvojice $Q,\overline{Q}$
+\item Dvojice nabývá pouze hodnot, která mohla vzniknout při zápisu, tedy buď $Q=1,\overline{Q}=0$ nebo $Q=0,\overline{Q}=1$
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Hardwarová realizace registru}
+
+Aktivace náběžnou hranou:
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{generated/cpu/register/edge.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.55\textwidth}  
+\begin{itemize}
+\item Může být výstup tohoto obvodu vůbec někdy v 1?
+\item matematicky je vždy $(C$~and~$\overline{C})=0$ 
+\item ve skutečnosti je ale hradlo not zpožděno oproti normálnímu signálu a na tuto dobu zpoždění je výstup \texttt{E'} v 1
+\item pokud by tato hodnota byla moc krátká na to, aby se obvod d-latch nastavil, tak je možné přidat negací více za sebou (zelená křivka)
+\item tomuto obvodu se říká d flip-flop
+\end{itemize}
+\end{column}
+\end{columns}
+
+\end{frame}

@@ -1,0 +1,81 @@
+\begin{frame}
+\frametitle{Kódování instrukcí}
+
+Co musíme uvažovat při návrhu zakódování instrukcí?
+\begin{itemize}
+\item počet bitů na zakódování instrukce
+\item pro uložení používáme paměť, tedy instrukce musí být zarovnaná na 8 bitů
+\begin{itemize}
+\item Pokud by velikost instrukce byla jeden bajt, tedy 8 bitů, tak můžeme mít maximálně 256 různých instrukcí
+\item Je to dost?
+\item Co vlastně musí být zakódováno uvnitř instrukce? Nutně tam musí být registry, se kterými bude instrukce pracovat
+\begin{itemize}
+\item pokud bychom měli v procesoru 8 GPR registrů, pak 3 bity kódují, který registr chceme použít
+\item pro operaci potřebujeme 3 registry \texttt{cíl = zdroj1 + zdroj2} nebo jen 2 registry \texttt{cíl += zdroj}
+\item pro práci s pamětí stačí 2 registry \texttt{cíl = MEM[zdroj]}
+\end{itemize}
+\item nelze zakódovat 3 operandy, i pro 2 operandy máme jen 2 bity (8-2*3) na zakódování typu instrukce, což je maximálně 4 druhy instrukcí
+\item řešení by bylo jedině mít méně registrů a uvažovat zásobníkové operace (push, pop, sečti dvě čísla z vrcholu zásobníku, apod.)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kódování instrukcí}
+
+\begin{itemize}
+\item 16 bitů na jednu instrukci -- 65536 různých instrukcí
+\begin{itemize}
+\item lze 16 registrů, 256 instrukcí s dvě operandy, nebo 16 druhů instrukcí se třemi operandy (4 + 3 * 4 = 16 bitů)
+\end{itemize}
+\item 32 bitů -- přes 4 miliardy různých instrukcí 
+\begin{itemize}
+\item často 32 registrů, až 128 tisíc druhů instrukcí se třemi operandy (17~+~3~*~5~=~32~bitů)
+\end{itemize}
+\item Další problém jsou konstanty, třeba chci přičíst 1 k registru, nebo uložit do registru konkrétní hodnotu 125, nebo třeba i větší číslo 1234567.
+\begin{itemize}
+\item překladač vygeneruje do paměti všechny konstanty, ale aby na ně registry mohly ukazovat, potřebujeme zase přičíst konstantu k ukazateli na začátek pole konstant
+\item nebo malá čísla budou součástí instrukce
+\begin{itemize}
+\item toto je nejpoužívanější řešení
+\item RISC má instrukce pevné délky a součástí 32-bitové instrukce může být 20-bitová nebo 12-bitová konstanta
+\item CISC má instrukce proměnné délky a třeba i 64-bitové číslo je součástí kódu instrukce
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[shrink=5]
+\frametitle{RISC-V -- Délka instrukce}
+
+\begin{tabular}{r l}
+  \begin{tabular}{|c|}\hline
+  \texttt{xxxxxxxxxxxxxxaa}\\ \hline
+  \end{tabular} & 16-bit ($aa \neq 11$)\\
+   &  \\
+   \begin{tabular}{|c|c|}\hline
+  \texttt{xxxxxxxxxxxxxxxx} & \texttt{xxxxxxxxxxxbbb11}\\ \hline
+  \end{tabular} & 32-bit ($bbb \neq 111$)\\
+ &  \\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{xxxxxxxxxx011111}\\ \hline
+  \end{tabular} & 48-bit\\
+ &  \\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{xxxxxxxxx0111111}\\ \hline
+  \end{tabular} & 64-bit\\
+ &  \\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{xnnnxxxxx0111111}\\ \hline
+  \end{tabular} & ($80+16\cdot nnn$)-bit\\
+  & ($nnn \neq 111$)\\
+   \begin{tabular}{c|c|c|}\hline
+  \texttt{...xxxx} &\texttt{xxxxxxxxxxxxxxxx} & \texttt{x111xxxxx0111111}\\ \hline
+  \end{tabular} & rezervováno pro\\
+  & $\ge 192$-bit\\
+Address: \phantom{\texttt{yyyyyxxxxxxxxxxxxxxxx    xxxxxxxxx0111111}}&  \\
+base+4 \phantom{\texttt{xxxxxxx}} base+2 \phantom{\texttt{xxxxxxxxxxx}} base \phantom{\texttt{xxxxxxx}} &  \\
+\end{tabular}
+
+\end{frame}

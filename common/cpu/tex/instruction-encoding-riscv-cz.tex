@@ -1,0 +1,62 @@
+\begin{frame}
+\frametitle{Kódování instrukcí procesoru RISC-V}
+
+Má šest typů instrukcí:
+\begin{table}
+\footnotesize
+\begin{tabular}{|m{0.4cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|m{1.0cm}|m{1.0cm}|m{0.4cm}|m{1.0cm}|}\hline
+Typ & 31 & 30...25 & 24...21 & 20 & 19...15 & 14...12 & 11...8 & 7 & 6...0 \\ \hline
+R & \multicolumn{2}{c|}{ fnct7 } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & opcode\\ \hline
+S & \multicolumn{2}{c|}{ imm[11:5] } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\multicolumn{2}{c|}{ imm[4:0] } & opcode\\ \hline
+B & imm [12] & imm [10:5]  & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 & imm[4:1]& imm [11] & opcode\\ \hline
+U & \multicolumn{6}{c|}{ imm[31:12] }  & \multicolumn{2}{c|}{ rd } & opcode\\ \hline
+J & imm [20] & \multicolumn{2}{c|}{ imm[10:1] } & imm [11] & \multicolumn{2}{c|}{ imm[19:12] } & \multicolumn{2}{c|}{ rd } & opcode\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+\item délka a typ instrukce (R,I,S,B,U,J) je určen 7-bity opcode
+\item rs1,2 -- registery zdroje -- source; rd -- register cíle -- destination
+\begin{itemize}
+\item registry jsou vždy na pevné pozici v instrukci
+\end{itemize}
+\item immediate -- konstanty použité pro operaci nebo skoky
+\item fnct3, fnct7 -- specifikace prováděné operace, např. sčítání, odčítání, posuny, atd.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Kódování instrukcí procesoru RISC-V}
+
+Význam hodnot opcode:
+\begin{table}
+\footnotesize
+\begin{tabular}{|c|l|l|}\hline
+Opcode & Skupina operací & Skutečná operace \\ \hline
+0110011 & Typ R podle fnct & add, sub, slt, or, and \\ \hline
+0010011 & Typ I podle fnct & addi, slt, or, and \\ \hline
+0000011 & Čtení z paměti & lw \\ \hline
+0100011 & Zápis do paměti & sw \\ \hline
+1100011 & Větvení -- branch & beq \\ \hline
+1101111 & Podprogramy & jal \\ \hline
+1100111 & Návrat z podprogramu & jalr \\ \hline
+0000111 & Načtení horní části konstanty & lui \\ \hline
+\end{tabular}
+\end{table}
+
+Pro typ R jsou následující hodnoty \texttt{fnct3} a \texttt{fnct7}:
+\begin{table}
+\footnotesize
+\begin{tabular}{|l|l|l|}\hline
+fnct7 & fnct3 & Skutečná operace \\ \hline
+0000000 & 000  & add \\ \hline
+0100000 & 000  & sub \\ \hline
+0000000 & 010  & slt \\ \hline
+0000000 & 110  & bitový or \\ \hline
+0000000 & 111  & bitový and \\ \hline
+\end{tabular}
+\end{table}
+
+\end{frame}

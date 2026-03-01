@@ -1,0 +1,21 @@
+\begin{frame}
+\frametitle{Kódování instrukcí procesoru MIPS}
+
+Starší typ procesoru, má tři typy instrukcí:
+
+\begin{tabular}{|c|l|l|l|l|l|l|}\hline
+Typ & 31 ... 26 & 25 ... 21 & 20 ... 16 & 15 ... 11 & 10 ... 6 & 5 ... 0 \\ \hline
+R & opcode(6) & rs(5) & rt(5) & rd(5) & shamt(5) & funct(6) \\ \hline
+I & opcode(6) & rs(5) & rt(5) & \multicolumn{3}{c|}{ immediate(16)} \\ \hline
+J & opcode(6) & \multicolumn{5}{c|}{ address(26)} \\ \hline
+\end{tabular}
+
+\begin{itemize}
+\item typ instrukce (R,I,J) je určen 6-bity opcode
+\item rs -- register zdroje -- source; rd -- register cíle -- destination; rt -- někdy zdroj, někdy cíl
+\item immediate, address -- konstanty použité pro operaci, immediate pro počítání, address pro skoky 
+\item shamt -- konstanta využitá pouze pro posuny (shift, operace \texttt{<<}, \texttt{>>})
+\item funct -- specifikace prováděné operace, např. sčítání, odčítání, posuny, atd.
+\end{itemize}
+
+\end{frame}

@@ -1,0 +1,28 @@
+\begin{frame}
+\frametitle{Rychlost CPU}
+
+\bigskip
+
+\includegraphics[width=0.85\textwidth]{generated/cpu/cpu-time.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Rychlost CPU}
+
+Jaká je maximální možná rychlost navrženého procesoru?
+\begin{itemize}
+\item Musí proběhnout všechny barevně označené fáze procesoru pro všechny instrukce a nejhorší případ je instrukce \texttt{\textbf{lw}}:
+\begin{itemize}
+\item $t_{PC} = 0,3$ ns
+\item $t_{Mem} = 20$ ns
+\item $t_{RFread} = 1,5$ ns
+\item $t_{ALU} = 2$ ns
+\item $t_{Mux} = 0,1$ ns
+\item $t_{RFsetup} = 0,1$ ns
+\end{itemize}
+\item Celkem se dostáváme na čas $T_{CLK} = t_{PC} + t_{Mem} + t_{RFread} + t_{ALU} + t_{Mem} + t_{Mux} + t_{RFsetup} = 44$ ns 
+\item Tomuto času odpovídá frekvence $f_{CLK} = \frac{1}{T_{CLK}} = 22,7$ MHz tedy 22 700 000 instrukcí za sekundu = 22,7 MIPS
+\item Potřebovali bychom tedy procesor zrychlit, téma pro přednášku 5
+\end{itemize}
+\end{frame}

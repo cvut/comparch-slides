@@ -1,0 +1,72 @@
+\begin{frame}
+\frametitle{Základní cyklus procesoru}
+\begin{enumerate}
+  \item Počáteční nastavení -- inicializace registru PC a PSW (případně i dalších) po zapnutí proudu nebo po resetu procesoru
+  \item Přečti instrukci z paměti z adresy PC
+  \begin{itemize}
+    \item nastav PC na adresu sběrnice paměti
+    \item Přečti obsah ze sběrnice paměti do registru IR
+    \item $PC+l \to PC$, uprav $PC$, $l$ je délka načtené instrukce
+  \end{itemize}
+  \item Dekóduj instrukci
+  \item Proveď instrukci
+  \begin{itemize}
+    \item spočti adresu, vyber registry, načti operandy, proveď požadovaný výpočet ALU a ulož výsledky
+  \end{itemize}
+  \item Zkontroluj zda není přerušení nebo výjimka (podrobně v přednášce 9)
+  \item Opakuj od kroku 2
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile,shrink=10]
+\frametitle{Compilation: C  Assembler  Machine Code}
+
+\begin{columns}
+\begin{column}{0.3\textwidth}
+\begin{lstlisting}[language={C},columns=flexible]
+/* ffs as log2(x)*/
+int x = 157;
+int y = -1;
+ 
+while(x != 0) {
+  x = x / 2;
+  y = y + 1;
+}
+\end{lstlisting}
+\end{column}
+
+\begin{column}{0.4\textwidth}  
+\begin{lstlisting}[language={C},columns=flexible]
+_start:
+    // int x = 157;
+  addi a0, zero, 157
+    // int y = -1;
+  addi t1, zero, -1
+    // while(x != 0) {
+  beq a0, zero, done
+loop:
+    //   x = x / 2;
+  srli a0, a0, 1 
+    //   y = y + 1;
+  addi t1, t1, 1
+    // }
+  bne a0, zero, loop
+done:
+\end{lstlisting}
+\end{column}
+
+\begin{column}{0.3\textwidth}  
+\texttt{0x00000200  09d00513\\
+0x00000204  fff00313\\
+0x00000208  00050863\\
+0x0000020c  00155513\\
+0x00000210  00130313\\
+0x00000214  fe051ce3\\
+0x00000218  00030513\\
+0x0000021c  00100073}
+\end{column}
+
+\end{columns}
+
+\end{frame}
