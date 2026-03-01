@@ -100,7 +100,7 @@ N & A & B \\\hline
 
 \centering
 
-\includegraphics[width=.95\linewidth]{addr-space-cz.pdf}
+\includegraphics[width=.95\linewidth]{generated/memory/addr-space-cz.pdf}
 
 \end{frame}
 
@@ -173,9 +173,9 @@ Podle konstrukce dělíme paměti RAM (RWM) na:
 \bigskip
 
 \begin{tabular}{m{0.8cm}m{6cm}m{4cm}}
-SRAM & Statická RAM -- veličina reprezentující hodnotu má v čase konstatní hodnotu. Typicky dva do smyčky zapojené invertory. Více součástek dražší paměť, nemusí se obnovovat uložená informace, potřebuje pouze napájení & \includegraphics[width=3.8cm]{sram-cz.pdf} \\ 
+SRAM & Statická RAM -- veličina reprezentující hodnotu má v čase konstatní hodnotu. Typicky dva do smyčky zapojené invertory. Více součástek dražší paměť, nemusí se obnovovat uložená informace, potřebuje pouze napájení & \includegraphics[width=3.8cm]{generated/memory/sram/sram-cz.pdf} \\ 
 \phantom{x} & & \\
-DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondezátor, který se samovolně vybíjí a je proto nutné informaci obnovovat v pravidelných časech. Pouze kondenzátor a tranzistor -- levné, zabere méně prostoru. & \includegraphics[width=3.2cm]{dram-cz.pdf}\\
+DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondezátor, který se samovolně vybíjí a je proto nutné informaci obnovovat v pravidelných časech. Pouze kondenzátor a tranzistor -- levné, zabere méně prostoru. & \includegraphics[width=3.2cm]{generated/memory/dram/dram-cz.pdf}\\
 \end{tabular}
 
 \end{frame}
@@ -184,7 +184,7 @@ DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondez�
 \frametitle{Detail paměťové statické paměti -- SRAM}
 
 \hbox{
-\includegraphics[width=0.4\linewidth]{sram-6t-cell.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{fig/sram-cell.jpg}
+\includegraphics[width=0.4\linewidth]{generated/memory/sram/sram-6t-cell.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{common/memory/sram/sram-cell.jpg}
 }
 
 \begin{itemize}
@@ -201,7 +201,7 @@ DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondez�
 \frametitle{Detail paměťové buňky dynamické paměti -- DRAM}
 
 \hbox{
-\includegraphics[width=0.4\linewidth]{dram-cz.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{fig/dram-cell.jpg}
+\includegraphics[width=0.4\linewidth]{generated/memory/dram/dram-cz.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{common/memory/dram/dram-cell.jpg}
 }
 
 \begin{itemize}
@@ -217,7 +217,7 @@ DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondez�
 
 \centering
 
-\includegraphics[width=1.0\linewidth]{ram-matrix.pdf}
+\includegraphics[width=1.0\linewidth]{generated/memory/sram/ram-matrix.pdf}
 
 \end{frame}
 
@@ -226,7 +226,7 @@ DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondez�
 
 \centering
 
-\includegraphics[width=0.85\linewidth]{sdram-dimm.pdf}
+\includegraphics[width=0.85\linewidth]{generated/memory/dram/sdram-dimm.pdf}
 
 \end{frame}
 
@@ -236,7 +236,7 @@ DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondez�
 {
 \centering
 
-\includegraphics[width=0.85\linewidth]{pc-memory-to-numa.pdf}
+\includegraphics[width=0.85\linewidth]{generated/memory/pc-memory-to-numa.pdf}
 
 }
 
@@ -269,7 +269,7 @@ Všechny tyto druhy jsou převážně optimalizované na propustnost, nikoliv n�
 
 \centering
 
-\includegraphics[width=1.0\linewidth]{memory-gap-cz.pdf}
+\includegraphics[width=1.0\linewidth]{generated/memory/memory-gap-cz.pdf}
 
 \end{frame}
 
@@ -281,7 +281,7 @@ Všechny tyto druhy jsou převážně optimalizované na propustnost, nikoliv n�
 {
 \centering
 
-\includegraphics[width=0.65\linewidth]{mem-reg-to-disc.pdf}
+\includegraphics[width=0.65\linewidth]{generated/memory/mem-reg-to-disc.pdf}
 
 }
 \vskip 2mm
@@ -354,7 +354,7 @@ Princip se využívá jak v algoritmech (lokální proměnné), kompilátorech (
 {
 \centering
 
-\includegraphics[width=0.70\linewidth]{cache-principle.pdf}
+\includegraphics[width=0.70\linewidth]{generated/memory/cache/cache-principle.pdf}
 
 }
 \vskip 2mm
@@ -410,9 +410,9 @@ Uvažujeme cache o velikosti 8 bloků a kam může být mapovaný přístup na a
 Adresa 12 může být umístěna libovolně &
 Adresa 12 může být umístěna jen do bloku 4 (12 mod 8) &
 Adresa 12 může být umístěna do sady 0 (12 mod 4) \\
-\includegraphics[width=3cm]{cache-schema-fully.pdf} &
-\includegraphics[width=3cm]{cache-schema-direct.pdf} &
-\includegraphics[width=3cm]{cache-schema-2way.pdf} \\
+\includegraphics[width=3cm]{generated/memory/cache/cache-schema-fully.pdf} &
+\includegraphics[width=3cm]{generated/memory/cache/cache-schema-direct.pdf} &
+\includegraphics[width=3cm]{generated/memory/cache/cache-schema-2way.pdf} \\
 \end{tabular}
 
 \end{frame}
@@ -423,7 +423,7 @@ Adresa 12 může být umístěna do sady 0 (12 mod 4) \\
 {
 \centering
 
-\includegraphics[width=0.9\linewidth]{cache-direct-mapping-1byte.pdf}
+\includegraphics[width=0.9\linewidth]{generated/memory/cache/cache-direct-mapping-1byte.pdf}
 
 }
 
@@ -444,7 +444,7 @@ Adresa 12 může být umístěna do sady 0 (12 mod 4) \\
 {
 \centering
 
-\includegraphics[width=0.70\linewidth]{cache-direct-simple.pdf}
+\includegraphics[width=0.70\linewidth]{generated/memory/cache/cache-direct-simple.pdf}
 
 }
 
@@ -463,7 +463,7 @@ set = (adresa div BS) mod SN
 {
 \centering
 
-\includegraphics[width=0.75\linewidth]{cache-direct-ms.pdf}
+\includegraphics[width=0.75\linewidth]{generated/memory/cache/cache-direct-ms.pdf}
 
 }
 
@@ -476,7 +476,7 @@ set = (adresa div BS) mod SN
 {
 \centering
 
-\includegraphics[width=0.95\linewidth]{cache-n-way-ms.pdf}
+\includegraphics[width=0.95\linewidth]{generated/memory/cache/cache-n-way-ms.pdf}
 
 }
 
@@ -503,7 +503,7 @@ Začneme s přímomapovanou skrytou pamětí (direct mapped cache) a \texttt{vec
 {
 \centering
 
-\includegraphics[width=0.65\linewidth]{cache-size-vs-ways.pdf}
+\includegraphics[width=0.65\linewidth]{generated/memory/cache/cache-size-vs-ways.pdf}
 
 }
 
@@ -526,7 +526,7 @@ Miss rate versus block size and cache size on SPEC92 benchmark
 {
 \centering
 
-\includegraphics[width=0.72\linewidth]{cache-size-vs-block.pdf}
+\includegraphics[width=0.72\linewidth]{generated/memory/cache/cache-size-vs-block.pdf}
 
 }
 
@@ -551,7 +551,7 @@ a možnost rozšíření kapacity hlavní paměti o prostor na sekundární -- s
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{paging-to-disc.pdf}
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-to-disc.pdf}
 
 }
 
@@ -578,7 +578,7 @@ Stějně jako u cache je zde nutné a náročné hledat prostor pro nově potře
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{paging-cpu-mm-mem.pdf}
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-cpu-mm-mem.pdf}
 
 }
 \end{frame}
@@ -589,7 +589,7 @@ Stějně jako u cache je zde nutné a náročné hledat prostor pro nově potře
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{paging-1-level-cz.pdf}
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-1-level-cz.pdf}
 
 }
 
@@ -606,7 +606,7 @@ systému pro 4\,kB stránky potřeba alokovat 4\,MB (překlad 20-bitů adresy,
 {
 \centering
 
-\includegraphics[width=0.7\linewidth]{paging-2-levels-cz.pdf}
+\includegraphics[width=0.7\linewidth]{generated/memory/paging/paging-2-levels-cz.pdf}
 
 }
 
@@ -625,7 +625,7 @@ ohrožené fragmentací.
 {
 \centering
 
-\includegraphics[width=0.90\linewidth]{paging-pde-1.pdf}
+\includegraphics[width=0.90\linewidth]{generated/memory/paging/paging-pde-1.pdf}
 
 }
 
@@ -648,7 +648,7 @@ ohrožené fragmentací.
 {
 \centering
 
-\includegraphics[width=0.90\linewidth]{paging-pte.pdf}
+\includegraphics[width=0.90\linewidth]{generated/memory/paging/paging-pte.pdf}
 
 }
 
@@ -673,7 +673,7 @@ sychronizovat zpět do~souboru, odkládacího oddílu atd.
 {
 \centering
 
-\includegraphics[width=0.90\linewidth]{address-trans-4-levels.pdf}
+\includegraphics[width=0.90\linewidth]{generated/memory/paging/address-trans-4-levels.pdf}
 
 }
 
@@ -699,7 +699,7 @@ při~programování.
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{paging-tlb.pdf}
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-tlb.pdf}
 
 }
 \end{frame}
@@ -712,7 +712,7 @@ při~programování.
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{fig/mem-nehalem-lat.png}
+\includegraphics[width=0.80\linewidth]{common/arch/x86/mem-nehalem-lat.png}
 
 }
 
@@ -730,7 +730,7 @@ Další optimalizace volitelné velké stránky -- huge pages.
 {
 \centering
 
-\includegraphics[width=0.6\linewidth]{paging-canonical-64-bit.pdf}
+\includegraphics[width=0.6\linewidth]{generated/memory/paging/paging-canonical-64-bit.pdf}
 
 }
 \end{frame}

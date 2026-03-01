@@ -55,9 +55,9 @@ License: CC-BY-SA}
 \begin{frame}[shrink=10]
 \frametitle{John von Neumann Computer Block Diagram}
 \begin{center}
-\includegraphics[width=0.5\textwidth]{cpu-vonNeumann.pdf}
+\includegraphics[width=0.5\textwidth]{generated/computer/cpu-vonNeumann.pdf}
 %\hfill
-%\includegraphics[width=0.15\textwidth]{fig/vonNeumann.png}
+%\includegraphics[width=0.15\textwidth]{common/computer/vonNeumann.png}
 \end{center}
 \begin{itemize}
 \item 5 functional units -- control unit, arithmetic logic unit, memory, input (devices), output (devices)
@@ -438,7 +438,7 @@ fnct7 & fnct3 & ALU operation \\ \hline
 \frametitle{Realize Register in Hardware}
 Basic realization of register from d-latch circuit
 \begin{center}
-\includegraphics[width=0.5\textwidth]{d_latch.pdf}
+\includegraphics[width=0.5\textwidth]{generated/cpu/register/d_latch.pdf}
 \end{center}
 
 This circuit is a big change from the previous approach, because there is a feedback (loop) -- the output of the gate is the input of the same gate, or the input of the other gate whose output is the input of the first gate.
@@ -456,7 +456,7 @@ Analyze circuit for E=1 the first:
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{center}
-\includegraphics[width=\textwidth]{d_latch_e1-en.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/register/d_latch_e1-en.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -479,7 +479,7 @@ If the enable input is deactivated (E=0):
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{center}
-\includegraphics[width=\textwidth]{d_latch_e0-en.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/register/d_latch_e0-en.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}
@@ -499,7 +499,7 @@ Activation by clock signal rising edge:
 \begin{columns}
 \begin{column}{0.45\textwidth}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{edge.pdf}
+\includegraphics[width=0.9\textwidth]{generated/cpu/register/edge.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.55\textwidth}
@@ -523,7 +523,7 @@ Activation by clock signal rising edge:
 \frametitle{Hardware Realization of CPU Instruction Cycle}
 
 \begin{center}
-\includegraphics[width=0.55\textwidth]{cpu_step-en.pdf}
+\includegraphics[width=0.55\textwidth]{generated/cpu/cpu_step-en.pdf}
 \end{center}
 
 The PC register is updated to PC+4 (advanced by instruction length) at clock (CLK) signal rising edge which causes start of the fetch of following instruction from memory.
@@ -535,15 +535,15 @@ The PC register is updated to PC+4 (advanced by instruction length) at clock (CL
 \begin{table}
 \footnotesize
 \begin{tabular}{m{1.6cm} m{9.5cm}}
-\hfill \includegraphics[width=0.6cm]{registr.pdf} & single 32-bit wide register, the input store at CLK rising edge \\
+\hfill \includegraphics[width=0.6cm]{generated/cpu/register/registr.pdf} & single 32-bit wide register, the input store at CLK rising edge \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.6cm]{registers-en.pdf} & 32 registers in register file, A1, A2 inputs select which register values are connected to RD1 and RD2 outputs; if WE3 (write enable) inputs is active then WD3 input state is written to register designated by A3 at CLK signal rising edge \\
+\hfill \includegraphics[width=1.6cm]{generated/cpu/register/registers-en.pdf} & 32 registers in register file, A1, A2 inputs select which register values are connected to RD1 and RD2 outputs; if WE3 (write enable) inputs is active then WD3 input state is written to register designated by A3 at CLK signal rising edge \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=0.8cm]{multiplexor.pdf} & multiplexer copies one of its input signals to the output according to Select input value \\
+\hfill \includegraphics[width=0.8cm]{generated/logic/multiplexor.pdf} & multiplexer copies one of its input signals to the output according to Select input value \\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.2cm]{alu.pdf} & the operation chosen by ALUControl signal is applied to inputs SrcA and SrcB. Result is available on ALUout signal and flags reflects result conditions, i.e., sign or indicate zero value\\
+\hfill \includegraphics[width=1.2cm]{generated/cpu/alu.pdf} & the operation chosen by ALUControl signal is applied to inputs SrcA and SrcB. Result is available on ALUout signal and flags reflects result conditions, i.e., sign or indicate zero value\\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=1.6cm]{imm_decode.pdf} & chooses bits used for immediate encoding and applies sign extension to 32 bits signed value \\
+\hfill \includegraphics[width=1.6cm]{generated/cpu/imm_decode.pdf} & chooses bits used for immediate encoding and applies sign extension to 32 bits signed value \\
 \end{tabular}
 \end{table}
 
@@ -556,9 +556,9 @@ The PC register is updated to PC+4 (advanced by instruction length) at clock (CL
 \begin{table}
 \footnotesize
 \begin{tabular}{m{2.2cm} m{9.0cm}}
-\hfill \includegraphics[width=2cm]{inst_mem-en.pdf} & Instruction memory provides data stored in the memory cell/word indexed by address input A on its output RD. Data are available after interval "long enough" to stabilize address decoder and propagate value to the output RD (the read access time).\\
+\hfill \includegraphics[width=2cm]{generated/memory/inst_mem-en.pdf} & Instruction memory provides data stored in the memory cell/word indexed by address input A on its output RD. Data are available after interval "long enough" to stabilize address decoder and propagate value to the output RD (the read access time).\\
 \phantom{X} & \phantom{X} \\
-\hfill \includegraphics[width=2.4cm]{memory-en.pdf} & Data memory. In read mode, it delivers memory cell/word content indexed bay address A onto RD output (again read access time has to be respected). If the input WE (write enable) is active then data stable for long enough setup time are stored into selected word at rising edge of the clock (CLK). The time from data and address ready to stable data writes into cell is called write access time.\\
+\hfill \includegraphics[width=2.4cm]{generated/memory/memory-en.pdf} & Data memory. In read mode, it delivers memory cell/word content indexed bay address A onto RD output (again read access time has to be respected). If the input WE (write enable) is active then data stable for long enough setup time are stored into selected word at rising edge of the clock (CLK). The time from data and address ready to stable data writes into cell is called write access time.\\
 \end{tabular}
 \end{table}
 
@@ -612,7 +612,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 \bigskip
 
 \begin{center}
-\includegraphics[width=0.85\textwidth]{cpu-load.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-load.pdf}
 \end{center}
 
 \end{frame}
@@ -635,7 +635,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 Write to register at the rising edge of the clock
 
 \begin{center}
-\includegraphics[width=0.90\textwidth]{cpu-load-red.pdf}
+\includegraphics[width=0.90\textwidth]{generated/cpu/instruction/cpu-load-red.pdf}
 \end{center}
 
 \end{frame}
@@ -659,7 +659,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 \bigskip
 
 \begin{center}
-\includegraphics[width=0.88\textwidth]{cpu-load2.pdf}
+\includegraphics[width=0.88\textwidth]{generated/cpu/instruction/cpu-load2.pdf}
 \end{center}
 \end{frame}
 
@@ -667,7 +667,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 \begin{frame}
 \frametitle{QtRvSim - RISC-V Simultaor}
 
-\includegraphics[width=0.9\textwidth]{simulator.pdf}
+\includegraphics[width=0.9\textwidth]{generated/simulator/simulator.pdf}
 
 \end{frame}
 
@@ -721,7 +721,7 @@ S & \multicolumn{2}{c|}{ imm[11:5] } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 
 
 \bigskip
 
-\includegraphics[width=0.90\textwidth]{cpu-store2.pdf}
+\includegraphics[width=0.90\textwidth]{generated/cpu/instruction/cpu-store2.pdf}
 
 \end{frame}
 
@@ -779,7 +779,7 @@ R & \multicolumn{2}{c|}{ fnct7 } & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 &\mu
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-add.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-add.pdf}
 
 \end{frame}
 
@@ -792,7 +792,7 @@ Another ALU operation selection (ALUcontrol) is only difference to addition. The
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-add2.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-add2.pdf}
 
 \end{frame}
 
@@ -843,7 +843,7 @@ I & \multicolumn{4}{c|}{ imm[11:0] } & rs1 & fnct3 &\multicolumn{2}{c|}{ rd } & 
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-addi.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-addi.pdf}
 
 \end{frame}
 
@@ -865,7 +865,7 @@ B & imm [12] & imm [10:5]  & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 & imm[4:1]
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-beq.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/instruction/cpu-beq.pdf}
 
 \end{frame}
 
@@ -875,7 +875,7 @@ B & imm [12] & imm [10:5]  & \multicolumn{2}{c|}{ rs2 } & rs1 & fnct3 & imm[4:1]
 
 \bigskip
 
-\includegraphics[width=0.85\textwidth]{cpu-time.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/cpu-time.pdf}
 
 \end{frame}
 
@@ -907,7 +907,7 @@ It transform machine instruction bits \texttt{\textbf{opcode}} and \texttt{\text
 
 \bigskip
 \begin{center}
-\includegraphics[width=0.75\textwidth]{cpu-control-unit.pdf}
+\includegraphics[width=0.75\textwidth]{generated/cpu/cpu-control-unit.pdf}
 \end{center}
 \end{frame}
 

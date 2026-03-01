@@ -27,7 +27,7 @@ Basic features:
 \end{column}
 \begin{column}{0.52\textwidth}  
    \begin{center}
-   \includegraphics[width=0.9\textwidth]{cpu-en.pdf}
+   \includegraphics[width=0.9\textwidth]{generated/arch/x86/cpu-en.pdf}
    \end{center}
 \end{column}
 \end{columns}
@@ -74,7 +74,7 @@ User/General Purpose Registers
 \item AMD64/EM64T adds 8 additional registers \texttt{r8}-\texttt{r15}, in the form of \texttt{r8b} lowest byte, \texttt{r8w} lowest word (16 bits), \texttt{r8d} -- lower 32 bits, \texttt{r8} -- 64 bit register
 \end{itemize}
 \begin{center}
-\includegraphics[width=0.5\textwidth]{registers.pdf}
+\includegraphics[width=0.5\textwidth]{generated/arch/x86/registers.pdf}
 \end{center}
 Control and Status Registers
 \begin{itemize}
@@ -90,7 +90,7 @@ Control and Status Registers
 \frametitle{x86/AMD64 -- FLAGS Register}
 RFLAGS register
 \begin{center}
-\includegraphics[width=0.65\textwidth]{flags-en.pdf}
+\includegraphics[width=0.65\textwidth]{generated/arch/x86/flags-en.pdf}
 \end{center}
 \begin{columns}[t,onlytextwidth]
 \begin{column}{0.5\textwidth}
@@ -563,7 +563,7 @@ ret
 \end{column}
 
 \begin{column}{0.3\textwidth}  
-\includegraphics[width=0.95\textwidth]{fnc_frame-en.pdf}
+\includegraphics[width=0.95\textwidth]{generated/arch/x86/fnc_frame-en.pdf}
 \end{column}
 
 \end{columns}
@@ -944,12 +944,12 @@ fstp   dst_addr ; Store result in memory
 \begin{columns}[t,onlytextwidth]
   \begin{column}{0.5\textwidth}
     \begin{center}
-    \includegraphics[width=0.8\textwidth]{mmx-add.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-add.pdf}
     \end{center}
   \end{column}
   \begin{column}{0.5\textwidth}
     \begin{center}
-    \includegraphics[width=0.8\textwidth]{mmx-add-sat.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-add-sat.pdf}
     \end{center}
   \end{column}
 \end{columns}
@@ -961,20 +961,20 @@ fstp   dst_addr ; Store result in memory
 \small
     \begin{center}
     \texttt{PMADDWD} - packed multiply and paired add\\
-    \includegraphics[width=0.4\textwidth]{mmx-mul-add.pdf}
+    \includegraphics[width=0.4\textwidth]{generated/arch/x86/mmx-mul-add.pdf}
     \end{center}
 \vspace{-1cm}
 \begin{columns}[t,onlytextwidth]
   \begin{column}{0.5\textwidth}
     \begin{center}
     \texttt{PMULLW} - multiply store low\\ word of the result
-    \includegraphics[width=0.8\textwidth]{mmx-mull.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-mull.pdf}
     \end{center}
   \end{column}
   \begin{column}{0.5\textwidth}
     \begin{center}
     \texttt{PMULHW} - multiply store high\\ word of the result
-    \includegraphics[width=0.8\textwidth]{mmx-mulh.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-mulh.pdf}
     \end{center}
   \end{column}
 \end{columns}
@@ -1071,13 +1071,13 @@ movq    %mm0, new_img_ptr
 \begin{column}{0.5\textwidth}
 \begin{center}
 Packed operation
-\includegraphics[width=0.9\textwidth]{sse.pdf}
+\includegraphics[width=0.9\textwidth]{generated/arch/x86/sse.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{center}
 Scalar operation
-\includegraphics[width=0.9\textwidth]{sse-s.pdf}
+\includegraphics[width=0.9\textwidth]{generated/arch/x86/sse-s.pdf}
 \end{center}
 \end{column}
 \end{columns}

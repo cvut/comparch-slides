@@ -186,7 +186,7 @@ The same principle which you have learned at basic school for decimal numeral sy
 The realization of the algorithm form previous slide with shift register and adder:\\
 (inputs A,B 32-bit, result 64-bit)
 \begin{center}
-\includegraphics[width=0.55\textwidth]{multiplier-seq-en.pdf}
+\includegraphics[width=0.55\textwidth]{generated/logic/multiplication/multiplier-seq-en.pdf}
 \end{center}
 \begin{itemize}
 \item The result will be available after 32 cycles in AC and B 
@@ -202,7 +202,7 @@ Potential for speedup -- delayed carry (Carry Save Adder).\\
 The optimization of the sum of four 32-bit integers:\\
 \begin{columns}
 \begin{column}{0.35\textwidth}
-\includegraphics[width=1.0\textwidth]{wallace-tree.pdf}
+\includegraphics[width=1.0\textwidth]{generated/logic/multiplication/wallace-tree.pdf}
 \end{column}
 \hfill
 \begin{column}{0.65\textwidth}
@@ -226,7 +226,7 @@ The optimization of the sum of four 32-bit integers:\\
 Try to apply the described principle to sum fast 32 or 64 values:
 \begin{columns}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=1.0\textwidth]{wallace-tree2.pdf}
+\includegraphics[width=1.0\textwidth]{generated/logic/multiplication/wallace-tree2.pdf}
 \end{column}
 \hfill
 \begin{column}{0.4\textwidth}
@@ -247,7 +247,7 @@ Try to apply the described principle to sum fast 32 or 64 values:
 
 The longest, central column in more detail:
 \begin{center}
-\includegraphics[width=0.8\textwidth]{wallace-tree3.pdf}
+\includegraphics[width=0.8\textwidth]{generated/logic/multiplication/wallace-tree3.pdf}
 \end{center}
 
 \begin{itemize}
@@ -310,7 +310,7 @@ The \texttt{A/B} operation, A is 64-bit, B is 32-bit:
 \begin{columns}
 \begin{column}{0.45\textwidth}
 The input A is stored into two registers AC,A\\
-\includegraphics[width=1\textwidth]{divider-seq-en.pdf}
+\includegraphics[width=1\textwidth]{generated/logic/division/divider-seq-en.pdf}
 \end{column}
 \hfill
 \begin{column}{0.55\textwidth}
@@ -369,7 +369,7 @@ The sign has to be encoded into numeral representation:
 \vspace{-0.3cm}
 \begin{columns}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=0.9\textwidth]{doplnek-graf.pdf}
+\includegraphics[width=0.9\textwidth]{generated/numbers/signed/two-compl-graph.pdf}
 \end{column}
 \hfill
 \begin{column}{0.5\textwidth}
@@ -430,7 +430,7 @@ It can be solved:
 \hfill
 \begin{column}{0.5\textwidth}
 \begin{center}
-\includegraphics[width=0.5\textwidth]{substaction-en.pdf}
+\includegraphics[width=0.5\textwidth]{generated/logic/addition/substaction-en.pdf}
 \end{center}
 \end{column}
 \end{columns}
@@ -443,7 +443,7 @@ It can be solved:
 
 
 \begin{center}
-\includegraphics[width=0.5\textwidth]{add-sub-en.pdf}
+\includegraphics[width=0.5\textwidth]{generated/logic/addition/add-sub-en.pdf}
 \end{center}
 
 \end{frame}
@@ -599,7 +599,7 @@ The overflow in operations with signed numbers is more complex. Examples what re
 \frametitle{Arithmetic Overflow -- Quiz 4}
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{overflow.pdf}
+\includegraphics[width=0.6\textwidth]{generated/logic/addition/overflow.pdf}
 \end{center}
 
 When two numbers with opposite signs are added:
@@ -709,7 +709,7 @@ Binary coded decimal (BCD) representation
 
 
 \begin{center}
-\includegraphics[width=0.65\textwidth]{float_bin-1.pdf}
+\includegraphics[width=0.65\textwidth]{generated/numbers/float/float_bin-1.pdf}
 \end{center}
 
 \end{frame}
@@ -818,7 +818,7 @@ The space for leading MSB of significand (hidden one)
 is not reserved because it is guaranteed by format definition (except for zero and some corner cases):
 
 \begin{center}
-\includegraphics[width=0.4\textwidth]{float_example-en.pdf}
+\includegraphics[width=0.4\textwidth]{generated/numbers/float/float_example-en.pdf}
 \end{center}
 
 You can experiment with \url{https://www.h-schmidt.net/FloatConverter/IEEE754.html}

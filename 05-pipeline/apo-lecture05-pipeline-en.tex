@@ -42,7 +42,7 @@ J & imm [20] & \multicolumn{2}{c|}{ imm[10:1] } & imm [11] & \multicolumn{2}{c|}
 
 \begin{frame}
 \frametitle{Single Cycle CPU with Memories (from Lecture 3)}
-\includegraphics[width=0.95\textwidth]{single_cpu.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/single_cpu.pdf}
 \end{frame}
 
 \begin{frame}
@@ -54,7 +54,7 @@ J & imm [20] & \multicolumn{2}{c|}{ imm[10:1] } & imm [11] & \multicolumn{2}{c|}
  \item In our design, the limitation is \texttt{lw} instruction execution
 \end{itemize}
 
-\includegraphics[width=0.92\textwidth]{cpu-time.pdf}
+\includegraphics[width=0.92\textwidth]{generated/cpu/cpu-time.pdf}
 \end{frame}
 
 \begin{frame}
@@ -107,7 +107,7 @@ $IPS = 1 \cdots 980e3 = 980\,000$ instructions per second
 
 {
 \centering
-\includegraphics[width=0.8\textwidth]{cpu_ifetch_exe.pdf}
+\includegraphics[width=0.8\textwidth]{generated/cpu/pipeline/cpu_ifetch_exe.pdf}
 }
 
 \vskip 2 mm
@@ -121,7 +121,7 @@ $IPS = 1 \cdots 980e3 = 980\,000$ instructions per second
 
 \begin{frame}
 \frametitle{Non-Pielined Execution with Instructions Prefetching}
-\includegraphics[width=0.95\textwidth]{cpu_clock.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/cpu_clock.pdf}
 \begin{itemize}
  \item $\downarrow$ in the figure represents the clock input active on the rising edge of the clock signal
 \end{itemize}
@@ -172,7 +172,7 @@ We will consider splitting instruction execution into five stages.
 
 {
 \centering
-\includegraphics[width=0.9\textwidth]{cpu_pipe_stages.pdf}
+\includegraphics[width=0.9\textwidth]{generated/cpu/pipeline/cpu_pipe_stages.pdf}
 }
 
 \begin{enumerate}
@@ -187,7 +187,7 @@ We will consider splitting instruction execution into five stages.
 
 \begin{frame}
 \frametitle{Overlapping/Pipelined Sequential Execution of Instructions}
-\includegraphics[width=0.9\textwidth]{cpu_pipe_inst_flow-en.pdf}
+\includegraphics[width=0.9\textwidth]{generated/cpu/pipeline/cpu_pipe_inst_flow-en.pdf}
 
 $\tau = max{\left\lbrace \tau_i \right\rbrace}^k_{i=1}$, where $\tau_i$ is the delay in each stage
 
@@ -203,29 +203,29 @@ $\lim_{n \rightarrow \infty} S_k = k$
 
 \begin{frame}
 \frametitle{Single Cycle Processor (from Lecture 3) -- Datapath}
-\includegraphics[width=0.95\textwidth]{cpu_nopipe.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/cpu_nopipe.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Pipelined Five-Stage Design -- Datapath}
-\includegraphics[width=0.95\textwidth]{cpu_pipe.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/cpu_pipe.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Pipelined Five-Stage Design Including Control Unit}
-\includegraphics[width=0.95\textwidth]{cpu_ctrl_pipe.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/cpu_ctrl_pipe.pdf}
 \end{frame}
 
 \section{Hazard Causes and Theirs Resolution}
 
 \begin{frame}
 \frametitle{Semantics Violations -- Data and Control Hazards}
-\includegraphics[width=0.95\textwidth]{hazard_kinds-en.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/hazard/hazard_kinds-en.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Cause of Data Hazards}
-\includegraphics[width=0.95\textwidth]{hazard_data-en.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/hazard/hazard_data-en.pdf}
 
 \vskip 2 mm
 
@@ -242,7 +242,7 @@ $\lim_{n \rightarrow \infty} S_k = k$
 
 \begin{frame}
 \frametitle{Data Hazard in the "and" Instruction in the QtRVSim}
-\includegraphics[width=0.95\textwidth]{hazard_qtrvsim.pdf}
+\includegraphics[width=0.95\textwidth]{generated/simulator/hazard_qtrvsim.pdf}
 
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
@@ -256,7 +256,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{QtRVSim -- Resolve Data Hazard by Stall}
-\includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim.pdf}
+\includegraphics[width=0.95\textwidth]{generated/simulator/hazard_stall_qtrvsim.pdf}
 
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
@@ -271,7 +271,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Data Hazard Resolution by Forwarding}
-\includegraphics[width=0.85\textwidth]{forward_data-en.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/hazard/forward_data-en.pdf}
 
 \begin{itemize}
  \item If a result is available (computed) before subsequent instruction(s) requires the value then data hazard can be avoided by forwarding
@@ -285,7 +285,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Recap of Previous Design and Prepare It for Forwarding}
-\includegraphics[width=0.95\textwidth]{noforward_data.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/hazard/noforward_data.pdf}
 
 You need to know the previous \textbf{A1} (\textbf{rs1}) and \textbf{A2} (\textbf{rs2}) in \textbf{EX}.
 The \textbf{RegWrite} signals from \textbf{MEM} and \textbf{WB} has to be monitored as well to check
@@ -295,12 +295,12 @@ that the register specified by \textbf{WriteReg} in \textbf{MEM} and \textbf{WB}
 
 \begin{frame}
 \frametitle{Processor Design with MEM and WB to EX Forwarding}
-\includegraphics[width=0.95\textwidth]{forward_hazard.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/hazard/forward_hazard.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{QtRvSim -- Data Hazards Resolved by Forwarding}
-\includegraphics[width=0.95\textwidth]{hazard_forwarding.pdf}
+\includegraphics[width=0.95\textwidth]{generated/simulator/hazard_forwarding.pdf}
 
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
@@ -314,7 +314,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Forwarding the "and" Instruction rs1 Input from MEM}
-\includegraphics[width=0.95\textwidth]{hazard_forwarding2.pdf}
+\includegraphics[width=0.95\textwidth]{generated/simulator/hazard_forwarding2.pdf}
 
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
@@ -328,7 +328,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Forwarding the "or" Instruction rs2 Input from WB}
-\includegraphics[width=0.95\textwidth]{hazard_forwarding3.pdf}
+\includegraphics[width=0.95\textwidth]{generated/simulator/hazard_forwarding3.pdf}
 
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
@@ -342,7 +342,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Persisting Problem in the "lw" Case -- Solved by Stalling}
-\includegraphics[width=0.85\textwidth]{pipeline_stall-en.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/pipeline_stall-en.pdf}
 
 \begin{itemize}
  \item If subsequent instructions require result before it is available in CPU then the pipeline has to be stalled (\textbf{stall} and \textbf{nop} inserted/interstage flush)
@@ -354,7 +354,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Data Hazard Resolution by Stalling}
-\includegraphics[width=0.85\textwidth]{pipeline_stall2-en.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/pipeline_stall2-en.pdf}
 
 \begin{itemize}
  \item Stalling is realized by holding the contents of the interstage registers
@@ -367,12 +367,12 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Avoid Remaining Data Hazards by Stalling -- CPU Diagram}
-\includegraphics[width=0.95\textwidth]{cpu_fwd_stall.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/hazard/cpu_fwd_stall.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{QtRvSim -- Data Hazard in "lw" Avoided by Stalling}
-\includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim2.pdf}
+\includegraphics[width=0.95\textwidth]{generated/simulator/hazard_stall_qtrvsim2.pdf}
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
 }
@@ -385,7 +385,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{QtRvSim -- Data Hazard in "lw" Avoided by Stalling}
-\includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim3.pdf}
+\includegraphics[width=0.95\textwidth]{generated/simulator/hazard_stall_qtrvsim3.pdf}
 
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
@@ -399,7 +399,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{QtRvSim -- Data Hazard in "lw" Avoided by Stalling}
-\includegraphics[width=0.95\textwidth]{hazard_stall_qtrvsim4.pdf}
+\includegraphics[width=0.95\textwidth]{generated/simulator/hazard_stall_qtrvsim4.pdf}
 
 {\tiny
 QtRvSim \url{https://github.com/cvut/qtrvsim}
@@ -415,7 +415,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Control Hazards (Branch and Jump Instructions)}
-\includegraphics[width=0.85\textwidth]{hazard_ctrl-en.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/hazard/hazard_ctrl-en.pdf}
 
 \begin{itemize}
  \item The result is not known until the fourth cycle, then it is loaded to the PC
@@ -427,7 +427,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Alternative, Move Branch Decision Earlier}
-\includegraphics[width=0.85\textwidth]{hazard_ctrl2-en.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/hazard/hazard_ctrl2-en.pdf}
 
 \begin{itemize}
  \item This causes structural hazard, \textbf{ALU} is needed in both \textbf{EX} and \textbf{ID}.
@@ -440,22 +440,22 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{MIPS Resolve Control Hazards by Early Evaluate and Flush}
-\includegraphics[width=0.90\textwidth]{hazard_ctrl_mips2.pdf}
+\includegraphics[width=0.90\textwidth]{generated/cpu/pipeline/hazard/hazard_ctrl_mips2.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Resolution of Hazards on Comparator Inputs -- MIPS}
-\includegraphics[width=0.90\textwidth]{hazard_ctrl_mips2.pdf}
+\includegraphics[width=0.90\textwidth]{generated/cpu/pipeline/hazard/hazard_ctrl_mips2.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Branch Prediction and Speculative Execution (Next Lect.)}
-\includegraphics[width=0.90\textwidth]{cpu_branch_pred.pdf}
+\includegraphics[width=0.90\textwidth]{generated/cpu/branch/cpu_branch_pred.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Result of Pipelined RISC-V Processor Design}
-\includegraphics[width=0.95\textwidth]{cpu_final_design.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/cpu_final_design.pdf}
 \end{frame}
 
 \begin{frame}
@@ -480,22 +480,22 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Design Correspondence to a Real Processor with External Memory (for simplicity we don't consider the pipeline)}
-\includegraphics[width=0.95\textwidth]{cpu_design.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/cpu_design.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Memory Is no Longer Placed Inside the Processor}
-\includegraphics[width=0.95\textwidth]{cpu_design2.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/cpu_design2.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{getting Back to the Original Separated CPU and Memory}
-\includegraphics[width=0.85\textwidth]{cpu_design3.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/cpu_design3.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Quiz -- Which Instruction Misbehaves When Signal is Cut}
-\includegraphics[width=0.95\textwidth]{cpu_final_design_bonus.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/cpu_final_design_bonus.pdf}
 
 \textbf{A)} add \hfill \textbf{B)} addi \hfill \textbf{C)} beq \hfill \textbf{D)} or \hfill ?
 \end{frame}
@@ -504,17 +504,17 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 \begin{frame}
 \frametitle{Requirements for Pipeline Timing}
-\includegraphics[width=0.95\textwidth]{pipeline_timing1.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/pipeline_timing1.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Requirements for Pipeline Timing}
-\includegraphics[width=0.95\textwidth]{pipeline_timing2.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/pipeline_timing2.pdf}
 \end{frame}
 
 \begin{frame}
 \frametitle{Clock Distribution Network Skew}
-\includegraphics[width=0.9\textwidth]{clock_distribution_skew.pdf}
+\includegraphics[width=0.9\textwidth]{generated/logic/clock/clock_distribution_skew.pdf}
 
 \begin{itemize}
  \item \textbf{Positive Clock Skew} -- clock arrives at the capturing sequential later than it arrives at the launching sequential
@@ -530,7 +530,7 @@ QtRvSim \url{https://github.com/cvut/qtrvsim}
 
 {
 \centering
-\includegraphics[width=0.6\textwidth]{clock_distribution_h_tree.pdf}
+\includegraphics[width=0.6\textwidth]{generated/logic/clock/clock_distribution_h_tree.pdf}
 }
 
 \vskip 2mm
@@ -541,7 +541,7 @@ source: Tawfik, S., Kursun, V.: Clock Distribution Networks with Gradual Signal 
 
 \begin{frame}
 \frametitle{Pipeline Stages Balancing}
-\includegraphics[width=0.85\textwidth]{pipeline_balancing.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/pipeline_balancing.pdf}
 
 (applies to tree based adder, multiplier, (unrolled) iterative divider..)
 
@@ -559,13 +559,13 @@ source: Tawfik, S., Kursun, V.: Clock Distribution Networks with Gradual Signal 
  \item Not well balanced 5-stage pipeline:
 \end{itemize}
 
-\includegraphics[width=0.85\textwidth]{pipeline_balancing2.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/pipeline_balancing2.pdf}
 
 \begin{itemize}
  \item Deeper pipeline is result of decomposing stages into more stages
 \end{itemize}
 
-\includegraphics[width=0.85\textwidth]{pipeline_balancing3.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/pipeline_balancing3.pdf}
 
 \begin{itemize}
  \item It allows CPU to work at higher frequencies but introduces many problems as well...
@@ -577,7 +577,7 @@ source: Tawfik, S., Kursun, V.: Clock Distribution Networks with Gradual Signal 
 \begin{frame}
 \frametitle{Superpipeline and Beyond}
 
-\includegraphics[width=0.95\textwidth]{pipeline_today_depths.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/pipeline/pipeline_today_depths.pdf}
 
 The Optimum Pipeline Depth for a Microprocessor: {\tiny \url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.93.4333\&rep=rep1\&type=pdf}}
 

@@ -89,7 +89,7 @@ addi s1, s2, -1
 How does the Hazard Unit make a decision about data hazard and their resolution?
 \begin{columns}
 \begin{column}{0.67\textwidth}
-\includegraphics[width=\textwidth]{cpu_final_design.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/pipeline/cpu_final_design.pdf}
 \end{column}
 \begin{column}{0.33\textwidth}
 \footnotesize
@@ -127,10 +127,10 @@ Instruction Level Parallelism (ILP)
 \frametitle{Instruction-level Parallelism}
 
 Pipelined processor
-\includegraphics[width=0.85\textwidth]{pipeline.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/pipeline-5stage.pdf}
 
 Superscalar processor
-\includegraphics[width=0.85\textwidth]{superscalar.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/superscalar/superscalar.pdf}
 
 \end{frame}
 
@@ -185,7 +185,7 @@ Superscalar processor
 \end{itemize}
 \begin{columns}
 \begin{column}{0.50\textwidth}
-\includegraphics[width=\textwidth]{superscalar-architecture.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/superscalar/superscalar-architecture.pdf}
 \end{column}
 \begin{column}{0.50\textwidth}
 \begin{itemize}
@@ -253,7 +253,7 @@ Instructions may be computed out-of-order, but instruction completion is in prog
 \frametitle{Superscalar Architecture}
 
 \begin{center}
-\includegraphics[width=0.7\textwidth]{superscalar-architecture2.pdf}
+\includegraphics[width=0.7\textwidth]{generated/cpu/superscalar/superscalar-architecture2.pdf}
 \end{center}
 
 \scriptsize
@@ -279,7 +279,7 @@ ReOrder Buffer:
 \frametitle{Superscalar Architecture}
 
 \begin{center}
-\includegraphics[width=0.7\textwidth]{superscalar-architecture2.pdf}
+\includegraphics[width=0.7\textwidth]{generated/cpu/superscalar/superscalar-architecture2.pdf}
 \end{center}
 
 \scriptsize
@@ -317,7 +317,7 @@ Reservation Station:
 
 \begin{columns}[T]
 \begin{column}{0.34\textwidth}
-\includegraphics[width=\textwidth]{fig/amd_zen2.png}
+\includegraphics[width=\textwidth]{common/cpu/branch/amd_zen2.png}
 \end{column}
 \begin{column}{0.66\textwidth}
 \scriptsize
@@ -446,7 +446,7 @@ for (i=0; i<N; i++) {
 \end{minted}
 \end{column}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=\textwidth]{for_loop-en.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/for_loop-en.pdf}
 \end{column}
 \end{columns}
 \bigskip
@@ -475,7 +475,7 @@ if (a<b) {
 \end{minted}
 \end{column}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=\textwidth]{if_translation-en.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/if_translation-en.pdf}
 \end{column}
 \end{columns}
 \bigskip
@@ -509,7 +509,7 @@ Solution: we will have $2^k$ predictors and select a predictor according to the 
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{prediction_table-en.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/prediction_table-en.pdf}
 \end{column}
 \end{columns}
 
@@ -529,7 +529,7 @@ The simplest predictor is the 1-bit Smith predictor
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.45\textwidth]{smith_1bit-en.pdf}
+\includegraphics[width=0.45\textwidth]{generated/cpu/branch/smith_1bit-en.pdf}
 \end{center}
 
 \end{frame}
@@ -586,7 +586,7 @@ The 2-bit Smith predictor is still one of the simplest used ones
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.95\textwidth]{smith_2bit-en.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/branch/smith_2bit-en.pdf}
 \end{center}
 \end{frame}
 
@@ -641,7 +641,7 @@ Analogue of the 2-bit Smith predictor
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.95\textwidth]{smith_2bit_hist-en.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/branch/smith_2bit_hist-en.pdf}
 \end{center}
 \end{frame}
 
@@ -713,7 +713,7 @@ To find the predictor index, the $k-m$ lowest bits of the branch instruction add
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{prediction_BHR-en.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/prediction_BHR-en.pdf}
 \end{column}
 \end{columns}
 
@@ -739,7 +739,7 @@ Benefits:
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{prediction_GShare-en.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/prediction_GShare-en.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -767,7 +767,7 @@ How the 1-bit tournament predictor works
 \frametitle{Tournament Predictors}
 
 \begin{center}
-\includegraphics[width=0.75\textwidth]{fig/tournament.png}\\
+\includegraphics[width=0.75\textwidth]{common/cpu/branch/tournament.png}\\
 \small Size of predictors in KiB
 \end{center}
 \end{frame}
@@ -795,7 +795,7 @@ T & T & T & NT & NT & NT& T & T & T \\ \hline
 \frametitle{Perceptron}
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{neuron-en.pdf}
+\includegraphics[width=0.6\textwidth]{generated/cpu/branch/neuron-en.pdf}
 \end{center}
 
 The formula $\xi = \sum_{i=0}^{n} x_i \cdot w_i$ is used to calculate the value. The final evaluation is by means of a transfer function, in our case threshold function, which has the form:
@@ -807,7 +807,7 @@ $f(\xi) = \begin{cases}1& \text{for }\xi \ge 0\\0& \text{for }\xi <0\end{cases}$
 \frametitle{AMD Zen2 Branch Predictor}
 
 \begin{center}
-\includegraphics[width=0.7\textwidth]{prediction_amd-en.pdf}
+\includegraphics[width=0.7\textwidth]{generated/cpu/branch/prediction_amd-en.pdf}
 \end{center}
 
 According to the branch address, one perceptron is selected from the table.
@@ -840,7 +840,7 @@ Advantage -- better results than gshare, can be used for long BHR history regist
 \frametitle{AMD Zen2 Predictor}
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{fig/amd_cinebench.png}
+\includegraphics[width=0.8\textwidth]{common/cpu/branch/amd_cinebench.png}
 \end{center}
 
 Source: Analyzing Zen 2's Cinebench R15 Lead

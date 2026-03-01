@@ -7,6 +7,8 @@
 /*.toc
 /*.upa
 /*.vrb
+/*.fls
+/*.dep
 /anim
 /_minted*
 /apo-lecture01-intro-en.pdf

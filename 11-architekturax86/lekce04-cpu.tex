@@ -61,9 +61,9 @@ https://pretalx.linuxdays.cz/2019/talk/EAYAGG/
 \begin{frame}
 \frametitle{John von Neumann}
 \begin{center}
-\includegraphics[width=0.65\textwidth]{cpu-vonNeumann.pdf}
+\includegraphics[width=0.65\textwidth]{generated/computer/cpu-vonNeumann.pdf}
 \hfill
-\includegraphics[width=0.2\textwidth]{fig/vonNeumann.png}
+\includegraphics[width=0.2\textwidth]{common/computer/vonNeumann-sm.png}
 \end{center}
 \begin{itemize}
 \item 5 functional units – control unit, arithmetic logic unit, memory, input (devices), output (devices)
@@ -103,7 +103,7 @@ The control unit is responsible for control of the operation processing and sequ
 \frametitle{Registr FLAGS}
 RFLAGS registr
 \begin{center}
-\includegraphics[width=0.65\textwidth]{flags-cz.pdf}
+\includegraphics[width=0.65\textwidth]{generated/arch/x86/flags-cz.pdf}
 \end{center}
 \begin{columns}[t,onlytextwidth]
 \begin{column}{0.5\textwidth}
@@ -374,7 +374,7 @@ Zásobník:
 \item operace pop vybere data ze zásobníku
 \end{itemize}
 \begin{center}
-   \includegraphics[width=0.5\textwidth]{stack.pdf}
+   \includegraphics[width=0.5\textwidth]{generated/arch/x86/stack.pdf}
 \end{center}
 
 \end{column}
@@ -775,12 +775,12 @@ fstp   adr_vysl ; Uloz vysledek do pameti
 \begin{columns}[t,onlytextwidth]
   \begin{column}{0.5\textwidth}
     \begin{center}
-    \includegraphics[width=0.8\textwidth]{mmx-add.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-add.pdf}
     \end{center}
   \end{column}
   \begin{column}{0.5\textwidth}
     \begin{center}
-    \includegraphics[width=0.8\textwidth]{mmx-add-sat.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-add-sat.pdf}
     \end{center}
   \end{column}
 \end{columns}
@@ -792,20 +792,20 @@ fstp   adr_vysl ; Uloz vysledek do pameti
 \small
     \begin{center}
     \texttt{PMADDWD} - vynásob a sečti\\
-    \includegraphics[width=0.4\textwidth]{mmx-mul-add.pdf}
+    \includegraphics[width=0.4\textwidth]{generated/arch/x86/mmx-mul-add.pdf}
     \end{center}
 \vspace{-1cm}
 \begin{columns}[t,onlytextwidth]
   \begin{column}{0.5\textwidth}
     \begin{center}
     \texttt{PMULLW} - součin (spodní část)
-    \includegraphics[width=0.8\textwidth]{mmx-mull.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-mull.pdf}
     \end{center}
   \end{column}
   \begin{column}{0.5\textwidth}
     \begin{center}
     \texttt{PMULHW} - součin (vrchní část)
-    \includegraphics[width=0.8\textwidth]{mmx-mulh.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-mulh.pdf}
     \end{center}
   \end{column}
 \end{columns}
@@ -901,13 +901,13 @@ movq    %mm0, new_img_ptr
 \begin{column}{0.5\textwidth}
 \begin{center}
 Packet operation
-\includegraphics[width=0.9\textwidth]{sse.pdf}
+\includegraphics[width=0.9\textwidth]{generated/arch/x86/sse.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{center}
 Scalar operation
-\includegraphics[width=0.9\textwidth]{sse-s.pdf}
+\includegraphics[width=0.9\textwidth]{generated/arch/x86/sse-s.pdf}
 \end{center}
 \end{column}
 \end{columns}

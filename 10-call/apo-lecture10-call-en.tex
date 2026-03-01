@@ -243,7 +243,7 @@ or even somewhere else
 \frametitle{JAL and JALR Implementation}
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Qtrvsim-jalr.pdf}
+\includegraphics[width=0.9\textwidth]{generated/simulator/Qtrvsim-jalr.pdf}
 \end{center}
 
 Quiz: How many of the connections are you able to describe their use
@@ -256,7 +256,7 @@ Quiz: How many of the connections are you able to describe their use
 \frametitle{JALR in QtRvSim Simulator}
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Jalr-exec.pdf}
+\includegraphics[width=0.9\textwidth]{generated/simulator/Jalr-exec.pdf}
 \end{center}
 
 \end{frame}
@@ -267,7 +267,7 @@ Quiz: How many of the connections are you able to describe their use
 \frametitle{JALR -- Control Hazard Caused by Jump}
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Jalr-mem.pdf}
+\includegraphics[width=0.9\textwidth]{generated/simulator/Jalr-mem.pdf}
 \end{center}
 
 \end{frame}
@@ -324,7 +324,7 @@ Stack implementation where the top is defined by \texttt{sp} (\texttt{x2}) regis
 \end{column}
 \hfill
 \begin{column}{0.3\textwidth}  
-\includegraphics[width=0.9\textwidth]{stack-push-pop.pdf}
+\includegraphics[width=0.9\textwidth]{generated/abi/call/stack-push-pop.pdf}
 \end{column}
 \end{columns}
 
@@ -488,7 +488,7 @@ Function finalization:
 \end{itemize}
 \end{column}
 \begin{column}{0.35\textwidth}  
-\includegraphics[width=0.9\textwidth]{simple_fnc-en.pdf}
+\includegraphics[width=0.9\textwidth]{generated/abi/call/simple_fnc-en.pdf}
 \end{column}
 \end{columns}
 
@@ -546,7 +546,7 @@ Remark: the stack allocations are aligned to 16 bytes.
 
 \end{column}
 \begin{column}{0.35\textwidth}  
-\includegraphics[width=0.7\textwidth]{complex_fnc-en.pdf}
+\includegraphics[width=0.7\textwidth]{generated/abi/call/complex_fnc-en.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -624,7 +624,7 @@ ret
 \end{minted}
 \end{column}
 \begin{column}{0.35\textwidth}  
-\includegraphics[width=0.7\textwidth]{complex_fnc_fp-en.pdf}
+\includegraphics[width=0.7\textwidth]{generated/abi/call/complex_fnc_fp-en.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -684,7 +684,7 @@ Each process has it own memory context with 4GiB of virtual address space:
 \end{itemize}
 \end{column}   
 \begin{column}{0.25\textwidth}  
-\includegraphics[width=0.8\textwidth]{proc_addr_space-en.pdf}
+\includegraphics[width=0.8\textwidth]{generated/abi/call/proc_addr_space-en.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -807,7 +807,7 @@ ret
 \end{minted}
 \end{column}
 \begin{column}{0.33\textwidth}  
-\includegraphics[width=\textwidth]{overflow_fnc-en.pdf}
+\includegraphics[width=\textwidth]{generated/abi/call/overflow_fnc-en.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -904,7 +904,7 @@ ret
 \end{minted}
 \end{column}
 \begin{column}{0.3\textwidth}  
-\includegraphics[width=0.7\textwidth]{vaarg_fnc_fp-en.pdf}
+\includegraphics[width=0.7\textwidth]{generated/abi/call/vaarg_fnc_fp-en.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -940,7 +940,7 @@ The user program prepares the call parameters and system call number in the regi
 The OS calls the corresponding function based on the system call number.
 
 \begin{center}
-  \includegraphics[width=0.95\textwidth]{irq-and-os-en.pdf}
+  \includegraphics[width=0.95\textwidth]{generated/io/irq/irq-and-os-en.pdf}
 \end{center}
 
 Return from system call to user program uses same or similar mechanism as return

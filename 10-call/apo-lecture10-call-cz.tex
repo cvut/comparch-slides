@@ -242,7 +242,7 @@ Instrukce \texttt{jalr \textit{rd}, \textit{rs1}, imm12}
 \frametitle{Implemetace jal a jalr}
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Qtrvsim-jalr.pdf}
+\includegraphics[width=0.9\textwidth]{generated/simulator/Qtrvsim-jalr.pdf}
 \end{center}
 
 Kvíz: Kolik různých čar byste uměli vysvětlit
@@ -255,7 +255,7 @@ Kvíz: Kolik různých čar byste uměli vysvětlit
 \frametitle{Simulace Jalr}
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Jalr-exec.pdf}
+\includegraphics[width=0.9\textwidth]{generated/simulator/Jalr-exec.pdf}
 \end{center}
 
 \end{frame}
@@ -266,7 +266,7 @@ Kvíz: Kolik různých čar byste uměli vysvětlit
 \frametitle{Řídicí hazard při Implemetaci jalr}
 
 \begin{center}
-\includegraphics[width=0.9\textwidth]{Jalr-mem.pdf}
+\includegraphics[width=0.9\textwidth]{generated/simulator/Jalr-mem.pdf}
 \end{center}
 
 \end{frame}
@@ -324,7 +324,7 @@ Implemetace zásobníku registrem \texttt{sp} (\texttt{x2}):
 \end{column}
 \hfill
 \begin{column}{0.3\textwidth}  
-\includegraphics[width=0.9\textwidth]{stack-push-pop.pdf}
+\includegraphics[width=0.9\textwidth]{generated/abi/call/stack-push-pop.pdf}
 \end{column}
 \end{columns}
 
@@ -490,7 +490,7 @@ Ukončení funkce:
 \end{itemize}
 \end{column}
 \begin{column}{0.35\textwidth}  
-\includegraphics[width=0.9\textwidth]{simple_fnc-cz.pdf}
+\includegraphics[width=0.9\textwidth]{generated/abi/call/simple_fnc-cz.pdf}
 \end{column}
 \end{columns}
 
@@ -547,7 +547,7 @@ Poznámka: alokace zásobníku je zarovnaná na 16 bytů.
 
 \end{column}
 \begin{column}{0.35\textwidth}  
-\includegraphics[width=0.7\textwidth]{complex_fnc-cz.pdf}
+\includegraphics[width=0.7\textwidth]{generated/abi/call/complex_fnc-cz.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -625,7 +625,7 @@ ret
 \end{minted}
 \end{column}
 \begin{column}{0.35\textwidth}  
-\includegraphics[width=0.7\textwidth]{complex_fnc_fp-cz.pdf}
+\includegraphics[width=0.7\textwidth]{generated/abi/call/complex_fnc_fp-cz.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -685,7 +685,7 @@ Každý proces má pro sebe 4GiB virtuálního prostoru:
 \end{itemize}
 \end{column}   
 \begin{column}{0.25\textwidth}  
-\includegraphics[width=0.8\textwidth]{proc_addr_space-cz.pdf}
+\includegraphics[width=0.8\textwidth]{generated/abi/call/proc_addr_space-cz.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -807,7 +807,7 @@ ret
 \end{minted}
 \end{column}
 \begin{column}{0.33\textwidth}  
-\includegraphics[width=\textwidth]{overflow_fnc-cz.pdf}
+\includegraphics[width=\textwidth]{generated/abi/call/overflow_fnc-cz.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -904,7 +904,7 @@ ret
 \end{minted}
 \end{column}
 \begin{column}{0.3\textwidth}  
-\includegraphics[width=0.7\textwidth]{vaarg_fnc_fp-cz.pdf}
+\includegraphics[width=0.7\textwidth]{generated/abi/call/vaarg_fnc_fp-cz.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -940,7 +940,7 @@ Uživatelský program nastaví parametry volání do registrů vyvolá speciáln
 OS podle čísla systémového volání zavolá odpovídající funkci.
 
 \begin{center}
-  \includegraphics[width=0.95\textwidth]{irq-and-os-cz.pdf}
+  \includegraphics[width=0.95\textwidth]{generated/io/irq/irq-and-os-cz.pdf}
 \end{center}
 
 Návrat ze systémového volání odpovídá návratu z přerušení/výjimky (na RISC-V většinou \texttt{sret}).

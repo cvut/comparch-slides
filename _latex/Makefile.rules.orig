@@ -1,6 +1,10 @@
+MAKEFILE_RULES_DIR := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
+
 ifeq ($(DOC),)
 $(error DOC variable should be the base name of the LaTeX file to compile)
 endif
+
+DOC_LANG ?= cz
 
 SVGS = $(wildcard *.svg)
 ANIM = $(patsubst %,anim/%/overlay.tex,$(basename $(SVGS)))
@@ -12,27 +16,37 @@ FIGS = $(ANIM) $(SVGS:%.svg=%.pdf)
 
 gitignore_target = grep -q '/$@' .gitignore || echo '/$@' >> .gitignore
 
-all: $(DOC).pdf $(NUM:%=apo%_2019.pdf)
+all: $(DOC).pdf $(NUM:%=apo%_2021.pdf)
 
-$(DOC).pdf: $(DOC).tex moddate.tex ../_latex/apo-lecture.sty $(FIGS)
-	echo ${TEXINPUTS}
+$(DOC).pdf: export TEXINPUTS=.:$(MAKEFILE_RULES_DIR):
+$(DOC).pdf: $(DOC).tex moddate.tex $(MAKEFILE_RULES_DIR)/apo-lecture-$(DOC_LANG).sty $(FIGS)
+	if [ -e $(DOC).toc ] ; then cp $(DOC).toc $(DOC).toc.bak ; else touch $(DOC).toc.bak ; fi
 	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
+	cmp $(DOC).toc $(DOC).toc.bak || \
+	xelatex --shell-escape -synctex=1 -interaction=nonstopmode -file-line-error $<
+	rm -f $(DOC).toc.bak
 	$(gitignore_target)
 
 ifneq ($(NUM),)
-$(NUM:%=apo%_2019.pdf): $(DOC).pdf
+$(NUM:%=apo%_2021.pdf): $(DOC).pdf
 	cp $< $@
 	$(gitignore_target)
 endif
 
-anim/%/overlay.tex: %.svg ../_latex/export_overlays
-	../_latex/export_overlays $<
+anim/%/overlay.tex: %.svg $(MAKEFILE_RULES_DIR)/export_overlays
+	$(MAKEFILE_RULES_DIR)/export_overlays $<
+
+# Lazily evaluated variable; expensive to compute, but we only want it
+# do it when first necessary.
+INKSCAPE_0.X = $(eval INKSCAPE_0.X := $(shell inkscape --version|grep '^Inkscape 0'))$(INKSCAPE_0.X)
 
 %.pdf: %.svg
-	inkscape --export-area-drawing --export-background-opacity=1.0 --export-pdf=$@ $<
+	$(if $(INKSCAPE_0.X),inkscape --export-area-drawing --export-background-opacity=1.0 --export-pdf="$@" "$<",\
+			     inkscape --export-area-drawing --export-background-opacity=1.0 --export-type=pdf --export-filename="-" "$<" > "$@")
 	$(gitignore_target)
 
 # Generate last modification date from commit dates of all files under the current directory
 moddate.tex: FORCE_MAKE
-	python2 -c "from locale import *; setlocale(LC_TIME, 'cs_CZ.UTF-8'); import sys; import time; from datetime import *; print(date.today()).strftime('%e. %B, %Y')" > $@.tmp
+	( git ls-files -z | xargs -0 -n1 -- git log -1 --date=format:"%s" --format="%cd"; echo 0 ) \
+	| python3 -c "from locale import *; setlocale(LC_TIME, 'cs_CZ.UTF-8'); import sys; from datetime import *; print(date.fromtimestamp(max([int(v) for v in sys.stdin.readlines()])).strftime('%e. %B, %Y'))" > $@.tmp
 	@cmp -s $@.tmp $@ && ( echo "Keeping $@ unchanged"; rm -f $@.tmp ) || ( echo "Updating $@"; mv $@.tmp $@ )

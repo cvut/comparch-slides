@@ -27,7 +27,7 @@ Základní vlastnosti:
 \end{column}
 \begin{column}{0.52\textwidth}  
    \begin{center}
-   \includegraphics[width=0.9\textwidth]{cpu-cz.pdf}
+   \includegraphics[width=0.9\textwidth]{generated/arch/x86/cpu-cz.pdf}
    \end{center}
 \end{column}
 \end{columns}
@@ -74,7 +74,7 @@ Uživatelské registry
 \item AMD64/EM64T přidává 8 dalších registrů \texttt{r8}-\texttt{r15},ve formě \texttt{r8b} nejnižší bajt, \texttt{r8w} nejnižší slovo (16 bitů), \texttt{r8d} – nižších 32 bitů, \texttt{r8} – 64 bitový registr
 \end{itemize}
 \begin{center}
-\includegraphics[width=0.5\textwidth]{registers.pdf}
+\includegraphics[width=0.5\textwidth]{generated/arch/x86/registers.pdf}
 \end{center}
 Řídicí a stavové registry
 \begin{itemize}
@@ -90,7 +90,7 @@ Uživatelské registry
 \frametitle{Registr FLAGS}
 RFLAGS registr
 \begin{center}
-\includegraphics[width=0.65\textwidth]{flags-cz.pdf}
+\includegraphics[width=0.65\textwidth]{generated/arch/x86/flags-cz.pdf}
 \end{center}
 \begin{columns}[t,onlytextwidth]
 \begin{column}{0.5\textwidth}
@@ -561,7 +561,7 @@ ret
 \end{column}
 
 \begin{column}{0.3\textwidth}  
-\includegraphics[width=0.95\textwidth]{fnc_frame-cz.pdf}
+\includegraphics[width=0.95\textwidth]{generated/arch/x86/fnc_frame-cz.pdf}
 \end{column}
 
 \end{columns}
@@ -941,12 +941,12 @@ fstp   adr_vysl ; Uloz vysledek do pameti
 \begin{columns}[t,onlytextwidth]
   \begin{column}{0.5\textwidth}
     \begin{center}
-    \includegraphics[width=0.8\textwidth]{mmx-add.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-add.pdf}
     \end{center}
   \end{column}
   \begin{column}{0.5\textwidth}
     \begin{center}
-    \includegraphics[width=0.8\textwidth]{mmx-add-sat.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-add-sat.pdf}
     \end{center}
   \end{column}
 \end{columns}
@@ -958,20 +958,20 @@ fstp   adr_vysl ; Uloz vysledek do pameti
 \small
     \begin{center}
     \texttt{PMADDWD} - vynásob a sečti\\
-    \includegraphics[width=0.4\textwidth]{mmx-mul-add.pdf}
+    \includegraphics[width=0.4\textwidth]{generated/arch/x86/mmx-mul-add.pdf}
     \end{center}
 \vspace{-1cm}
 \begin{columns}[t,onlytextwidth]
   \begin{column}{0.5\textwidth}
     \begin{center}
     \texttt{PMULLW} - součin (spodní část)
-    \includegraphics[width=0.8\textwidth]{mmx-mull.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-mull.pdf}
     \end{center}
   \end{column}
   \begin{column}{0.5\textwidth}
     \begin{center}
     \texttt{PMULHW} - součin (vrchní část)
-    \includegraphics[width=0.8\textwidth]{mmx-mulh.pdf}
+    \includegraphics[width=0.8\textwidth]{generated/arch/x86/mmx-mulh.pdf}
     \end{center}
   \end{column}
 \end{columns}
@@ -1067,13 +1067,13 @@ movq    %mm0, new_img_ptr
 \begin{column}{0.5\textwidth}
 \begin{center}
 Packet operation
-\includegraphics[width=0.9\textwidth]{sse.pdf}
+\includegraphics[width=0.9\textwidth]{generated/arch/x86/sse.pdf}
 \end{center}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{center}
 Scalar operation
-\includegraphics[width=0.9\textwidth]{sse-s.pdf}
+\includegraphics[width=0.9\textwidth]{generated/arch/x86/sse-s.pdf}
 \end{center}
 \end{column}
 \end{columns}

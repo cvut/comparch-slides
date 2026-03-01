@@ -28,9 +28,9 @@
 \begin{frame}[shrink=10]
 \frametitle{Computer Architecture -- John von Neumann}
 \begin{center}
-\includegraphics[width=0.5\textwidth]{cpu-vonNeumann.pdf}
+\includegraphics[width=0.5\textwidth]{generated/computer/cpu-vonNeumann.pdf}
 \hfill
-\includegraphics[width=0.15\textwidth]{fig/vonNeumann.png}
+\includegraphics[width=0.15\textwidth]{common/computer/vonNeumann-sm.png}
 \end{center}
 \begin{itemize}
 \item 5 basic units – control unit, arithmetic-logic unit, memory, input (input device), output (output device)
@@ -116,7 +116,7 @@ Examples of sensors and actuators:
 
 \begin{frame}
 \frametitle{CPU Design from Lecture 5}
-\includegraphics[width=0.95\textwidth]{cpu_design2.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/cpu_design2.pdf}
 \end{frame}
 
 
@@ -124,7 +124,7 @@ Examples of sensors and actuators:
 \frametitle{CPU Connection with Memory and Peripherals}
 \begin{columns}
 \begin{column}{0.4\textwidth}
-\includegraphics[width=0.9\textwidth]{bus_arch-en.pdf}
+\includegraphics[width=0.9\textwidth]{generated/io/bus/bus_arch-en.pdf}
 \end{column}
 \begin{column}{0.6\textwidth}
 \begin{itemize}
@@ -172,7 +172,7 @@ Two different approaches used:
 \item Address Decoder -- controls where are data sent/which device is read
 \end{itemize}
 \begin{center}
-\includegraphics[width=0.88\textwidth]{address_decoder-en.pdf}
+\includegraphics[width=0.88\textwidth]{generated/io/address_decoder-en.pdf}
 \end{center}
 \end{frame}
 
@@ -183,13 +183,13 @@ Two different approaches used:
 Central decoder (one per system or bus)
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{central-en.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/bus/central-en.pdf}
 \end{center}
 
 Autonomous -- peripheral local/decentralized decoders
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{distributed-en.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/bus/distributed-en.pdf}
 \end{center}
 \end{frame}
 
@@ -228,7 +228,7 @@ The programs communicate with the peripherals using the operating system and sys
 Another option is direct access from the user application by mapping peripheral into process space -- the next topics of today's lecture. Low level kernel driver works similar way.
 \end{column}
 \begin{column}{0.58\textwidth}
-\includegraphics[width=\textwidth]{linux.pdf}
+\includegraphics[width=\textwidth]{generated/io/linux-kernel-subsys.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -340,7 +340,7 @@ Meaning & not used & red push. & green push. & blue push. & red value & green va
 \end{minted}
 \end{column}
 \begin{column}{0.4\textwidth}
-\includegraphics[width=\textwidth]{fig/knobs.png}
+\includegraphics[width=\textwidth]{common/simulator/knobs.png}
 \end{column}
 \end{columns}
 
@@ -433,7 +433,7 @@ Serial link (serial port) is one of the oldest methods of digital communication 
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{serial_signals.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/uart/serial_signals.pdf}
 \end{center}
 \end{frame}
 
@@ -494,7 +494,7 @@ UART -- a device to receive and transmit characters/bytes over a serial line
 \end{itemize}
 \end{column}
 \begin{column}{0.45\textwidth}
-\includegraphics[width=\textwidth]{UART-en.pdf}
+\includegraphics[width=\textwidth]{generated/io/uart/UART-en.pdf}
 \end{column}
 \end{columns}
 
@@ -585,7 +585,7 @@ text_1:
 \begin{frame}
 \frametitle{QtRvSim Terminal -- Serial Port}
 \begin{center}
-\includegraphics[width=0.8\textwidth]{fig/QtRvSim-serial-normal.png}
+\includegraphics[width=0.8\textwidth]{common/simulator/QtRvSim-serial-normal.png}
 \end{center}
 \end{frame}
 
@@ -593,7 +593,7 @@ text_1:
 \frametitle{QtRvSim Terminal -- Serial Port}
 \begin{center}
 Pipelined processor -- peripheral access takes place in MEM stage/phase
-\includegraphics[width=0.8\textwidth]{fig/QtRvSim-serial-pipeline.png}
+\includegraphics[width=0.8\textwidth]{common/simulator/QtRvSim-serial-pipeline.png}
 \end{center}
 \end{frame}
 
@@ -636,12 +636,12 @@ Pipelined processor -- peripheral access takes place in MEM stage/phase
 \frametitle{Bus Topology}
 Shared bus (PCI for example) -- data/address/control signals to multiple card slots
 \begin{center}
-\includegraphics[width=0.8\textwidth]{shared_bus.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/bus/shared_bus.pdf}
 \end{center}
 
 Peer-to-peer connection using a switches/hubs (e.g. PCIe, USB)
 \begin{center}
-\includegraphics[width=0.65\textwidth]{switch_bus.pdf}
+\includegraphics[width=0.65\textwidth]{generated/io/bus/switch_bus.pdf}
 \end{center}
 \end{frame}
 
@@ -663,7 +663,7 @@ The southbridge communicates with the northbridge and integrates or connects net
 The slowest peripherals like Floppy Disk, or serial and parallel ports (printers) are usually connected via other bridges.
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{pentium4.pdf}
+\includegraphics[width=\textwidth]{generated/computer/pentium4.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -687,7 +687,7 @@ The southbridge communicates directly with the processor.
 Most peripherals are connected via PCI-Express and USB.
 \end{column}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=\textwidth]{amd_am5.pdf}
+\includegraphics[width=\textwidth]{generated/computer/amd_am5.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -703,7 +703,7 @@ For proper operation, it needs to be synchronized as precisely as possible to th
 Signals marked with \# are negated because the falling edge is faster.
 
 \begin{center}
-\includegraphics[width=0.7\textwidth]{PCI_clock.pdf}
+\includegraphics[width=0.7\textwidth]{generated/io/bus/pci/PCI_clock.pdf}
 \end{center}
 \end{frame}
 
@@ -724,7 +724,7 @@ C/BE signals provide 4 command (transfer type) and byte enable signals
 CTRL are signals for bus transaction control (i.e. FRAME)
 \end{column}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=\textwidth]{PCI_arch-en.pdf}
+\includegraphics[width=\textwidth]{generated/io/bus/pci/PCI_arch-en.pdf}
 \end{column}
 \end{columns}
 
@@ -742,7 +742,7 @@ CTRL are signals for bus transaction control (i.e. FRAME)
 \item The initiator begins the transmission by setting the address of the target peripheral register on the AD bus and asserting (active low) the FRAME signal; the first clock rising edge address is strobed, next is data, the last data transfer is denoted by the deassertion of FRAME
 \end{itemize}
 
-\includegraphics[width=0.8\textwidth]{PCI_write1.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/bus/pci/PCI_write1.pdf}
 
 \end{frame}
 
@@ -755,7 +755,7 @@ CTRL are signals for bus transaction control (i.e. FRAME)
 \item If the initiator is ready to send data, it asserts IRDY.
 \end{itemize}
 
-\includegraphics[width=0.8\textwidth]{PCI_write2-en.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/bus/pci/PCI_write2-en.pdf}
 
 \end{frame}
 
@@ -769,7 +769,7 @@ CTRL are signals for bus transaction control (i.e. FRAME)
 \item If TRDY or IRDY is not asserted, then the data transfer is suspended -- wait for state at next clock edge
 \end{itemize}
 
-\includegraphics[width=0.8\textwidth]{PCI_write3-en.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/bus/pci/PCI_write3-en.pdf}
 
 \end{frame}
 
@@ -782,7 +782,7 @@ CTRL are signals for bus transaction control (i.e. FRAME)
 \item In the shown case, the data transfer was suspended, so the transfer of the last data is postponed to the next clock cycle.
 \end{itemize}
 
-\includegraphics[width=0.8\textwidth]{PCI_write4-en.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/bus/pci/PCI_write4-en.pdf}
 
 \end{frame}
 
@@ -793,7 +793,7 @@ CTRL are signals for bus transaction control (i.e. FRAME)
 \item After the transfer is completed (the last data sent and accepted), the IRDY, TRDY and DEVSEL signals are deasserted and the bus is released for the next transfer.
 \end{itemize}
 
-\includegraphics[width=0.8\textwidth]{PCI_write4-en.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/bus/pci/PCI_write4-en.pdf}
 
 \end{frame}
 
@@ -806,7 +806,7 @@ CTRL are signals for bus transaction control (i.e. FRAME)
 \item Data transfer is similar, but cannot start on the next clock cycle because the initiator must disconnect from the AD bus and the target device must connect its output buffer to the bus.
 \end{itemize}
 
-\includegraphics[width=0.8\textwidth]{PCI_read1.pdf}
+\includegraphics[width=0.8\textwidth]{generated/io/bus/pci/PCI_read1.pdf}
 
 \end{frame}
 
@@ -848,17 +848,17 @@ The main disadvantage of parallel busses is the required precise mutual matching
 \begin{columns}[T]
 \begin{column}{0.32\textwidth}
 frequency $f$
-\includegraphics[width=\textwidth]{fig/freq1.png}
+\includegraphics[width=\textwidth]{common/io/bus/freq/freq1.png}
 transfer without problems
 \end{column}
 \begin{column}{0.32\textwidth}
 frequency $2\cdot f$
-\includegraphics[width=\textwidth]{fig/freq2.png}
+\includegraphics[width=\textwidth]{common/io/bus/freq/freq2.png}
 transfer at reliability limit
 \end{column}
 \begin{column}{0.32\textwidth}
 frequency $4\cdot f$
-\includegraphics[width=\textwidth]{fig/freq4.png}
+\includegraphics[width=\textwidth]{common/io/bus/freq/freq4.png}
 no instant to strobe parallel data by receiver
 \end{column}
 \end{columns}
@@ -1016,7 +1016,7 @@ High-speed communication presents many different problems.
 Signal Appearance over Distance
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{fig/signals.png}
+\includegraphics[width=0.8\textwidth]{common/io/bus/freq/signals.png}
 \end{center}
 
 \end{frame}

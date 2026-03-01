@@ -103,7 +103,7 @@ N & A & B \\\hline
 
 \centering
 
-\includegraphics[width=.95\linewidth]{addr-space-en.pdf}
+\includegraphics[width=.95\linewidth]{generated/memory/addr-space-en.pdf}
 
 \end{frame}
 
@@ -179,18 +179,18 @@ According to the realization, we divide RAM (RWM) into:
 \bigskip
 
 \begin{tabular}{m{0.8cm}m{6cm}m{4cm}}
-SRAM & Static RAM -- a physical quantity representing a value has a constant value over time. Typically two loop-connected inverters. Multiple components, more expensive, no periodic maintenance required, only needs power supply& \includegraphics[width=3.8cm]{sram-en.pdf} \\
+SRAM & Static RAM -- a physical quantity representing a value has a constant value over time. Typically two loop-connected inverters. Multiple components, more expensive, no periodic maintenance required, only needs power supply& \includegraphics[width=3.8cm]{generated/memory/sram/sram-en.pdf} \\
 \phantom{x} & \\\
-DRAM & Dynamic RAM -- a quantity (voltage) changes its value over time. Typically a capacitor that discharges spontaneously and therefore it is necessary to refresh the information at regular times. Only a capacitor and a transistor -- cheap, takes less space. & \includegraphics[width=3.2cm]{dram-en.pdf}\\\
+DRAM & Dynamic RAM -- a quantity (voltage) changes its value over time. Typically a capacitor that discharges spontaneously and therefore it is necessary to refresh the information at regular times. Only a capacitor and a transistor -- cheap, takes less space. & \includegraphics[width=3.2cm]{generated/memory/dram/dram-en.pdf}\\\
 \end{tabular}
 
 Podle kontrukce dělíme paměti RAM (RWM) na:
 \medskip
 
 \begin{tabular}{m{0.8cm}m{6cm}m{4cm}}
-SRAM & Statická RAM -- veličina reprezentující hodnotu má v čase konstatní hodnotu. Typicky dva do smyčky zapojené invertory. Více součástek dražší paměť, nemusí se obnovovat uložená informace, potřebuje pouze napájení & \includegraphics[width=3.8cm]{sram-en.pdf} \\
+SRAM & Statická RAM -- veličina reprezentující hodnotu má v čase konstatní hodnotu. Typicky dva do smyčky zapojené invertory. Více součástek dražší paměť, nemusí se obnovovat uložená informace, potřebuje pouze napájení & \includegraphics[width=3.8cm]{generated/memory/sram/sram-en.pdf} \\
 \phantom{x} & & \\
-DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondezátor, který se samovolně vybíjí a je proto nutné informaci obnovovat v pravidelných časech. Pouze kondenzátor a tranzistor -- levné, zabere méně prostoru. & \includegraphics[width=3.2cm]{dram-en.pdf}\\
+DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondezátor, který se samovolně vybíjí a je proto nutné informaci obnovovat v pravidelných časech. Pouze kondenzátor a tranzistor -- levné, zabere méně prostoru. & \includegraphics[width=3.2cm]{generated/memory/dram/dram-en.pdf}\\
 \end{tabular}
 
 \end{frame}
@@ -199,7 +199,7 @@ DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondez�
 \frametitle{Static Memory (SRAM) -- Cell Detail}
 
 \hbox{
-\includegraphics[width=0.4\linewidth]{sram-6t-cell.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{fig/sram-cell.jpg}
+\includegraphics[width=0.4\linewidth]{generated/memory/sram/sram-6t-cell.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{common/memory/sram/sram-cell.jpg}
 }
 
 \begin{itemize}
@@ -216,7 +216,7 @@ DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondez�
 \frametitle{Dynamic memory (DRAM) -- Cell Detail}
 
 \hbox{
-\includegraphics[width=0.4\linewidth]{dram-en.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{fig/dram-cell.jpg}
+\includegraphics[width=0.4\linewidth]{generated/memory/dram/dram-en.pdf}\hspace{0.1\linewidth}\includegraphics[width=0.4\linewidth]{common/memory/dram/dram-cell.jpg}
 }
 
 \begin{itemize}
@@ -232,7 +232,7 @@ DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondez�
 
 \centering
 
-\includegraphics[width=1.0\linewidth]{ram-matrix.pdf}
+\includegraphics[width=1.0\linewidth]{generated/memory/sram/ram-matrix.pdf}
 
 \end{frame}
 
@@ -241,7 +241,7 @@ DRAM & Dynamická RAM -- veličina mění v čase svoji hodnotu. Typicky kondez�
 
 \centering
 
-\includegraphics[width=0.75\linewidth]{sdram-dimm.pdf}
+\includegraphics[width=0.75\linewidth]{generated/memory/dram/sdram-dimm.pdf}
 
 Dual In-Line Memory Module (DIMM), 64-bit data path, Synchronous Dynamic Random Access Memory (SDRAM), operation and signals synchronized (S in abbreviation) by clock
 
@@ -253,7 +253,7 @@ Dual In-Line Memory Module (DIMM), 64-bit data path, Synchronous Dynamic Random 
 {
 \centering
 
-\includegraphics[width=0.85\linewidth]{pc-memory-to-numa.pdf}
+\includegraphics[width=0.85\linewidth]{generated/memory/pc-memory-to-numa.pdf}
 
 }
 
@@ -285,7 +285,7 @@ All of these types are predominantly optimized for throughput, not random access
 
 \centering
 
-\includegraphics[width=1.0\linewidth]{memory-gap-en.pdf}
+\includegraphics[width=1.0\linewidth]{generated/memory/memory-gap-en.pdf}
 
 \end{frame}
 
@@ -297,7 +297,7 @@ All of these types are predominantly optimized for throughput, not random access
 {
 \centering
 
-\includegraphics[width=0.65\linewidth]{mem-reg-to-disc.pdf}
+\includegraphics[width=0.65\linewidth]{generated/memory/mem-reg-to-disc.pdf}
 
 }
 \vskip 2mm
@@ -386,7 +386,7 @@ The principle considered on all levels, in algorithms (local variables), compile
 {
 \centering
 
-\includegraphics[width=0.75\linewidth]{cache-principle.pdf}
+\includegraphics[width=0.75\linewidth]{generated/memory/cache/cache-principle.pdf}
 
 }
 \vskip 2mm
@@ -445,9 +445,9 @@ We consider a cache of 8 blocks and situation where main memory block at address
 Address 12 can be placed arbitrarily &
 Address 12 can be placed only in block 4 (12 mod 8) &
 Address 12 can be placed in set 0 (12 mod 4) \\
-\includegraphics[width=3cm]{cache-schema-fully.pdf} &
-\includegraphics[width=3cm]{cache-schema-direct.pdf} &
-\includegraphics[width=3cm]{cache-schema-2way.pdf} \\
+\includegraphics[width=3cm]{generated/memory/cache/cache-schema-fully.pdf} &
+\includegraphics[width=3cm]{generated/memory/cache/cache-schema-direct.pdf} &
+\includegraphics[width=3cm]{generated/memory/cache/cache-schema-2way.pdf} \\
 \end{tabular}
 
 \end{frame}
@@ -458,7 +458,7 @@ Address 12 can be placed in set 0 (12 mod 4) \\
 {
 \centering
 
-\includegraphics[width=0.9\linewidth]{cache-direct-mapping-1byte.pdf}
+\includegraphics[width=0.9\linewidth]{generated/memory/cache/cache-direct-mapping-1byte.pdf}
 
 }
 
@@ -479,7 +479,7 @@ Address 12 can be placed in set 0 (12 mod 4) \\
 {
 \centering
 
-\includegraphics[width=0.70\linewidth]{cache-direct-simple.pdf}
+\includegraphics[width=0.70\linewidth]{generated/memory/cache/cache-direct-simple.pdf}
 
 }
 
@@ -498,7 +498,7 @@ set = (adresa div BS) mod SN
 {
 \centering
 
-\includegraphics[width=0.75\linewidth]{cache-direct-ms.pdf}
+\includegraphics[width=0.75\linewidth]{generated/memory/cache/cache-direct-ms.pdf}
 
 }
 
@@ -511,7 +511,7 @@ set = (adresa div BS) mod SN
 {
 \centering
 
-\includegraphics[width=0.95\linewidth]{cache-n-way-ms.pdf}
+\includegraphics[width=0.95\linewidth]{generated/memory/cache/cache-n-way-ms.pdf}
 
 }
 
@@ -538,7 +538,7 @@ Start with direct mapped cache and \texttt{vect-inc}. If the block size is great
 {
 \centering
 
-\includegraphics[width=0.65\linewidth]{cache-size-vs-ways.pdf}
+\includegraphics[width=0.65\linewidth]{generated/memory/cache/cache-size-vs-ways.pdf}
 
 }
 
@@ -561,7 +561,7 @@ Miss rate versus block size and cache size on SPEC92 benchmark
 {
 \centering
 
-\includegraphics[width=0.72\linewidth]{cache-size-vs-block.pdf}
+\includegraphics[width=0.72\linewidth]{generated/memory/cache/cache-size-vs-block.pdf}
 
 }
 
@@ -601,7 +601,7 @@ and the possibility of expanding the main memory capacity by secondary storage -
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{paging-to-disc.pdf}
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-to-disc.pdf}
 
 }
 
@@ -629,7 +629,7 @@ As with the cache, it is necessary and challenging to find space for newly neede
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{paging-cpu-mm-mem.pdf}
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-cpu-mm-mem.pdf}
 
 }
 \end{frame}
@@ -640,7 +640,7 @@ As with the cache, it is necessary and challenging to find space for newly neede
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{paging-1-level-en.pdf}
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-1-level-en.pdf}
 
 }
 
@@ -657,7 +657,7 @@ system and for 4\,kB pages, it is necessary to allocate 4\,MB (translation of 20
 {
 \centering
 
-\includegraphics[width=0.65\linewidth]{paging-2-levels-en.pdf}
+\includegraphics[width=0.65\linewidth]{generated/memory/paging/paging-2-levels-en.pdf}
 
 }
 
@@ -677,7 +677,7 @@ of both the directory and the table occupies to 4\,kB, same as page size. Higher
 {
 \centering
 
-\includegraphics[width=0.90\linewidth]{paging-pde-1.pdf}
+\includegraphics[width=0.90\linewidth]{generated/memory/paging/paging-pde-1.pdf}
 
 }
 
@@ -700,7 +700,7 @@ of both the directory and the table occupies to 4\,kB, same as page size. Higher
 {
 \centering
 
-\includegraphics[width=0.90\linewidth]{paging-pte.pdf}
+\includegraphics[width=0.90\linewidth]{generated/memory/paging/paging-pte.pdf}
 
 }
 
@@ -727,7 +727,7 @@ sync the data back to the file, swap partition, etc.
 {
 \centering
 
-\includegraphics[width=0.90\linewidth]{address-trans-4-levels.pdf}
+\includegraphics[width=0.90\linewidth]{generated/memory/paging/address-trans-4-levels.pdf}
 
 }
 
@@ -751,7 +751,7 @@ into account when programming.
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{paging-tlb.pdf}
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-tlb.pdf}
 
 }
 \end{frame}
@@ -764,7 +764,7 @@ into account when programming.
 {
 \centering
 
-\includegraphics[width=0.80\linewidth]{fig/mem-nehalem-lat.png}
+\includegraphics[width=0.80\linewidth]{common/arch/x86/mem-nehalem-lat.png}
 
 }
 
@@ -782,7 +782,7 @@ Further optimization of the optional larger page -- huge pages.
 {
 \centering
 
-\includegraphics[width=0.6\linewidth]{paging-canonical-64-bit.pdf}
+\includegraphics[width=0.6\linewidth]{generated/memory/paging/paging-canonical-64-bit.pdf}
 
 }
 \end{frame}

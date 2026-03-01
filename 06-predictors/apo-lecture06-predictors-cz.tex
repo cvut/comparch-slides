@@ -87,7 +87,7 @@ addi s1, s2, -1
 Jak může Hazard Unit rozhodnout o datovém hazardu, když to dělá problémy studentům? Jednoduše:
 \begin{columns}
 \begin{column}{0.67\textwidth}
-\includegraphics[width=\textwidth]{cpu_final_design.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/pipeline/cpu_final_design.pdf}
 \end{column}
 \begin{column}{0.33\textwidth}
 \footnotesize
@@ -125,10 +125,10 @@ Paralelní zpracování na úrovni instrukcí (Instruction Level Parallelism, IL
 \frametitle{Paralelismus na úrovni instrukcí}
 
 Zřetězený procesor -- pipelined procesor
-\includegraphics[width=0.85\textwidth]{pipeline.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/pipeline/pipeline-5stage.pdf}
 
 Superskalární procesor -- super scalar procesor
-\includegraphics[width=0.85\textwidth]{superscalar.pdf}
+\includegraphics[width=0.85\textwidth]{generated/cpu/superscalar/superscalar.pdf}
 
 \end{frame}
 
@@ -180,7 +180,7 @@ Superskalární procesor -- super scalar procesor
 \frametitle{Superskalární architektura}
 \begin{columns}
 \begin{column}{0.55\textwidth}
-\includegraphics[width=\textwidth]{superscalar-architecture.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/superscalar/superscalar-architecture.pdf}
 \end{column}
 \begin{column}{0.45\textwidth}
 \begin{itemize}
@@ -249,7 +249,7 @@ Instrukce se mohou vypočítávat out-of-order, ale dokončení instrukcí je v 
 \frametitle{Superskalární architektura}
 
 \begin{center}
-\includegraphics[width=0.7\textwidth]{superscalar-architecture2.pdf}
+\includegraphics[width=0.7\textwidth]{generated/cpu/superscalar/superscalar-architecture2.pdf}
 \end{center}
 
 \scriptsize
@@ -275,7 +275,7 @@ ReOrder Buffer:
 \frametitle{Superskalární architektura}
 
 \begin{center}
-\includegraphics[width=0.7\textwidth]{superscalar-architecture2.pdf}
+\includegraphics[width=0.7\textwidth]{generated/cpu/superscalar/superscalar-architecture2.pdf}
 \end{center}
 
 \scriptsize
@@ -313,7 +313,7 @@ Reservation Station:
 
 \begin{columns}[T]
 \begin{column}{0.34\textwidth}
-\includegraphics[width=\textwidth]{fig/amd_zen2.png}
+\includegraphics[width=\textwidth]{common/cpu/branch/amd_zen2.png}
 \end{column}
 \begin{column}{0.66\textwidth}
 \scriptsize
@@ -443,7 +443,7 @@ for (i=0; i<N; i++) {
 \end{minted}
 \end{column}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=\textwidth]{for_loop-cz.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/for_loop-cz.pdf}
 \end{column}
 \end{columns}
 \bigskip
@@ -472,7 +472,7 @@ if (a<b) {
 \end{minted}
 \end{column}
 \begin{column}{0.6\textwidth}
-\includegraphics[width=\textwidth]{if_translation-cz.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/if_translation-cz.pdf}
 \end{column}
 \end{columns}
 \bigskip
@@ -506,7 +506,7 @@ Dynamické prediktory se snaží odhadnout, zda se skočí na základě minuléh
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{prediction_table-cz.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/prediction_table-cz.pdf}
 \end{column}
 \end{columns}
 
@@ -526,7 +526,7 @@ Nejjednodušší prediktor je 1-bitový Smithův prediktor
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.45\textwidth]{smith_1bit-cz.pdf}
+\includegraphics[width=0.45\textwidth]{generated/cpu/branch/smith_1bit-cz.pdf}
 \end{center}
 
 \end{frame}
@@ -583,7 +583,7 @@ Vidíte, že prediktor není úspěšný na počátku for cyklu a na jeho konci.
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.95\textwidth]{smith_2bit-cz.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/branch/smith_2bit-cz.pdf}
 \end{center}
 \end{frame}
 
@@ -638,7 +638,7 @@ Obdoba 2-bitového Smithova prediktoru
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.95\textwidth]{smith_2bit_hist-cz.pdf}
+\includegraphics[width=0.95\textwidth]{generated/cpu/branch/smith_2bit_hist-cz.pdf}
 \end{center}
 \end{frame}
 
@@ -710,7 +710,7 @@ Pro zjištení indexu prediktoru se vezme $k-m$ nejnižších bitů adresy instr
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{prediction_BHR-cz.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/prediction_BHR-cz.pdf}
 \end{column}
 \end{columns}
 
@@ -736,7 +736,7 @@ Výhody:
 \end{itemize}
 \end{column}
 \begin{column}{0.5\textwidth}
-\includegraphics[width=\textwidth]{prediction_GShare-cz.pdf}
+\includegraphics[width=\textwidth]{generated/cpu/branch/prediction_GShare-cz.pdf}
 \end{column}
 \end{columns}
 \end{frame}
@@ -764,7 +764,7 @@ Jak funguje 1-bitový turnajový prediktor
 \frametitle{Turnajové prediktory}
 
 \begin{center}
-\includegraphics[width=0.75\textwidth]{fig/tournament.png}\\
+\includegraphics[width=0.75\textwidth]{common/cpu/branch/tournament.png}\\
 \small Velikost prediktorů v KiB
 \end{center}
 \end{frame}
@@ -792,7 +792,7 @@ T & T & T & NT & NT & NT& T & T & T \\ \hline
 \frametitle{Perceptron}
 
 \begin{center}
-\includegraphics[width=0.6\textwidth]{neuron-cz.pdf}
+\includegraphics[width=0.6\textwidth]{generated/cpu/branch/neuron-cz.pdf}
 \end{center}
 
 Pro výpočet hodnoty se použije vzoreček $\xi = \sum_{i=0}^{n} x_i \cdot w_i$. Závěrečné vyhodnocení je pomocí přenosové funkce, v našem případě skokové funkce, která má tvar:
@@ -804,7 +804,7 @@ $f(\xi) = \begin{cases}1& \text{pro } \xi \ge 0\\0& \text{pro }\xi <0\end{cases}
 \frametitle{AMD Zen2 prediktor}
 
 \begin{center}
-\includegraphics[width=0.7\textwidth]{prediction_amd-cz.pdf}
+\includegraphics[width=0.7\textwidth]{generated/cpu/branch/prediction_amd-cz.pdf}
 \end{center}
 
 Podle adresy skoku se vybere jeden perceptron z tabulky. 
@@ -837,7 +837,7 @@ Výhoda -- lepší výsledky než gshare, lze použít i pro dlouhé registry hi
 \frametitle{AMD Zen2 prediktor}
 
 \begin{center}
-\includegraphics[width=0.8\textwidth]{fig/amd_cinebench.png}
+\includegraphics[width=0.8\textwidth]{common/cpu/branch/amd_cinebench.png}
 \end{center}
 
 Zdroj: Analyzing Zen 2’s Cinebench R15 Lead
