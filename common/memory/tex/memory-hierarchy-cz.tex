@@ -1,0 +1,43 @@
+\begin{frame}
+\frametitle{Paměťová hierarchie od registrů k SSD}
+
+{
+\centering
+
+\includegraphics[width=0.65\linewidth]{generated/memory/mem-reg-to-disc.pdf}
+
+}
+\vskip 2mm
+
+\begin{tabular}{l|llll}
+Typ      & L1 SRAM   & Sync SRAM &  DDR3      & HDD \\
+Velikost & 32kB      & 1 MB      &  16 GB     & 3TB \\
+Cena     & 10 kč/kB  & 300 kč/MB &  123 kč/GB & 1 kč/GB \\
+Rychlost & 0.2...2ns & 0.5...8 ns/word & 15 GB/sec & 100 MB/sec \\
+\end{tabular}
+
+\vskip 2mm
+
+Některá data mohou existovat ve více kopiích (úrovně, SMP).
+Pro modifikaci dat je potřeba mechanizmů pro udržení koherence slov a konzistence datových struktur.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Paměťová hierarchie -- základní principy}
+
+\begin{itemize}
+\item Programy/procesy přistupují v daném okamžiku jen k malé části svého adresového prostoru 
+\item \textbf{Časová lokalita}
+\begin{itemize}
+\item Položky, ke kterým se přistupovalo nedávno, budou zapotřebí brzy znovu.
+\item Příklad: programová smyčka, proměnné instrukcí.
+\end{itemize}
+\item \textbf{Prostorová lokalita}
+\begin{itemize}
+\item Položky poblíž právě používaným budou brzy zapotřebí také. 
+\item Příklad: sekvenční přístup ke kódu (paměť programu), datová pole (paměť dat).
+\end{itemize}
+\end{itemize}
+Princip se využívá jak v algoritmech (lokální proměnné), kompilátorech (přesun do registrů), na úrovni pamětí (automaticky), operačního systému (přesun z disku do paměti) případě opět programově, čtení a zápisy do souborů.
+\end{frame}

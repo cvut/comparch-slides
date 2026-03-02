@@ -1,0 +1,133 @@
+\begin{frame}[fragile]
+\frametitle{Motivace}
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+Algoritmus A\\
+\begin{minted}{c}
+int matrix[N][N];
+int main() {
+  long int i, j, sum1 = 0;
+  for(i=0; i<N; i++)
+    for(j=0; j<N; j++)
+      sum1 += matrix[i][j];
+}
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+Algoritmus B\\
+\begin{minted}{c}
+int matrix[N][N];
+int main() {
+  long int i, j, sum1 = 0;
+  for(i=0; i<N; i++)
+    for(j=0; j<N; j++)
+      sum1 += matrix[j][i];
+}
+\end{minted}
+\end{column}
+\end{columns}
+\bigskip
+Oba dva programy vypadají velmi podobně. 
+
+Program A prochází pole po řádcích, program B prochází pole po sloupcích.
+\bigskip
+
+Bude se nějak lišit doba výpočtu?
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Motivace}
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+Algoritmus A\\
+\begin{minted}{c}
+int matrix[N][N];
+int main() {
+  long int i, j, sum1 = 0;
+  for(i=0; i<N; i++)
+    for(j=0; j<N; j++)
+      sum1 += matrix[i][j];
+}
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+Algoritmus B\\
+\begin{minted}{c}
+int matrix[N][N];
+int main() {
+  long int i, j, sum1 = 0;
+  for(i=0; i<N; i++)
+    for(j=0; j<N; j++)
+      sum1 += matrix[j][i];
+}
+\end{minted}
+\end{column}
+\end{columns}
+\bigskip
+
+\begin{tabular}{|l|l|l|}\hline
+N & A & B \\\hline
+100000 & 12.791328s &138.047563s \\\hline
+10000 & 0.126945s &0.486535s \\\hline
+1000 & 0.001329s &0.001756s \\\hline
+100 & 0.000083s &0.000094s \\\hline
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Co je paměť}
+
+\centering
+
+\includegraphics[width=.95\linewidth]{generated/memory/addr-space-cz.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Co je paměť -- popis}
+
+Paměť :
+\begin{itemize}
+\item je pole adresovatelných buněk
+\begin{itemize}
+\item buňky mají shodnou šíři - většinou 8 bitů (byte) nebo jejich násobek
+\end{itemize}
+\item velikost fyzického adresového prostoru je omezena počtem bitů adresy, kterou je CPU schopno nastavit na paměťové sběrnici, tedy kolik bitů lze použít k adresování paměti. Pro organizaci po bytech pak
+\begin{itemize}
+\item 16 bitů adresy umožňuje maximálně 64KiB velkou paměť
+\item 32 bitů adresy umožňuje maximálně 4GiB velkou paměť
+\item 37 bitů adresy (maximum procesoru Intel Core  i9-13900K, pak záleží ještě na základní desce) maximálně 128 GiB velkou paměť
+\end{itemize}
+\item typ přístupu:
+\begin{itemize}
+\item k vnitřní paměti počítače lze přistupvat v náhodném pořadí (= random access -- RAM)
+\item některé externí paměti (např. magnetopásková paměť využívaná pro zálohování -- levnější než HDD a SSD) umožňují pouze sekvenční přístup, tedy čtení a zápis bajtů po sobě
+\item pro HDD, SSD, Flash je možný přítup po celých blocích, u SSD/Flash je zápis bloku možný vždy jednou do smazání po velkých celcích
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Polovodičové paměti -- terminologie}
+
+\begin{description}
+ \item[Adresa] vstup, který vybírá svojí hodnotou jednu konkrétní buňku paměti
+ \item[Hodnota] vlastní informace
+ \item[stavová data] volitelně další informace (třeba o platnosti hodnoty, redundanci pro opravení chyb, apod.)
+\end{description}
+
+Parametry pamětí:
+
+\begin{description}
+  \item[Vybavovací doba paměti] (latence) kritický parametr. Délka časového intervalu mezi objevením se požadavku a okamžikem, kdy jsou data k dispozici.
+  \item[Doba přístupu] vybavovací doba + obnovení obsahu po destruktivním čtení připadně doba, kdy lze zadat další požadavek
+  \item[Propustnost] výkonový parametr. Schopnost zpracovat uvedené množství za jednotku času.
+\end{description}
+
+\end{frame}

@@ -1,0 +1,41 @@
+\begin{frame}
+\frametitle{Moduly s dynamickou pamětí}
+
+\centering
+
+\includegraphics[width=0.85\linewidth]{generated/memory/dram/sdram-dimm.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Paměť v dnešních osobních počítačích}
+
+{
+\centering
+
+\includegraphics[width=0.85\linewidth]{generated/memory/pc-memory-to-numa.pdf}
+
+}
+
+\vskip 2mm
+
+MC - Memory controller -- paměťový kontrolér zajišťuje řízení čtení a zápisů do SDRAM. Dále obstarává obnovu informace (refreshing) každé paměťové buňky jednou za 64 ms.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Nejčastěji používané typy dynamických pamětí}
+
+\begin{itemize}
+\item \textbf{SDRAM} -- hodinová frekvence až 100 MHz, 2.5V, synchronní přenos dat na hodinové hraně
+\item \textbf{DDR SDRAM} -- přenos dat na obou hodinových hranách, 2.5V, V/V hodiny až 100-200 MHz, 0.2-0.4 GT/s (miliard přenosů za skundu)
+\item \textbf{DDR2 SDRAM} -- menší spotřeba, 1.8V, frekvence až 400 MHz, 0.8 GT/s
+\item \textbf{DDR3 SDRAM} -- ještě nižsí spotřeba při 1.5V, frekvence až 800 MHz, 1.6 GT/s
+\item \textbf{DDR4 SDRAM} -- 1.05 -- 1.2V,  V/V svěrnicové hodiny 1.2 GHz, 2.4 GT/s
+\item \textbf{DDR5 SDRAM} -- 1.1V, až 6.4 GT/s
+\end{itemize}
+
+Všechny tyto druhy jsou převážně optimalizované na propustnost, nikoliv náhodný přístup, latence 20 až 35 ns.
+
+\end{frame}

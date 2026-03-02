@@ -1,0 +1,161 @@
+\begin{frame}
+\frametitle{Paměťové prostory procesů a odkládání na disk}
+
+Více procesů, každý vlastní paměťový prostor. Vzájemná ochrana
+a možnost rozšíření kapacity hlavní paměti o prostor na sekundární -- swap.
+
+{
+\centering
+
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-to-disc.pdf}
+
+}
+
+Překlad po jednotlivých bytech by byl drahý, prostor je rozdělěný na~stránky
+(zarovnané), typicky 4\,kB, někdy i větší, např. 64\,kB.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Překlad virtuální a fyzické adresy}
+
+Překlad zajišťuje \textbf{Memory Management Unit} (MMU).
+
+Po vyplnění stránkovacích tabulek a nastavení \textbf{Page Directory Base Register}
+(PDBR) operačním systémem probíhá překlad na stránky přítomné v paměti většinou automaticky.
+
+Naopak výpadky stránek ošetřují rutiny operačního systému. Pokud je přístup do namapované
+oblasti, načtou data z disku, sítě, odkládacího oddílu.
+
+Stějně jako u cache je zde nutné a náročné hledat prostor pro nově potřebné stránky (princip podobný LRU).
+
+\vskip 2mm
+
+{
+\centering
+
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-cpu-mm-mem.pdf}
+
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Jednoúrovňová stránkovací tabulka}
+
+{
+\centering
+
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-1-level-cz.pdf}
+
+}
+
+Řešení je nevýhodné, pro každý, i malý, spuštěný proces je na 32-bitovém
+systému pro 4\,kB stránky potřeba alokovat 4\,MB (překlad 20-bitů adresy,
+4-byte na 32-bit položku) 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Dvouúrovňové stránkování}
+
+{
+\centering
+
+\includegraphics[width=0.7\linewidth]{generated/memory/paging/paging-2-levels-cz.pdf}
+
+}
+
+Adresář stránek pro každý proces, úroveň tabulek s vlastními položkami
+se alokuje jen, když je daná oblast virtuálního prostoru použitá.
+
+Za pozornost stojí, že při překladu po 10-ti bitech vychází pole položek
+adresáře i tabulky na velikost 4\,kB. Nepotřebuje alokace vyššího řádu
+ohrožené fragmentací.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Položky adresářů stránek -- \textbf{Page Directory Entry} (PDE) }
+
+{
+\centering
+
+\includegraphics[width=0.90\linewidth]{generated/memory/paging/paging-pde-1.pdf}
+
+}
+
+\vskip 2mm
+
+\begin{itemize}
+\item bit 0: Present bit -- další úroveň nebo stránka je přítomná v paměti (1). Pokud není (0) tak jsou data uložena na disku nebo oblast není mapovaná. Někdy také bit označovaný V -- valid bit.
+\item bit 1: Read/Write: 1 -- R/W -- zápis povolený; 0 -- read only (RO)
+\item bit 2: User/Supervisor: 1 -- přístupné uživateli; 0 -- přístup jen operační systém
+\item bit 3: Write-through/Write-back -- nastavení typu přístupu
+\item bit 4: Cache disabled/enabled -- důležité pro paměťově mapované periferie, přímý přístup do registrů bez cache
+\item bit 5: Accessed -- nastaven MMU při prvním přístupu z procesoru
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Položky koncových tabulek -- \textbf{Page Table Entry} (PTE)}
+
+{
+\centering
+
+\includegraphics[width=0.90\linewidth]{generated/memory/paging/paging-pte.pdf}
+
+}
+
+\vskip 2mm
+
+\begin{itemize}
+\item bit 6: Dirty bit, případně někdy Modified – jen nastavený MMU, pokud došlo k zápisu do dané stránky od poslední kontroly a případného nulování příznaku operačním systémem.
+\item Ostatní bity mají stejný význam jako v položce adresáře
+\end{itemize}
+
+Bit \textbf{Accessed} je klíčový, když operační systém hledá stránky fyzické paměti k uvolnění.
+Obvykle počítá podle bitů další, obsáhlejší, statistiku a při průchodu seznamem bity nuluje.
+Pokud je nastavený \textbf{Dirty}, tak je při uvolnění fyzciké stránky (PFN) nutné data
+sychronizovat zpět do~souboru, odkládacího oddílu atd.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Překlad na 64-bitových architekturách}
+
+{
+\centering
+
+\includegraphics[width=0.90\linewidth]{generated/memory/paging/address-trans-4-levels.pdf}
+
+}
+
+Vyžaduje více úrovní. Pro 64-bitů a 4\,kB stránky je teoreticky
+potřeba přeložit 52-bitů. Pokud jednotlivé části tabulek mají
+zaplnit jednu stránku, tak vychází překlad na 9\,bitů ($512 \times 8 = 4096$)
+na úroveň a tedy $ceil(52 / 9) = 6$. Často se ale jedna až dvě úrovně vynechávají, více později.
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Zrychlení opakovaného překladu}
+
+Každý překlad představuje několik přístupů do~paměti a i když je urychlený
+přístupy přes cache, tak zpomaluje. Zavádí se \textbf{Translation Look-Aside Buffer} (TLB).
+Pracuje na shodném principu jako paměťová cache, ale ukládá k virtuální adrese
+její překlad na~fyzickou. Opět omezená kapacita, LRU a~nutnost brát v~potaz
+při~programování.
+
+\vskip 2mm
+
+{
+\centering
+
+\includegraphics[width=0.80\linewidth]{generated/memory/paging/paging-tlb.pdf}
+
+}
+\end{frame}

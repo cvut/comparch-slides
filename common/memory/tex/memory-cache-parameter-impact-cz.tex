@@ -1,0 +1,42 @@
+\begin{frame}
+\frametitle{Vliv velikosti a organizace cache na počty výpadků}
+
+{
+\centering
+
+\includegraphics[width=0.65\linewidth]{generated/memory/cache/cache-size-vs-ways.pdf}
+
+}
+
+\begin{itemize}
+\item miss rate není vlastnost, parameter cache
+\item miss rate není vlastnost programu
+\end{itemize}
+
+Jedná se o kombinaci jak algoritmů v programu, tak parametrů cache a často i zpracovávaných dat.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Vliv velikosti bloku a celé cache na počty výpadků}
+
+Miss rate versus block size and cache size on SPEC92 benchmark
+
+\vskip 2mm
+
+{
+\centering
+
+\includegraphics[width=0.72\linewidth]{generated/memory/cache/cache-size-vs-block.pdf}
+
+}
+
+\vskip 2mm
+
+{\tiny Zdroj: Hennessy and Patterson: Computer Architecture: A Quantitative Approach 3rd ed., Morgan Kaufmann, 2003}
+
+Zvětšení velikosti bloku napomáhá načtení sousedních dat, která mohou být často následně potřeba.
+Ale pokud tomu tak není, tak se zvyšuje cache miss penalty a zároveň dochází častěji ke kolizím
+a obsazení cache nepotřebnými daty.
+
+\end{frame}
