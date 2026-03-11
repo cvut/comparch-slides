@@ -1,4 +1,4 @@
-DOC = apo-lecture04-memory-$(DOC_LANG)
+DOC = apo-lecture04-pipeline-$(DOC_LANG)
 NUM = 04
 
 ifndef TOPDIR
