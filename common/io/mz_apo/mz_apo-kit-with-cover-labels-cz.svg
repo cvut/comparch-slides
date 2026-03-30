@@ -263,8 +263,8 @@
      id="layer1"
      transform="translate(3.2236692,-98.999627)">
     <image
-       sodipodi:absref="/home/pi/school/subjects/apo/apo-slides/08-mz_apo/fig/mz_apo-kit-with-cover.png"
-       xlink:href="fig/mz_apo-kit-with-cover.png"
+       sodipodi:absref="mz_apo-kit-with-cover.png"
+       xlink:href="mz_apo-kit-with-cover.png"
        width="212.78273"
        height="153.20819"
        preserveAspectRatio="none"

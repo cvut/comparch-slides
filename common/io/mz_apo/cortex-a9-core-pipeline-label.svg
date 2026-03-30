@@ -589,8 +589,8 @@
        id="text1526"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1528);fill:#000000;fill-opacity:1;stroke:none;" />
     <image
-       sodipodi:absref="/home/pi/school/subjects/apo/apo-slides/08-mz_apo/fig/cortex-a9-core-pipeline.png"
-       xlink:href="fig/cortex-a9-core-pipeline.png"
+       sodipodi:absref="cortex-a9-core-pipeline.png"
+       xlink:href="cortex-a9-core-pipeline.png"
        y="491.50388"
        x="-27.553041"
        id="image1304"
