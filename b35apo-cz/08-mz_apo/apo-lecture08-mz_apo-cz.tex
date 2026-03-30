@@ -381,6 +381,319 @@ Posun & \footnotesize{Datový typ} & Příkaz pro čip \\\hline
 
 \end{frame}
 
+\section{Výstup textu na displej a zobrazení barev}
+
+
+\begin{frame}
+\frametitle{Velikosti písma, rozteč a řádkování}
+
+\includegraphics[width=0.98\textwidth]{generated/graphics/font/font-sizes-en.pdf}
+
+If the font does not have diacritics, then it has a zero internal leading and its ascent matches emSize
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bitmapové fonty}
+
+Bitmapová písma jsou snadněji a rychlehji vykreslitelná, a proto jsou vhodná pro malé počítačové systémy.
+
+\begin{columns}
+\begin{column}{0.35\textwidth}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{common/graphics/font/bitmap-font-encoding-table.png}
+  \end{center}
+  \vfil
+\end{column}
+\begin{column}{0.55\textwidth}
+  \begin{center}
+    \tiny{\url{http://mobilefonts.sourceforge.net/}}
+
+    \includegraphics[width=1.0\textwidth]{common/graphics/font/bitmap-font-abc-example.png}
+  \end{center}
+  \vfil
+\end{column}
+\end{columns}
+
+Poznámka: V roce 1968 vytvořil první bitmapové písmo německý vynálezce Rudolf Hell pro svůj sázecí stroj Digiset.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The Scalable Font Wars}
+
+\begin{itemize}
+\item
+  Apple and Microsoft developed (1980) the \textbf{TrueType} methodology
+  that is a system of scalable outline fonts, and can draw characters at
+  low resolution.
+\item
+  Adobe \textbf{PostScript} (1984) is another method of describing an
+  image in terms of \emph{\textbf{mathematical constructs}} (Bézier
+  curves), so it is used not only to describe the individual characters
+  of a font but also to describe entire illustrations and whole pages of
+  text.
+\item
+  \textbf{Open Type} (1996) digital font format was developed jointly by
+  Apple and Microsoft to put an end to the PostScript/TrueType war.
+  ~Like TrueType, a single file contains all the outline and bitmap data
+  for an OpenType font, but it also contains either PostScript data or
+  additional TrueType data within the font, which in the PostScript
+  case, makes the font truly scalable and exacting.
+\end{itemize}
+
+Source: wordpress.com
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Vykreslování písma z geometrického popisu do rastru}
+
+\includegraphics[width=.98\linewidth,height=0.95\textheight,clip=true,keepaspectratio]{generated/graphics/font/font-render-example.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Černobílý rastrový/bitmapový font}
+
+\includegraphics[width=.98\linewidth,height=0.98\textheight,clip=true,keepaspectratio]{generated/graphics/font/font-render-rom8x16.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Rastrová písma pro použití v semestrální práci}
+
+{\small
+See: \url{https://gitlab.fel.cvut.cz/b35apo/mzapo_template/}
+
+}
+
+{\small
+Bitmapy a šířky rastrových písem pro semestrální práce jsou definovány ve formátu používaném knihovnou Microwindows/Nano-X (autor Greg Haerr)
+
+\url{https://github.com/ghaerr/microwindows}
+
+}
+
+{\small
+Zjednodušená struktura pro popis písma je uvedena v souboru
+
+}
+
+{\tiny
+\url{https://gitlab.fel.cvut.cz/b35apo/mzapo_template/-/blob/master/font_types.h}
+
+}
+
+{\small
+Příklad zařízení s HW od firmy PiKRON, kde byly použité Microwindows, RTEMS
+a definice písma, ze které vychází zjednodušený typ pro účely našeho kurzu
+
+}
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+  \begin{center}
+     TECHNIC-I
+
+    \includegraphics[width=1.0\textwidth]{common/applications/technic1-photo.png}
+  \end{center}
+  \vfil
+\end{column}
+\begin{column}{0.40\textwidth}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{common/applications/technic1-screen-syringe.png}
+  \end{center}
+  \vfil
+\end{column}
+\end{columns}
+
+{\small \url{https://www.rtems.org/applications/hardware/amv_technic_i/}}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Datová struktura/typ font\_descriptor\_t}
+
+\includegraphics[width=.98\linewidth,height=0.85\textheight,clip=true,keepaspectratio]{generated/graphics/font/font-mw-descriptor.pdf}
+
+\vfill
+
+\href{https://gitlab.fel.cvut.cz/b35apo/mzapo_template/}{https://gitlab.fel.cvut.cz/b35apo/mzapo\_template/}
+
+\end{frame}
+
+
+\section{Výkresy a zdroje návrhu MZ\_APO a jeho použití v projektech}
+
+
+\begin{frame}
+\frametitle{Návrh výukového kitu MZ\_APO}
+
+\begin{itemize}
+\item Výukový kit MZ\_APO byl navrhnutý týmem
+\begin{itemize}
+\item Petr Porazil
+  (\href{mailto:porazil@pikron.com}{\nolinkurl{porazil@pikron.com}}) and
+\item Pavel Píša
+  (\href{mailto:pisa@cmp.felk.cvut.cz}{\nolinkurl{pisa@fel.cvut.cz}},
+  \href{mailto:ppisa@pikron.com}{\nolinkurl{ppisa@pikron.com}}) \\
+\end{itemize}
+  na základě požadavku vedoucího dřívější skupiny IIG na \href{https://dce.fel.cvut.cz/}{Katedře řidící techniky (K13135)}
+\item Kompletní návrhové soubory pro základní desku a mechaniku jsou k dispozici z repozitáře \\
+  \href{https://gitlab.com/pikron/projects/mz_apo/microzed_apo}{https://gitlab.com/pikron/projects/mz\_apo/microzed\_apo}
+\item Návrh elektroniky desek byl provedený v programu PEDA (autor programu Petr Porazil) \\
+  \url{https://sourceforge.net/projects/peda/}
+\item Návrh FPGA periferií (Pavel Píša a Martin Jeřábek) je k dispozici v repozitáři projektu
+  \href{http://canbus.pages.fel.cvut.cz/}{CTU FEE CAN bus} \\
+  \small{\url{https://gitlab.fel.cvut.cz/canbus/zynq/zynq-can-sja1000-top}}
+\item Aktuální návrh je na větvi \\
+  \href{https://gitlab.fel.cvut.cz/canbus/zynq/zynq-can-sja1000-top/-/commits/microzed_apo_psr}{microzed\_apo\_psr}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Výukový kit MZ\_APO -- softwarové zdroje}
+
+\begin{itemize}
+\item The Linux kernel 4.19 with fully preemptive patches is actually
+  running on the boards. The branch
+  \href{https://github.com/ppisa/linux-kernel/commits/linux-4.19.y-pi}{linux-4.19.y-pi}
+  with integrated patches is available from repository \\
+  \url{https://github.com/ppisa/linux-kernel}
+\item
+  The build is available \\
+  \url{https://github.com/ppisa/zynq-rt-utils-and-builds}
+\item
+  More MZ\_APO documentation prepared for B35 Computer Architectures is
+  available \\
+  \url{https://cw.fel.cvut.cz/wiki/courses/b35apo/documentation/mz_apo/start}
+\item
+  MicroZed SBC documentation in Avnet MicroZed HW Users Guide
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Výukový kit MZ\_APO -- podpůrné soubory a šablony}
+
+\begin{itemize}
+\item The Simulink and other projects for the boards - more \\
+      \url{https://github.com/aa4cc/zynq-rt-control}
+\begin{itemize}
+\item PMSM control project using Matlab/Simulink \\
+      simulink/mz\_apo-3pmdrv/zynq\_pmsm\_motor\_control.slx
+\item The hardware design Petr Porazil
+  (\href{mailto:porazil@pikron.com}{\nolinkurl{porazil@pikron.com}})
+\item Design files hw/prj/fel/motor-driver-1.tdb from the repository \\
+  \url{https://gitlab.com/pikron/projects/mz_apo/microzed_apo}
+\item FPGA design Pavel Píša, Marek Peca, Martin Prudek \\
+  \href{https://dspace.cvut.cz/bitstream/handle/10467/62036/F3-BP-2015-Prudek-Martin-Bp_2015_prudek_martin.pdf}{Brushless motor control with Raspberry Pi board and Linux}
+\end{itemize}
+\item The more description of Matlab/Simulink code generation for Linux \\
+  \url{http://lintarget.sourceforge.net/}
+\item Alternative (Matlab/Simulink independent) robotic motion control project \\
+  \url{https://gitlab.com/pikron/projects/pxmc-linux} \\
+  which is based on PXMC library \url{http://pxmc.org/}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prezentace a projekty postavené na MZ\_APO kitu}
+
+\begin{itemize}
+\item LinuxDays 2015, Linux, RPi and other HW for DC and Brushless/PMSM Motor Control,
+\href{https://www.linuxdays.cz/2015/video/Pavel_Pisa-Rizeni_stejnosmernych_motoru.pdf}{Slides},
+\href{https://youtu.be/uMfY-sKf0HA}{Video} in Czech
+
+\item InstallFest 2017, GNU/Linux and FPGA in Real-time Control Applications,
+\href{https://installfest.cz/if17/slides/so_t2_pisa_realtime.pdf}{Slides},
+\href{https://youtu.be/sNtlEysC0yA}{Video} in Czech
+
+\item  LinuxDays 2017, GNU/Linux, CAN and CANopen in Real-time Control
+Applications,
+\href{https://www.linuxdays.cz/2017/video/Pavel_Pisa-CAN_canopen.pdf}{Slides},
+\href{https://youtu.be/hYC-XznyOlQ}{Video} in Czech
+
+\item InstallFest 2020, Embedded Linux, FPGA and Motion Control Hands-On
+\url{https://pretalx.installfest.cz/installfest-2020/talk/HSNJCM/}
+
+\item Dion Beqiri thesis
+\href{https://dspace.cvut.cz/bitstream/handle/10467/101599/F3-BP-2022-Beqiri-Dion-bachelor_thesis_DionBeqiri.pdf}{Open Rapid Control Prototyping, Education and Design Tools} pysimCoder
+(\url{https://github.com/robertobucher/pysimCoder}) includes
+\href{https://github.com/robertobucher/pysimCoder-examples/tree/main/Linux-mzapo/DCmotor}{examples}
+and blocks to control DC on MZ\_APO
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{CAN/CAN FD Gateway Latency Tester Cabinet}
+
+  \centering
+
+  \includegraphics[width=1.0\linewidth,height=0.87\textheight,clip=true,keepaspectratio]{common/io/mz_apo/latester-cabinet3-crop.jpg}
+
+\end{frame}
+
+\begin{frame}\frametitle{CAN/CAN FD Latency Tester -- Daily Results}
+
+  \centering
+
+  \includegraphics[width=1.0\linewidth,height=0.85\textheight,clip=true,keepaspectratio]{common/io/mz_apo/latester-overview-2024-10.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{DC Motor Control for Education on MZ\_APO Zynq FPGA}
+
+\begin{center}
+\includegraphics[width=1\textwidth,height=0.75\textheight,clip=true,keepaspectratio]{common/io/mz_apo/mz_apo-dcspdrv-schema.pdf}
+\par\end{center}
+
+{\footnotesize \url{https://gitlab.fel.cvut.cz/canbus/zynq/zynq-can-sja1000-top/-/tree/master/system/ip/dcsimpledrv_1.0}}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{pysimCoder Servo Control on Xylinx Zynq MZ\_APO Kit}
+
+\includegraphics[width=.95\linewidth,height=0.85\textheight,clip=true,keepaspectratio]{common/applications/DC_PID_follower-screenshot.png}
+
+{\footnotesize \url{https://github.com/robertobucher/pysimCoder-examples}}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Články o použití systému GNU/Linux pro řídicí aplikace na serveru Root.cz}
+
+\href{https://www.root.cz/}{https://www.root.cz/}
+
+\begin{itemize}
+\item
+  GNU/Linux pro řízení a rychlost jeho odezvy -
+  \href{https://www.root.cz/clanky/gnu-linux-pro-rizeni-a-rychlost-jeho-odezvy/}{link}
+\item
+  Linux pro řízení: minimalistické řešení řízení stejnosměrného motoru
+  -
+  \href{https://www.root.cz/clanky/linux-pro-rizeni-minimalisticke-reseni-rizeni-stejnosmerneho-motoru/}{link}
+\end{itemize}
+
+\end{frame}
 
 \end{document}
 
