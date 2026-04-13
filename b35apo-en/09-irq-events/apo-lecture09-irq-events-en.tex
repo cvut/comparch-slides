@@ -523,11 +523,12 @@ CPU that exception/interrupt handling has finished and saved state should be res
 mode and program
 
 \begin{itemize}
- \item priviledge mode from mstatus.MPP and mstatus.MPV
- \item mstatus.MPV <= 0, mstatus.MPP <= 0
+ \item priviledge mode from mstatus.MPP and mstatus.MPV\footnotemark[1]
+ \item mstatus.MPP <= 0, mstatus.MPV <= 0\footnotemark[1]
  \item mstatus.MIE <= mstatus.MPIE
  \item pc <= mepc and continue execution in mode restored from mstatus.MPP
 \end{itemize}
+\footnotetext[1]{mstatus/mstatush.MPV is present only if virtualization is supported}
 \end{frame}
 
 \begin{frame}
@@ -598,35 +599,35 @@ skip:
    csrrs  t0, mepc, zero
    ebreak
    la     t0, handle_exception
-   csrrw zero, mtvec, t0
+   csrrw  zero, mtvec, t0
    la     t0, task_control_block
-   csrrw zero, mscratch, t0
+   csrrw  zero, mscratch, t0
    csrrsi zero,mstatus,8 # MIE=1
-   addi t0, zero, 16 # UART RX
-   addi t1, zero, 1
-   sll t1, t1, t0 # bit mask
+   addi   t0, zero, 16 # UART RX
+   addi   t1, zero, 1
+   sll    t1, t1, t0 # bit mask
 \end{minted}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{minted}[fontsize=\footnotesize]{gas}
    csrrs zero, mie, t1
-   li   a0, SERIAL_PORT_BASE
-   li   t0, SERP_RX_ST_REG_IE_m
-   sw   t0, SERP_RX_ST_REG_o(a0)
+   li    a0, SERIAL_PORT_BASE
+   li    t0, SERP_RX_ST_REG_IE_m
+   sw    t0, SERP_RX_ST_REG_o(a0)
    # Background task
-   addi t0, zero, 0x0001
-   li   a0, SPILED_REG_BASE
+   addi  t0, zero, 0x0001
+   li    a0, SPILED_REG_BASE
 Loop:
    csrrs t1, mepc, zero # check
-   sw   t1,SPILED_REG_LED_LINE(a0)
-   srl t2, t0, 31
-   sll t0, t0, 1
-   or   t0, t0, t2
-   lw   t2, ..._KNOBS_8BIT(a0)
-   sw   t2, ..._LED_RGB1(a0)
-   xori t2, t2, -1
-   sw   t2, ..._LED_RGB2(a0)
-   beq zero, zero, loop
+   sw    t1,SPILED_REG_LED_LINE(a0)
+   srl   t2, t0, 31
+   sll   t0, t0, 1
+   or    t0, t0, t2
+   lw    t2, ..._KNOBS_8BIT(a0)
+   sw    t2, ..._LED_RGB1(a0)
+   xori  t2, t2, -1
+   sw    t2, ..._LED_RGB2(a0)
+   beq   zero, zero, loop
 \end{minted}
 \end{column}
 \end{columns}
@@ -638,24 +639,24 @@ Loop:
 
 \begin{minted}[fontsize=\footnotesize]{gas}
 handle_exception:
-    csrrw   tp, mscratch, tp      # store previous and take system tp
-    sw      sp, TCB_SP(tp)        # store stack pointer
-    sw      ra, TCB_RA(tp)        # store return address
-    sw      t0, TCB_T0(tp)        # store rest of clobberable regs
-    sw      a0, TCB_A0(tp)
+    csrrw  tp, mscratch, tp      # store previous and take system tp
+    sw     sp, TCB_SP(tp)        # store stack pointer
+    sw     ra, TCB_RA(tp)        # store return address
+    sw     t0, TCB_T0(tp)        # store rest of clobberable regs
+    sw     a0, TCB_A0(tp)
     ...
-    csrr    t0, mcause            # is it Rx interrupt?
-    blt     t0, zero, handle_irq  # branch to interrupts processing
+    csrr   t0, mcause            # is it Rx interrupt?
+    blt    t0, zero, handle_irq  # branch to interrupts processing
     ...
     # handle synchronous exception
 ret_from_exception:
-    lw      sp, TCB_SP(tp)        # restore stack pointer
-    lw      ra, TCB_RA(tp)        # restore return address
-    lw      t0, TCB_T0(tp)        # restore rest of clobberable regs
-    lw      a0, TCB_A0(tp)
+    lw     sp, TCB_SP(tp)        # restore stack pointer
+    lw     ra, TCB_RA(tp)        # restore return address
+    lw     t0, TCB_T0(tp)        # restore rest of clobberable regs
+    lw     a0, TCB_A0(tp)
     ...
-    csrrw   tp, mscratch, tp      # Swap back TCB to mscratch
-    mret                          # Return from exception pc <= mepc
+    csrrw  tp, mscratch, tp      # Swap back TCB to mscratch
+    mret                         # Return from exception pc <= mepc
 \end{minted}
 \end{frame}
 
@@ -663,23 +664,23 @@ ret_from_exception:
 \frametitle{Exception Service Routine Example -- Serial Port Echo}
 
 \begin{minted}[fontsize=\footnotesize]{gas}
-handle_irq:                        # t0 mcause
-    slli    t0, t0, 2              # shift out sign, left sources * 4
+handle_irq:                       # t0 mcause
+    slli   t0, t0, 2              # shift out sign, left sources * 4
     # the t0 would be used to point into irq handlers table
     # check only for UART RX interrupt for simplicity 8
-    addi    a0, zero, 16 * 4       # UART RX is the first platform irq
-    beq     t0, a0, handle_uart_rx_irq # it is UART RX
+    addi   a0, zero, 16 * 4       # UART RX is the first platform irq
+    beq    t0, a0, handle_uart_rx_irq # it is UART RX
     # mask out unknown sources
-    srli    t0, t0, 2              # make t0 back simple source index
-    addi    a0, zero, 1
-    sll     a0, a0, t0             # generate bit mask for source
-    csrrc   zero, mie, a0          # mie = mie & ~a0
-    j       ret_from_exception
+    srli   t0, t0, 2              # make t0 back simple source index
+    addi   a0, zero, 1
+    sll    a0, a0, t0             # generate bit mask for source
+    csrrc  zero, mie, a0          # mie = mie & ~a0
+    j      ret_from_exception
 handle_uart_rx_irq:
-    li      a0, SERIAL_PORT_BASE   # Setup base of UART
-    lw      t0, SERP_RX_DATA_REG_o(a0) # Read received character
-    sw      t0, SERP_TX_DATA_REG_o(a0) # echo it back to terminal
-    j       ret_from_exception
+    li     a0, SERIAL_PORT_BASE   # Setup base of UART
+    lw     t0, SERP_RX_DATA_REG_o(a0) # Read received character
+    sw     t0, SERP_TX_DATA_REG_o(a0) # echo it back to terminal
+    j      ret_from_exception
 \end{minted}
 
 \tiny
