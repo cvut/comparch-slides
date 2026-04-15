@@ -287,8 +287,8 @@ further regular execution) requiring special processing
 \frametitle{Steps of Exception or Interrupt Processing}
 
 \begin{itemize}
- \item An synchronous exception is usually accepted/handled unconditionally,
-an external interrupt only if it is not masked or if it is not masked
+ \item A synchronous exception is usually accepted/handled unconditionally,
+an external interrupt only if the source is non-maskable (NMI) or if it is not masked
 \end{itemize}
 
 \begin{enumerate}
