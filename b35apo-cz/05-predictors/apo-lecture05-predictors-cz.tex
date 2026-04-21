@@ -1016,5 +1016,85 @@ ch = hex_c[a];
 \end{minted}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Superskalární architektura}
+
+Vliv superskalární architektury na rychlost Vašeho programu:
+
+\begin{minted}[fontsize=\footnotesize]{c}
+long long int f[800], mul=1, sum=0;
+for (int ii=0; ii<10000000; ii++) {
+  int ptr=(ii%8);
+  for (int i=0;i<99;i++) {
+\end{minted}
+\begin{columns}[T]
+\begin{column}{0.40\textwidth}
+\phantom{xxxxx}a)
+
+\begin{minted}[fontsize=\footnotesize]{c}
+mul = mul*f[ptr]*f[ptr+1]*
+      f[ptr+2]*f[ptr+3]*
+      f[ptr+4]*f[ptr+5]*
+      f[ptr+6]*f[ptr+7];
+\end{minted}
+\end{column}
+\begin{column}{0.40\textwidth}
+\phantom{xxxxx}b)
+
+\begin{minted}[fontsize=\footnotesize]{c}
+mul *= f[ptr]*f[ptr+1]*
+     f[ptr+2]*f[ptr+3]*
+     f[ptr+4]*f[ptr+5]*
+     f[ptr+6]*f[ptr+7];
+\end{minted}
+\end{column}
+\end{columns}
+
+\begin{minted}[fontsize=\footnotesize]{c}
+    ptr+=8;
+  }
+}
+\end{minted}
+
+Jaká bude rychlost těchto dvou programů:
+\begin{itemize}
+ \item[A] prakticky stejná
+ \item[B] program a) bude asi 2x rychlejší než b)
+ \item[C] program b) bude asi 2x rychlejší než a)
+ \item[D] někdy bude rychlejší a) někdy b)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Superskalární architektura}
+
+Malá nápověda je, že operátor \texttt{*=} se přeloží takto:
+\begin{minted}[fontsize=\footnotesize]{c}
+mul = mul*(f[ptr]*f[ptr+1]*f[ptr+2]*f[ptr+3]*
+      f[ptr+4]*f[ptr+5]*f[ptr+6]*f[ptr+7]);
+\end{minted}
+
+Díky tomu na mém notebooku program a) běží přibližně 4,7s a program b) běží pouze 1,6s, tedy 3x rychleji.
+\bigskip
+
+Jak je to možné?
+\bigskip
+
+Díky superskalárnímu zpracování instrukcí se začnou dva následující výpočty prokládat mezi sebe a tím mohou zkrátit čas. Konkrétní zrychlení závisí na procesoru a jeho možnosti paralelně násobit více operací.
+\bigskip
+
+Optimální násobení by bylo toto:
+\begin{minted}[fontsize=\footnotesize]{c}
+ mul = mul*
+     (((f[ptr])*f[ptr+1])*(f[ptr+2]*f[ptr+3]))*
+     ((f[ptr+4]*f[ptr+5])*(f[ptr+6]*f[ptr+7]));
+\end{minted}
+Ale zde již nevede k dalšímu zrychlení.
+
+\end{frame}
+
+
+
 \end{document}
 
