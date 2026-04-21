@@ -201,6 +201,20 @@ Decentralizovaný -- autonomní dekodér
 
 
 \begin{frame}
+\frametitle{Kvíz čtení dat}
+
+Pokud přistupujeme k periférii jakou roli hraje CACHE?
+\begin{itemize}
+\item[A] stejně jako v RAM zrychluje přístup k perifériím.
+\item[B] je problém se čtením, aby se periférie dozvěděla o čtení.
+\item[C] je problém pouze ze zápisem, aby se periférie dozvěděla o každém zápisu.
+\item[D] aby periférie správně fungovala, musí se CACHE pro danou oblast zakázat.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
 \frametitle{Způsoby komunikace s periférií}
 Data pouze na dotaz:
 \begin{itemize}
@@ -370,14 +384,14 @@ loop:
 \end{frame}
 
 \begin{frame}
-\frametitle{Kvíz otočné voliče}
+\frametitle{Kvíz za bod aktivity}
 
 Pokud máme v proměnné \texttt{unsigned int v;} načtené slovo z adresy \texttt{SPILED\_REG\_BASE+SPILED\_REG\_KNOBS\_8BIT\_o} pak informace o stavu zeleného voliče získáme jako:
 \begin{itemize}
 \item[A] \texttt{((v<<24) \& 0x00ff00)}
 \item[B] \texttt{((v>>8) \& 0xff)}
 \item[C] \texttt{(v \& 0x30303030)}
-\item[D] \texttt{((v>>24) \& 0xf0)}
+\item[D] \texttt{((v>>24) \& 0x0f)}
 \end{itemize}
 \end{frame}
 
