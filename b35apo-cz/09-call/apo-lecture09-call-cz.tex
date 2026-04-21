@@ -6,7 +6,7 @@
 \usepackage{listings}
 \usepackage{array,multirow}
 
-\subtitle{Lekce 10. Překlad jazyka C}
+\subtitle{Lekce 9. Překlad jazyka C}
 \author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
 \begin{document}
 
@@ -386,7 +386,7 @@ tp & x4 & ukazatel na vlákno (thread) & -- -- & ano\\\hline
 \begin{frame}
 \frametitle{Kvíz}
 
-Kdy se parametry funkce, nebo registry s0-s11 uloží na zásobník?
+Kdy se parametry funkce uloží na zásobník?
 \begin{itemize}
  \item[A] nikdy.
  \item[B] když se v těle funkce uloží do parametru jiná hodnota.
@@ -399,7 +399,7 @@ Kdy se parametry funkce, nebo registry s0-s11 uloží na zásobník?
 \begin{frame}
 \frametitle{Kvíz}
 
-Kdy se lokální proměnné, nebo registry s0-s11 uloží na zásobník?
+Kdy se lokální proměnné uloží na zásobník?
 \begin{itemize}
  \item[A] nikdy.
  \item[B] když se v těle funkce bude využívat tolik lokálních proměnných, že se jejich hodnoty nevejdou do registrů.
@@ -910,7 +910,97 @@ ret
 \end{frame}
 
 
-\section {Systémová volání}
+\section {Stupně ochrany procesoru}
+
+
+\begin{frame}
+\frametitle{Základy ochrany programů}
+
+\begin{itemize}
+\item Potřebujeme zabezpečit program a operační systém tak, aby chyba uživatelských programů nemohla narušit běh ostatních programů.
+\begin{itemize}
+\item Je nutné zajistit bezečnost dat - nemožnost přečíst tajné informace, klíče, atd.
+\item Všechna data musí být dosažitelná pouze oprávněným uživatelem.
+\end{itemize}
+\item Procesor potřebuje zakázat běžným programům klíčové nastavení.
+\begin{itemize}
+\item v příští lekci se podíváme co je stránkování a jak lze pomocí stránkování zabezpečit přístup k paměti
+\end{itemize}
+\item Různé procesory používají k ochraně programů různé přístupy.
+\item V této lekci si probereme přístup RISC V procesoru
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Módy procesoru RISC V}
+
+RISC V procesor má tři úrovně ochrany:
+\begin{itemize}
+\item Machine Mode (M-mode): Nejvyšší úroveň oprávnění. V tomto režimu běží kód s přímým přístupem k hardwaru (bootloader, firmware, zabezpečené monitorovací programy). M-mode je povinný pro všechny implementace RISC-V.
+\item  Supervisor Mode (S-mode): Střední úroveň oprávnění, určená pro běh operačních systémů. S-mode může využívat virtuální paměť a mechanismy ochrany paměti.
+\item User Mode (U-mode): Nejnižší úroveň oprávnění, ve které běží uživatelské aplikace. Aplikace v tomto režimu nemají přímý přístup k hardwaru a pro privilegované operace musí volat služby operačního systému (v S-mode)
+\end{itemize}
+
+Existuje ještě čtvrtý mód používaný pro virtualizaci, tedy simulaci více oddělených počítačů v jednom počítači.
+
+Všechny procesory RISC V musí imeplementovat M-mode, ostatní úrovně nemusí být implementovány.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Módy procesoru RISC V}
+
+Jak přechází RISC V mezi úrovněmi ochrany:
+\begin{itemize}
+\item Zvýšení úrovně
+\begin{itemize}
+\item Přechod U $\rightarrow$ S, U $\rightarrow$ M nebo S $\rightarrow$ M
+\item Nejnebezpečnější jsou přechody U $\rightarrow$ S, U $\rightarrow$ M.
+\begin{itemize}
+\item Musíme zabránit běžet uživatelskému programu v módu S nebo M
+\end{itemize}
+\item Kdy je potřeba použít S nebo M mód?
+\begin{itemize}
+\item Když potřebujeme vyřešit spolupráci s periférií na základě přerušení.
+\item Když uživatelský program chce použít HW (zapsat/číst do/z souboru, poslat paket po síti, atd.) --
+Pro tuto činost potřeujeme speciální instrukci ecal - systémové volání.
+\end{itemize}
+\item Nesmíme dovolit spustit uživatelský program v módu M nebo S
+\item Adresa pro přechod do S módu je uvedena v registru stvec a pro přechod do M módu mtvec
+\item lze nastavit, zda se vybrané přerušení bude obsluhovat v M nebo S módu
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Módy procesoru RISC V}
+
+Jak přechází RISC V mezi úrovněmi ochrany:
+\begin{itemize}
+\item Snížení úrovně
+\begin{itemize}
+\item Přechod M $\rightarrow$ S, M $\rightarrow$ U nebo S $\rightarrow$ U
+\item Toto není tak nebezpečně, snížení úrovně je vždy lepší.
+\begin{itemize}
+\item Snížení úrovně znamená omezení práv
+\end{itemize}
+\item Speciální instrukce mret a sret, které zajistí přechod do nižší úrovně.
+\item Úroveň je nastavena v systémovém registru sstatus.mpp nebo sstatus.spp.
+\item Adresa, kam se má skočit instrukcí je v registru mepc nebo sepc.
+\item Tento přechod je vlastně návratem s obluhy přerušení, nebo systémového volání
+\begin{itemize}
+\item I v případě startu, kdy nikdo systémové volání nezavolal.
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
 
 \begin{frame}
 \frametitle{Základy ochrany OS}
@@ -932,6 +1022,7 @@ ret
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}
 \frametitle{Ochrana OS}
 
@@ -944,8 +1035,8 @@ OS podle čísla systémového volání zavolá odpovídající funkci.
 \end{center}
 
 Návrat ze systémového volání odpovídá návratu z přerušení/výjimky (na RISC-V většinou \texttt{sret}).
-
 \end{frame}
+
 
 \begin{frame}[shrink=5]
 \frametitle{ABI systémového volání}
@@ -1020,6 +1111,7 @@ read(a0, a1, a2);
 \end{itemize}
 \end{frame}
 
+
 \begin{frame}
 \frametitle{Systémové volání x86}
 
@@ -1043,29 +1135,30 @@ read(a0, a1, a2);
 \end{frame}
 
 
+\begin{comment}
 \begin{frame}[fragile]
 \frametitle{Kvíz za bonusový bod}
 
 Uvažujte tuto funkci
 \begin{minted}[fontsize=\footnotesize]{c}
-int fce (int a) {
-  static int s;
-  int i;
+int a;
+int fce (int p) {
+  int b;
   
   // telo funkce
   
-  return i+s;
+  return a+b;
 }
 \end{minted}
-Kde budou umístěny proměnné \texttt{s} a \texttt{i}:
+Kde budou umístěny proměnné \texttt{a} a \texttt{b}:
 \begin{itemize}
  \item[A] obě na zásobníku
- \item[B] obě v datové sekci
- \item[C] \texttt{s} na zásobníku, \texttt{i} v datové sekci
- \item[D] \texttt{s} v datové sekci, \texttt{i} na zásobníku
+ \item[B] obě v datové sekci programu
+ \item[C] \texttt{a} na zásobníku, \texttt{b} v datové sekci programu
+ \item[D] \texttt{a} v datové sekci programu, \texttt{b} na zásobníku
 \end{itemize}
 \end{frame}
-
+\end{comment}
 
 \end{document}
 
