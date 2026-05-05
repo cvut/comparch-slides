@@ -1,5 +1,5 @@
-DOC = apo-lecture09-irq-events-$(DOC_LANG)
-NUM = 09
+DOC = apo-lecture08-irq-events-$(DOC_LANG)
+NUM = 08
 
 ifndef TOPDIR
 TOPDIR := $(shell ( old_pwd="" ;  while [ ! -e _latex/Makefile.rules ] ; do if [ "$$old_pwd" = `pwd` ] ; then exit 1 ; else old_pwd=`pwd` ; cd -L .. 2>/dev/null ; fi ; done ; pwd ) )
