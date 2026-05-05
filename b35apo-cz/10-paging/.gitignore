@@ -3,7 +3,6 @@
 /*.snm
 /*.gz
 /*.nav
-/*.synctex.gz
 /*.out
 /*.toc
 /*.upa
@@ -11,10 +10,6 @@
 /*.fls
 /*.dep
 /*.bak
-*.nav
 /anim
 /_minted*
 moddate.tex
-/apo-lecture11-x86-cz.pdf
-/apo11_2021.pdf
-/apo-lecture11-x86-en.pdf
