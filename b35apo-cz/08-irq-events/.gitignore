@@ -9,9 +9,10 @@
 /*.vrb
 /*.fls
 /*.dep
+/*.bak
 /anim
 /_minted*
 moddate.tex
-/apo-lecture09-irq-events-cz.pdf
-/apo09_2021.pdf
-/apo-lecture09-irq-events-en.pdf
+/apo-lecture08-irq-events-cz.pdf
+/apo08_2021.pdf
+/apo-lecture08-irq-events-en.pdf
