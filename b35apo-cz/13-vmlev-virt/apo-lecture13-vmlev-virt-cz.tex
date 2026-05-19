@@ -202,5 +202,61 @@ Instrukční formát
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Balíčky v systému Debian}
+
+\begin{itemize}
+  \item Xen
+  \item KVM
+  \begin{itemize}
+    \item Umožňuje propagování celého GPU přes PCIe passthrough
+    \item VirtIO
+    \item VirGL
+    \item KVMGT (zatím Intel Haswell-based GPUs)
+    \item virtfs
+    \item virtio-net
+  \end{itemize}
+  \item Qemu System -- především lokální a křížové virtualizace
+  \item qemu-user-static/qemu-user -- emulace jen userspace (binfmt\_misc)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Uživatelské nadstavby a řešení}
+
+\begin{itemize}
+  \item VirtualBox
+  \item ganeti -- cluster manager, KVM or Xen.
+  \item XCP (or XenServer) manage virtual machines (templates virtual storage and networking)
+  \item OpenStack (which uses KVM or Xen) large scale
+  \item libvirt -- KVM, Xen a další (CLI virsh, API)
+  \item virt-manager - nad libvirt
+  \item kpartx - convenient utility for accessing partitions in an image file or LV from a virtual machine
+  \item xmount - tool to crossmount between multiple input and output harddisk images
+  \item SystemBuildTools includes some tools to build VMs
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Balíčky pro řešení na bázi kontejnerů}
+
+\begin{itemize}
+  \item nspawn - containers provided by systemd.
+  \item Incus, LXD and LXC
+  \item Docker and Podman
+  \item OpenVz (DEPRECATED)
+\end{itemize}
+
+Pouze částečná izolace
+
+\begin{itemize}
+  \item UserModeLinux
+  \item chroot
+  \item Schroot (založený na chroot)
+  \item Bubblewrap
+  \item Isolate
+\end{itemize}
+\end{frame}
+
 \end{document}
 
