@@ -1,0 +1,262 @@
+\documentclass{beamer}
+%[aspectratio=169]   \usepackage[czech]{babel}
+\usepackage{apo-lecture-cz}
+\usepackage{pdfpages}
+\usepackage{pdfcomment}
+\usepackage{listings}
+\usepackage{array,multirow}
+\usepackage{environ}
+
+\subtitle{Lecture 13. Virtual Machines and Virtualization}
+\author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}}
+
+\begin{document}
+
+\maketitle
+
+\section{Multilevel Computer Organization}
+
+\begin{frame}
+\frametitle{Today's Lecture Objective}
+
+\begin{itemize}
+ \item Multilevel Computer Organization
+ \item Virtualization
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multilevel Computer Organization}
+
+\begin{itemize}
+ \item Machine code (language)
+ \begin{itemize}
+  \item instruction set -- specific for given architecture
+  \item language L1 level -- alphabet {0,1}
+  \item it is necessary to convert the program into it for native execution
+  \item for application design by humans and generators, higher-level languages ​​L2 + others are more suitable
+ \end{itemize}
+ \item Executing a program in L2 on a machine that provides L1
+ \begin{itemize}
+  \item Compilation -- instructions in L2 are replaced by a sequence of instructions in L1
+  \item Interpretation -- a program in L1 processes a program in L2 as data (slower) jako data
+ \end{itemize}
+ \item Development of machine levels
+ \begin{itemize}
+  \item first computers -- ordinary machine level - 1st level
+  \item 50s -- Wilkes -- microprogram. - 2nd level
+  \item 60s -- operating systems - 3rd level
+  \item compilers, programming languages ​​- 4th level
+  \item user application programs - 5th level
+  \item problem-oriented languages ​​and environments
+ \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The Virtual Computer}
+
+Hardware (HW) and software (SW) are logically equivalent (can be replaced with each other) the battle and merging of RISC and CISC processors
+\vspace{0.2cm}
+At level $i$ we introduce a virtual computer $M_i$ with language $L_i$.
+The program in $L_i$ is translated or interpreted by computer $M_{i-1}$ etc.
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{generated/computer/mutilevel-machine-en.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Current Multi-level Computer Architecture}
+
+\begin{center}
+\includegraphics[width=0.75\textwidth]{generated/computer/mutilevel-mcode-to-highlev-en.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Processes and Their States}
+
+\begin{description}
+ \item[process] a running program (program -- passive, process -- active)
+ \item[process state] information that allows a process to be restarted when it is stopped
+ \begin{enumerate}
+  \item program code (.text)
+  \item next. instructions (PC/IP)
+  \item variable values ​​and data
+  \item states and positions of all I/O (positions in open files, etc.)
+  \item address space layout/occupation (memory context)
+ \end{enumerate}
+ \item[assumption] process P does not change its program itself, if so, then the changed parts are part of the state, data
+ \item[state vector] variables of the process state component -- they are changed by the program, OS or HW
+   $$PROCESS = PROGRAM + STATE \medskip VECTOR$$
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Conventional Machine Level (ISA) (M2)}
+
+Defined by the Instruction Set (often referred to as processor architecture) ISA -- Instruction Set Architecture $\times$ Microarchitecture (Implementation in M1 or directly in the logical design of the processor)
+
+\begin{itemize}
+ \item structure of the computer, processor, I/O channels, buses, organization and accesses to memory, register organization, etc.
+ \item instruction set, data format and storage in memory, addressing, notebook memory (registries)
+\end{itemize}
+
+Instruction format
+
+\begin{itemize}
+ \item consists of fields stored in one or more consecutive words (sometimes bytes granularity)
+ \item operation character (opcode)
+ \item immediate operands, constants embedded in the instruction
+ \item address parts can be memory addresses or references, register numbers and these can be used either directly or as memory addresses (indirect addressing)
+\end{itemize}
+\end{frame}
+
+\section{Virtualization}
+
+\begin{frame}
+\frametitle{Virtualization}
+
+\begin{itemize}
+ \item Virtualization hides the implementation/properties of lower layers (reality) and presents an environment with the required properties
+ \item In computer technology, we divide virtualization into
+ \begin{itemize}
+  \item Purely application/at the language and compiled code (byte-code) level – virtual machines, e.g. JVM, dotNET
+  \item Emulation and simulation typically different computer architectures (also called cross-virtualization)
+  \item Native virtualization - isolated environment providing identical type of architecture for unmodified OS
+  \item Virtualization with full support directly in HW
+  \item Partial virtualization -- typically only address spaces
+  \item Paravirtualization -- system must be modified to run in the offered environment
+  \item OS-level virtualization -- only separate user environments (containers)
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Operating System Level and Isolation of Applications}
+
+\begin{itemize}
+ \item Threads can also be considered as virtualization of the processor state and processes as virtualization of the entire environment including memory separation
+ \item Virtual machines and interpreters within applications (browser, Python in LibreOffice, etc.)
+ \begin{itemize}
+  \item direct interpretation in text form is rare, mostly translation into binary representation (bytecode) and from there often into native code (JVM)
+ \end{itemize}
+ \item Containers
+ \begin{itemize}
+  \item chroot -- separate view of the directory structure (Mount -- mnt)
+  \item LXC (Linux Containers) -- separability of various kernel namespaces (namespace) and resource prioritization (cgroups)
+  \begin{itemize}
+   \item Mount (mnt), Process ID (pid), Network (net), Inter-process Communication (ipc), UTS (host+domain), User ID (user), Control group (cgroup) Namespace, Time Namespace
+   \item see system call manual: \texttt{unshare(2)}, \texttt{clone(2)}
+  \end{itemize}
+  \item Docker -- mostly on top of LXC
+  \item systemd-nspawn
+  \item Solaris Containers (Zones)
+  \item FreeBSD jail
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Virtualization at the Whole Machine Level}
+
+\begin{itemize}
+ \item Host computer (Host, Domain DOM 0)
+ \item Guest system (Guest)
+ \item Processor for the guest system
+ \begin{itemize}
+  \item for the native case, regular code/unprivileged instructions processed directly by the CPU
+  \item for the cross-architectural, interpretation of instructions by the emulator (program in DOM 0), or acceleration
+ \end{itemize}
+ \item Privileged instructions in the guest system
+ \begin{itemize}
+  \item causes exceptions that are handled by the monitor/hypervisor, emulation
+  \item CPU has support for HW virtualization (AMD-V, Intel VT-x), shadow paging tables
+ \end{itemize}
+ \item Peripherals/devices
+ \begin{itemize}
+  \item IO access and memory-mapped peripherals cause exceptions and the hypervisor simulates their operation
+  \item the guest system adapts itself so that passed the requests directly in a format that the hypervisor understands (custom drivers, etc.)
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hypervisor}
+
+\begin{itemize}
+ \item ensures the starting and stopping of domains
+ \item monitors their activity and handles exceptions - mainly emulates the activity of privileged instructions
+ \item ensures the distribution of memory and computing power to guest systems
+ \item emulates the activity of peripherals and passes data to physical device and network drivers at the host system level
+ \item can be implemented
+ \begin{itemize}
+  \item in the user space of the host system (QEMU)
+  \item using support in HW and the OS kernel (KVM)
+  \item as a separate system/microkernel that uses the system in one domain (DOM 0) to communicate with physical devices and forwards data from this system to others (XEN) 
+ \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Debian Packages for Virtualization}
+
+\begin{itemize}
+ \item Xen
+ \item KVM
+ \begin{itemize}
+  \item Allows full GPU propagation via PCIe passthrough
+  \item VirtIO
+  \item VirGL
+  \item KVMGT (Intel Haswell-based GPUs for now)
+  \item virtfs
+  \item virtio-net
+ \end{itemize}
+ \item Qemu System -- mainly local and cross-virtualization
+ \item qemu-user-static/qemu-user -- userspace only emulation (binfmt\_misc)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{User Level Extensions and Solutions}
+
+\begin{itemize}
+ \item VirtualBox
+ \item ganeti -- cluster manager, KVM or Xen.
+ \item XCP (or XenServer) manage virtual machines (templates virtual storage and networking) 
+ \item OpenStack (which uses KVM or Xen) large scale 
+ \item libvirt -- KVM, Xen and more (CLI virsh, API) 
+ \item virt-manager - above libvirt 
+ \item kpartx - convenient utility for accessing partitions in an image file or LV from a virtual machine 
+ \item xmount - tool to crossmount between multiple input and output hard disk images 
+ \item SystemBuildTools includes some tools to build VMs
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Packages for Container-based Solutions}
+
+\begin{itemize} 
+ \item nspawn - containers provided by systemd. 
+ \item Incus, LXD and LXC
+ \item Docker and Podman
+ \item OpenVz (DEPRECATED)
+\end{itemize}
+
+Partial isolation only
+
+\begin{itemize}
+ \item UserModeLinux
+ \item chroot
+ \item Schroot (based on chroot)
+ \item Bubblewrap
+ \item Isolate
+\end{itemize}
+\end{frame}
+
+\end{document}
+
