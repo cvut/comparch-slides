@@ -152,6 +152,7 @@ Instrukční formát
   \item LXC (Linux Containers) -- oddělitelnost různých jmenných prostorů jádra (namespace) a prioritizace prostředků (cgroups)
   \begin{itemize}
    \item Mount (mnt), Process ID (pid), Network (net), Inter-process Communication (ipc), UTS (host+domain), User ID (user), Control group (cgroup) Namespace, Time Namespace
+   \item viz. manuál systémového volání: \texttt{unshare(2)}, \texttt{clone(2)}
   \end{itemize}
   \item Docker -- většinou nad LXC
   \item systemd-nspawn
