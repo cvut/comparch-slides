@@ -37,15 +37,23 @@ The GitHub copy of the slides sources is provided on GitHub to allow public reus
 
 ## The Slides Build Process
 
-The slides are based on the LaTeX [Beamer](https://ctan.org/pkg/beamer) style. The diagrams and figures sources are developed in SVG format and converted to PDF format by [Inkscape](https://inkscape.org/). The actual version supports Czech and English language. The language is selected by `DOC_LANG`  variable. Use the following command in the individual slide/lecture topics directory
+The slides are based on the LaTeX [Beamer](https://ctan.org/pkg/beamer) style. The diagrams and figures sources are developed in SVG format and converted to PDF format by [Inkscape](https://inkscape.org/). The figure sources are placed into `common` subdirectory where they are organized into topics like cpu, memory, numbers, etc. When the figure contains some text, its file name should end with language suffix, `_cz.svg` and `_en.svg` for now. The LaTeX expects figures in PDF or JPG formats. If the figure is included from the `generated` subdirectory
+```
+\includegraphics[width=0.95\textwidth]{generated/simulator/hazard_forwarding3.pdf}
+```
+then it is automatically converted by Inkscape from the matching location under `common` subdirectory.
+
+The current version supports Czech and English language. The language is selected by `DOC_LANG` variable set in `Makefile`s. The language can be overriden during build
 
   - make DOC_LANG=en
+
+but the the language variants has been separated to `b35apo-cz` and `b35apo-en` for now.
 
 ## Slides Project Progress Tracking
 
 The Czech slides for lectures 01 to 11 and 13 are completed.
 
-The English variant offers slides for lectures 01 to 11.
+The English variant offers slides for lectures 01 to 11 and 13.
 
 The older LibreOffice-based slides for Czech and English lecture variants are complete for the whole course; see the subject pages for PDF outputs and ODP files. 
 
