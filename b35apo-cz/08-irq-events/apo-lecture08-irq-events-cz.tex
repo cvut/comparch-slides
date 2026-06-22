@@ -716,11 +716,11 @@ Zdroj: bootlin: Kernel, drivers and embedded Linux development \url{https://boot
  \item Procesor nastaví periferii a adresu do paměti odkud/kam mají být data přenesena
  \item Poté je spuštěný přenos a buď přímo periferie provádí přístupy do hlavní paměti
        a nebo přes požadavek žádá obecný řadič přímých přenosů (DMA controller)
- \item Klasických sdílených sběrnic je nutné zajistit, že pro každý datový přenos, cyklus
+ \item U klasických sdílených sběrnic je nutné zajistit, že pro každý datový přenos, cyklus
        sběrnice dojde uvolnění řízení sběrnice centrálním prvkem, procesorem a volbu adresy
        a řízení přenosu dat provádí periferie případně obecný řadič
  \item Po přenesení nastaveného počtu bytů dojde k informaci procesoru o dokončení přenosu
-       nebo o přípdané chybě mechanizmem vyvolání přerušení
+       nebo o případné chybě mechanizmem vyvolání přerušení
 \end{itemize}
 
 \end{frame}

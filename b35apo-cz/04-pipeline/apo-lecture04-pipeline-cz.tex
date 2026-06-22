@@ -142,7 +142,7 @@ $t_{Mux}$ & = & $20$ ns  & & $t_{RFsetup}$ & = & $20$ ns \\
 \vskip 2 mm
 
 \begin{itemize}
- \item Uvažujeme $T_{C_{fetch}} =  t_{PC} + t_{Mem}$ probíhající paralelně s výkonáváním instrukce
+ \item Uvažujeme $T_{C_{fetch}} =  t_{PC} + t_{Mem}$ probíhající paralelně s vykonáváním instrukce
  \item $T_{C_{exec}} = t_{RFread} + t_{ALU} + t_{Mem} + t_{Mux} + t_{RFsetup}$
 \end{itemize}
 
@@ -187,7 +187,7 @@ Budeme uvažovat rozdělení vykonávání instrukcí do pěti stupní (stages).
 \frametitle{Překrývající se zřetězené vykonávání instrukcí}
 \includegraphics[width=0.9\textwidth]{generated/cpu/pipeline/cpu_pipe_inst_flow-cz.pdf}
 
-$\tau = max{\left\lbrace \tau_i \right\rbrace}^k_{i=1}$,  kde $\tau_i$ je zpožení v jednotlivých stupních
+$\tau = max{\left\lbrace \tau_i \right\rbrace}^k_{i=1}$,  kde $\tau_i$ je zpoždění v jednotlivých stupních
 
 Vykonání $n$ instrukcí pro $k$ stupňové zřetězené zpracování trvá
 $$T_{k,n} = k \cdot \tau + (n - 1) \tau$$

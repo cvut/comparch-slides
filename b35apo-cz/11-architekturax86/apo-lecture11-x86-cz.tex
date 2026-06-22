@@ -51,7 +51,7 @@ Základní vlastnosti:
 \begin{column}{0.48\textwidth}  
 \textbf{80686} -- R32 A36 (1995) Pentium Pro PAE, L2 cache, out-of-order \& speculative exec\\
 \textbf{IA-64} -- R64 A52 (2001) Itanium 64-bitová verze\\
-\textbf{AMD64} -- R64 A40 (2003) Athlonn 64-bitová verze od AMD\\
+\textbf{AMD64} -- R64 A40 (2003) Athlon 64-bitová verze od AMD\\
 \textbf{Core2} -- R64 A36 (2006) Intel 64 EM64T, SSSE3, $\mu$op, virtualization
 \end{column}
 \end{columns}
@@ -497,7 +497,7 @@ První parametr bude na adrese \texttt{8(\%ebp)}, další \texttt{12(\%ebp)}
 Ukončení funkce:
 \begin{minted}[fontsize=\footnotesize]{gas}
 mov   %ebp, %esp  ; Vrať stav zásobníku na původní pozici.
-pop   %ebp        ; Obnov puvodní hodnotu registru EBP
+pop   %ebp        ; Obnov původní hodnotu registru EBP
 ret               ; Návrat z funkce
 \end{minted}
 

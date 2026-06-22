@@ -156,7 +156,7 @@ Princip stránkování
 \item velikost jedné položky jsou 4 bajty
 \item velikost tabulky stránek je 4 MiB
 \end{itemize}
-\item velikost tebulky v 64-bitovém prostoru
+\item velikost tabulky v 64-bitovém prostoru
 \begin{itemize}
 \item velikost 64-bitového virtuálního prostoru je $2^{64} = 16\text{EiB}$ (16 Exbibajtů = 16 * 1024 Pebibajtů)
 \item počet stránek $\frac{2^{64}}{2^{12}} = 2^{52} = 4\text{Pi}$
@@ -246,7 +246,7 @@ Nejdříve musíme vytvořit a inicializovat stránkovací tabulku
 \item První bude pro tabulku úrovně 1, tedy nadřazenou tabulku
 \item Druhá bude pro tabulku úrovně 0, tabulku, která už obsahuje informace o mapování virtuální paměti do fyzické paměti
 \begin{itemize}
-\item Tabulky propojíme tak, že do tabulky úrovně 1 na první 4 bajy zapíšeme pozici tabulky úrovně 0.
+\item Tabulky propojíme tak, že do tabulky úrovně 1 na první 4 bajty zapíšeme pozici tabulky úrovně 0.
 \item VPN = (adr(tab\_0) > > 12) < < 10
 \item a nastavení příznaku V, bity R,W,X musí být nulové (použito pro velké stránky 4 MiB).
 \end{itemize}
@@ -272,12 +272,12 @@ Nyní si do virtuálního prostoru namapujeme na stejné adresy program:
 \item práva musíme nastavit X pro možnost vykonávání programu
 \end{itemize}
 
-Náš ukázkový program kopíruje data z virtuální adresy 0x6000 na adresu 0x7000. Fyzicky jsou ale zdrojová data na adrese 0x1000 a kopírova se budou do fyzické paměti 0x2000.
+Náš ukázkový program kopíruje data z virtuální adresy 0x6000 na adresu 0x7000. Fyzicky jsou ale zdrojová data na adrese 0x1000 a kopírovat se budou do fyzické paměti 0x2000.
 \begin{itemize}
 \item Pro data si stránku 6 namapujeme do rámce 3 a stránku 7 do rámce 4
 \item práva můžeme nastavit pro data R,W pro obě stránky
 \begin{itemize}
-\item Pokud by zdroj dat byly konstanty, můžeme pro zdrojovou stránku nastait pouze práva pro čtení a tím ochráníme data proti zápisu
+\item Pokud by zdroj dat byly konstanty, můžeme pro zdrojovou stránku nastavit pouze práva pro čtení a tím ochráníme data proti zápisu
 \end{itemize}
 \end{itemize}
 
@@ -289,8 +289,8 @@ Náš ukázkový program kopíruje data z virtuální adresy 0x6000 na adresu 0x
 
 Posledním krokem je nastavení módu stránkování Sv32:
 \begin{itemize}
-\item v registru satp (Supervisor Address Translation and Protestion) nastavíme mód na vybranou hodnotu, tedy Sv32
-\item jakmile je reistr satp nastaven na nenulovou hodnotu módu, překlad adres a ochrana paměti je spuštěna pro S a U mód (M mód má neustále přímý přístup do paměti)
+\item v registru satp (Supervisor Address Translation and Protection) nastavíme mód na vybranou hodnotu, tedy Sv32
+\item jakmile je registr satp nastaven na nenulovou hodnotu módu, překlad adres a ochrana paměti je spuštěna pro S a U mód (M mód má neustále přímý přístup do paměti)
 \end{itemize}
 
 Po přepnutí do U módu spustíme náš program, který bude mít text programu na virtuální adrese 0x200 a data na virtuálních adresách 0x6000 a 0x7000. Žádné další stránky nejsou namapovány, takže nelze žádný jiný program, než náš spustit
@@ -312,7 +312,7 @@ Jeden rámec fyzické paměti může být na více místech virtuální paměti
 \item V navazujícím předmětu OSY si ukážme praktické použití
 \begin{itemize}
 \item Například při alokaci velké paměti a její inicializaci na 0 může OS v rámci šetření alokovat a inicializovat pouze jeden rámec na 0 a ve virtuálním prostoru nastaví všechny alokované stránky na tento jeden rámec
-\item Rámec se musí nastavit jako read only, tedy bez příznaku W, a zápis do této virtuální paměti vytvoří chybu na jejímž základě OS zkopíruje data do nového rámce a pro tento danný přístup již nastaví ve virtuálním prostoru pouze pro tuto stráku nový rámec
+\item Rámec se musí nastavit jako read only, tedy bez příznaku W, a zápis do této virtuální paměti vytvoří chybu na jejímž základě OS zkopíruje data do nového rámce a pro tento danný přístup již nastaví ve virtuálním prostoru pouze pro tuto stránku nový rámec
 \item Díky tomu se zátěž alokace a inicializace rozloží na dobu, kdy se do alokované paměti bude zapisovat. Pro čtení všichni vidí ty samé 0.
 \end{itemize}
 \item My si ukážeme, že cílovou paměť lze namapovat ještě na stránku např. 0x8000.
@@ -413,7 +413,7 @@ Co je nutné změnit pro 64-bitový mód?
 \item Velikost tabulky
 \begin{itemize}
 \item V Sv32 je velikost virtuálního prostoru $2^{32}$ tj. 4 GiB, počet položek tabulky stránek je $2^{20} = 1024 \cdot 1024$ a velikost tabulky je 4 MiB
-\item Pro 64-bitový mód je velikost virtuálního prosoru $2^{64}$, počet položek tabulky stránek je $2^{52}$ a velikost tabulky je 32 PiB
+\item Pro 64-bitový mód je velikost virtuálního prostoru $2^{64}$, počet položek tabulky stránek je $2^{52}$ a velikost tabulky je 32 PiB
 \begin{itemize}
 \item Řešení: Omezíme velikost prostoru a zavedeme více úrovní stránkovacích tabulek
 \end{itemize}
