@@ -62,7 +62,7 @@ Cíle virtualizace:
 \begin{itemize}
  \item opět tento register slouží k zaznamenání adresy, ze které například přerušením se spustil program v M módu
 \end{itemize}
- \item provedení instrukce mret ná přepne do U módu na adresu mepc
+ \item provedení instrukce mret nás přepne do U módu na adresu mepc
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -185,7 +185,7 @@ Stránkovací tabulka
 \item počet stránek $\frac{2^{32}}{2^{12}} = 2^{20} = 1\text{Mi}$
 \item rozdělíme tabulku stránek na 1024 malých tabulek, každá obsahuje 1024 položek
 \item pokud by malá tabulka měla pouze nulové hodnoty, nemusí být v paměti
-\item přidáme další nadřazenou tabulku, která obsahuje 1024 položek, zda existuje odpovídající malá tabuka a ve kterém rámci tato malá tabulka je
+\item přidáme další nadřazenou tabulku, která obsahuje 1024 položek, zda existuje odpovídající malá tabulka a ve kterém rámci tato malá tabulka je
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -309,14 +309,14 @@ Nyní již náš program běží s virtualizací paměti, ve které vidí pouze 
 
 Jeden rámec fyzické paměti může být na více místech virtuální paměti
 \begin{itemize}
-\item V navazujícím předmětu OSY si ukážme praktické použití
+\item V navazujícím předmětu OSY si ukážeme praktické použití
 \begin{itemize}
 \item Například při alokaci velké paměti a její inicializaci na 0 může OS v rámci šetření alokovat a inicializovat pouze jeden rámec na 0 a ve virtuálním prostoru nastaví všechny alokované stránky na tento jeden rámec
 \item Rámec se musí nastavit jako read only, tedy bez příznaku W, a zápis do této virtuální paměti vytvoří chybu na jejímž základě OS zkopíruje data do nového rámce a pro tento danný přístup již nastaví ve virtuálním prostoru pouze pro tuto stránku nový rámec
 \item Díky tomu se zátěž alokace a inicializace rozloží na dobu, kdy se do alokované paměti bude zapisovat. Pro čtení všichni vidí ty samé 0.
 \end{itemize}
 \item My si ukážeme, že cílovou paměť lze namapovat ještě na stránku např. 0x8000.
-\item Při kopírován dat do cílové stránky se automaticky modifikuje i stránka 0x8000, protože sdílejí stejnou fyzickou pamět, která jediná obsahuje informace.
+\item Při kopírování dat do cílové stránky se automaticky modifikuje i stránka 0x8000, protože sdílejí stejnou fyzickou paměť, která jediná obsahuje informace.
 \end{itemize}
 
 \end{frame}
@@ -435,7 +435,7 @@ Co je nutné změnit pro 64-bitový mód?
 \begin{itemize}
 \item Existují 3-úrovně stránkovacích tabulek - kódováno $3 \cdot 9$ bity
 \item 12-bitů kóduje polohu uvnitř stránky
-\item Cekem tedy 39 bitů virtulání adresy
+\item Celkem tedy 39 bitů virtuální adresy
 \end{itemize}
 \end{itemize}
 

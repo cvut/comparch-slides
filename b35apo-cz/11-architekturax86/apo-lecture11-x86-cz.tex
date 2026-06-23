@@ -485,13 +485,13 @@ Registr ebp ukazuje na zásobník, kam byla uložena stará hodnota rámce před
 \bigskip
 Úvod funkce – příklad implementace
 \begin{minted}[fontsize=\footnotesize]{gas}
-push  %ebp        ; Uložíme hodnotu EBP do zasobníku
+push  %ebp        ; Uložíme hodnotu EBP do zásobníku
 mov   %esp, %ebp  ; Nastav EBP na současnou hodnotu zasobníku
 sub   $12, %esp   ; Připrav místo na zasobníku pro 12 bajtů
                   ; lokálních proměnných
 \end{minted}
 
-První proměnná bude na adrese \texttt{-4(\%ebp)}, druha \texttt{-8(\%ebp)}\\
+První proměnná bude na adrese \texttt{-4(\%ebp)}, druhá \texttt{-8(\%ebp)}\\
 První parametr bude na adrese \texttt{8(\%ebp)}, další \texttt{12(\%ebp)}
 
 Ukončení funkce:
@@ -598,7 +598,7 @@ Zásobník:
   \item kam se vrátit po ukončení funkce, místo odkud program volal funkci
   \item lokální proměnné funkce
   \begin{itemize}
-    \item zásobník je vetšinou malý
+    \item zásobník je většinou malý
     \item omezená velikost lokálních proměnných
     \item pozor při rekurzi - lépe se rekurzi vyhnout
   \end{itemize}

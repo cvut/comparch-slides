@@ -919,7 +919,7 @@ ret
 \begin{itemize}
 \item Potřebujeme zabezpečit program a operační systém tak, aby chyba uživatelských programů nemohla narušit běh ostatních programů.
 \begin{itemize}
-\item Je nutné zajistit bezečnost dat - nemožnost přečíst tajné informace, klíče, atd.
+\item Je nutné zajistit bezpečnost dat - nemožnost přečíst tajné informace, klíče, atd.
 \item Všechna data musí být dosažitelná pouze oprávněným uživatelem.
 \end{itemize}
 \item Procesor potřebuje zakázat běžným programům klíčové nastavení.
@@ -944,7 +944,7 @@ RISC V procesor má tři úrovně ochrany:
 
 Existuje ještě čtvrtý mód používaný pro virtualizaci, tedy simulaci více oddělených počítačů v jednom počítači.
 
-Všechny procesory RISC V musí imeplementovat M-mode, ostatní úrovně nemusí být implementovány.
+Všechny procesory RISC V musí implementovat M-mode, ostatní úrovně nemusí být implementovány.
 \end{frame}
 
 
@@ -964,7 +964,7 @@ Jak přechází RISC V mezi úrovněmi ochrany:
 \begin{itemize}
 \item Když potřebujeme vyřešit spolupráci s periférií na základě přerušení.
 \item Když uživatelský program chce použít HW (zapsat/číst do/z souboru, poslat paket po síti, atd.) --
-Pro tuto činost potřeujeme speciální instrukci ecal - systémové volání.
+Pro tuto činnost potřebujeme speciální instrukci ecal - systémové volání.
 \end{itemize}
 \item Nesmíme dovolit spustit uživatelský program v módu M nebo S
 \item Adresa pro přechod do S módu je uvedena v registru stvec a pro přechod do M módu mtvec
@@ -991,7 +991,7 @@ Jak přechází RISC V mezi úrovněmi ochrany:
 \item Speciální instrukce mret a sret, které zajistí přechod do nižší úrovně.
 \item Úroveň je nastavena v systémovém registru sstatus.mpp nebo sstatus.spp.
 \item Adresa, kam se má skočit instrukcí je v registru mepc nebo sepc.
-\item Tento přechod je vlastně návratem s obluhy přerušení, nebo systémového volání
+\item Tento přechod je vlastně návratem s obsluhy přerušení, nebo systémového volání
 \begin{itemize}
 \item I v případě startu, kdy nikdo systémové volání nezavolal.
 \end{itemize}
