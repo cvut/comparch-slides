@@ -1,0 +1,15 @@
+/*.aux
+/*.log
+/*.snm
+/*.gz
+/*.nav
+/*.out
+/*.toc
+/*.upa
+/*.vrb
+/*.fls
+/*.dep
+/anim
+/_minted*
+moddate.tex
+/linuxdays-2026-virtmem-qtrvsim.pdf
