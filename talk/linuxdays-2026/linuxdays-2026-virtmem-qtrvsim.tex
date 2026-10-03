@@ -6,11 +6,11 @@
 \usepackage{listings}
 \usepackage{array,multirow}
 
-\title{Virtual memory in RISC-V}
+\title{Výuka s RISC-V od instrukce po virtuální paměť, QtRvSim i FPGA}
 \subtitle{LinuxDays 2026}
 \author{Pavel Píša \phantom{xxxxxxxxx} Petr Štěpán \\ \small\texttt{pisa@fel.cvut.cz}\phantom{xxxx}\small\texttt{stepan@fel.cvut.cz}\\ \phantom{xxx} \\
-based on B35APO slides \\
-and the bachelor thesis virtual memory for QtRvSim by Adam Němec  \\
+založené na 10. přednášce z předmětu B35APO -- Architektura počítačů na ČVUT FEL \\
+a bakalářské práci Adama Němce implementující MMU pro QtRvSim \\
 License: CC-BY-SA}
 \begin{document}
 
@@ -19,17 +19,17 @@ License: CC-BY-SA}
 \section{QtRvSim}
 
 \begin{frame}
-\frametitle{QtRVSim -- RISC-V CPU Simulator for Education Purposes}
+\frametitle{QtRVSim -- simulátor RISC-V procesoru pro výku principů počítačů }
 
 \begin{columns}
 \begin{column}{0.68\textwidth}
 
 \begin{itemize}
-\item RISC-V simulator with processor pipeline, cache and branch predictor visualization
-\item A tool to support understanding computer architectures principles
-\item Authors: Karel Kočí, Pavel Píša, Jakub Dupák, Jiří Štefan, Adam Němec
-\item It will be used for interactive demonstrations during presentation
-\item Online simulator version, links to downloads and related \\ Czech Technical University in Prague materials and courses links \\ \url{https://comparch.edu.cvut.cz/}
+\item Simulátor RISC-V procesoru s vizualizací průchodu instrukcí stupni zřetězeného zpracování, predikce skoků, stavu vyrovnávacích pamětí a dalších prvků
+\item Vytořený jako pomůcka pro pochopení principů činnosti a~architektury počítače
+\item Autoři: Karel Kočí, Pavel Píša, Jakub Dupák, Jiří Štefan, Adam Němec
+\item Simulátor bude použitý v interaktiních demonstarcích během přednášky
+\item Online verze simulátoru a odkazy na stažení desktopových verzí a další materiály souvisejících předmětů na Českém vysokém učení v Praze \url{https://comparch.edu.cvut.cz/}
 \end{itemize}
 
 \end{column}
@@ -45,9 +45,9 @@ License: CC-BY-SA}
 
 
 \begin{frame}
-\frametitle{QtRVSim - Download and Presentations}
+\frametitle{QtRVSim - odkazy na zdroje a prezentace}
 \begin{itemize}
-\item Windows, Linux, Mac \url{https://github.com/cvut/qtrvsim/releases}
+\item Instalace Windows, Linux, Mac \url{https://github.com/cvut/qtrvsim/releases}
 \item  Ubuntu \url{https://launchpad.net/~qtrvsimteam/+archive/ubuntu/ppa}
 \item Suse, Fedora and Debian \url{https://software.opensuse.org/download.html?project=home\%3Ajdupak\&package=qtrvsim}
 \item Online version \url{https://comparch.edu.cvut.cz/qtrvsim/app/}
@@ -117,7 +117,7 @@ Pro tuto činnost potřebujeme speciální instrukci ecall - systémové volán�
 \end{itemize}
 \item Nesmíme dovolit spustit uživatelský program v módu M nebo S
 \item Adresa pro přechod do S módu je uvedena v registru stvec a pro přechod do M módu mtvec
-\item lze nastavit, zda se vybrané přerušení bude obsluhovat v M nebo S módu
+\item Lze nastavit, zda se vybrané přerušení bude obsluhovat v M nebo S módu
 \end{itemize}
 \end{itemize}
 
@@ -165,7 +165,7 @@ Jak přechází RISC V mezi úrovněmi ochrany:
 \end{itemize}
  \item do registru \texttt{mepc} nastavíme, jakou adresu chceme v U módu spustit
 \begin{itemize}
- \item opět tento registr slouží k zaznamenání adresy, ze které například přerušením se spustil program v M módu
+ \item opět tento registr slouží k zaznamenání adresy instrukce, která vyvolala výjimku nebo byla přerušena, před spuštěním obsluhy v M módu
 \end{itemize}
  \item provedení instrukce mret nás přepne do U módu na adresu mepc
 \end{itemize}
@@ -180,9 +180,9 @@ Pro přechod do S nebo M módu z U módu se musí nejdříve v M/S módu nastavi
 \begin{itemize}
 \item \texttt{stvec} nebo \texttt{mtvec} adresu programu, který se bude spouštět při všech přepnutích
  \begin{itemize}
- \item jedná se o jeden program, který zjistí co se stalo (HW přerušení, výjimka, ecall) a v případě ecall podle hodnoty registru a7 rozlišuje, co uživatel chce provést
+ \item jedná se o jednu oblsužnou rutinu, která zjistí, co se stalo (HW přerušení, výjimka, ecall) a v případě ecall podle hodnoty registru a7 rozlišuje, co uživatel chce provést
  \end{itemize}
-\item pokud chceme přecházet do S módu, musíme nastavit v registru \texttt{medeleg} přepnutí obsluhy v S módu
+\item pokud chceme přecházet z U módu do S módu, musíme nastavit v registru \texttt{medeleg} přepnutí obsluhy dané výjimky v S módu
 \item na závěr povolíme přechody do S nebo M módu v registru \texttt{sstatus}, nebo \texttt{mstatus}
 \end{itemize}
 
@@ -221,7 +221,7 @@ Uživatelský program nastaví parametry volání do registrů vyvolá speciáln
 OS podle čísla systémového volání zavolá odpovídající funkci.
 
 \begin{center}
-  \includegraphics[width=0.95\textwidth]{generated/io/irq/irq-and-os-cz.pdf}
+  \includegraphics[width=0.95\textwidth,height=0.7\textheight,keepaspectratio]{generated/io/irq/irq-and-os-cz.pdf}
 \end{center}
 
 Návrat ze systémového volání odpovídá návratu z přerušení/výjimky (na RISC-V většinou \texttt{sret}).
@@ -297,7 +297,7 @@ Cíle virtualizace:
 \begin{itemize}
  \item Ochrana jádra operačního systému
  \begin{itemize}
- \item část virtuálního prostoru je chráněna proti přístupu v U - módu
+ \item část virtuálního prostoru je chráněna proti přístupu v U módu
  \item tato část prostoru je přístupná pouze z S nebo M módu
 \end{itemize}
 \item Izolace procesů
@@ -437,8 +437,6 @@ Dvou-úrovňová stránkovací tabulka
 \item rozdělíme tabulku stránek na 1024 malých tabulek, každá obsahuje 1024 položek
 \item pokud by malá tabulka měla pouze nulové hodnoty, nemusí existovat a zabírat paměť.
 \item přidáme další nadřazenou tabulku, která obsahuje 1024 položek, zda existuje odpovídající malá tabulka a ve kterém rámci tato malá tabulka je
-\begin{itemize}
-\end{itemize}
 \end{itemize}
 \end{itemize}
 \end{column}
@@ -703,7 +701,7 @@ Fyzicky jsou ale zdrojová data na adrese 0x1000 a kopírovat se budou do fyzick
 Dalším krokem je nastavení módu virtualizace, nastavíme stránkování typ Sv32:
 \begin{itemize}
 \item v registru satp (Supervisor Address Translation and Protection) nastavíme mód na vybranou hodnotu, tedy Sv32
-\item jakmile je registr satp nastaven na nenulovou hodnotu módu, překlad adres a ochrana paměti je spuštěn pro S a U mód
+\item jakmile je registr satp nastaven na nenulovou hodnotu módu, překlad adres a ochrana paměti jsou spuštěné pro S a U módy
 \begin{itemize}
 \item M mód má neustále přímý přístup do paměti
 \end{itemize}
@@ -737,7 +735,7 @@ Dalším krokem je nastavení módu virtualizace, nastavíme stránkování typ 
 \small
 Po přepnutí do S módu spustíme náš program, který bude mít text programu na virtuální adrese 0x200 a data na virtuálních adresách 0x6000 a 0x7000.
 
-Žádné další stránky nejsou namapovány, takže nelze žádný jiný program, než náš spustit
+Žádné další stránky nejsou namapovány, takže nelze žádný jiný program, než ten náš, spustit
 \begin{itemize}
 \item Přepnutí do U/S módu provedeme instrukcí mret tak, že nejdříve nastavíme na jakou adresu se přepneme
 \item dále nastavíme, který mód po mret bude vybrán
@@ -942,6 +940,28 @@ Proč nevzít rovnou 64 bitů virtuálního prostoru?
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Konec prezentace a zopakování odkazu na simulátor QtRVSim a materiály }
+
+\begin{columns}
+\begin{column}{0.68\textwidth}
+
+Online verze simulátoru, odkazy na stažení desktopových verzí a další materiály souvisejících předmětů na Českém vysokém učení v Praze
+
+\vskip 5mm
+
+\url{https://comparch.edu.cvut.cz/}
+
+\end{column}
+\hfill
+\begin{column}{0.30\textwidth}
+
+\begin{center}
+\includegraphics[width=0.9\linewidth]{generated/simulator/qtrvsim-logo.pdf}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
 
 
 \end{document}
