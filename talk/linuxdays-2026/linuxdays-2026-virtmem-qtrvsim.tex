@@ -26,7 +26,7 @@ License: CC-BY-SA}
 
 \begin{itemize}
 \item RISC-V simulator with processor pipeline, cache and branch predictor visualization
-\item An tool to support understanding computer architectures principles
+\item A tool to support understanding computer architectures principles
 \item Authors: Karel Kočí, Pavel Píša, Jakub Dupák, Jiří Štefan, Adam Němec
 \item It will be used for interactive demonstrations during presentation
 \item Online simulator version, links to downloads and related \\ Czech Technical University in Prague materials and courses links \\ \url{https://comparch.edu.cvut.cz/}
@@ -39,9 +39,7 @@ License: CC-BY-SA}
 \begin{center}
 \includegraphics[width=0.9\linewidth]{generated/simulator/qtrvsim-logo.pdf}
 \end{center}
-
 \end{column}
-\hfill
 \end{columns}
 \end{frame}
 
@@ -55,31 +53,34 @@ License: CC-BY-SA}
 \item Online version \url{https://comparch.edu.cvut.cz/qtrvsim/app/}
 \item \textit{QtRvSim - RISC-V Simulator with Cache and Pipeline Visualization}, RISC-V International Academic and Training SIG meeting, 2023, recording \url{https://youtu.be/J6AcPZZ_ISg}
 \item \textit{QtRVSim—Education from Assembly to Pipeline, Cache Performance, and C Level Programming}, FOSDEM 2023, Brussels, \url{https://fosdem.org/2023/schedule/event/rv_qtrvsim/}
-\item Dupák, J.; Píša, P.; Štepanovský, M.; Kočí, K.: \textit{QtRVSim – RISC-V Simulator for Computer Architectures Classes}, In: embedded world Conference 2022, Haar: WEKA FACHMEDIEN GmbH, 2022. p. 775-778. ISBN 978-3-645-50194-1. (\href{https://comparch.edu.cvut.cz/publications/ewC2022-Dupak-Pisa-Stepanovsky-QtRvSim.pdf}{PDF}) (\href{https://comparch.edu.cvut.cz/slides/ewc22-qtrvsim.pdf}{Slides})
+\item Dupák, J.; Píša, P.; Štěpanovský, M.; Kočí, K.: \textit{QtRVSim – RISC-V Simulator for Computer Architectures Classes}, In: embedded world Conference 2022, Haar: WEKA FACHMEDIEN GmbH, 2022. p. 775-778. ISBN 978-3-645-50194-1. (\href{https://comparch.edu.cvut.cz/publications/ewC2022-Dupak-Pisa-Stepanovsky-QtRvSim.pdf}{PDF}) (\href{https://comparch.edu.cvut.cz/slides/ewc22-qtrvsim.pdf}{Slides})
 
 \end{itemize}
 \end{frame}
 
-\section{Processor}
-
+\section{Módy procesoru}
 
 \begin{frame}
-\frametitle{Základy ochrany programů}
+\frametitle{Základ operačního systému}
 
+Moderní operační systém se neobejde bez dvou základních funkcí procesoru:
 \begin{itemize}
-\item Potřebujeme zabezpečit program a operační systém tak, aby chyba uživatelských programů nemohla narušit běh ostatních programů.
+\item uživatelský a systémový mód procesoru.
 \begin{itemize}
-\item Je nutné zajistit bezpečnost dat - nemožnost přečíst tajné informace, klíče, atd.
-\item Všechna data musí být dosažitelná pouze oprávněným uživatelem.
+\item Uživatelský mód zajistí, že uživatelské programy nemohou číst ani měnit nastavení systému - nemožnost přečíst tajné informace, klíče, atd.
+\item Systémový mód zajistí, že jádro operačního systému (často bohužel i ovladače HW) může všechno
 \end{itemize}
-\item Procesor potřebuje zakázat běžným programům měnit nastavení systému, které je klíčové pro vzájemnou ochranu uživatelských procesů a JOS.
+\item Virtualizace paměti
 \begin{itemize}
-\item v příští lekci se podíváme co je stránkování a jak lze pomocí stránkování zabezpečit přístup k paměti
+\item je řešením, jak oddělit systémovou část paměti a uživatelské programy
+\item navíc lze oddělit i uživatelské procesy navzájem
 \end{itemize}
-\item Různé procesory používají k ochraně programů různé přístupy.
-\item V této lekci si probereme přístup RISC V procesoru
 \end{itemize}
+Různé procesory používají k ochraně programů různé přístupy.
+
+My si probereme přístup RISC-V procesoru
 \end{frame}
+
 
 
 \begin{frame}
@@ -104,15 +105,15 @@ Jak přechází RISC V mezi úrovněmi ochrany:
 \item Zvýšení úrovně
 \begin{itemize}
 \item Přechod U $\rightarrow$ S, U $\rightarrow$ M nebo S $\rightarrow$ M
-\item Nejnebezpečnější jsou přechody U $\rightarrow$ S, U $\rightarrow$ M.
 \begin{itemize}
-\item Musíme zabránit běžet uživatelskému programu v módu S nebo M
+\item Nejnebezpečnější jsou přechody U $\rightarrow$ S, U $\rightarrow$ M.
+\item Musíme zabránit tomu, aby uživatelský program běžel v módu S nebo M
 \end{itemize}
 \item Kdy je potřeba použít S nebo M mód?
 \begin{itemize}
 \item Když potřebujeme vyřešit spolupráci s periférií na základě přerušení.
 \item Když uživatelský program chce použít HW (zapsat/číst do/z souboru, poslat paket po síti, atd.) --
-Pro tuto činnost potřebujeme speciální instrukci ecal - systémové volání.
+Pro tuto činnost potřebujeme speciální instrukci ecall - systémové volání.
 \end{itemize}
 \item Nesmíme dovolit spustit uživatelský program v módu M nebo S
 \item Adresa pro přechod do S módu je uvedena v registru stvec a pro přechod do M módu mtvec
@@ -132,14 +133,14 @@ Jak přechází RISC V mezi úrovněmi ochrany:
 \item Snížení úrovně
 \begin{itemize}
 \item Přechod M $\rightarrow$ S, M $\rightarrow$ U nebo S $\rightarrow$ U
-\item Toto není tak nebezpečně, snížení úrovně je vždy lepší.
 \begin{itemize}
-\item Snížení úrovně znamená omezení práv
+\item Toto není nebezpečné.
+\item Snížení úrovně znamená ztrátu některých práv.
 \end{itemize}
-\item Speciální instrukce mret a sret, které zajistí přechod do nižší úrovně.
-\item Úroveň je nastavena v systémovém registru sstatus.mpp nebo sstatus.spp.
-\item Adresa, kam se má skočit instrukcí je v registru mepc nebo sepc.
-\item Tento přechod je vlastně návratem s obsluhy přerušení, nebo systémového volání
+\item Speciální instrukce \texttt{mret} a \texttt{sret}, které zajistí přechod do nižší úrovně.
+\item Úroveň je nastavena v systémovém registru \texttt{mstatus.mpp} nebo \texttt{sstatus.spp}.
+\item Adresa, kam se má instrukce skočit je v registru \texttt{mepc} nebo \texttt{sepc}.
+\item Tento přechod je vlastně návratem z obsluhy přerušení, nebo systémového volání
 \begin{itemize}
 \item I v případě startu, kdy nikdo systémové volání nezavolal.
 \end{itemize}
@@ -150,21 +151,21 @@ Jak přechází RISC V mezi úrovněmi ochrany:
 
 
 \begin{frame}
-\frametitle{Přepnuí do U módu}
+\frametitle{Přepnutí do U módu}
 
 \begin{itemize}
  \item Po zapnutí procesoru je vždy nastaven M mód (Machine mód)
 \item Přepnutí do U módu se provede takto
  \begin{itemize}
- \item do registru mstatus nastavíme, že se chceme přepnout do U módu, hodnota 0 v poli MPP (Machine Previous Privilige)
+ \item do registru \texttt{mstatus} nastavíme, že se chceme přepnout do U módu, hodnota 0 v poli \texttt{MPP} (Machine Previous Privilege)
 \begin{itemize}
- \item Poznámka: register slouží k zaznamenání módu, ze kterého jsme se dostali do M módu, abychom se tam mohli vrátit
- \item Protože náš procesor se právě spustil, přepnutí do U módu simulujeme jakoby návratem do U módu instrukcí mret
- \item Pokud bychom se chtěli přepnout do S módu nastavili bychom do MPP 1
+ \item Poznámka: registr slouží k zaznamenání módu, ze kterého jsme se dostali do M módu, abychom se tam mohli vrátit
+ \item Protože náš procesor se právě spustil, přepnutí do U módu simulujeme jakoby návratem do U módu instrukcí \texttt{mret}
+ \item Pokud bychom se chtěli přepnout do S módu nastavili bychom do \texttt{MPP=1}
 \end{itemize}
- \item do registru mepc nastavíme, jakou adresu chceme v U módu spustit
+ \item do registru \texttt{mepc} nastavíme, jakou adresu chceme v U módu spustit
 \begin{itemize}
- \item opět tento register slouží k zaznamenání adresy, ze které například přerušením se spustil program v M módu
+ \item opět tento registr slouží k zaznamenání adresy, ze které například přerušením se spustil program v M módu
 \end{itemize}
  \item provedení instrukce mret nás přepne do U módu na adresu mepc
 \end{itemize}
@@ -175,19 +176,19 @@ Jak přechází RISC V mezi úrovněmi ochrany:
 \begin{frame}
 \frametitle{Přepnutí do S/M módu příklad}
 
-Pro návrat do S nebo M módu z U módu se musí nejdříve v M/S módu nastavit
+Pro přechod do S nebo M módu z U módu se musí nejdříve v M/S módu nastavit jediná vstupní adresa, která se vykoná v M/S módu:
 \begin{itemize}
-\item stvec nebo mtvec adresu programu, který se bude spouštět při všech přepnutích
+\item \texttt{stvec} nebo \texttt{mtvec} adresu programu, který se bude spouštět při všech přepnutích
  \begin{itemize}
- \item jedná se o jeden program, který zjistí co se stalo (HW přerušení, vyjímka, ecall) a v případě ecall podle hodnoty registru a7 rozlišuje, co uživatel chce provést
+ \item jedná se o jeden program, který zjistí co se stalo (HW přerušení, výjimka, ecall) a v případě ecall podle hodnoty registru a7 rozlišuje, co uživatel chce provést
  \end{itemize}
-\item pokud chceme přecházet do S módu, musíme nastavit v registru medeleg přepnutí obsluhy v S módu
-\item na závěr povolíme přechody do S nebo M módu v registru sstatus, nebo mstatus
+\item pokud chceme přecházet do S módu, musíme nastavit v registru \texttt{medeleg} přepnutí obsluhy v S módu
+\item na závěr povolíme přechody do S nebo M módu v registru \texttt{sstatus}, nebo \texttt{mstatus}
 \end{itemize}
 
 Uživatelský program:
 \begin{itemize}
-\item provedení instrukce ecall přepne procesor do S/M módu a spustí nastavený program
+\item provedení instrukce \texttt{ecall} přepne procesor do S/M módu (podle \texttt{medeleg}) a spustí nastavený program (\texttt{stvec}/\texttt{mtvec})
 \end{itemize}
 \end{frame}
 
@@ -203,11 +204,11 @@ Uživatelský program:
 \item Systémové volání se vybírá číslem systémového volání.
 \item Vlastní zavolání funkce je vyvolání přerušení nebo výjimky specializovanou instrukcí:
 \begin{itemize}
-\item x86 -- používá přímo int 0x80 -- vyvolej přerušení číslo 0x80.
-\item x86 -- nověji specializované instrukce sysenter/syscall -- podobný mechanizmus, ale nevyužívá uživatelský zásobník, složitý mechanizmus bran a přistupuje k méně paměti $\rightarrow$ je rychlejší.
-\item RISC-V -- specializovaná instrukce ecall -- obdobně jako při přerušení.
+\item x86 -- 32 bitů používá přímo \texttt{int 0x80} -- vyvolej přerušení číslo 0x80.
+\item x86 -- nověji specializované instrukce \texttt{sysenter/syscall} -- podobný mechanizmus, ale nevyužívá uživatelský zásobník, složitý mechanizmus bran a přistupuje k méně paměti $\rightarrow$ je rychlejší.
+\item RISC-V -- specializovaná instrukce \texttt{ecall} -- obdobně jako při přerušení.
 \end{itemize}
-\item Při přerušení/výjimce se volá obslužná rutina v privilegovaném řežimu (typicky systémovém) z adresy, která je nastavená OS (na RISC-V registry \texttt{mtvec}/\texttt{stvec}), uživatel ji nemůže měnit.
+\item Při přerušení/výjimce se volá obslužná rutina v privilegovaném režimu (typicky systémovém) z adresy, která je nastavená OS (na RISC-V registry \texttt{mtvec}/\texttt{stvec}), uživatel ji nemůže měnit.
 \end{itemize}
 \end{frame}
 
@@ -245,7 +246,7 @@ Návrat ze systémového volání odpovídá návratu z přerušení/výjimky (n
 \item systémové volání se provede instrukcí \texttt{ecall}
 \item \texttt{a0} obsahuje návratovou hodnotu systémového volání
 \begin{itemize}
-\item pokud by mělo vracet více dat (např. čtení ze souboru) musí uživatel zadat ukazetel na buffer a velikost bufferu, kam OS zapíše data.
+\item pokud by mělo vracet více dat (např. čtení ze souboru) musí uživatel zadat ukazatel na buffer a velikost bufferu, kam OS zapíše data.
 \end{itemize}
 \end{itemize}
 \end{itemize}
@@ -253,17 +254,23 @@ Návrat ze systémového volání odpovídá návratu z přerušení/výjimky (n
 
 \begin{frame}[fragile]
 \frametitle{Příklad Hello world!}
-
-\begin{minted}[fontsize=\footnotesize]{gas}
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{minted}[fontsize=\small]{gas}
 .global _start
 .text
 _start:
 #   write(1, "Hello world!\n", 13);
    addi  a7, zero, 64
    addi  a0, zero, 1
-   la    a1, zero, text_1
+   la    a1, text_1
    addi  a2, zero, 13
    ecall
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+\begin{minted}[fontsize=\small]{gas}
 final:
 #   exit(0);
    addi  a7, zero, 93
@@ -275,16 +282,16 @@ final:
 # store ASCII text, no termination
 text_1: .ascii "Hello world!\n"
 \end{minted}
+\end{column}
+\end{columns}
 \end{frame}
-
-
 
 
 \section{Virtuální paměť}
 
 
 \begin{frame}
-\frametitle{Virtualizace paměti}
+\frametitle{Cíle virtualizace paměti}
 
 Cíle virtualizace:
 \begin{itemize}
@@ -295,16 +302,16 @@ Cíle virtualizace:
 \end{itemize}
 \item Izolace procesů
  \begin{itemize}
- \item Každý proces - běžící program - má svůj virtuální prostor.
+ \item Každý proces -- běžící program -- má svůj virtuální prostor.
  \item Proces se pohybuje pouze ve virtuálním prostoru.
- \item Součástí virtuálního prostoru je i paměť rezervovaná pro OS, aby mohl procesor skočit na obsluhu vyjímky a přerušení.
+ \item Součástí virtuálního prostoru je i paměť rezervovaná pro OS, aby mohl procesor skočit na obsluhu výjimky a přerušení.
 \end{itemize}
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Virtualizace paměti}
+\frametitle{Cíle virtualizace paměti}
 
 Další cíle virtualizace:
 \begin{itemize}
@@ -328,9 +335,11 @@ Další cíle virtualizace:
 
 
 \begin{frame}
-\frametitle{Virtualizace paměti}
+\frametitle{Virtualizace paměti -- stránkování}
 
-Základní princip stránkování jako nejpoužívanější způsob virtualizace paměti
+Nejpoužívanějším způsobem virtualizace je stránkování.
+
+Základní princip stránkování:
 \begin{itemize}
 \item paměť se rozdělí na stejně veliké části
 \begin{itemize}
@@ -338,32 +347,50 @@ Základní princip stránkování jako nejpoužívanější způsob virtualizace
 \item část fyzické paměti se nazývá rámec - frame.
 \end{itemize}
 \item velikost stránky a rámce je stejná a bývá 4 kiB tedy 4096 bajtů.
-\item stránku lze umístit do libovolného rámce
-\item umístění stránky do rámce se definuje pomocí tabulky stránek (page table):
-\begin{itemize}
- \item tabulka má položku pro každou stránku
- \item položka obsahuje:
-\begin{itemize}
- \item příznaky zda je stránka ve fyzické paměti
- \item příznaky přístupu R, W, X, U
- \item číslo rámce fyzické paměti
-\end{itemize}
-\end{itemize}
+\item díky tomu lze stránku umístit do libovolného rámce
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Virtualizace paměti}
+\frametitle{Virtualizace paměti -- stránkování}
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+Základní princip stránkování:
+\begin{itemize}
+\item umístění stránky do rámce se definuje pomocí tabulky stránek (page table):
+\begin{itemize}
+ \item tabulka má položku pro každou stránku
+ \item položka obsahuje:
+\begin{itemize}
+ \item příznak V (validity bit), zda je stránka ve fyzické paměti
+ \item příznaky přístupu R, W, X, U, a další
+ \item číslo rámce fyzické paměti
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.55\textwidth}
+ \includegraphics[width=\textwidth]{generated/memory/paging/paging-1level-cz.pdf}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Princip stránkování}
 
 Princip stránkování
 \begin{itemize}
 \item paměť se rozdělí od počátku na stejně velké části, většinou $4kiB = 4096B$
 \begin{itemize}
 \item každá část paměti začíná na adrese $k \cdot 4096$ a končí na adrese $k \cdot 4096 + 4095$
-\item pro zjištění čísla stránky se využije operace $adr // 4096 = adr >> 12$
+\item pro zjištění čísla stránky/rámce se využije operace $adr // 4096 = adr >> 12$
 \end{itemize}
-\item velikost tabulky je dána velikostí virtuálního prostoru
+\item velikost tabulky je dána velikostí virtuálního prostoru, protože každá stránka musí mít položku ve stránkovací tabulce:
 \begin{itemize}
 \item velikost 32-bitového virtuálního prostoru je $2^{32} = 4\text{GiB}$
 \item počet stránek $\frac{2^{32}}{2^{12}} = 2^{20} = 1\text{Mi} = 1024 \cdot 1024$
@@ -383,9 +410,9 @@ Princip stránkování
 
 
 \begin{frame}
-\frametitle{Virtualizace paměti}
+\frametitle{Stránkovací tabulka}
 
-Stránkovací tabulka
+Dvou-úrovňová stránkovací tabulka
 \begin{itemize}
 \item velikost stránkovací tabulky je nepřiměřeně velká
 \item většina položek je zbytečná, obsahuje samé 0
@@ -394,6 +421,16 @@ Stránkovací tabulka
 \item ostatní stránky nejsou použity a nejsou mapovány do fyzické paměti
 \end{itemize}
 \item tabulka stránek se rozdělí na stejně veliké podtabulky a přidá se nová úroveň -- tabulka, která bude určovat, zda a kde odpovídající podtabulka existuje
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Stránkovací tabulka}
+
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\begin{itemize}
 \item Adresní prostor Sv32 -- 32bitové ukazatele, 32bitový prostor
 \begin{itemize}
 \item počet stránek $\frac{2^{32}}{2^{12}} = 2^{20} = 1\text{Mi} = 1024 \cdot 1024$
@@ -401,15 +438,25 @@ Stránkovací tabulka
 \item pokud by malá tabulka měla pouze nulové hodnoty, nemusí existovat a zabírat paměť.
 \item přidáme další nadřazenou tabulku, která obsahuje 1024 položek, zda existuje odpovídající malá tabulka a ve kterém rámci tato malá tabulka je
 \begin{itemize}
-\item všiměte si, že velikost malé tabulky i velikost nadřazené tabulky je přesně velikost rámce!
 \end{itemize}
 \end{itemize}
 \end{itemize}
+\end{column}
+\begin{column}{0.55\textwidth}
+ \includegraphics[width=\textwidth]{generated/memory/paging/risc-v-paging-sv32-cz.pdf}
+\end{column}
+\end{columns}
+Všiměte si, že velikost malé tabulky i velikost nadřazené tabulky je přesně velikost rámce ($4 \cdot 1024=4096$ bajtů)!
 \end{frame}
 
 
+
+
 \begin{frame}
-\frametitle{Virtualizace paměti}
+\frametitle{RISC V Sv32}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{generated/memory/paging/item-sv32.pdf}
+\end{center}
 
 Položka stránkovací tabulky
 \begin{itemize}
@@ -417,8 +464,8 @@ Položka stránkovací tabulky
 \item potřebujeme zakódovat číslo rámce:
 \begin{itemize}
 \item číslo rámce má v Sv32 -- 22 bitů
-\item to znamená, že velikost fyzické paměti může být až $12 + 22 = 34$ tedy 16 GiB
-\item K čemu je to dobré, když program může využít maximálně 4 GiB (každá virtuání adresa má pouze 32 bitů)?
+\item to znamená, že velikost fyzické paměti může být až $22 + 12 = 34$ tedy 16 GiB (k číslu rámce přidáme posun uvnitř stránky)
+\item K čemu je to dobré, když program může využít maximálně 4 GiB (každá virtuální adresa má pouze 32 bitů)?
 \begin{itemize}
 \item V počítači může běžet hodně programů a celkové využití paměti tedy lehce přesáhne 4 GiB
 \end{itemize}
@@ -433,16 +480,67 @@ Položka stránkovací tabulky
 \end{frame}
 
 
+\section{Virtualizace paměti -- příklad}
 
 \begin{frame}
 \frametitle{Virtualizace paměti - příklad}
 
+Abychom mohli použít stránkování v 32 bitovém procesoru musíme provést následující kroky:
+\begin{itemize}
+\item Inicializujeme stránkovací tabulku
+\begin{itemize}
+\item Do virtuálního prostoru namapujeme program, abychom měli kam skočit
+\item Připravíme si také data, abychom se o ně pak nemuseli starat
+\end{itemize}
+\item Nastavíme v registru satp číslo rámce, ve kterém se nachází kořenová tabulka úrovně 1
+\item Nastavíme v registru satp, že se má používat virtualizace v U i S módu
+\item Přepneme se do U nebo S módu
+\begin{itemize}
+\item předpokládáme, že se procesor právě spustil a nachází se v M módu
+\item v M módu nelze použít virtualizaci paměti
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Virtualizace -- příklad}
+
+Připravili jsme si jednoduchý program, který bude kopírovat data z jedné stránky do druhé.
+
+\begin{columns}
+\begin{column}{0.55\textwidth}
 Nejdříve musíme vytvořit a inicializovat stránkovací tabulku
 \begin{itemize}
 \item Vytvoříme si dvě místa v paměti, která musí začínat na násobcích 4096 a obsahovat 4096 bajtů
 \item První bude pro tabulku úrovně 1, tedy nadřazenou tabulku
 \item Druhá bude pro tabulku úrovně 0, tabulku, která už obsahuje informace o mapování virtuální paměti do fyzické paměti
 \end{itemize}
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+\begin{minted}[fontsize=\small]{gas}
+.org 0x3000
+# the page table directory
+# start to be set into satp
+l1_table:
+    .word 0, 0, 0, 0
+
+.org 0x4000
+# the last level page table
+# with PTE entries
+l0_table:
+    .word 0, 0, 0, 0
+\end{minted}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Inicializace stránkovací tabulky}
 
 Kolik paměti maximálně můžeme namapovat pomocí těchto dvou tabulek
 \begin{itemize}
@@ -454,20 +552,55 @@ Kolik paměti maximálně můžeme namapovat pomocí těchto dvou tabulek
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Virtualizace paměti - příklad}
 
-Nejdříve musíme vytvořit a inicializovat stránkovací tabulku
-\begin{itemize}
-\item Vytvoříme si dvě místa v paměti, která musí začínat na násobcích 4096 a obsahovat 4096 bajtů
-\item První bude pro tabulku úrovně 1, tedy nadřazenou tabulku
-\item Druhá bude pro tabulku úrovně 0, tabulku, která už obsahuje informace o mapování virtuální paměti do fyzické paměti
+
+\begin{frame}[fragile]
+\frametitle{Inicializace stránkovací tabulky - příklad}
+
+Nejdříve musíme propojit stránkovací tabulky (část funkce map\_page)
+\vspace{-0.4cm}
+\begin{columns}[t]
+\begin{column}{0.55\textwidth}
 \begin{itemize}
 \item Tabulky propojíme tak, že do tabulky úrovně 1 na první 4 bajty zapíšeme pozici tabulky úrovně 0.
-\item VPN = (adr(tab\_0) > > 12) < < 10
-\item a nastavení příznaku V, bity R,W,X musí být nulové (použito pro velké stránky 4 MiB).
+\item \texttt{PPN = (adr(l0\_table) >> 12) << 10}
+\item nastavení příznaku U a V, bity R,W,X musí být nulové (použito pro velké stránky 4 MiB).
 \end{itemize}
-\end{itemize}
+\begin{minted}[fontsize=\small]{gas}
+   # příprava položky do tabulky
+        la t5, l0_table
+        srli t5, t5, 12
+   # číslo rámce má 22 bitů
+        slli t5, t5, 10
+   # práva pro přístup
+        ori t5, t5, 0x11
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.45\textwidth}
+\begin{minted}[fontsize=\small]{gas}
+# t0 - virtual address
+    srli t1, t0, 22
+    andi t1, t1, 0x3ff
+# odkaz na l1_table[t1]
+# vynásob 4 - velikost položky
+    slli t1, t1, 2
+# přičti začátek tabulky
+    la t2, l1_table
+    add t3, t2, t1
+
+# ulož položku do tabulky
+    sw t5, 0(t3)
+\end{minted}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Inicializace stránkovací tabulky - příklad}
 
 Kterou část virtuální paměti můžeme díky tomuto propojení využít
 \begin{itemize}
@@ -479,79 +612,201 @@ Kterou část virtuální paměti můžeme díky tomuto propojení využít
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Virtualizace paměti - příklad}
+\begin{frame}[fragile]
+\frametitle{Plnění stránkovací tabulky - příklad}
 
 Nyní si do virtuálního prostoru namapujeme na stejné adresy program:
+\begin{columns}[t]
+\begin{column}{0.6\textwidth}
 \begin{itemize}
-\item Protože program začíná na adrese 0x200 a vejde se do 3584 bajtů (0x1000-0x200=0xE00=3584), tak stačí namapovat stránku 0 do rámce 0
-\item VPN = 0
+\item Protože program začíná na adrese 0x200 a vejde se do 3584 bajtů (0x1000-0x200=0xE00=3584), tak stačí namapovat jednu stránku 0 do rámce 0
+\item VPN = 0, PPN = 0
 \item práva musíme nastavit X pro možnost vykonávání programu
 \end{itemize}
 
-Náš ukázkový program kopíruje data z virtuální adresy 0x6000 na adresu 0x7000. Fyzicky jsou ale zdrojová data na adrese 0x1000 a kopírovat se budou do fyzické paměti 0x2000.
+\begin{minted}[fontsize=\small]{gas}
+  # t0 virtuální adresa
+      srli t1, t0, 12
+      andi t1, t1, 0x3ff
+  # odkaz na l0_table[t1]
+      slli t1, t1, 2
+      la t2, l0_table
+      add t3, t2, t1
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+
+\begin{minted}[fontsize=\small]{gas}
+  # setup page table entry (PTE)
+      srli t4, a1, 12
+      slli t4, t4, 10
+
+  # setup page privileges in PTE
+  # D = 0, A = 0, G = 0, U = 1
+  # X = 1, W = 1, R = 1, V = 1
+      li t5, 0x1f
+      or t4, t4, t5
+      sw t4, 0(t3)
+\end{minted}
+
+\end{column}
+\end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Plnění stránkovací tabulky - příklad}
+
+\begin{columns}[t]
+\begin{column}{0.6\textwidth}
+Náš ukázkový program kopíruje data z virtuální adresy 0x6000 na adresu 0x7000.
+
+Fyzicky jsou ale zdrojová data na adrese 0x1000 a kopírovat se budou do fyzické paměti 0x2000.
 \begin{itemize}
-\item Pro data si stránku 6 namapujeme do rámce 1 a stránku 7 do rámce 2
-\item práva můžeme nastavit pro data R,W pro obě stránky
+\item zavoláme map\_page VPN = 6, PPN = 1
+\item zavoláme map\_page VPN = 7, PPN = 2
+\item práva nastavíme pro data R,W pro obě stránky
 \begin{itemize}
 \item Pokud by zdroj dat byly konstanty, můžeme pro zdrojovou stránku nastavit pouze práva pro čtení a tím ochráníme data proti zápisu
 \end{itemize}
 \end{itemize}
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\begin{minted}[fontsize=\small]{gas}
+# map source_page to virtual
+# page address 0x6000
+    li a0, 0x6000
+    la a1, source_page
+    call map_page
 
+# map target_page to virtual
+# page address 0x7000
+    li a0, 0x7000
+    la a1, target_page
+    call map_page
+\end{minted}
+\end{column}
+\end{columns}
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Virtualizace paměti - příklad}
 
-Posledním krokem je nastavení módu stránkování Sv32:
+\begin{frame}[fragile]
+\frametitle{Zapnutí virtualizace paměti - příklad}
+
+\begin{columns}[t]
+\begin{column}{0.6\textwidth}
+Dalším krokem je nastavení módu virtualizace, nastavíme stránkování typ Sv32:
 \begin{itemize}
 \item v registru satp (Supervisor Address Translation and Protection) nastavíme mód na vybranou hodnotu, tedy Sv32
-\item jakmile je registr satp nastaven na nenulovou hodnotu módu, překlad adres a ochrana paměti je spuštěna pro S a U mód (M mód má neustále přímý přístup do paměti)
+\item jakmile je registr satp nastaven na nenulovou hodnotu módu, překlad adres a ochrana paměti je spuštěn pro S a U mód
+\begin{itemize}
+\item M mód má neustále přímý přístup do paměti
 \end{itemize}
+\end{itemize}
+\end{column}
+\hfill
+\begin{column}{0.4\textwidth}
+\begin{minted}[fontsize=\small]{gas}
+# PPN tabulky úrovně 1
+    la t0, l1_table
+    srli t0, t0, 12
 
-Po přepnutí do U módu spustíme náš program, který bude mít text programu na virtuální adrese 0x200 a data na virtuálních adresách 0x6000 a 0x7000. Žádné další stránky nejsou namapovány, takže nelze žádný jiný program, než náš spustit
+# Setup 32-bit RISC-V page
+# translation mode (Sv32)
+    li t1, 0x80000000
+    or t0, t0, t1
+
+    csrw satp, t0
+    sfence.wma
+\end{minted}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Zapnutí virtualizace paměti - příklad}
+
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\small
+Po přepnutí do S módu spustíme náš program, který bude mít text programu na virtuální adrese 0x200 a data na virtuálních adresách 0x6000 a 0x7000.
+
+Žádné další stránky nejsou namapovány, takže nelze žádný jiný program, než náš spustit
 \begin{itemize}
 \item Přepnutí do U/S módu provedeme instrukcí mret tak, že nejdříve nastavíme na jakou adresu se přepneme
-\item dále nastavíme, který mód po mret bude vybrán se přepneme
+\item dále nastavíme, který mód po mret bude vybrán
 \end{itemize}
-
-Nyní již náš program běží s virtualizací paměti, ve které vidí pouze program a zdrojová a cílová data.
+\begin{minted}[fontsize=\footnotesize]{gas}
+# adresa, kam se "vrátit" z M módu
+    la t0, s_mode_start
+    csrw mepc, t0
+\end{minted}
+\end{column}
+\hfill
+\begin{column}{0.5\textwidth}
+\vspace{-0.4cm}
+\begin{minted}[fontsize=\footnotesize]{gas}
+# načíst registr mstatus
+    csrr t1, mstatus
+# clear MPP
+    li t2, 0xffffe7ff  # ~(3 << 11)
+    and t1, t1, t2
+# MPP = S
+    li t2, 0x800       # (1 << 11)
+    or t1, t1, t2
+# SUM = 1 - enable CPU running in S-mode
+# to access pages mapped as unprivileged
+    li t2, 0x40000     # (1 << 18)
+    or  t1, t1, t2
+# uloží hodnotu do registru mstatus
+    csrw mstatus, t1
+# Switch CPU to S-mode, start S-mode code
+    mret
+\end{minted}
+\end{column}
+\end{columns}
+Nyní již náš program běží s virtualizací paměti v S módu procesoru.
 \end{frame}
 
 
 
-\begin{frame}
-\frametitle{Virtualizace paměti - příklad}
+%\begin{frame}
+%\frametitle{Virtualizace paměti - výhody}
+%
+%Jeden rámec fyzické paměti může být na více místech virtuální paměti
+%\begin{itemize}
+%\item Ukážeme si příklad Copy-on-write optimalizace
+%\begin{itemize}
+%\item Například při alokaci velké paměti (třeba 1GiB) a její inicializaci např. na 255 může OS v rámci šetření alokovat a inicializovat pouze jeden rámec na 255 a ve virtuálním prostoru nastaví všechny alokované stránky na tento jeden rámec
+%\item Rámec se musí nastavit jako read only, tedy bez příznaku W, a zápis do této virtuální paměti vytvoří chybu na jejímž základě OS zkopíruje data do nového rámce a pro tento danný přístup již nastaví ve virtuálním prostoru pouze pro tuto stránku nový rámec
+%\item Díky tomu se zátěž alokace a inicializace rozloží na dobu, kdy se do alokované paměti bude zapisovat. Pro čtení všichni vidí ty samé 255.
+%\end{itemize}
+%\item My si ukážeme, že cílovou paměť lze namapovat ještě na stránku např. 0x8000.
+%\item Při kopírování dat do cílové stránky se automaticky modifikuje i stránka 0x8000, protože sdílejí stejnou fyzickou paměť, která jediná obsahuje informace.
+%\end{itemize}
+%
+%\end{frame}
 
-Jeden rámec fyzické paměti může být na více místech virtuální paměti
-\begin{itemize}
-\item V navazujícím předmětu OSY si ukážeme praktické použití
-\begin{itemize}
-\item Například při alokaci velké paměti a její inicializaci na 0 může OS v rámci šetření alokovat a inicializovat pouze jeden rámec na 0 a ve virtuálním prostoru nastaví všechny alokované stránky na tento jeden rámec
-\item Rámec se musí nastavit jako read only, tedy bez příznaku W, a zápis do této virtuální paměti vytvoří chybu na jejímž základě OS zkopíruje data do nového rámce a pro tento danný přístup již nastaví ve virtuálním prostoru pouze pro tuto stránku nový rámec
-\item Díky tomu se zátěž alokace a inicializace rozloží na dobu, kdy se do alokované paměti bude zapisovat. Pro čtení všichni vidí ty samé 0.
-\end{itemize}
-\item My si ukážeme, že cílovou paměť lze namapovat ještě na stránku např. 0x8000.
-\item Při kopírování dat do cílové stránky se automaticky modifikuje i stránka 0x8000, protože sdílejí stejnou fyzickou paměť, která jediná obsahuje informace.
-\end{itemize}
-
-\end{frame}
-
-
-
+\section{Translation Lookaside Buffer}
 
 \begin{frame}
 \frametitle{Efektivita tabulky stránek}
 \begin{itemize}
 \item každý přístup do paměti znamená, že je potřeba převést číslo stránky na číslo rámce, to znamená číst z RAM
 \item jedna instrukce může číst i dvakrát z paměti z různých stránek
-\item jedna instrukce tedy potřebuje 4 přístupy do paměti
+\item jedna instrukce tedy potřebuje $2+2=4$ přístupy do paměti
+\item při dvouúrovňovém stránkování se jedná o $3+3=6$ přístupů do paměti
 \item přístup do pamět velmi zdržuje
 \end{itemize}
 
 \begin{center}
-\includegraphics[width=0.7\textwidth]{generated/memory/paging/no-tbl.pdf}
+\includegraphics[width=0.5\textwidth]{generated/memory/paging/no-tbl.pdf}
 \end{center}
 \end{frame}
 
@@ -575,7 +830,7 @@ Jeden rámec fyzické paměti může být na více místech virtuální paměti
 \begin{frame}
 \frametitle{Tabulka stránek}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{generated/memory/paging/page-table.pdf}
+\includegraphics[width=0.8\textwidth]{generated/memory/paging/page-table.pdf}
 \end{center}
 \end{frame}
 
@@ -585,8 +840,8 @@ Jeden rámec fyzické paměti může být na více místech virtuální paměti
 \begin{frame}
 \frametitle{Význam TLB}
 \begin{itemize}
-\item Skutečná přístupová doba -- Effective Access Time (EAT) -- 10--100 cyklů procesoru
-‏\item Přístupová doba TLB -- 0.5 -- 1 cyklus procesoru
+\item Přístupová doba do RAM obvykle 10--100 cyklů procesoru
+\item Přístupová doba TLB -- 0.5 -- 1 cyklus procesoru
 \item Neúspěšnost TLB, TLB miss -- 0.01 \% -- 1 \%
 \item Příklad:
 \begin{itemize}
@@ -608,11 +863,11 @@ Jeden rámec fyzické paměti může být na více místech virtuální paměti
 \item Intel Core i7 má 64 TLB položek L1 první úrovně a 1536 TLB položek L2 úrovně
 \item I pro malé TLB je úspěšnost nalezení položky 99--99.99\% (souvisí s principem lokality tj. prostorovou závislostí programů)
 \item Problém TLB je při změně procesu a tím i změně tabulky stránek
-\item Intel umožňuje speciálními instrukcemi ponechat stránku v TLB
+\item Procesory umožňují speciálními instrukcemi ponechat stránku v TLB
 \end{itemize}
 \end{frame}
 
-
+\section{64 bit mód}
 
 \begin{frame}
 \frametitle{64-bitový mód}
@@ -653,6 +908,7 @@ Co je nutné změnit pro 64-bitový mód?
 \item Existují 3-úrovně stránkovacích tabulek - kódováno $3 \cdot 9$ bity
 \item 12-bitů kóduje polohu uvnitř stránky
 \item Celkem tedy 39 bitů virtuální adresy
+\item Ostatní bity (nejvyšších 25 bitů) musí být rovny nejvyššímu použitému bitu (kanonický tvar adresy)
 \end{itemize}
 \end{itemize}
 
@@ -661,15 +917,22 @@ Proč nevzít rovnou 64 bitů virtuálního prostoru?
 
 
 \begin{frame}
-\frametitle{Stránkování Sv48, Sv 57}
+\frametitle{Stránkování Sv48, Sv57}
 
 \begin{itemize}
-\item Každá další úroveň přináši zpomalení, protože je nutné načítat další informaci z paměti.
+\item Každá další úroveň přináší zpomalení, protože je nutné načítat další informaci z paměti.
 \item Stránkování Sv48 zavádí 4-úrovně stránkovacích tabulek
 \begin{itemize}
 \item Kódováno $4 \cdot 9 + 12 = 48$ bitů adresy
 \item Velikost virtuálního prostoru je 256 TiB.
 \end{itemize}
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=0.6\linewidth]{generated/memory/paging/address-trans-4-levels.pdf}
+\end{center}
+
+\begin{itemize}
 \item Stránkování Sv57 zavádí 5-úrovní stránkovacích tabulek
 \begin{itemize}
 \item Kódováno $5 \cdot 9 + 12 = 57$ bitů adresy

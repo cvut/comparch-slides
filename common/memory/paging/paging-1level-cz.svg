@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="150.58234mm"
+   height="99.641235mm"
+   viewBox="0 0 150.58233 99.641235"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="paging-1level-cz.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="1.7140011"
+     inkscape:cx="414.81887"
+     inkscape:cy="116.97775"
+     inkscape:window-width="1586"
+     inkscape:window-height="961"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid132"
+       originx="32.176005"
+       originy="-30.137093" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Arrow1L"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Arrow1L"
+       markerWidth="8.75"
+       markerHeight="5"
+       viewBox="0 0 8.75 5"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="arrow1L"
+         transform="scale(-0.5)" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(32.176002,-30.137091)">
+    <rect
+       style="opacity:1;fill:none;stroke:#000000;stroke-width:0.264999;stroke-linejoin:round"
+       id="rect236"
+       width="55.856003"
+       height="5.2916656"
+       x="-32.043503"
+       y="44.979168"
+       ry="7.6293927e-06" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-7.9375"
+       y="48.947918"
+       id="text393"><tspan
+         sodipodi:role="line"
+         id="tspan391"
+         style="stroke-width:0.264583"
+         x="-7.9375"
+         y="48.947918"><tspan
+   style="fill:#5555ff"
+   id="tspan3906">VPN       </tspan>     <tspan
+   style="fill:#6600ff"
+   id="tspan6391">page offset</tspan></tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.264999;stroke-linejoin:round"
+       id="rect236-6"
+       width="41.014545"
+       height="5.2916617"
+       x="23.523119"
+       y="44.979168"
+       ry="7.6293927e-06" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.28588px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.142868"
+       x="32.553772"
+       y="89.989349"
+       id="text393-7-0"
+       transform="scale(0.96385143,1.0375043)"><tspan
+         sodipodi:role="line"
+         id="tspan391-5-9"
+         style="stroke-width:0.142868"
+         x="32.553772"
+         y="89.989349"><tspan
+   style="fill:#00ffcc"
+   id="tspan4779"> PPN         </tspan>  RSW<tspan
+   style="font-size:0.761962px;stroke-width:0.142868"
+   id="tspan610-3"> </tspan>D</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-5-0"
+       width="32.279167"
+       height="2.9645207"
+       x="18.520834"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-6-6"
+       width="4.6819186"
+       height="2.9645271"
+       x="50.881138"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-6-2-26"
+       width="1.6524421"
+       height="2.9645271"
+       x="55.563057"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-6-2-2-1"
+       width="1.6524421"
+       height="2.9645271"
+       x="57.2155"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-6-2-7-8"
+       width="1.6524421"
+       height="2.9645271"
+       x="58.867939"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-6-2-0-7"
+       width="1.6524421"
+       height="2.9645271"
+       x="60.520382"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.28588px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.142868"
+       x="59.552391"
+       y="89.932938"
+       id="text841-92"
+       transform="scale(0.96385143,1.0375043)"><tspan
+         sodipodi:role="line"
+         id="tspan839-0"
+         style="stroke-width:0.142868"
+         x="59.552391"
+         y="89.932938">A</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.28588px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.142868"
+       x="61.26408"
+       y="89.931816"
+       id="text841-9-2"
+       transform="scale(0.96385143,1.0375043)"><tspan
+         sodipodi:role="line"
+         id="tspan839-3-3"
+         style="stroke-width:0.142868"
+         x="61.26408"
+         y="89.931816">G</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.28588px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.142868"
+       x="62.949368"
+       y="89.916748"
+       id="text841-9-6-75"
+       transform="scale(0.96385143,1.0375043)"><tspan
+         sodipodi:role="line"
+         id="tspan839-3-0-9"
+         style="stroke-width:0.142868"
+         x="62.949368"
+         y="89.916748">U</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-6-2-0-6-2"
+       width="1.6524421"
+       height="2.9645271"
+       x="62.172821"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.28588px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.142868"
+       x="64.66378"
+       y="89.932938"
+       id="text841-9-6-2-2"
+       transform="scale(0.96385143,1.0375043)"><tspan
+         sodipodi:role="line"
+         id="tspan839-3-0-6-8"
+         style="stroke-width:0.142868"
+         x="64.66378"
+         y="89.932938">X</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-6-2-0-1-9"
+       width="1.6524421"
+       height="2.9645271"
+       x="63.825264"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.28588px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.142868"
+       x="66.378197"
+       y="89.932938"
+       id="text841-9-6-8-7"
+       transform="scale(0.96385143,1.0375043)"><tspan
+         sodipodi:role="line"
+         id="tspan839-3-0-7-3"
+         style="stroke-width:0.142868"
+         x="66.378197"
+         y="89.932938">W</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-6-2-0-9-6"
+       width="1.6524421"
+       height="2.9645271"
+       x="65.477707"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.28588px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.142868"
+       x="68.092613"
+       y="89.932938"
+       id="text841-9-6-20-1"
+       transform="scale(0.96385143,1.0375043)"><tspan
+         sodipodi:role="line"
+         id="tspan839-3-0-2-2"
+         style="stroke-width:0.142868"
+         x="68.092613"
+         y="89.932938">R</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.143092;stroke-linejoin:round"
+       id="rect236-6-6-2-0-3-9"
+       width="1.6524421"
+       height="2.9645271"
+       x="67.130142"
+       y="90.962563"
+       ry="4.2741726e-06" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.28588px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.142868"
+       x="69.80703"
+       y="89.932938"
+       id="text841-9-6-7-3"
+       transform="scale(0.96385143,1.0375043)"><tspan
+         sodipodi:role="line"
+         id="tspan839-3-0-5-1"
+         style="stroke-width:0.142868"
+         x="69.80703"
+         y="89.932938">V</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.28588px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.142868"
+       x="19.295902"
+       y="87.268845"
+       id="text1013-94"
+       transform="scale(0.96385143,1.0375043)"><tspan
+         sodipodi:role="line"
+         id="tspan1011-7"
+         style="stroke-width:0.142868"
+         x="19.295902"
+         y="87.268845">31       <tspan
+   style="font-size:1.52392px;stroke-width:0.142868"
+   id="tspan1019-8">  </tspan>          <tspan
+   style="font-size:1.52392px;stroke-width:0.142868"
+   id="tspan1031-5">  </tspan>10 9<tspan
+   style="font-size:1.14295px;stroke-width:0.142868"
+   id="tspan1039-0"> </tspan>8<tspan
+   style="font-size:0.761962px;stroke-width:0.142868"
+   id="tspan1043-3"> </tspan>7<tspan
+   style="font-size:0.761962px;stroke-width:0.142868"
+   id="tspan1047-6"> </tspan>6<tspan
+   style="font-size:0.761962px;stroke-width:0.142868"
+   id="tspan1051-1"> </tspan>5<tspan
+   style="font-size:0.57147px;stroke-width:0.142868"
+   id="tspan1055-0"> </tspan>4<tspan
+   style="font-size:0.57147px;stroke-width:0.142868"
+   id="tspan1059-6"> </tspan>3<tspan
+   style="font-size:0.57147px;stroke-width:0.142868"
+   id="tspan1063-3"> </tspan>2<tspan
+   style="font-size:0.57147px;stroke-width:0.142868"
+   id="tspan1067-2"> </tspan>1<tspan
+   style="font-size:0.57147px;stroke-width:0.142868"
+   id="tspan1071-0"> </tspan>0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88056px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="-31.816317"
+       y="43.601299"
+       id="text1013-9"><tspan
+         sodipodi:role="line"
+         id="tspan1011-2"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="-31.816317"
+         y="43.601299">31</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:6.35px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="46.06926"
+       y="35.291183"
+       id="text1906"><tspan
+         sodipodi:role="line"
+         id="tspan1904"
+         style="font-size:6.35px;stroke-width:0.264583"
+         x="46.06926"
+         y="35.291183" /></text>
+    <text
+       xml:space="preserve"
+       style="font-size:6.35px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="-6.2743015"
+       y="36.614101"
+       id="text1906-3"><tspan
+         sodipodi:role="line"
+         id="tspan1904-6"
+         style="font-size:6.35px;stroke-width:0.264583"
+         x="-6.2743015"
+         y="36.614101">Virtuální adresa</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88056px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="18.520834"
+       y="43.65625"
+       id="text1013-9-7-3-6"><tspan
+         sodipodi:role="line"
+         id="tspan1011-2-5-5-2"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="18.520834"
+         y="43.65625">12</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88056px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="23.720522"
+       y="43.65625"
+       id="text1013-9-7-3-9"><tspan
+         sodipodi:role="line"
+         id="tspan1011-2-5-5-1"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="23.720522"
+         y="43.65625">11</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88056px;line-height:1.25;font-family:'Bitstream Vera Sans Mono';-inkscape-font-specification:'Bitstream Vera Sans Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       x="61.78986"
+       y="43.601299"
+       id="text1013-9-7-3-2"><tspan
+         sodipodi:role="line"
+         id="tspan1011-2-5-5-7"
+         style="font-size:3.88056px;stroke-width:0.264583"
+         x="61.78986"
+         y="43.601299">0</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="42.333332"
+       y="68.791664"
+       id="text2649"><tspan
+         sodipodi:role="line"
+         style="text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="42.333332"
+         y="68.791664"
+         id="tspan2651">Stránkovací tabulka</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.185208;stroke-linejoin:round"
+       id="rect2978"
+       width="50.270836"
+       height="39.6875"
+       x="18.520834"
+       y="71.4375" />
+    <path
+       style="fill:none;stroke:#0000c2;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1L)"
+       d="M -4.4979167,50.270833 V 92.604167 H 16.66875"
+       id="path3043"
+       sodipodi:nodetypes="ccc" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.185208;stroke-linejoin:round;stroke-opacity:1"
+       id="rect4098"
+       width="22.489584"
+       height="5.2916665"
+       x="-15.875"
+       y="108.47916"
+       ry="4.2741726e-06" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="-13.730942"
+       y="112.65155"
+       id="text4466"><tspan
+         sodipodi:role="line"
+         id="tspan4464"
+         style="stroke-width:0.264583"
+         x="-13.730942"
+         y="112.65155">SATP.PPN</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1L)"
+       d="M 6.6145828,111.125 H 16.66875"
+       id="path4470"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#00ffcc;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1L)"
+       d="M 34.395833,93.927083 V 103.1875 H 75.40625 v -31.75 h 23.283333"
+       id="path4854"
+       sodipodi:nodetypes="ccccc" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:0.264999;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect5183"
+       width="10.583323"
+       height="89.958336"
+       x="100.54168"
+       y="39.687489" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.23333px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="89.886398"
+       y="33.379822"
+       id="text6279"><tspan
+         sodipodi:role="line"
+         id="tspan6277"
+         style="stroke-width:0.264583"
+         x="89.886398"
+         y="33.379822">Fyzická paměť</tspan></text>
+    <rect
+       style="fill:#00ffcc;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6335"
+       width="10.583333"
+       height="7.9375"
+       x="100.54166"
+       y="63.499989" />
+    <path
+       style="fill:none;stroke:#6600ff;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1L)"
+       d="m 42.333334,50.270833 v 2.645833 l 44.979166,10e-7 V 67.46875 h 11.377083"
+       id="path6393"
+       sodipodi:nodetypes="ccccc" />
+    <path
+       style="fill:none;stroke:#6600ff;stroke-width:0.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1L)"
+       d="M 97.366666,71.437489 V 68.527072"
+       id="path6403"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#6600ff;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 100.54167,67.468739 h 10.58334"
+       id="path6455" />
+  </g>
+</svg>
